@@ -1,0 +1,79 @@
+#! /bin/bash
+
+# Usage
+function usage
+{
+  echo 'Envoie la configuration au serveur distant spécifié'
+  echo 'usage: pushrc [-d remote-directory] [user@]remoteServer'
+}
+
+
+# Main
+
+addr=""
+localdir=$(basename $GLOBALRC)
+
+while [ "$1" != "" ]; do
+  case $1 in
+    -d )                    shift
+      localdir=$1
+      ;;
+    -h | --help )           usage
+      unset addr localdir
+      exit
+      ;;
+    * )                     addr=$1
+      ;;
+  esac
+  shift
+done
+
+if [ "$addr" ]; then
+  if [ "$GLOBALRC" ]; then
+    echo "Exportation vers $addr"
+    echo
+
+    # On crée un dossier temporaire
+    tempdir="/tmp/config-export-$UID-$$-$RANDOM"
+
+    mkdir "$tempdir"
+    mkdir "$tempdir/$localdir"
+
+    # On copie tous les fichiers
+    echo "  Copie des fichiers depuis $GLOBALRC vers $tempdir/$localdir/"
+    echo
+    cp -r $GLOBALRC/* $tempdir/$localdir/
+
+    echo "  Envoi des fichiers vers $addr"
+
+    # On copie l'ensemble des fichiers
+    if ! scp -r "$tempdir/$localdir/" "$addr:"
+    then
+      echo "    Echec de l'envoi"
+
+      # On supprime le dossier temporaire
+      rm -rf "$tempdir"
+      echo "  $tempdir supprimé"
+
+      echo "Abandon"
+      unset addr localdir tempdir
+      exit 1
+    fi
+
+    # On supprime le dossier temporaire
+    rm -rf "$tempdir"
+    echo "  $tempdir supprimé"
+
+  fi
+
+  unset addr tempdir localdir
+
+  echo
+  echo "Exportation Terminée"
+
+else
+  unset addr localdir
+
+  usage
+  exit 1
+fi

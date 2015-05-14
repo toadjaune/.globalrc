@@ -1,0 +1,5 @@
+set colorcolumn=80
+
+set noexpandtab
+set shiftwidth=4
+set tabstop=4

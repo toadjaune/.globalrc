@@ -1,0 +1,139 @@
+#!/bin/bash
+
+## Affichage du clavier bepo dans un terminal
+function bépo(){
+  #----------- couleurs
+  black='\e[0;30m'
+  blue='\e[0;34m'
+  green='\e[0;32m'
+  cyan='\e[0;36m'
+  red='\e[0;31m'
+  purple='\e[0;35m'
+  brown='\e[0;33m'
+  lightgray='\e[0;37m'
+  darkgray='\e[1;30m'
+  lightblue='\e[1;34m'
+  lightgreen='\e[1;32m'
+  lightcyan='\e[1;36m'
+  lightred='\e[1;31m'
+  lightpurple='\e[1;35m'
+  yellow='\e[1;33m'
+  white='\e[1;37m'
+  nc='\e[0m'
+#
+# couleurs des touches mortes
+# et caracteres obtenus avec Alt et Shift-Alt
+  dead=$lightred
+  alt=$cyan
+  alts=$purple
+#----------- clavier
+  echo -e "┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────╔═════════╗"
+  echo -e "│ # ${alts}¶${nc}│ 1 ${alts}„${nc}│ 2 ${alts}“${nc}│ 3 ${alts}”${nc}│ 4 ${alts}≤${nc}│ 5 ${alts}≥${nc}│ 6  ║ 7 ${alts}¬${nc}│ 8 ${alts}¼${nc}│ 9 ${alts}½${nc}│ 0 ${alts}¾${nc}│ ° ${alts}′${nc}│ \` ${alts}″${nc}║         ║"
+  echo -e "│ \$ ${alt}–${nc}│\" ${alt}––${nc}│ « ${alt}<${nc}│ » ${alt}>${nc}│ ( ${alt}[${nc}│ ) ${alt}]${nc}│ @ ${alt}^${nc}║ + ${alt}±${nc}│ - ${alt}−${nc}│ / ${alt}÷${nc}│ * ${alt}×${nc}│ = ${alt}≠${nc}│ % ${alt}‰${nc}║ <--     ║"
+  echo -e "╔════╧══╗─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─╚══╦══════╣"
+  echo -e "║  |<-  ║ B ${alts}¦${nc}│ É $dead˝${nc}│ P ${alts}§${nc}│ O ${alts}Œ${nc}│ È ${alts}\`${nc}║ !  │ V  │ D ${alts}Ð${nc}│ L  │ J ${alts}Ĳ${nc}│ Z ${alts}Ə${nc}│ W  ║   |  ║"
+  echo -e "║  ->|  ║ b ${alt}|${nc}│ é $dead´${nc}│ p ${alt}&${nc}│ o ${alt}œ${nc}│ è $dead\`${nc}║ $deadˆ${nc} ${alt}¡${nc}│ v $deadˇ${nc}│ d ${alt}ð${nc}│ l $dead/${nc}│ j ${alt}ĳ${nc}│ z ${alt}ə${nc}│ w $dead˘${nc}║ <-'  ║"
+  echo -e "╠═══════╩╗───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───╚╗     ║"
+  echo -e "║        ║ A ${alts}Æ${nc}│ U ${alts}Ù${nc}│ I $dead˙${nc}│ E $dead¤${nc}│ ; $dead̛${nc}║ C ${alts}ſ${nc}│ T ${alts}Þ${nc}│ S  │ R ${alts}™${nc}│ N  │ M ${alts}º${nc}│ Ç $dead,${nc}║     ║"
+  echo -e "║  CAPS  ║ a ${alt}æ${nc}│ u ${alt}ù${nc}│ i $dead¨${nc}│ e ${alt}€${nc}│ , ${alt}’${nc}║ c ${alt}©${nc}│ t ${alt}þ${nc}│ s ${alt}ß${nc}│ r ${alt}®${nc}│ n $dead˜${nc}│ m $dead¯${nc}│ ç $dead¸${nc}║     ║"
+  echo -e "╠══════╦═╝──┬─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴──┬─┴──╔═╧════╩═════╣"
+  echo -e "║   ^  ║ Ê  │ À  │ Y ${alts}‘${nc}│ X ${alts}’${nc}│ : ${alts}·${nc}│ K  ║ ?  │ Q  │ G  │ H ${alts}‡${nc}│ F ${alts}ª${nc}║     ^      ║"
+  echo -e "║   |  ║ ê ${alt}/${nc}│ à ${alt}\\\\${nc}│ y ${alt}{${nc}│ x ${alt}}${nc}│ . ${alt}…${nc}│ k ${alt}~${nc}║ ' ${alt}¿${nc}│ q $dead°${nc}│ g $deadµ${nc}│ h ${alt}†${nc}│ f $dead˛${nc}║     |      ║"
+  echo -e "╠══════╩╦═══╧══╦═╧═══╦╧════╧════╧════╧════╧════╧═╦══╧══╦═╧════╬═════╦══════╣"
+  echo -e "║       ║      ║     ║ insécable   ${alts}fine insécable${nc}║     ║      ║     ║      ║"
+  echo -e "║ Ctrl  ║ Pom  ║ Alt ║ SPACE        ${alt}_${nc}            ║AltGr║ Pom  ║Menu ║ Ctrl ║"
+  echo -e "╚═══════╩══════╩═════╩═══════════════════════════╩═════╩══════╩═════╩══════╝"
+  echo ""
+}
+
+## Affichage du clavier qwerty dans un terminal
+function qwerty(){
+  #----------- couleurs
+  black='\e[0;30m'
+  blue='\e[0;34m'
+  green='\e[0;32m'
+  cyan='\e[0;36m'
+  red='\e[0;31m'
+  purple='\e[0;35m'
+  brown='\e[0;33m'
+  lightgray='\e[0;37m'
+  darkgray='\e[1;30m'
+  lightblue='\e[1;34m'
+  lightgreen='\e[1;32m'
+  lightcyan='\e[1;36m'
+  lightred='\e[1;31m'
+  lightpurple='\e[1;35m'
+  yellow='\e[1;33m'
+  white='\e[1;37m'
+  nc='\e[0m'
+#
+# couleurs des touches mortes
+# et caracteres obtenus avec Alt et Shift-Alt
+  dead=$lightred
+  alt=$cyan
+  alts=$purple
+#----------- clavier
+  echo -e "┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────╔═════════╗"
+  echo -e "│ ¬ ${alts}¬${nc}│ ! ${alts}¡${nc}│ \" ${alts}½${nc}│ £ ${alts}⅓${nc}│ \$ ${alts}¼${nc}│ % ${alts}⅜${nc}│ ^ ${alts}⅝${nc}║ & ${alts}⅞${nc}│ * ${alts}™${nc}│ ( ${alts}±${nc}│ ) ${alts}°${nc}│ _ ${alts}¿${nc}│ + ${dead}˛${nc}║         ║"
+  echo -e "│ ${dead}\`${nc} ${alt}¦${nc}│ 1 ${alt}¹${nc}│ 2 ${dead}\"${nc}│ 3 ${alt}³${nc}│ 4 ${alt}€${nc}│ 5 ${alt}½${nc}│ 6 ${dead}^${nc}║ 7 ${alt}{${nc}│ 8 ${alt}[${nc}│ 9 ${alt}]${nc}│ 0 ${alt}}${nc}│ - ${alt}\\\\${nc}│ = ${dead}¸${nc}║ <--     ║"
+  echo -e "╔════╧══╗─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─╚══╦══════╣"
+  echo -e "║  |<-  ║ Q ${alts}Ω${nc}│ W  │ E ${alts}É${nc}│ R ${alts}®${nc}│ T ${alts}Ŧ${nc}║ Y ${alts}Ý${nc}│ U ${alts}Ú${nc}│ I ${alts}Í${nc}│ O ${alts}Ó${nc}│ P ${alts}Þ${nc}│ { ${dead}°${nc}│ } ${dead}¯${nc}║   |  ║"
+  echo -e "║  ->|  ║ q ${alt}@${nc}│ w ${alt}ẃ${nc}│ e ${alt}é${nc}│ r ${alt}¶${nc}│ t ${alt}ŧ${nc}║ y ${alt}ý${nc}│ u ${alt}ú${nc}│ i ${alt}í${nc}│ o ${alt}ó${nc}│ p ${alt}þ${nc}│ [ ${dead}\"${nc}│ ] $dead~${nc}║ <-'  ║"
+  echo -e "╠═══════╩╗───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───╚╗     ║"
+  echo -e "║        ║ A ${alts}Á${nc}│ S ${alts}§${nc}│ D ${alts}Ð${nc}│ F ${alts}ª${nc}│ G ${alts}Ŋ${nc}║ H ${alts}Ħ${nc}│ J  │ K ${alts}&${nc}│ L ${alts}Ł${nc}│ : ${dead}˝${nc}│ @ ${dead}ˇ${nc}│ ~ $dead˘${nc}║     ║"
+  echo -e "║  CAPS  ║ a ${alt}á${nc}│ s ${alt}ß${nc}│ d ${alt}ð${nc}│ f ${alt}đ${nc}│ g ${alt}ŋ${nc}║ h ${alt}ħ${nc}│ j  │ k ${alt}ĸ${nc}│ l ${alt}ł${nc}│ ; $dead'${nc}│ ' $dead'${nc}│ # $dead~${nc}║     ║"
+  echo -e "╠══════╦═╝──┬─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴──┬─┴──╔═╧════╩═════╣"
+  echo -e "║   ^  ║ |  │ Z ${alts}<${nc}│ X ${alts}>${nc}│ C ${alts}Ç${nc}│ V ${alts}‘${nc}│ B ${alts}’${nc}║ N  │ M ${alts}º${nc}│ < ${alts}×${nc}│ > ${alts}÷${nc}│ ? ${dead}˙${nc}║     ^      ║"
+  echo -e "║   |  ║ \  │ z ${alt}«${nc}│ x ${alt}»${nc}│ c ${alt}ç${nc}│ v ${alt}“${nc}│ b ${alt}”${nc}║ n  │ m ${alt}µ${nc}│ ,  │ . ${alt}·${nc}│ / ${dead} ̣${nc}║     |      ║"
+  echo -e "╠══════╩╦═══╧══╦═╧═══╦╧════╧════╧════╧════╧════╧═╦══╧══╦═╧════╬═════╦══════╣"
+  echo -e "║       ║      ║     ║                           ║     ║      ║     ║      ║"
+  echo -e "║ Ctrl  ║ Pom  ║ Alt ║ SPACE                     ║AltGr║ Pom  ║Menu ║ Ctrl ║"
+  echo -e "╚═══════╩══════╩═════╩═══════════════════════════╩═════╩══════╩═════╩══════╝"
+  echo ""
+}
+
+## Affichage du clavier azerty dans un terminal
+function azerty(){
+  #----------- couleurs
+  black='\e[0;30m'
+  blue='\e[0;34m'
+  green='\e[0;32m'
+  cyan='\e[0;36m'
+  red='\e[0;31m'
+  purple='\e[0;35m'
+  brown='\e[0;33m'
+  lightgray='\e[0;37m'
+  darkgray='\e[1;30m'
+  lightblue='\e[1;34m'
+  lightgreen='\e[1;32m'
+  lightcyan='\e[1;36m'
+  lightred='\e[1;31m'
+  lightpurple='\e[1;35m'
+  yellow='\e[1;33m'
+  white='\e[1;37m'
+  nc='\e[0m'
+#
+# couleurs des touches mortes
+# et caracteres obtenus avec Alt et Shift-Alt
+  dead=$lightred
+  alt=$cyan
+  alts=$purple
+#----------- clavier
+  echo -e "┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────╔═════════╗"
+  echo -e "│ Œ ${alts}”${nc}│ 1 ${alts}·${nc}│ 2 ${alts}É${nc}│ 3 ${alts}¸${nc}│ 4 ${alts}´${nc}│ 5 ${alts}¨${nc}│ 6 ${alts}¦${nc}║ 7 ${alts}È${nc}│ 8 ${alts}¯${nc}│ 9 ${alts}Ç${nc}│ 0 ${alts}À${nc}│ °  │ + ${dead}°${nc}║         ║"
+  echo -e "│ œ ${alt}“${nc}│ & ${dead}'${nc}│ é ${alt}~${nc}│ \" ${alt}#${nc}│ ' ${alt}{${nc}│ ( ${alt}[${nc}│ - ${alt}|${nc}║ è ${dead}\`${nc}│ _ ${alt}\\\\${nc}│ ç ${alt}^${nc}│ à ${alt}@${nc}│ ) ${alt}ÿ${nc}│ = ${alt}}${nc}║ <--     ║"
+  echo -e "╔════╧══╗─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─╚══╦══════╣"
+  echo -e "║  |<-  ║ A ${alts}ä${nc}│ Z ${alts}Å${nc}│ E ${alts}¢${nc}│ R ${alts}Ç${nc}│ T ${alts}Þ${nc}║ Y ${alts}Ý${nc}│ U ${alts}ü${nc}│ I ${alts}ï${nc}│ O ${alts}ö${nc}│ P ${alts}\`${nc}│ ${dead}\"${nc} ${alts}'${nc}│ £ ${alts}ë${nc}║   |  ║"
+  echo -e "║  ->|  ║ a ${alt}â${nc}│ z ${alt}å${nc}│ e ${alt}€${nc}│ r ${alt}ç${nc}│ t ${alt}þ${nc}║ y ${alt}ý${nc}│ u ${alt}û${nc}│ i ${alt}î${nc}│ o ${alt}ô${nc}│ p ${alt}¶${nc}│ ${dead}^${nc} ${dead}~${nc}│ $ ${alt}ê${nc}║ <-'  ║"
+  echo -e "╠═══════╩╗───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───╚╗     ║"
+  echo -e "║        ║ Q ${alts}Ä${nc}│ S ${alts}Ø${nc}│ D ${alts}Ë${nc}│ F ${alts}ª${nc}│ G ${alts}Æ${nc}║ H ${alts}Ð${nc}│ J ${alts}Ü${nc}│ K ${alts}Ï${nc}│ L ${alts}Ö${nc}│ M ${alts}º${nc}│ % ${alts}Ù${nc}│ µ ${alts}¥${nc}║     ║"
+  echo -e "║  CAPS  ║ q ${alt}Â${nc}│ s ${alt}ø${nc}│ d ${alt}Ê${nc}│ f ${alt}±${nc}│ g ${alt}æ${nc}║ h ${alt}ð${nc}│ j ${alt}Û${nc}│ k ${alt}Î${nc}│ l ${alt}Ô${nc}│ m ${alt}¹${nc}│ ù ${alt}²${nc}│ * ${alt}³${nc}║     ║"
+  echo -e "╠══════╦═╝──┬─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴─══─┴──┬─┴──┬─┴──┬─┴──╔═╧════╩═════╣"
+  echo -e "║   ^  ║ > ${alts}¦${nc}│ W ${alts}<${nc}│ X ${alts}>${nc}│ C  │ V ${alts}‘${nc}│ B ${alts}’${nc}║ N  │ ? ${alts}º${nc}│ .  │ /  │ § ${dead}˙${nc}║     ^      ║"
+  echo -e "║   |  ║ < ${alt}|${nc}│ w ${alt}«${nc}│ x ${alt}»${nc}│ c ${alt}©${nc}│ v ${alt}®${nc}│ b ${alt}ß${nc}║ n ${alt}¬${nc}│ , ${alt}¿${nc}│ ; ${alt}×${nc}│ : ${alt}÷${nc}│ ! ${alt}¡${nc}║     |      ║"
+  echo -e "╠══════╩╦═══╧══╦═╧═══╦╧════╧════╧════╧════╧════╧═╦══╧══╦═╧════╬═════╦══════╣"
+  echo -e "║       ║      ║     ║                           ║     ║      ║     ║      ║"
+  echo -e "║ Ctrl  ║ Pom  ║ Alt ║ SPACE                     ║AltGr║ Pom  ║Menu ║ Ctrl ║"
+  echo -e "╚═══════╩══════╩═════╩═══════════════════════════╩═════╩══════╩═════╩══════╝"
+  echo ""
+}

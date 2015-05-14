@@ -1,0 +1,307 @@
+#! /bin/bash
+
+# Function to print keyboard mapping
+if [ -f keyboards ]; then
+  . keyboards
+fi
+
+# Function vim to handle different profiles
+function vim()
+{
+  profile='default'
+
+  TEMP=`getopt -o '' --long profile: -n 'vim' -- "$@"`
+
+  if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+  eval set -- "$TEMP"
+
+  while true ; do
+    case "$1" in
+      --profile) profile="$2" ; shift 2 ;;
+      --) shift ; break ;;
+      *) echo "Internal error!" ; exit 1 ;;
+    esac
+  done
+  
+  command vim -u <(cat /etc/vim/vimrc "$GLOBALRC/vim_profiles/vimrc-common" \
+               "$GLOBALRC/vim_profiles/vimrc-$profile" ~/.vimrc 2>/dev/null) $@
+
+}
+
+# repeat n times command
+function repeat()       
+{
+  local i max
+  max=$1; shift;
+  for ((i=1; i <= max ; i++)); do
+    eval "$@";
+  done
+}
+
+# Fonction pour demander la confirmation
+confirm() {
+  if [[ "$2" ]]; then
+    if [[ "$2" == "o" ]]; then
+      space="[O/n]"
+    elif [[ "$2" == "n" ]]; then
+      space="[o/N]"
+    else
+      error "La confirmation doit avoir 'o' ou 'n' pour valeur par défaut"
+    fi
+  else
+    space="[o/n]"
+  fi      
+
+  while true; do
+    read -n 1 -p "$1 $space " on
+
+    # default value
+    if [[ "$on" == "" && "$2" ]]; then
+      on=$2
+    else
+      echo
+    fi
+
+    case $on in
+      [Oo]* )
+        return 0
+        ;;
+      [Nn]* )
+        return 1
+        ;;
+    esac
+  done
+}
+
+
+# Find a file with a pattern in name - dans le rep local:
+function ff() { find . -type f -iname '*'$*'*' -ls ; }
+
+
+# change le titre de la fenêtre de la console
+t () {
+  echo -ne "\\e]2;$1\\a"
+}
+
+
+function fn_to_lowercase()       # Correct filenames to lowercase
+{
+  if [ "$#" = 0 ]
+  then
+    echo "Usage: fn_to_lowercase [filenames...]"
+    return 0
+  fi
+
+  for arg in "$@"; do
+    filename=`basename "$arg"`
+    dirname=`dirname "$arg"`
+    oldname=`echo "$filename" | sed -e "s/ /\\\\ /"`
+    newname=`echo "$filename" | tr A-Z a-z`
+    if [ ! -e "$dirname/$oldname" ];
+    then
+      echo "$dirname/$oldname does not exists."
+    elif [ "$oldname" = "$newname" ]
+    then
+      echo "$dirname/$oldname needs no change, skipping..."
+    elif [ -e "$dirname/$newname" ]
+    then
+      echo "$dirname/$newname exists, skipping..."
+    else
+      mv "$dirname/$oldname" "$dirname/$newname"
+      echo "$dirname/$oldname => $dirname/$newname"
+    fi
+  done
+}
+
+
+function fn_no_spaces()       # Correct spaces in filenames
+{
+  if [ "$#" = 0 ]
+  then
+    echo "Usage: fn_no_spaces [filenames...]"
+    return 0
+  fi
+
+  for arg in "$@"
+  do
+    filename=`basename "$arg"`
+    dirname=`dirname "$arg"`
+    oldname=`echo "$filename" | sed -e "s/ /\\\\ /"`
+    newname=`echo "$filename" | sed -e : -e s/\ /_/ -e s/%20/_/ -e s/%28/[/ -e s/%29/]/ -e s/%5B/[/ -e s/
+    %5D/]/ -e t`
+    if [ ! -e "$dirname/$oldname" ];
+    then
+      echo "$dirname/$oldname does not exists."
+    elif [ "$oldname" = "$newname" ]
+    then
+      echo "$dirname/$oldname needs no change, skipping..."
+    elif [ -e "$dirname/$newname" ]
+    then
+      echo "$dirname/$newname exists, skipping..."
+    else
+      mv "$dirname/$oldname" "$dirname/$newname"
+      echo "$dirname/$oldname => $dirname/$newname"
+    fi
+  done
+}
+
+# gojo - tries to unarchive anything thrown at it
+gojo() {
+  ##### Probably done more robustly with file(1) but not as easily
+  local FILENAME="${1}"
+  local FILEEXTENSION=`echo ${1} | cut -d. -f2-`
+  case "$FILEEXTENSION" in
+    tar)
+      tar xvf "$FILENAME";;
+    tar.gz)
+      tar xzvf "$FILENAME";;
+    tgz)
+      tar xzvf "$FILENAME";;
+    gz)
+      gunzip "$FILENAME";;
+    tbz)
+      tar xjvf "$FILENAME";;
+    tbz2)
+      tar xjvf "$FILENAME";;
+    tar.bz2)
+      tar xjvf "$FILENAME";;
+    tar.bz)
+      tar xjvf "$FILENAME";;
+    bz2)
+      bunzip2 "$FILENAME";;
+    tar.Z)
+      tar xZvf "$FILENAME";;
+    Z)
+      uncompress "$FILENAME";;
+    zip)
+      unzip "$FILENAME";;
+    rar)
+      unrar x "$FILENAME";;
+  esac
+}
+
+
+# Execute ssh avec concaténation des fichiers de configuration
+ssh () {
+  local tempfile
+  tempfile="sshconfig-$UID-$$-$RANDOM"
+  # Concaténation des configurations dans un fichier temporaire
+  cat /etc/ssh/ssh_config "$GLOBALRC/ssh_config" ~/.ssh/config > /tmp/"$tempfile" 2> /dev/null
+  # Le fichier temporaire n'a pas à être visible des autres utilisateurs
+  chmod 400 "/tmp/$tempfile"
+  # Execute ssh avec le fichier temporaire
+  command ssh -F "/tmp/$tempfile" "$@"
+  # Supprime le fichier temporaire
+  rm -f "/tmp/$tempfile"
+}
+
+
+# Execute scp avec concaténation des fichiers de configuration
+scp () {
+  local tempfile
+  tempfile="sshconfig-$UID-$$-$RANDOM"
+  # Concaténation des configurations dans un fichier temporaire
+  cat /etc/ssh/ssh_config "$GLOBALRC/ssh_config" ~/.ssh/config > /tmp/"$tempfile" 2> /dev/null
+  # Le fichier temporaire n'a pas à être visible des autres utilisateurs
+  chmod 400 /tmp/"$tempfile"
+  # Execute ssh avec le fichier temporaire
+  command scp -F /tmp/"$tempfile" "$@"
+  # Supprime le fichier temporaire
+  rm -f /tmp/"$tempfile"
+}
+
+
+# Pour le fun
+bonjour (){
+  local rnd
+  rnd=$[RANDOM%4]
+
+  case $rnd in
+    0 )
+      echo "Bonjour Maître vénéré"
+      ;;
+    1 )
+      echo "Quel plaisir de vous revoir Grand Maître!"
+      ;;
+    2 )
+      echo "Maître tout puissant, je vous salue"
+      ;;
+    3 )
+      echo "Mon Maître, je suis à vos ordres"
+      ;;
+  esac
+}
+
+#Récupère l'adresse IP publique
+pub(){
+  local ip_site
+
+  ip_site="http://curlmyip.com"
+
+  echo "Votre ip publique est:"
+
+  if [ `which curl` ]; then
+    echo -ne "$BYellow \t"; curl $ip_site; echo -e "${Color_Off}"
+  elif [ `which wget` ]; then
+    echo -ne "$BYellow \t"; wget -O - -q $ip_site; echo -e "${Color_Off}"
+  elif [ `which lynx` ]; then
+    echo -ne "$BYellow \t"; lynx --dump $ip_site; echo -e "${Color_Off}"
+  else
+    echo "Impossible de trouver un programme pour récupérer une page web"
+    exit 1
+  fi
+}
+
+
+#Récupère l'adresse IP (privée)
+function priv()
+{
+  local ip lo eth wlan
+
+  ip=$(echo $BYellow | sed 's/\\e//g')
+  lo=$(echo $BCyan | sed 's/\\e//g')
+  eth=$(echo $BRed | sed 's/\\e//g')
+  wlan=$(echo $BPurple | sed 's/\\e//g')
+
+  echo "Vos ip privées sont:"
+
+  if [ `which ip` ]; then
+    ip a | grep "inet " | egrep "(eth[^ ]+|wlan[^ ]|lo)" | awk '
+    {print $NF "/" $2}
+    ' | awk -F/ '
+    $1 == "lo" {print "\t '$lo'" $1 ": '$ip'" $2}
+    $1 ~ "eth" {print "\t '$eth'" $1 ": '$ip'" $2}
+    $1 ~ "wlan" {print "\t '$wlan'" $1 ": '$ip'" $2}
+    '; echo -ne $Color_Off
+
+  elif [ -f /sbin/ifconfig ]; then
+    /sbin/ifconfig | egrep -B1 "inet add?r" | awk '
+    $1 == "inet" { print $2 }
+    $2 == "Link" { printf "%s:" , $1 }
+    ' | awk -F: '
+    $1 == "lo" {print "\t '$lo'" $1 ": '$ip'" $3}
+    $1 ~ "eth" {print "\t '$eth'" $1 ": '$ip'" $3}
+    $1 ~ "wlan" {print "\t '$wlan'" $1 ": '$ip'" $3}
+    '; echo -ne $Color_Off
+  else
+    echo 'Impossible de trouver un programme pour récupérer les adresses des interfaces'
+    exit 1
+  fi
+}
+
+function add-backports(){
+sudo echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list;
+apt-get update;
+}
+
+function find-obsolete() {
+  local pid cmd file
+
+  for pid in $(\grep '(deleted)' /proc/*/maps | \grep -v '/dev/zero' | cut -d/ -f 3 | sort -un); do
+    cmd=$(ps -o comm -p $pid | tail -n 1)
+    for file in $(\grep '(deleted)' /proc/$pid/maps |grep -v '/dev/zero' | awk '{print $6}' | sort -u); do
+      echo "$pid $cmd $file"
+    done
+  done | column -t
+
+}

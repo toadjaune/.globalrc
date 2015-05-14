@@ -1,0 +1,53 @@
+#! /bin/bash
+
+# Copyright csdt
+
+# Guard for colors in prompt
+function g () {
+  echo -n "\[$1\]"
+}
+
+# Couleurs normales
+username_color=`g $BYellow`
+hostname_color=`g $BBlue`
+ssh_hostname_color=`g $BCyan`
+pwd_color=`g $BGreen`
+history_color=`g $Yellow`
+root_color=`g $BRed`
+true_color=`g $Green`
+false_color=`g $Red`
+end_color=$pwd_color
+
+# Signes
+True="\342\234\223"
+False="\342\234\227"
+
+
+# Si root
+if [ $EUID -eq 0 ]
+then
+  username_color=$root_color
+  end_color=$root_color
+fi
+
+# couleurs dans un ssh
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]
+then
+  hostname_color=$ssh_hostname_color
+fi
+
+# Couleurs dans un screen
+if [[ $TERMCAP =~ screen ]] || [[ $TERM == "screen" ]]
+then
+  pwd_color=`g $BPurple`
+fi
+
+execution="\$(if [[ \$? == 0 ]]; then echo \"$true_color$True\"; else echo \"$false_color$False\"; fi)"
+user="$username_color\u$hostname_color@\h"
+pwd="$pwd_color\w"
+history="$history_color[\!]"
+end="$end_color\\\$\[\e[00m\]"
+
+PS1="$history $execution $user $pwd $end "
+
+unset pwd_color history_color root_color color execution user pwd history end g true_color false_color end_color True False

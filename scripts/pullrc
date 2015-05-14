@@ -1,0 +1,75 @@
+#! /bin/bash
+
+# Copyright csdt
+
+# Usage
+function usage
+{
+  echo 'Récupère la configuration sur le serveur distant spécifié'
+  echo 'usage: pullrc [-d remote-directory] [user@]remoteServer'
+}
+
+
+# Main
+
+host=""
+rcdir=$(echo $GLOBALRC | sed -r 's/\/home\/[^/]+\///g')
+
+while [ "$1" != "" ]; do
+  case $1 in
+    -d )                    shift
+      rcdir=$1
+      ;;
+    -h | --help )           usage
+      unset tempdir host rcdir
+      exit
+      ;;
+    * )                     host=$1
+      ;;
+  esac
+  shift
+done
+
+if [ "$GLOBALRC" ]; then
+
+  echo "Synchronisation depuis $host"
+  echo
+
+  # On crée un dossier temporaire
+  tempdir="/tmp/config-import-$UID-$$-$RANDOM"
+
+  mkdir "$tempdir"
+
+  echo "  Copie des fichiers depuis $host"
+
+  if ! scp -r "$host":"$rcdir/" $tempdir/
+  then
+    echo "    Echec de la copie"
+
+    rm -r $tempdir
+    unset tempdir host rcdir
+
+    echo "Abandon"
+    exit 1
+  fi
+
+  # On bouge les ficiers transférés là où il faut
+  cp -r $tempdir/`basename $rcdir` `dirname $GLOBALRC`
+
+  rm -r $tempdir
+  unset tempdir host rcdir
+
+
+  echo
+  echo "  Application du script local"
+  if ! bash "$GLOBALRC/apply_config" > /dev/null
+  then
+    echo "    Echec de l'application du script"
+    exit 1
+  fi
+
+  echo
+  echo "Synchronisation Terminée"
+
+fi
+unset host rcdir
