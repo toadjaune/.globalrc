@@ -1,0 +1,36 @@
+# Se place dans le dossier .globalrc (chemin absolu, tfaçon c'est temporaire)
+pushd "/home/toadjaune/.globalrc" > /dev/null
+
+# Chargement des définitions
+if [ -f definitions ]; then
+  . definitions
+fi
+
+# # on affiche le logo
+# if shopt -q login_shell; then
+#   echo ".globalrc version" $(cat $GLOBALRC/version)
+#   cat "$GLOBALRC/logo"
+# fi
+
+# Chargement des aliases
+if [ -f aliases ]; then
+  . aliases
+fi
+
+# Chargement des functions
+if [ -f functions ]; then
+  . functions
+fi
+
+# Chargement du prompt
+if [ -f zsh/prompt ]; then
+  . zsh/prompt
+fi
+
+# Ajoute les scripts aux programmes par défaut
+if [ -d "$(pwd)/scripts" ]; then
+  PATH="$PATH:$GLOBALRC/scripts"
+fi
+
+# Se replace dans le dossier précédent
+popd > /dev/null
