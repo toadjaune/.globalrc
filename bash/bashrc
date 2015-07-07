@@ -1,5 +1,5 @@
 # Se place dans le dossier .globalrc (ou qu'il soit)
-pushd "$(dirname "$BASH_SOURCE")" > /dev/null
+pushd "$(dirname "$BASH_SOURCE")/.." > /dev/null
 
 # Chargement des définitions
 if [ -f definitions ]; then
@@ -23,8 +23,8 @@ if [ -f functions ]; then
 fi
 
 # Chargement du prompt
-if [ -f prompt ]; then
-  . prompt
+if [ -f bash/prompt ]; then
+  . bash/prompt
 fi
 
 # Ajoute les scripts aux programmes par défaut

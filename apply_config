@@ -4,14 +4,14 @@ pushd `dirname $0` > /dev/null
 localdir=`pwd -P`
 popd > /dev/null
 
-command=". $localdir/bashrc"
+command=". $localdir/bash/bashrc"
 
 touch ~/.bashrc
 if ! grep "$command" ~/.bashrc > /dev/null ; then
   chmod 755 "$localdir/scripts"
   echo                                                  >> ~/.bashrc
   echo "# Charge les composantes globales du bashrc"    >> ~/.bashrc
-  echo "if [ -f $localdir/bashrc ]; then"               >> ~/.bashrc
+  echo "if [ -f $localdir/bash/bashrc ]; then"               >> ~/.bashrc
   echo "  $command"                                     >> ~/.bashrc
   echo "fi"                                             >> ~/.bashrc
 fi
