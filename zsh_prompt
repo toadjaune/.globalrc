@@ -1,6 +1,158 @@
-# Config du prompt
+#+--------------------------------------+
+#|            PROMPT                    |
+#+--------------------------------------+
 
-autoload -U colors && colors
+# Change vcs_info formats for the grml prompt. The 2nd format sets up
+# $vcs_info_msg_1_ to contain "zsh: repo-name" used to set our screen title.
+# TODO: The included vcs_info() version still uses $VCS_INFO_message_N_.
+#       That needs to be the use of $VCS_INFO_message_N_ needs to be changed
+#       to $vcs_info_msg_N_ as soon as we use the included version.
 
-PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[green]%}%m %{$fg_no_bold[yellow]%}%1~ %{$reset_color%}%#"
-RPROMPT="[%{$fg_no_bold[yellow]%}%?%{$reset_color%}]"
+autoload -Uz vcs_info
+
+if [[ "$TERM" == dumb ]] ; then
+    zstyle ':vcs_info:*' actionformats "(%s)-[%r/%b|%a]" "(%s)-[%r/%b|%a]"
+    zstyle ':vcs_info:*' formats       "(%s)-[%r/%b]"    "(%s)-[%r/%b]"
+else
+    # these are the same, just with a lot of colours:
+    zstyle ':vcs_info:*' actionformats "%F{magenta}(%F{no}%s%F{magenta})%F{yellow}-%F{magenta}[%F{green}%r%F{yellow}/%F{green}%b%F{yellow}|%F{red}%a%F{magenta}]%F{no}" \
+                                       "(%s)-[%r/%b|%a]" 
+    zstyle ':vcs_info:*' formats       "%F{magenta}(%F{no}%s%F{magenta})%F{yellow}-%F{magenta}[%F{green}%r%F{yellow}/%F{green}%b%F{magenta}]%F{no}" \
+                                       "(%s)-[%r/%b]"
+    zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat "%b%F{red}:%F{yellow}%r"
+fi
+
+# Built using /usr/share/zsh/functions/Prompts/prompt_adam2…
+EXITCODE="%(?..[%?]%1v)"
+
+# Set of chars used in prompt
+prompt_tlc='┌'
+prompt_mlc='|'
+prompt_blc='└'
+prompt_hyphen='-'
+
+# Set of colors used in prompt. This, dude, is sexy.
+prompt_color1='cyan'    # hyphens
+prompt_color2='green'   # current directory
+prompt_color3='yellow'  # user@host
+prompt_color4='cyan'    # user input
+prompt_color5='red'     # date
+
+# see man zshmisc for explanation about %B, %F, %b…
+prompt_tbox="%b%F{$prompt_color1}${prompt_tlc}%b%F{$prompt_color1}${prompt_hyphen}"
+prompt_bbox="%b%F{$prompt_color1}${prompt_blc}%b%F{$prompt_color1}"
+
+# This is a cute hack. Well I like it, anyway.
+prompt_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_color1}${prompt_mlc}%b%F{$prompt_color1}${prompt_hyphen}%{"$'\e[B%}'
+
+# left and right parenthesis
+prompt_l_paren="%B%F{black}("
+prompt_r_paren="%B%F{black})"
+
+# User : %n, host : %M
+prompt_user_host="%b%F{$prompt_color3}%n%B%F{$prompt_color3}@%b%F{$prompt_color3}%M"
+
+# line 1 is pwd, username, host, hour…
+prompt_line_1a="$prompt_tbox$prompt_l_paren$prompt_user_host$prompt_r_paren%b%F{$prompt_color1}$prompt_hyphen$prompt_l_paren%B%F{$prompt_color2}%~$prompt_r_paren%b%F{$prompt_color1}"
+prompt_line_1b="$prompt_l_paren%B%F{$prompt_color5}%*$prompt_r_paren%b%F{$prompt_color1}${prompt_hyphen}"
+
+# line 2 is prompt
+prompt_line_2="$prompt_bbox${prompt_hyphen}%B%F{white}"
+prompt_char="%(!.#.>)"
+prompt_opts=(cr subst percent)
+
+# This function is called before each prompt regenation
+precmd () {
+    setopt noxtrace localoptions extendedglob
+    local prompt_line_1
+    # update VCS information
+    vcs_info
+
+    if [[ $TERM == screen* ]] ; then
+        if [[ -n ${VCS_INFO_message_1_} ]] ; then
+            ESC_print ${VCS_INFO_message_1_}
+        else
+            ESC_print "zsh"
+        fi
+    fi
+
+#    RPROMPT="%(?..:()"
+    
+    # Generates battery info
+    # batcolor
+    RPROMPT="${BATTERY} ${RPROMPT}"
+    
+    # adjust title of xterm
+    # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
+#    [[ ${NOTITLE} -gt 0 ]] && return 0
+#    case $TERM in
+#        (xterm*|rxvt*)
+#            set_title ${(%):-"%n@%m: %~"}
+#            ;;
+#    esac
+
+    local prompt_line_1a_width=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+    local prompt_line_1b_width=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+    local prompt_vcs_width=${#${(S%%)VCS_INFO_message_0_//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  
+    local prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_line_1b_width - prompt_vcs_width - 2 ))
+
+    # Try to fit in long path and time, and vcs_info
+    if (( prompt_padding_size > 0 )); then
+      local prompt_padding
+      eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
+      prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$VCS_INFO_message_0_%F{$prompt_color1}$prompt_hyphen$prompt_line_1b"
+    else
+        prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_vcs_width - 2 ))
+      
+        # Didn't fit; try to fit in long path and vcs_info
+        if (( prompt_padding_size > 0 )); then
+            local prompt_padding
+            eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
+            prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$VCS_INFO_message_0_%F{$prompt_color1}$prompt_hyphen"
+        else
+            prompt_padding_size=$(( COLUMNS - prompt_line_1a_width ))
+
+            # Didn't fit; try to fit in just long path
+            if (( prompt_padding_size > 0 )); then
+                eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
+                prompt_line_1="$prompt_line_1a$prompt_padding"
+            else
+                # Still didn't fit; truncate 
+                local prompt_pwd_size=$(( COLUMNS - 5 ))
+                prompt_line_1="$prompt_tbox$prompt_l_paren%B%F{$prompt_color2}%$prompt_pwd_size<...<%~%<<$prompt_r_paren%b%F{$prompt_color1}$prompt_hyphen"
+            fi
+        fi
+    fi
+  
+  
+    # And, makes it good
+    PS1="$prompt_line_1$prompt_newline$prompt_line_2%B%F{red}${EXITCODE}%b%F{$prompt_color1}$prompt_hyphen%B%F{white}$prompt_char %b%f%k"
+#    PS2="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}%_> %b%f%k"
+#    PS3="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}?# %b%f%k"
+
+    # Text color and style for prompt
+    zle_highlight[(r)default:*]="default:fg=$prompt_color4,bold"
+}
+
+# preexec() => a function running before every command
+preexec () {
+    # set hostname if not running on host with name 'grml'
+    if [[ -n "$HOSTNAME" ]] && [[ "$HOSTNAME" != $(hostname) ]] ; then
+       NAME="@$HOSTNAME"
+    fi
+    # get the name of the program currently running and hostname of local machine
+    # set screen window title if running in a screen
+    if [[ "$TERM" == screen* ]] ; then
+        # local CMD=${1[(wr)^(*=*|sudo|ssh|-*)]}       # don't use hostname
+        local CMD="${1[(wr)^(*=*|sudo|ssh|-*)]}$NAME" # use hostname
+        ESC_print ${CMD}
+    fi
+#    # adjust title of xterm
+#    [[ ${NOTITLE} -gt 0 ]] && return 0
+#    case $TERM in
+#        (xterm*|rxvt*)
+#            set_title "${(%):-"%n@%m:"}" "$1"
+#            ;;
+#    esac
+}
