@@ -16,7 +16,7 @@ if [ -x /usr/bin/most ]; then
 fi
 
 if [ -x /usr/bin/vim ]; then
-  export EDITOR="/usr/bin/vim"
+  export EDITOR="vim"
 fi
 
 # Définit des couleurs personnalisées pour ls

@@ -3,7 +3,7 @@ pushd "/home/toadjaune/.globalrc" > /dev/null
 
 # Chargement des définitions
 if [ -f definitions ]; then
-  . definitions
+  source definitions
 fi
 
 # # on affiche le logo
@@ -14,22 +14,27 @@ fi
 
 # Chargement des aliases
 if [ -f aliases ]; then
-  . aliases
+  source aliases
 fi
 
 # Chargement des functions
 if [ -f functions ]; then
-  . functions
+  source functions
 fi
 
 # Chargement du prompt
 if [ -f zsh/prompt ]; then
-  . zsh/prompt
+  source zsh/prompt
 fi
 
 # Ajoute les scripts aux programmes par défaut
 if [ -d "$(pwd)/scripts" ]; then
   PATH="$PATH:$GLOBALRC/scripts"
+fi
+
+# Compinit
+if [ -f zsh/compinstall ]; then
+  source zsh/compinstall
 fi
 
 # Se replace dans le dossier précédent

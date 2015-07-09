@@ -2,7 +2,7 @@
 
 # Function to print keyboard mapping
 if [ -f keyboards ]; then
-  . keyboards
+  source keyboards
 fi
 
 # Function vim to handle different profiles
@@ -23,7 +23,7 @@ function vim()
     esac
   done
   
-  command vim -u <(cat /etc/vim/vimrc "$GLOBALRC/vim_profiles/vimrc-common" \
+  command /usr/bin/vim -u <(cat /etc/vim/vimrc "$GLOBALRC/vim_profiles/vimrc-common" \
                "$GLOBALRC/vim_profiles/vimrc-$profile" ~/.vimrc 2>/dev/null) $@
 
 }
