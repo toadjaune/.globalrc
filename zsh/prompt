@@ -31,6 +31,8 @@ prompt_tlc='┌'
 prompt_mlc='|'
 prompt_blc='└'
 prompt_hyphen='-'
+prompt_newline='
+'
 
 # Set of colors used in prompt. This, dude, is sexy.
 prompt_color1='cyan'    # hyphens
