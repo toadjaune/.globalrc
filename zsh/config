@@ -1,0 +1,113 @@
+#!/usr/bin/zsh
+
+# zsh-specific configuration file
+
+# Allow help
+autoload -U run-help
+autoload run-help-git
+
+
+# Exctracted from gmrl conf. See file in 'components' folder
+
+# append history list to the history file; this is the default but we make sure
+# because it's required for share_history.
+setopt append_history
+
+# import new commands from the history file also in other zsh-session
+setopt share_history
+
+# save each command's beginning timestamp and the duration to the history file
+setopt extended_history
+
+# If a new command line being added to the history list duplicates an older
+# one, the older command is removed from the list
+setopt histignorealldups
+
+# remove command lines from the history list when the first character on the
+# line is a space
+setopt histignorespace
+
+# if a command is issued that can't be executed as a normal command, and the
+# command is the name of a directory, perform the cd command to that directory.
+setopt auto_cd
+
+# display PID when suspending processes as well
+setopt longlistjobs
+
+# make cd push the old directory onto the directory stack.
+setopt auto_pushd
+
+# avoid "beep"ing
+setopt nobeep
+
+# don't push the same dir twice.
+setopt pushd_ignore_dups
+
+    # Provide more processes in completion of programs like killall:
+    zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+
+    # Search path for sudo completion
+    zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
+                                               /usr/local/bin  \
+                                               /usr/sbin       \
+                                               /usr/bin        \
+                                               /sbin           \
+                                               /bin            \
+                                               /usr/X11R6/bin
+
+
+    # host completion TODO: include .globalrc/ssh_hosts
+    [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
+    [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+    [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+    
+    hosts=(
+        $(hostname)
+        "$_ssh_config_hosts[@]"
+        "$_ssh_hosts[@]"
+        "$_etc_hosts[@]"
+        localhost
+    )
+    zstyle ':completion:*:hosts' hosts $hosts
+
+    # use generic completion system for programs not yet defined; (_gnu_generic works
+    # with commands that provide a --help option with "standard" gnu-like output.)
+    for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
+                   pal stow uname ; do
+        [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
+    done; unset compcom
+
+    # Battery info
+batterylinux(){
+GRML_BATTERY_LEVEL=''
+if [[ $(uname -s) == 'Linux' ]]; then
+  local batteries bat capacity
+  batteries=( /sys/class/power_supply/BAT*(N) )
+  if (( $#batteries > 0 )) ; then
+      for bat in $batteries ; do
+          capacity=$(< $bat/capacity)
+          case $(< $bat/status) in
+          Charging)
+              GRML_BATTERY_LEVEL+=" ^"
+              ;;
+          Discharging)
+              if (( capacity < 20 )) ; then
+                  GRML_BATTERY_LEVEL+=" !v"
+              else
+                  GRML_BATTERY_LEVEL+=" v"
+              fi
+              ;;
+          *) # Full, Unknown
+              GRML_BATTERY_LEVEL+=" ="
+              ;;
+          esac
+          GRML_BATTERY_LEVEL+="${capacity}%%"
+      done
+  fi
+fi
+}
+
+# set variable debian_chroot if running in a chroot with /etc/debian_chroot
+if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]] ; then
+    debian_chroot=$(</etc/debian_chroot)
+fi

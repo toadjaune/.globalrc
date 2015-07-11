@@ -129,10 +129,13 @@ precmd () {
     fi
   
   
-    # And, makes it good
+    # Main prompt
     PS1="$prompt_line_1$prompt_newline$prompt_line_2%B%F{red}${EXITCODE}%b%F{$prompt_color1}$prompt_hyphen%B%F{white}$prompt_char %b%f%k"
-#    PS2="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}%_> %b%f%k"
-#    PS3="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}?# %b%f%k"
+    # secondary prompt, printed when the shell needs more information to
+    # complete a command.
+    PS2="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}%_> %b%f%k"
+    # Selection prompt used within a select loop
+    PS3="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}?# %b%f%k"
 
     # Text color and style for prompt
     zle_highlight[(r)default:*]="default:fg=$prompt_color4,bold"
