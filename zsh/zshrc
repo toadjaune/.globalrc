@@ -37,5 +37,10 @@ if [ -f zsh/compinstall ]; then
   source zsh/compinstall
 fi
 
+# zsh-syntax-highlighting, MUST stay last
+if [ -f zsh/zsh-syntax-highlighting ]; then
+  source zsh/zsh-syntax-highlighting
+fi
+
 # Se replace dans le dossier précédent
 popd > /dev/null

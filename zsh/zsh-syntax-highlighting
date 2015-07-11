@@ -1,0 +1,34 @@
+#!/usr/bin/zsh
+
+# This provides prompt highlighting
+#
+# First, some configuration
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+
+
+# At last, we source the script
+if [ -f zsh/components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source zsh/components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+fi
+
+ZSH_HIGHLIGHT_STYLES+=(
+# Main configuration (not all available options)
+  unknown-token         'fg=red,bold'
+  reserved-word         'fg=yellow'
+  alias                 'fg=green,bold'
+  builtin               'fg=green,bold'
+  function              'fg=green,bold'
+  command               'fg=green,bold'
+  precommand            'fg=green,underline'
+  hashed-command        'fg=green'
+  path                  'fg=blue,bold'
+  path_prefix           'fg=blue'
+  path_approx           'fg=blue,underlined'
+  globbing              'fg=yellow,underlined'
+  single-hyphen-option  'fg=purple,bold'
+  double-hyphen-option  'fg=purple,bold'
+  back-quoted-argument  'fg=purple,bold'
+
+)
