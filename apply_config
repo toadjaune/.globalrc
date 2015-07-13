@@ -1,17 +1,73 @@
-#! /bin/bash
+#!/bin/bash
 
 pushd `dirname $0` > /dev/null
 localdir=`pwd -P`
+. functions
 popd > /dev/null
 
-command=". $localdir/bash/bashrc"
 
+# Apply bash config
+command=". $localdir/bash/bashrc"
 touch ~/.bashrc
 if ! grep "$command" ~/.bashrc > /dev/null ; then
   chmod 755 "$localdir/scripts"
   echo                                                  >> ~/.bashrc
-  echo "# Charge les composantes globales du bashrc"    >> ~/.bashrc
+  echo "# Loads global components of bashrc"            >> ~/.bashrc
   echo "if [ -f $localdir/bash/bashrc ]; then"          >> ~/.bashrc
   echo "  $command"                                     >> ~/.bashrc
   echo "fi"                                             >> ~/.bashrc
+fi
+
+# Apply zsh config
+command=". $localdir/zsh/zshrc"
+touch ~/.zshrc
+if ! grep "$command" ~/.zshrc > /dev/null ; then
+  chmod 755 "$localdir/scripts"
+  echo                                                  >> ~/.zshrc
+  echo "# Charge les composantes globales du zshrc"     >> ~/.zshrc
+  echo "if [ -f $localdir/zsh/zshrc ]; then"            >> ~/.zshrc
+  echo "  $command"                                     >> ~/.zshrc
+  echo "fi"                                             >> ~/.zshrc
+fi
+
+# Make sure zsh is default shell
+if echo $SHELL | grep 'zsh' > /dev/null ; then
+  echo "zsh is already your default shell, that's good !"
+else
+  # Check if zsh is installed
+  if cat /etc/shells | grep 'zsh' > /dev/null ; then
+    echo 'zsh is already installed, making it default shell'
+    chsh -s $(which zsh)
+    echo "done."
+  else
+    # Ask if we should try to install zsh
+    if confirm "zsh is not installed.\nDo you want to install it ?" o ; then
+      if sudo apt-get -y install zsh ; then
+        echo 'zsh is now installed, making it default shell'
+        chsh -s $(which zsh)
+        echo "done."
+      else
+        echo 'Not installing zsh.'
+      fi
+    fi
+  fi
+fi
+echo
+
+# Installing usual tools
+if which vim    | grep 'vim'    > /dev/null && \
+   which screen | grep 'screen' > /dev/null && \
+   which git    | grep 'git' > /dev/null && \
+   which most   | grep 'most'   > /dev/null ; then
+  echo 'Usual tools already installed, not doing anything.'
+else
+  if confirm "Do you want to install usual customized tools (vim, screen, git, most) ?" o ; then
+    if sudo apt-get install -y vim screen git most ; then
+      echo 'Installation successful.'
+    else
+      echo 'Installation failed.'
+    fi
+  else
+    echo "Don't installing anything."
+  fi
 fi
