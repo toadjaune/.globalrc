@@ -1,0 +1,48 @@
+#! /bin/bash
+
+# This script transforms a LDAP acces via PAM in a local access.
+# Be careful using it, it could break LDAP access.
+
+pushd `dirname $0` > /dev/null
+source ../functions
+
+LdapUid=`id -u`
+Username=`id -u -n`
+
+echo $LdapUid
+if [ $LdapUid = 0 ] ; then
+  echo "Do not run this script as root (but you need sudo access)"
+else
+  # We use this trick to keep sudo access during the script, but we need to be
+  # careful escaping variables, etc ...
+  sudo bash -c "
+    a='test'
+    echo \$a
+    echo $LdapUid
+    echo `id -u`
+
+    echo 'Deactivating LDAP ...'
+    sed --in-place=.bak 's/compat ldap/compat #ldap/' /etc/nsswitch.conf
+    echo 'Erasing LDAP names cache ...'
+    invoke-rc.d nscd restart
+    invoke-rc.d nslcd restart
+#    echo 'Creating new local user ...'
+#    adduser $Username
+#    adduser $Username sudo
+#    LocalUid=`id -u $Username`
+#    echo 'Reactivating LDAP ...'
+#    sed --in-place 's/compat #ldap/compat ldap/' /etc/nsswitch.conf
+#    echo 'Restarting LDAP daemons'
+#    invoke-rc.d nscd restart
+#    invoke-rc.d nslcd restart
+#    echo 'Changing file permissions in $HOME ...'
+#    echo 'LDAP uid :' $LdapUid
+#    echo 'Local uid :' \$LocalUid
+
+
+
+
+  "
+fi
+
+popd > /dev/null
