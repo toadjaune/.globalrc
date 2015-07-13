@@ -20,6 +20,9 @@ alias shred='shred -n 35 -z -u -v'
 # Recursivly create directories
 alias mkdir='mkdir -p'
 
+# Git avec un certificat auto-signé
+alias gitc='git -c http.sslVerify=false'
+
 # Déplacement parents
 alias ..='cd ..'
 alias ...='cd ../..'
