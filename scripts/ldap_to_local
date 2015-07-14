@@ -25,11 +25,6 @@ else
     adduser $Username
     adduser $Username sudo
     LocalUid=`id -u $Username`
-    echo 'Reactivating LDAP ...'
-    #sed --in-place 's/compat #ldap/compat ldap/' /etc/nsswitch.conf
-    #echo 'Restarting LDAP daemons'
-    service nscd restart
-    service nslcd restart
     echo 'Changing file permissions in $HOME ...'
     chown -R $Username: $HOME
     echo 'Done. If you owned files in other places than $HOME, you might need to run something like :
@@ -37,6 +32,12 @@ else
     LDAP uid : $LdapUid
     Local uid :' \$LocalUid
     echo 'You might also need to do something about your gid'
+    echo 'Reactivating LDAP ...'
+    #sed --in-place 's/compat #ldap/compat ldap/' /etc/nsswitch.conf
+    #echo 'Restarting LDAP daemons'
+    service nscd restart
+    service nslcd restart
+    echo 'Done. Everything should be okay now'
 
 
 
