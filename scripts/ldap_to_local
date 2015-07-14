@@ -9,7 +9,6 @@ source ../functions
 LdapUid=`id -u`
 Username=`id -u -n`
 
-echo $LdapUid
 if [ $LdapUid = 0 ] ; then
   echo "Do not run this script as root (but you need sudo access)"
 else
@@ -17,24 +16,24 @@ else
   # careful escaping variables, etc ...
   sudo bash -c "
     echo 'Deactivating LDAP ...'
-    #sed --in-place=.bak 's/compat ldap/compat #ldap/' /etc/nsswitch.conf
-    #echo 'Erasing LDAP names cache ...'
-    service nscd stop
-    service nslcd stop
+    sed --in-place=.bak 's/ldap//' /etc/nsswitch.conf
+    echo 'Erasing names cache ...'
+    service nscd restart && nscd -i passwd
     echo 'Creating new local user ...'
     adduser $Username
     adduser $Username sudo
+    nscd -i passwd
     LocalUid=`id -u $Username`
     echo 'Changing file permissions in $HOME ...'
     chown -R $Username: $HOME
-    echo 'Done. If you owned files in other places than $HOME, you might need to run something like :
-    \`find / -uid $LdapUid -exec chown \$LocalUid {} \`
+    echo \"Done. If you owned files in other places than $HOME, you might need to run something like :
+    \\\`find / -uid $LdapUid -exec chown \$LocalUid {} \\\`
     LDAP uid : $LdapUid
-    Local uid :' \$LocalUid
+    Local uid : \$LocalUid \"
     echo 'You might also need to do something about your gid'
     echo 'Reactivating LDAP ...'
-    #sed --in-place 's/compat #ldap/compat ldap/' /etc/nsswitch.conf
-    #echo 'Restarting LDAP daemons'
+    cp /etc/nsswitch.conf.bak /etc/nsswitch.conf
+    echo 'Restarting daemons'
     service nscd restart
     service nslcd restart
     echo 'Done. Everything should be okay now'
