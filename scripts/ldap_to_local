@@ -16,28 +16,27 @@ else
   # We use this trick to keep sudo access during the script, but we need to be
   # careful escaping variables, etc ...
   sudo bash -c "
-    a='test'
-    echo \$a
-    echo $LdapUid
-    echo `id -u`
-
     echo 'Deactivating LDAP ...'
-    sed --in-place=.bak 's/compat ldap/compat #ldap/' /etc/nsswitch.conf
-    echo 'Erasing LDAP names cache ...'
-    invoke-rc.d nscd restart
-    invoke-rc.d nslcd restart
-#    echo 'Creating new local user ...'
-#    adduser $Username
-#    adduser $Username sudo
-#    LocalUid=`id -u $Username`
-#    echo 'Reactivating LDAP ...'
-#    sed --in-place 's/compat #ldap/compat ldap/' /etc/nsswitch.conf
-#    echo 'Restarting LDAP daemons'
-#    invoke-rc.d nscd restart
-#    invoke-rc.d nslcd restart
-#    echo 'Changing file permissions in $HOME ...'
-#    echo 'LDAP uid :' $LdapUid
-#    echo 'Local uid :' \$LocalUid
+    #sed --in-place=.bak 's/compat ldap/compat #ldap/' /etc/nsswitch.conf
+    #echo 'Erasing LDAP names cache ...'
+    service nscd stop
+    service nslcd stop
+    echo 'Creating new local user ...'
+    adduser $Username
+    adduser $Username sudo
+    LocalUid=`id -u $Username`
+    echo 'Reactivating LDAP ...'
+    #sed --in-place 's/compat #ldap/compat ldap/' /etc/nsswitch.conf
+    #echo 'Restarting LDAP daemons'
+    service nscd restart
+    service nslcd restart
+    echo 'Changing file permissions in $HOME ...'
+    chown -R $Username: $HOME
+    echo 'Done. If you owned files in other places than $HOME, you might need to run something like :
+    \`find / -uid $LdapUid -exec chown \$LocalUid {} \`
+    LDAP uid : $LdapUid
+    Local uid :' \$LocalUid
+    echo 'You might also need to do something about your gid'
 
 
 
