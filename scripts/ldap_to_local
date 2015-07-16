@@ -23,7 +23,7 @@ else
     adduser $Username
     adduser $Username sudo
     nscd -i passwd
-    LocalUid=`id -u $Username`
+    LocalUid=\`id -u $Username\`
     echo 'Changing file permissions in $HOME ...'
     chown -R $Username: $HOME
     echo \"Done. If you owned files in other places than $HOME, you might need to run something like :
