@@ -12,36 +12,36 @@ Username=`id -u -n`
 if [ $LdapUid = 0 ] ; then
   echo "Do not run this script as root (but you need sudo access)"
 else
-  # We use this trick to keep sudo access during the script, but we need to be
-  # careful escaping variables, etc ...
-  sudo bash -c "
-    echo 'Deactivating LDAP ...'
-    sed --in-place=.bak 's/ldap//' /etc/nsswitch.conf
-    echo 'Erasing names cache ...'
-    service nscd restart && nscd -i passwd
-    echo 'Creating new local user ...'
-    adduser $Username
-    adduser $Username sudo
-    nscd -i passwd
-    LocalUid=\`id -u $Username\`
-    echo 'Changing file permissions in $HOME ...'
-    chown -R $Username: $HOME
-    echo \"Done. If you owned files in other places than $HOME, you might need to run something like :
-    \\\`find / -uid $LdapUid -exec chown \$LocalUid {} \\\`
-    LDAP uid : $LdapUid
-    Local uid : \$LocalUid \"
-    echo 'You might also need to do something about your gid'
-    echo 'Reactivating LDAP ...'
-    cp /etc/nsswitch.conf.bak /etc/nsswitch.conf
-    echo 'Restarting daemons'
-    service nscd restart
-    service nslcd restart
-    echo 'Done. Everything should be okay now'
-
-
-
-
-  "
+  if cat /etc/passwd | grep $Username > /dev/null ; then
+    echo "You already have a local account, there's no need to create one"
+  else
+    # We use this trick to keep sudo access during the script, but we need to be
+    # careful escaping variables, etc ...
+    sudo bash -c "
+      echo 'Deactivating LDAP ...'
+      sed --in-place=.bak 's/ldap//' /etc/nsswitch.conf
+      echo 'Erasing names cache ...'
+      service nscd restart && nscd -i passwd
+      echo 'Creating new local user ...'
+      adduser $Username
+      adduser $Username sudo
+      nscd -i passwd
+      LocalUid=\`id -u $Username\`
+      echo 'Changing file permissions in $HOME ...'
+      chown -R $Username: $HOME
+      echo \"Done. If you owned files in other places than $HOME, you might need to run something like :
+      \\\`find / -uid $LdapUid -exec chown \$LocalUid {} \\\`
+      LDAP uid : $LdapUid
+      Local uid : \$LocalUid \"
+      echo 'You might also need to do something about your gid'
+      echo 'Reactivating LDAP ...'
+      cp /etc/nsswitch.conf.bak /etc/nsswitch.conf
+      echo 'Restarting daemons'
+      service nscd restart
+      service nslcd restart
+      echo 'Done. Everything should be okay now'
+    "
+  fi
 fi
 
 popd > /dev/null
