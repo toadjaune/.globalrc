@@ -17,7 +17,7 @@ else
   else
     # We use this trick to keep sudo access during the script, but we need to be
     # careful escaping variables, etc ...
-    sudo bash -c "
+    sudo bash --rcfile <(echo "
       echo 'Deactivating LDAP ...'
       sed --in-place=.bak 's/ldap//' /etc/nsswitch.conf
       echo 'Erasing names cache ...'
@@ -40,7 +40,8 @@ else
       service nscd restart
       service nslcd restart
       echo 'Done. Everything should be okay now'
-    "
+      exit
+      ")
   fi
 fi
 
