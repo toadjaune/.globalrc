@@ -1,16 +1,13 @@
 #!/usr/bin/zsh
 
 # This provides prompt highlighting
-#
-# First, some configuration
 
+# Choose enabled modules
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-
-
-# At last, we source the script
-if [ -f zsh/components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source zsh/components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+# Then source the script
+if [ -f components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 fi
 
 ZSH_HIGHLIGHT_STYLES+=(

@@ -4,7 +4,7 @@
 
 # Chargement des définitions
 if [ -f definitions ]; then
-  . definitions
+  source definitions
 fi
 
 # # on affiche le logo
@@ -15,12 +15,12 @@ fi
 
 # Chargement des aliases
 if [ -f aliases ]; then
-  . aliases
+  source aliases
 fi
 
 # Chargement des functions
 if [ -f functions ]; then
-  . functions
+  source functions
 fi
 
 # Ajoute les scripts aux programmes par défaut

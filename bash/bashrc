@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Place yourself in current folder
+# Places yourself in current directory
 # /!\ Only works since bash 3.x /!\
 pushd $(dirname ${BASH_SOURCE[0]}) > /dev/null
 
-# Chargement des composantes communes
+# Loading common comonents
 if [ -f ../commonrc ]; then
   pushd .. > /dev/null
   . commonrc

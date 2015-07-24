@@ -1,45 +1,27 @@
-# Se place dans le dossier .globalrc (chemin absolu, tfaçon c'est temporaire)
-pushd "/home/toadjaune/.globalrc" > /dev/null
+#!/bin/zsh
+# Places you into current directory
+pushd $(dirname $0) > /dev/null
 
-# Chargement des définitions
-if [ -f definitions ]; then
-  source definitions
-fi
-
-# # on affiche le logo
-# if shopt -q login_shell; then
-#   echo ".globalrc version" $(cat $GLOBALRC/version)
-#   cat "$GLOBALRC/logo"
-# fi
-
-# Chargement des aliases
-if [ -f aliases ]; then
-  source aliases
-fi
-
-# Chargement des functions
-if [ -f functions ]; then
-  source functions
+# Loading common comonents
+if [ -f ../commonrc ]; then
+  pushd .. > /dev/null
+  source commonrc
+  popd > /dev/null
 fi
 
 # Chargement du prompt
-if [ -f zsh/prompt ]; then
-  source zsh/prompt
-fi
-
-# Ajoute les scripts aux programmes par défaut
-if [ -d "$(pwd)/scripts" ]; then
-  PATH="$PATH:$GLOBALRC/scripts"
+if [ -f prompt ]; then
+  source prompt
 fi
 
 # Compinit
-if [ -f zsh/compinstall ]; then
-  source zsh/compinstall
+if [ -f compinstall ]; then
+  source compinstall
 fi
 
 # zsh-syntax-highlighting, MUST stay last
-if [ -f zsh/zsh-syntax-highlighting ]; then
-  source zsh/zsh-syntax-highlighting
+if [ -f zsh-syntax-highlighting ]; then
+  source zsh-syntax-highlighting
 fi
 
 # Se replace dans le dossier précédent

@@ -8,7 +8,7 @@
 #       That needs to be the use of $VCS_INFO_message_N_ needs to be changed
 #       to $vcs_info_msg_N_ as soon as we use the included version.
 
-source zsh/components/vcs_base
+source components/vcs_base
 autoload -Uz vcs_info
 
 if [[ "$TERM" == dumb ]] ; then
