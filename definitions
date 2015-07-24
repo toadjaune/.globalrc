@@ -2,7 +2,6 @@
 
 # Copyright csdt
 
-
 export GLOBALRC="$(pwd)"
 
 # Ajoute les scripts aux programmes par défaut

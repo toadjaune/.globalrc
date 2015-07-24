@@ -1,35 +1,19 @@
-# Se place dans le dossier .globalrc (ou qu'il soit)
-pushd "$(dirname "$BASH_SOURCE")/.." > /dev/null
+#!/bin/bash
 
-# Chargement des définitions
-if [ -f definitions ]; then
-  . definitions
-fi
+# Place yourself in current folder
+# /!\ Only works since bash 3.x /!\
+pushd $(dirname ${BASH_SOURCE[0]}) > /dev/null
 
-# # on affiche le logo
-# if shopt -q login_shell; then
-#   echo ".globalrc version" $(cat $GLOBALRC/version)
-#   cat "$GLOBALRC/logo"
-# fi
-
-# Chargement des aliases
-if [ -f aliases ]; then
-  . aliases
-fi
-
-# Chargement des functions
-if [ -f functions ]; then
-  . functions
+# Chargement des composantes communes
+if [ -f ../commonrc ]; then
+  pushd .. > /dev/null
+  . commonrc
+  popd > /dev/null
 fi
 
 # Chargement du prompt
-if [ -f bash/prompt ]; then
-  . bash/prompt
-fi
-
-# Ajoute les scripts aux programmes par défaut
-if [ -d "$(pwd)/scripts" ]; then
-  PATH="$PATH:$GLOBALRC/scripts"
+if [ -f prompt ]; then
+  . prompt
 fi
 
 # Se replace dans le dossier précédent
