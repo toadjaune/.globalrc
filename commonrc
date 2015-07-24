@@ -7,20 +7,22 @@ if [ -f definitions ]; then
   source definitions
 fi
 
-# # on affiche le logo
-# if shopt -q login_shell; then
-#   echo ".globalrc version" $(cat $GLOBALRC/version)
-#   cat "$GLOBALRC/logo"
-# fi
+# Chargement des functions
+if [ -f functions ]; then
+  source functions
+fi
+
+# Login shell
+if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
+
+#  echo ".globalrc version" $(cat $GLOBALRC/version)
+  # on affiche le logo
+  cat logo
+fi
 
 # Chargement des aliases
 if [ -f aliases ]; then
   source aliases
-fi
-
-# Chargement des functions
-if [ -f functions ]; then
-  source functions
 fi
 
 # Ajoute les scripts aux programmes par défaut
