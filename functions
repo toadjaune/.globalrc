@@ -38,42 +38,6 @@ function repeat()
   done
 }
 
-# Fonction pour demander la confirmation
-confirm() {
-  if [[ "$2" ]]; then
-    if [[ "$2" == "o" ]]; then
-      space="[O/n]"
-    elif [[ "$2" == "n" ]]; then
-      space="[o/N]"
-    else
-      error "La confirmation doit avoir 'o' ou 'n' pour valeur par défaut"
-    fi
-  else
-    space="[o/n]"
-  fi      
-
-  while true; do
-    read -n 1 -p "$1 $space " on
-
-    # default value
-    if [[ "$on" == "" && "$2" ]]; then
-      on=$2
-    else
-      echo
-    fi
-
-    case $on in
-      [Oo]* )
-        return 0
-        ;;
-      [Nn]* )
-        return 1
-        ;;
-    esac
-  done
-}
-
-
 # Find a file with a pattern in name - dans le rep local:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
 

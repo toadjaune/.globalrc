@@ -4,6 +4,11 @@
 # /!\ Only works since bash 3.x /!\
 pushd $(dirname ${BASH_SOURCE[0]}) > /dev/null
 
+# Loading Bash-specific functions
+if [ -f functions ]; then
+  . functions
+fi
+
 # Loading common comonents
 if [ -f ../commonrc ]; then
   pushd .. > /dev/null
@@ -11,10 +16,10 @@ if [ -f ../commonrc ]; then
   popd > /dev/null
 fi
 
-# Chargement du prompt
+# Loading the prompt
 if [ -f prompt ]; then
   . prompt
 fi
 
-# Se replace dans le dossier précédent
+# Coming back to precedent directory
 popd > /dev/null
