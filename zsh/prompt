@@ -1,31 +1,8 @@
 #!/bin/zsh
-#+--------------------------------------+
-#|            PROMPT                    |
-#+--------------------------------------+
 
-# Change vcs_info formats for the grml prompt. The 2nd format sets up
-# $vcs_info_msg_1_ to contain "zsh: repo-name" used to set our screen title.
-# TODO: The included vcs_info() version still uses $VCS_INFO_message_N_.
-#       That needs to be the use of $VCS_INFO_message_N_ needs to be changed
-#       to $vcs_info_msg_N_ as soon as we use the included version.
-
-source components/vcs_base
-autoload -Uz vcs_info
-
-if [[ "$TERM" == dumb ]] ; then
-    zstyle ':vcs_info:*' actionformats "(%s)-[%r/%b|%a]" "(%s)-[%r/%b|%a]"
-    zstyle ':vcs_info:*' formats       "(%s)-[%r/%b]"    "(%s)-[%r/%b]"
-else
-    # these are the same, just with a lot of colours:
-    zstyle ':vcs_info:*' actionformats "%F{magenta}(%F{no}%s%F{magenta})%F{yellow}-%F{magenta}[%F{green}%r%F{yellow}/%F{green}%b%F{yellow}|%F{red}%a%F{magenta}]%F{no}" \
-                                       "(%s)-[%r/%b|%a]" 
-    zstyle ':vcs_info:*' formats       "%F{magenta}(%F{no}%s%F{magenta})%F{yellow}-%F{magenta}[%F{green}%r%F{yellow}/%F{green}%b%F{magenta}]%F{no}" \
-                                       "(%s)-[%r/%b]"
-    zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat "%b%F{red}:%F{yellow}%r"
-fi
-
-# Built using /usr/share/zsh/functions/Prompts/prompt_adam2…
-EXITCODE="%(?..[%?]%1v)"
+# Main file generating the prompt.
+# Based on ... many people's ones.
+# TODO: list the mains here
 
 # Set of chars used in prompt
 prompt_tlc='┌'
@@ -73,12 +50,16 @@ prompt_line_2="$prompt_bbox${prompt_hyphen}%B%F{white}"
 prompt_char="%(!.#.>)"
 prompt_opts=(cr subst percent)
 
+# Built using /usr/share/zsh/functions/Prompts/prompt_adam2…
+EXITCODE="%(?..[%?]%1v)"
+
 # This function is called before each prompt regenation
 precmd () {
     setopt noxtrace localoptions extendedglob
     local prompt_line_1
-    # update VCS information
-    vcs_info
+    # update git information
+    update_git_vars
+    git_info=$(prompt_git_info)
 
     if [[ $TERM == screen* ]] ; then
         if [[ -n ${VCS_INFO_message_1_} ]] ; then
@@ -142,23 +123,23 @@ precmd () {
 
     local prompt_line_1a_width=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
     local prompt_line_1b_width=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-    local prompt_vcs_width=${#${(S%%)VCS_INFO_message_0_//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+    local prompt_git_width=${#${(S%%)git_info//(\%([KF1]|)\{*\}|\%[Bbkf])}}
   
-    local prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_line_1b_width - prompt_vcs_width - 2 ))
+    local prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_line_1b_width - prompt_git_width - 2 ))
 
     # Try to fit in long path and time, and vcs_info
     if (( prompt_padding_size > 0 )); then
       local prompt_padding
       eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
-      prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$VCS_INFO_message_0_%F{$prompt_color1}$prompt_hyphen$prompt_line_1b"
+      prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$git_info%F{$prompt_color1}$prompt_hyphen$prompt_line_1b"
     else
-        prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_vcs_width - 2 ))
+        prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_git_width - 2 ))
       
         # Didn't fit; try to fit in long path and vcs_info
         if (( prompt_padding_size > 0 )); then
             local prompt_padding
             eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
-            prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$VCS_INFO_message_0_%F{$prompt_color1}$prompt_hyphen"
+            prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$git_info%F{$prompt_color1}$prompt_hyphen"
         else
             prompt_padding_size=$(( COLUMNS - prompt_line_1a_width ))
 

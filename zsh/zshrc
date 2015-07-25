@@ -19,6 +19,11 @@ if [ -f config ]; then
   source config
 fi
 
+# Git info
+if [ -f prompt_git ]; then
+  source prompt_git
+fi
+
 # Loading prompt
 if [ -f prompt ]; then
   source prompt
@@ -29,5 +34,5 @@ if [ -f zsh-syntax-highlighting ]; then
   source zsh-syntax-highlighting
 fi
 
-# Se replace dans le dossier précédent
+# Comes back into previous directory
 popd > /dev/null
