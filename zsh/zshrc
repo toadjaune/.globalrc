@@ -9,14 +9,19 @@ if [ -f ../commonrc ]; then
   popd > /dev/null
 fi
 
-# Chargement du prompt
-if [ -f prompt ]; then
-  source prompt
-fi
-
 # Compinit
 if [ -f compinstall ]; then
   source compinstall
+fi
+
+# Conf from gmrl
+if [ -f config ]; then
+  source config
+fi
+
+# Loading prompt
+if [ -f prompt ]; then
+  source prompt
 fi
 
 # zsh-syntax-highlighting, MUST stay last

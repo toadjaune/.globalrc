@@ -77,36 +77,6 @@ setopt pushd_ignore_dups
         [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
     done; unset compcom
 
-    # Battery info
-batterylinux(){
-GRML_BATTERY_LEVEL=''
-if [[ $(uname -s) == 'Linux' ]]; then
-  local batteries bat capacity
-  batteries=( /sys/class/power_supply/BAT*(N) )
-  if (( $#batteries > 0 )) ; then
-      for bat in $batteries ; do
-          capacity=$(< $bat/capacity)
-          case $(< $bat/status) in
-          Charging)
-              GRML_BATTERY_LEVEL+=" ^"
-              ;;
-          Discharging)
-              if (( capacity < 20 )) ; then
-                  GRML_BATTERY_LEVEL+=" !v"
-              else
-                  GRML_BATTERY_LEVEL+=" v"
-              fi
-              ;;
-          *) # Full, Unknown
-              GRML_BATTERY_LEVEL+=" ="
-              ;;
-          esac
-          GRML_BATTERY_LEVEL+="${capacity}%%"
-      done
-  fi
-fi
-}
-
 # set variable debian_chroot if running in a chroot with /etc/debian_chroot
 if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]] ; then
     debian_chroot=$(</etc/debian_chroot)
