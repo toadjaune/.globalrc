@@ -13,6 +13,7 @@ update_git_vars() {
   unset __CURRENT_GIT_BRANCH
   unset __CURRENT_GIT_BRANCH_STATUS
   unset __CURRENT_GIT_BRANCH_IS_DIRTY
+  unset __CURRENT_GIT_REPO_NAME
   
   local st="$(git status 2>/dev/null)"
   if [[ -n "$st" ]]; then
@@ -30,21 +31,32 @@ update_git_vars() {
         __CURRENT_GIT_BRANCH_STATUS='ahead'
       elif [[ $arr[2] =~ 'diverged' ]]; then
         __CURRENT_GIT_BRANCH_STATUS='diverged'
-      else
+      elif [[ $arr[2] =~ 'behind' ]]; then
         __CURRENT_GIT_BRANCH_STATUS='behind'
+      else
+        __CURRENT_GIT_BRANCH_STATUS='up-to-date'
       fi
     fi
   
     if [[ ! $st =~ 'nothing to commit' ]]; then
       __CURRENT_GIT_BRANCH_IS_DIRTY='1'
     fi
+
+
+    __CURRENT_GIT_REPO_NAME=$(
+      while [ ! -d .git ] && [ $PWD != '/' ]; do
+        cd ..
+      done
+      echo ${PWD##*/}
+    )
+
   fi
 }
 
 prompt_git_info() {
   if [ -n "$__CURRENT_GIT_BRANCH" ]; then
     local s="$git_color("
-    s+="$__CURRENT_GIT_BRANCH%B$git_color"
+    s+="$__CURRENT_GIT_REPO_NAME/$__CURRENT_GIT_BRANCH%B$git_color"
     case "$__CURRENT_GIT_BRANCH_STATUS" in
       ahead)
       s+="↑"
