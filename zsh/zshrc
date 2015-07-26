@@ -2,7 +2,7 @@
 # Places you into current directory
 pushd $(dirname $0) > /dev/null
 
-# Loading common comonents
+# Loading common components
 if [ -f ../commonrc ]; then
   pushd .. > /dev/null
   source commonrc
@@ -17,11 +17,6 @@ fi
 # Conf from gmrl
 if [ -f config ]; then
   source config
-fi
-
-# Git info
-if [ -f prompt_git ]; then
-  source prompt_git
 fi
 
 # Loading prompt

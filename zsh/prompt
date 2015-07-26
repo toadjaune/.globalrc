@@ -4,6 +4,10 @@
 # Based on ... many people's ones.
 # TODO: list the mains here
 
+################################################################################
+#                                    CONFIG                                    #
+################################################################################
+
 # Set of chars used in prompt
 prompt_tlc='┌'
 prompt_mlc='|'
@@ -13,25 +17,37 @@ prompt_newline='
 '
 battery_charged_character='▬' #'▸'
 battery_discharged_character='▭' #'▹'
-battery_discharging='%F{red}« '
-battery_charging='%F{green}» '
+battery_discharging='%F{red}◀ '
+battery_charging='%F{green}▶ '
 
 # Set of colors used in prompt.
 prompt_color1='cyan'    # hyphens
 prompt_color2='green'   # current directory
 prompt_color3='yellow'  # user@host
-prompt_color4='cyan'    # user input
 prompt_color5='red'     # date
 battery_color_high=%F{green}
 battery_color_medium=%F{yellow}
 battery_color_low=%b%F{red}
 battery_color_background=''
 
+################################################################################
+
+# Loading git info
+if [ -f prompt_git ]; then
+  source prompt_git
+fi
+
+# Loading battery info
+if [ -f prompt_battery ]; then
+  source prompt_battery
+fi
+
+
 # see man zshmisc for explanation about %B, %F, %b…
 prompt_tbox="%b%F{$prompt_color1}${prompt_tlc}%b%F{$prompt_color1}${prompt_hyphen}"
 prompt_bbox="%b%F{$prompt_color1}${prompt_blc}%b%F{$prompt_color1}"
 
-# This is a cute hack. Well I like it, anyway.
+# I have no idea how this works ^^
 prompt_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_color1}${prompt_mlc}%b%F{$prompt_color1}${prompt_hyphen}%{"$'\e[B%}'
 
 # left and right parenthesis
@@ -69,48 +85,8 @@ precmd () {
         fi
     fi
 
-    # Generates battery info (based on grml, only for Linux)
-    battery_level=''
-    if [[ $(uname -s) == 'Linux' ]]; then
-      local batteries bat capacity battery_color i
-      batteries=( /sys/class/power_supply/BAT*(N) )
-      if (( $#batteries > 0 )) ; then
-        for bat in $batteries ; do
-          capacity=$(< $bat/capacity)
-          case $(< $bat/status) in
-          Charging)
-            battery_level+=" $battery_charging"
-            ;;
-          Discharging)
-            battery_level+=" $battery_discharging"
-            ;;
-          *) # Full, Unknown
-            battery_level+=" "
-            ;;
-          esac
-          if (( capacity < 20 )) ; then
-            battery_color=$battery_color_low
-          elif (( capacity < 45 )) ; then
-            battery_color=$battery_color_medium
-          else
-            battery_color=$battery_color_high
-          fi
-          battery_level+=$battery_color
-          i=10
-          while (( i <= capacity )); do
-            battery_level+=$battery_charged_character
-            ((i+=10))
-          done
-          battery_level+=$battery_color_background
-          while (( i <= 100 )); do
-            battery_level+=$battery_discharged_character
-            ((i+=10))
-          done
-        done
-      fi
-    fi
+    update_battery
     RPROMPT=$battery_level
-
     
     # adjust title of xterm
     # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
@@ -155,7 +131,6 @@ precmd () {
         fi
     fi
   
-  
     # Main prompt
     PS1="$prompt_line_1$prompt_newline$prompt_line_2%B%F{red}${EXITCODE}%b%F{$prompt_color1}$prompt_hyphen%B%F{white}$prompt_char %b%f%k"
     # secondary prompt, printed when the shell needs more information to
@@ -164,8 +139,6 @@ precmd () {
     # Selection prompt used within a select loop
     PS3="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}?# %b%f%k"
 
-    # Text color and style for prompt
-    zle_highlight[(r)default:*]="default:fg=$prompt_color4,bold"
 }
 
 # preexec() => a function running before every command

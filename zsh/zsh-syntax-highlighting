@@ -27,5 +27,6 @@ ZSH_HIGHLIGHT_STYLES+=(
   single-hyphen-option  'fg=purple,bold'
   double-hyphen-option  'fg=purple,bold'
   back-quoted-argument  'fg=purple,bold'
+  default               'fg=cyan,bold' 
 
 )
