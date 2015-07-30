@@ -30,6 +30,15 @@ if ! grep "$command" ~/.zshrc > /dev/null ; then
   echo "fi"                                             >> ~/.zshrc
 fi
 
+# Create a local account if you only have a LDAP one
+echo "If you only have a LDAP account, making a local one is usually a good idea.
+It is nessessary if zsh is not your default shell and if you want to change this.
+It is also more secure in case of LDAP downtime.
+However, don't do it until you know what the scripts/ldap_to_local is doing."
+if confirm "Do you want to create yourself a local account ?" "y"; then
+  scripts/ldap_to_local
+fi
+
 # Make sure zsh is default shell
 if echo $SHELL | grep 'zsh' > /dev/null ; then
   echo "zsh is already your default shell, that's good !"
