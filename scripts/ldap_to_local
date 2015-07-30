@@ -17,7 +17,44 @@ else
   else
     # We use this trick to keep sudo access during the script, but we need to be
     # careful escaping variables, etc ...
-    sudo bash --rcfile <(echo "
+    tempfile="/tmp/ldap-to-local-$UID-$$-$RANDOM"
+    echo "
+
+      # Function to ask confirmation
+      confirm() {
+        if [[ \$2 ]]; then
+          if [[ \$2 == 'y' ]]; then
+            space='[Y/n]'
+          elif [[ \$2 == 'n' ]]; then
+            space='[y/N]'
+          else
+            error 'Confirmation must have y or n as default value'
+          fi
+        else
+          space='[y/n]'
+        fi      
+      
+        while true; do
+          read -n 1 -p \"\$1 \$space \" on
+      
+          # default value
+          if [[ \$on == '' && \$2 ]]; then
+            on=\$2
+          else
+            echo
+          fi
+      
+          case \$on in
+            [Yy]* )
+              return 0
+              ;;
+            [Nn]* )
+              return 1
+              ;;
+          esac
+        done
+      }
+
       echo 'Deactivating LDAP ...'
       sed --in-place=.bak 's/ldap//' /etc/nsswitch.conf
       echo 'Erasing names cache ...'
@@ -40,8 +77,13 @@ else
       service nscd restart
       service nslcd restart
       echo 'Done. Everything should be okay now'
-      exit
-      ")
+      
+      if ! confirm 'Do you want to go on a rescue root shell ?' 'n' ; then
+        exit
+      fi
+      " > $tempfile
+    sudo bash --rcfile $tempfile
+    rm -f $tempfile
   fi
 fi
 
