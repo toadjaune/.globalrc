@@ -2,6 +2,7 @@
 # Places you into current directory
 pushd $(dirname $0) > /dev/null
 
+
 # Loading common components
 if [ -f ../commonrc ]; then
   pushd .. > /dev/null
@@ -10,24 +11,20 @@ if [ -f ../commonrc ]; then
 fi
 
 # Compinit
-if [ -f compinstall ]; then
-  source compinstall
-fi
+source compinstall
 
 # Conf from gmrl
-if [ -f config ]; then
-  source config
-fi
+source config
+
+# RVM
+source rvm
 
 # Loading prompt
-if [ -f prompt ]; then
-  source prompt
-fi
+source prompt
 
 # zsh-syntax-highlighting, MUST stay last
-if [ -f zsh-syntax-highlighting ]; then
-  source zsh-syntax-highlighting
-fi
+source zsh-syntax-highlighting
+
 
 # Comes back into previous directory
 popd > /dev/null

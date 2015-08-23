@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+# RVM completion
+
+# Allow $ZSH_RVM_PATH to override the usual path
+if [ -z "$ZSH_RVM_PATH" ]; then
+  # Default path
+  ZSH_RVM_PATH="$HOME/.rvm"
+fi
+
+# If RVM is available at this location
+if [[ -d $ZSH_RVM_PATH ]]; then
+  
+  # Add RVM to PATH for scripting
+  export PATH="$PATH:$ZSH_RVM_PATH/bin" 
+  
+  # Load RVM into a shell session *as a function*
+  source "$ZSH_RVM_PATH/scripts/rvm" 
+
+  # RVM completion
+  source $ZSH_RVM_PATH/scripts/completion
+fi
