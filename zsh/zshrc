@@ -16,7 +16,8 @@ source compinstall
 # Conf from gmrl
 source config
 
-# RVM
+# RVM loading (if present)
+# This is quite a bit slow on prompt startup, but I need it ...
 source rvm
 
 # Loading prompt
