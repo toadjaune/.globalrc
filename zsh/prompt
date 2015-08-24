@@ -9,10 +9,10 @@
 ################################################################################
 
 # Set of chars used in prompt
-prompt_tlc='┌'
-prompt_mlc='|'
-prompt_blc='└'
-prompt_hyphen='-'
+prompt_tlc='┌'    # Top left
+prompt_mlc='├─'   # Medium left (for heredocs & co)
+prompt_blc='└'    # Bottom left
+prompt_hyphen='─' # Horizontal separations
 prompt_newline='
 '
 battery_charged_character='▬' #'▸'
@@ -47,8 +47,9 @@ fi
 prompt_tbox="%b%F{$prompt_color1}${prompt_tlc}%b%F{$prompt_color1}${prompt_hyphen}"
 prompt_bbox="%b%F{$prompt_color1}${prompt_blc}%b%F{$prompt_color1}"
 
-# I have no idea how this works ^^
-prompt_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_color1}${prompt_mlc}%b%F{$prompt_color1}${prompt_hyphen}%{"$'\e[B%}'
+# This is basically a hack. It allows you to write characters on the line
+# ABOVE the cursor.
+prompt_bbox_to_mbox=$'%{\e[A\r'"%}%b%F{$prompt_color1}${prompt_mlc}%{"$'\e[B%}'
 
 # left and right parenthesis
 prompt_l_paren="%B%F{black}("
