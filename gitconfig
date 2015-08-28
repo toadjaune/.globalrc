@@ -1,0 +1,19 @@
+# Global git config file
+
+[push]
+  # Only push the current branch
+  default = simple
+
+[core]
+  # Global .gitignore
+  excludesfile = gitignore
+
+  # Adding some mergetool management here might be nice
+  
+  # Repair files with Windows-endline-formatting-style (CRLF) on commit :
+  autocrlf = input
+
+
+# Include private configuration
+[include]
+  path = gitconfig.private
