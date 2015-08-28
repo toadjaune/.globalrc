@@ -18,5 +18,7 @@ if [[ -d $ZSH_RVM_PATH ]]; then
   source "$ZSH_RVM_PATH/scripts/rvm" 
 
   # RVM completion
-  source $ZSH_RVM_PATH/scripts/completion
+  # see .rvm/scripts/completion
+  fpath+=( "$ZSH_RVM_PATH/scripts/extras/completion.zsh" )
+
 fi
