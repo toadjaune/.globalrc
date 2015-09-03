@@ -2,7 +2,7 @@
 
 pushd `dirname $0` > /dev/null
 localdir=`pwd -P`
-. functions
+source bash/functions
 popd > /dev/null
 
 
