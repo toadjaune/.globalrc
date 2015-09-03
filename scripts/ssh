@@ -1,0 +1,21 @@
+#! /bin/bash
+
+# Script to use ssh with custom config file + usual ones.
+# Programs like mosh will automatically use it
+cmd="$(which -a ssh | grep -v "$GLOBALRC" | head -1)"
+if [ -z "$cmd" ]
+then
+  echo 'ssh not found in $PATH' >&2
+  exit 1
+fi
+date >> /tmp/test
+# Execute ssh avec concaténation des fichiers de configuration
+tempfile="sshconfig-$UID-$$-$RANDOM"
+# Concaténation des configurations dans un fichier temporaire
+cat /etc/ssh/ssh_config "$GLOBALRC/ssh_config" ~/.ssh/config > /tmp/"$tempfile" 2> /dev/null
+# Le fichier temporaire n'a pas à être visible des autres utilisateurs
+chmod 400 "/tmp/$tempfile"
+# Execute ssh avec le fichier temporaire
+command "$cmd" -F "/tmp/$tempfile" "$@"
+# Supprime le fichier temporaire
+rm -f "/tmp/$tempfile"

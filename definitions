@@ -7,7 +7,7 @@ export GLOBALRC="$(pwd)"
 # Ajoute les scripts aux programmes par défaut
 if [ -d "$(pwd)/scripts" ]
 then
-  PATH="$PATH:$(pwd)/scripts"
+  PATH="$(pwd)/scripts:$PATH"
 fi
 
 if [ -x /usr/bin/most ]; then

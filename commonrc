@@ -24,8 +24,3 @@ fi
 if [ -f aliases ]; then
   source aliases
 fi
-
-# Ajoute les scripts aux programmes par défaut
-if [ -d "$(pwd)/scripts" ]; then
-  PATH="$PATH:$GLOBALRC/scripts"
-fi

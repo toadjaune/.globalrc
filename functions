@@ -144,37 +144,6 @@ gojo() {
   esac
 }
 
-
-# Execute ssh avec concaténation des fichiers de configuration
-ssh () {
-  local tempfile
-  tempfile="sshconfig-$UID-$$-$RANDOM"
-  # Concaténation des configurations dans un fichier temporaire
-  cat /etc/ssh/ssh_config "$GLOBALRC/ssh_config" ~/.ssh/config > /tmp/"$tempfile" 2> /dev/null
-  # Le fichier temporaire n'a pas à être visible des autres utilisateurs
-  chmod 400 "/tmp/$tempfile"
-  # Execute ssh avec le fichier temporaire
-  command ssh -F "/tmp/$tempfile" "$@"
-  # Supprime le fichier temporaire
-  rm -f "/tmp/$tempfile"
-}
-
-
-# Execute scp avec concaténation des fichiers de configuration
-scp () {
-  local tempfile
-  tempfile="sshconfig-$UID-$$-$RANDOM"
-  # Concaténation des configurations dans un fichier temporaire
-  cat /etc/ssh/ssh_config "$GLOBALRC/ssh_config" ~/.ssh/config > /tmp/"$tempfile" 2> /dev/null
-  # Le fichier temporaire n'a pas à être visible des autres utilisateurs
-  chmod 400 /tmp/"$tempfile"
-  # Execute ssh avec le fichier temporaire
-  command scp -F /tmp/"$tempfile" "$@"
-  # Supprime le fichier temporaire
-  rm -f /tmp/"$tempfile"
-}
-
-
 # Pour le fun
 bonjour (){
   local rnd
