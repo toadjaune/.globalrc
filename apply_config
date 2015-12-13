@@ -31,7 +31,7 @@ if ! grep "$command" ~/.zshrc > /dev/null ; then
 fi
 
 # Create a local account if you only have a LDAP one
-scripts/ldap_to_local
+$GLOBALRC/scripts/ldap_to_local
 
 # Make sure zsh is default shell
 if echo $SHELL | grep 'zsh' > /dev/null ; then
