@@ -2,7 +2,7 @@
 
 # Copyright csdt
 
-export GLOBALRC="$(pwd)"
+export GLOBALRC="$(pwd -P)"
 
 # Ajoute les scripts aux programmes par défaut
 if [ -d "$(pwd)/scripts" ]

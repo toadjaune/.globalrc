@@ -1,36 +1,30 @@
 #!/bin/bash
 
-# Fonction pour demander la confirmation
-confirm() {
-  if [[ "$2" ]]; then
-    if [[ "$2" == "o" ]]; then
-      space="[O/n]"
-    elif [[ "$2" == "n" ]]; then
-      space="[o/N]"
-    else
-      error "La confirmation doit avoir 'o' ou 'n' pour valeur par défaut"
-    fi
-  else
-    space="[o/n]"
-  fi      
-
-  while true; do
-    read -n 1 -p "$1 $space " on
-
-    # default value
-    if [[ "$on" == "" && "$2" ]]; then
-      on=$2
-    else
-      echo
-    fi
-
-    case $on in
-      [Oo]* )
-        return 0
-        ;;
-      [Nn]* )
-        return 1
-        ;;
-    esac
-  done
+# confirm helper                                                                   
+# Usage: confirm "Whould you like to continue?" [yn]                               
+# if y or n is specified, it will be the default answer   
+function confirm() {                                                               
+    space="[y/n]"                                                                  
+        if [ -n "$2" ]; then                                                       
+                case "$2" in                                                       
+            [yY]) space="[Y/n]" ;;                                                 
+            [nN]) space="[y/N]" ;;                                                 
+                esac                                                               
+        fi                                                                         
+                                                                                   
+        while true; do                                                             
+                read -n 1 -p "$1 $space " yn                                       
+                                                                                   
+                # default value                                                    
+                if [[ "$yn" == "" && "$2" ]]; then                                 
+                        yn=$2                                                      
+                else                                                               
+                        echo                                                       
+                fi                                                                 
+                                                                                   
+                case $yn in                                                        
+                    [Yy]*) return 0;;                                              
+                    [Nn]*) return 1;;                                              
+                esac                                                               
+        done                                                                       
 }
