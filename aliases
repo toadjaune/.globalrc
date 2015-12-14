@@ -40,7 +40,7 @@ alias screen='screen -c $GLOBALRC/screenrc'
 alias sc='screen'
 
 # make scp use the custom ssh call
-alias scp="scp -S $GLOBALRC/scripts/ssh"
+alias scp="scp -S ssh"
 
 # sudo -sE
 alias ssudo='sudo -sE'
