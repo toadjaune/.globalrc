@@ -1,32 +1,9 @@
 #! /bin/bash
 
-# Function to print keyboard mapping
+# Functions to print keyboard mapping
 if [ -f keyboards ]; then
   source keyboards
 fi
-
-# Function vim to handle different profiles
-function vim()
-{
-  profile='default'
-
-  TEMP=`getopt -o '' --long profile: -n 'vim' -- "$@"`
-
-  if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
-  eval set -- "$TEMP"
-
-  while true ; do
-    case "$1" in
-      --profile) profile="$2" ; shift 2 ;;
-      --) shift ; break ;;
-      *) echo "Internal error!" ; exit 1 ;;
-    esac
-  done
-  
-  command /usr/bin/vim -u <(cat /etc/vim/vimrc "$GLOBALRC/vim_profiles/vimrc-common" \
-               "$GLOBALRC/vim_profiles/vimrc-$profile" ~/.vimrc 2>/dev/null) $@
-
-}
 
 # repeat n times command
 function repeat()       

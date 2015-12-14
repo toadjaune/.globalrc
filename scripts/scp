@@ -2,7 +2,7 @@
 
 # Grouping ensures the script not to fail when edited or overwritten
 {
-  COMMAND="$(which -a ssh | grep -v "${GLOBALRC:-.globalrc}" | grep -v "${LOCALRC:-.localrc}" | head -1)"
+  COMMAND="$(which -a scp | grep -v "${GLOBALRC:-.globalrc}" | grep -v "${LOCALRC:-.localrc}" | head -1)"
   stty_conf="$(stty -g)"
 
   # ensure the tempfile will be deleted even if the script exits prematurely
@@ -17,7 +17,7 @@
   chmod 600 "$tempfile" # just in case there is a problem with umask
 
   # Concatenate config files higher priority is given to $LOCALRC/sshconfig
-  cat "$LOCALRC/sshconfig" ~/.ssh/config "$GLOBALRC/ssh_config" /etc/ssh/ssh_config > "$tempfile" 2> /dev/null
+  cat "$LOCALRC/sshconfig" "$GLOBALRC/sshconfig" ~/.ssh/config /etc/ssh/ssh_config > "$tempfile" 2> /dev/null
 
   # Execute ssh with the previous generated conf file
   command "$COMMAND" -F "$tempfile" "$@"

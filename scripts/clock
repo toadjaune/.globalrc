@@ -1,0 +1,21 @@
+#! /bin/bash
+
+exec 3<> <(:) || {
+  echo "Unable to open fd 3" >&2
+  exit 1
+}
+
+while :
+do
+  date=
+  cols=
+  date >&3
+  read date <&3
+  tput cols >&3
+  read cols <&3
+  temp="[$date]"
+
+  #temp="$(tput sc ; tput home ; tput cuf $cols ; tput cub ${#temp})$temp$(tput rc)"
+  echo -n $'\0337\033[H\033['${cols}$'C\033['"${#temp}D$temp"$'\0338'
+  sleep 0.5
+done

@@ -1,0 +1,45 @@
+#! /bin/sh
+
+# Grouping ensures the script not to fail when being edited by vim itself
+{
+  # find vim command outside the GLOBALRC dir and the LOCALRC dir
+  COMMAND="$(which -a vim | grep -v "${GLOBALRC:-.globalrc}" | grep -v "${LOCALRC:-.localrc}" | head -1)"
+  stty_conf="$(stty -g)"
+
+  # Delete the tempfile when the script crash or exit before actually delete it
+  trap 'RCODE=$? ; rm -f "$tempfile" ; stty "$stty_conf" ; exit $RCODE' 0 1 2 3 4 6 8 15
+
+  # Generate a unique temp filename
+  tempfile="/tmp/vimrc-$(id -ru)-$$-$(date +%N)"
+
+  # The temp file must not be read by other users
+  umask 077
+  mkfifo "$tempfile"
+  chmod 600 "$tempfile" # just in case there is a problem with umask
+
+  # Generate the dirname to put vim swapfiles in
+  SWAPFILES_DIR="/tmp/vim-swapfiles-$(id -ru)"
+
+  # Create the swapfiles dir
+  [ -d "$SWAPFILES_DIR" ] || mkdir "$SWAPFILES_DIR"
+  chmod 700 "$SWAPFILES_DIR"
+
+  # Generate the configuration and put it into a named pipe
+  {
+    {
+      # This is to make vim not use .swp files everywhere, but in $SWAPFILES_DIR
+      # echo "set directory=$SWAPFILES_DIR//"
+      cat /etc/vim/vimrc ~/.vimrc "$GLOBALRC/vimrc" "$LOCALRC/vimrc" 2> /dev/null
+    } > "$tempfile"
+
+    # delete the named pipe after use
+    rm -f "$tempfile"
+    trap 0 1 2 3 4 6 8 15
+  } &
+
+  # Execute vim command
+  command "$COMMAND" -u "$tempfile" "$@"
+
+  # forward exit code
+  exit $?
+}
