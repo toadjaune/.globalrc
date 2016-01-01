@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# This file tries to set 256-colors environment
+# run `for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done` to see possible colors
+
+# We save the original terminal status, in case we need it
+export TERM_ORIG="$TERM"
+
+# Need to add some check here before doing it
+# Might also need to do something about $TERMCAP
+export TERM=xterm-256color
+
+

@@ -20,16 +20,48 @@ battery_discharged_character='▭' #'▹'
 battery_discharging='%F{red}◀ '
 battery_charging='%F{green}▶ '
 
-# Set of colors used in prompt.
-prompt_color1='cyan'    # hyphens
-prompt_color2='green'   # current directory
-prompt_color3='yellow'  # user@host
-prompt_color5='red'     # date
+######################### Set of colors used in prompt #########################
+if [[ $TERM =~ '256color' ]]; then
+  # We have 256-color support \o/
+
+  prompt_color1='156'     # hyphens
+  prompt_color2='green'   # current directory
+  prompt_color3='yellow'  # user@host
+  prompt_color5='red'     # date
+
+  # If we are over ssh
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] ; then
+    prompt_color1='75'
+  fi
+  
+  # If we are root
+  if [ $UID = 0 ] ; then
+    prompt_color1='red'
+  fi
+
+else
+  # We have no 256-color support
+  prompt_color1='green'    # hyphens
+  prompt_color2='green'   # current directory
+  prompt_color3='yellow'  # user@host
+  prompt_color5='red'     # date
+
+  # If we are over ssh
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] ; then
+    prompt_color1='cyan'
+  fi
+  
+  # If we are root
+  if [ $UID = 0 ] ; then
+    prompt_color1='red'
+  fi
+fi
+
 battery_color_high=%F{green}
 battery_color_medium=%F{yellow}
 battery_color_low=%b%F{red}
 battery_color_background=''
-
+  
 ################################################################################
 
 # Loading git info
