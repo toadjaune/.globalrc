@@ -6,8 +6,14 @@
 autoload -U run-help
 autoload run-help-git
 
+# Report about cpu-/system-/user-time of command if running longer than 5 seconds
+REPORTTIME=5
+# This prints a message every time somebody else than me logs in/out
+watch=notme
 
-# Exctracted from gmrl conf. See file in 'components' folder
+
+
+### Extracted from gmrl conf. See file in 'components' folder ###
 
 # append history list to the history file; this is the default but we make sure
 # because it's required for share_history.
