@@ -24,53 +24,59 @@ touch ~/.zshrc
 if ! grep "$command" ~/.zshrc > /dev/null ; then
   chmod 755 "$GLOBALRC/scripts"
   echo                                                  >> ~/.zshrc
-  echo "# Charge les composantes globales du zshrc"     >> ~/.zshrc
+  echo "# Loads global components of zshrc"             >> ~/.zshrc
   echo "if [ -f $GLOBALRC/zsh/zshrc ]; then"            >> ~/.zshrc
   echo "  $command"                                     >> ~/.zshrc
   echo "fi"                                             >> ~/.zshrc
 fi
 
-# Create a local account if you only have a LDAP one
-$GLOBALRC/scripts/ldap_to_local
+# This is a temporary fix
+if [[ $1 == '--full' ]] ; then
 
-# Make sure zsh is default shell
-if echo $SHELL | grep 'zsh' > /dev/null ; then
-  echo "zsh is already your default shell, that's good !"
-else
-  # Check if zsh is installed
-  if cat /etc/shells | grep 'zsh' > /dev/null ; then
-    echo 'zsh is already installed, making it default shell'
-    chsh -s $(which zsh)
-    echo "done."
+  # Create a local account if you only have a LDAP one
+  $GLOBALRC/scripts/ldap_to_local
+  
+  # Make sure zsh is default shell
+  if echo $SHELL | grep 'zsh' > /dev/null ; then
+    echo "zsh is already your default shell, that's good !"
   else
-    # Ask if we should try to install zsh
-    if confirm "zsh is not installed.\nDo you want to install it ?" o ; then
-      if sudo apt-get -y install zsh ; then
-        echo 'zsh is now installed, making it default shell'
+    # Check if zsh is installed
+    if cat /etc/shells | grep 'zsh' > /dev/null ; then
+      if confirm "zsh is already installed, do you want to make it your default shell ?" ; then
         chsh -s $(which zsh)
         echo "done."
-      else
-        echo 'Not installing zsh.'
+      fi
+    else
+      # Ask if we should try to install zsh
+      if confirm "zsh is not installed.\nDo you want to install it ?" o ; then
+        if sudo apt-get -y install zsh ; then
+          echo 'zsh is now installed, making it default shell'
+          chsh -s $(which zsh)
+          echo "done."
+        else
+          echo 'Not installing zsh.'
+        fi
       fi
     fi
   fi
-fi
-echo
-
-# Installing usual tools
-if which vim    | grep 'vim'    > /dev/null && \
-   which screen | grep 'screen' > /dev/null && \
-   which git    | grep 'git' > /dev/null && \
-   which most   | grep 'most'   > /dev/null ; then
-  echo 'Usual tools already installed, not doing anything.'
-else
-  if confirm "Do you want to install usual customized tools (vim, screen, git, most) ?" o ; then
-    if sudo apt-get install -y vim screen git most ; then
-      echo 'Installation successful.'
-    else
-      echo 'Installation failed.'
-    fi
+  echo
+  
+  # Installing usual tools
+  if which vim    | grep 'vim'    > /dev/null && \
+     which screen | grep 'screen' > /dev/null && \
+     which git    | grep 'git' > /dev/null && \
+     which most   | grep 'most'   > /dev/null ; then
+    echo 'Usual tools already installed, not doing anything.'
   else
-    echo "Don't installing anything."
+    if confirm "Do you want to install usual customized tools (vim, screen, git, most) ?" o ; then
+      if sudo apt-get install -y vim screen git most ; then
+        echo 'Installation successful.'
+      else
+        echo 'Installation failed.'
+      fi
+    else
+      echo "Don't installing anything."
+    fi
   fi
+
 fi
