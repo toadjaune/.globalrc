@@ -24,24 +24,22 @@ battery_charging='%F{green}▶ '
 if [[ $TERM =~ '256color' ]]; then
   # We have 256-color support \o/
 
-  prompt_color1='156'     # hyphens
+  # We are doing a md5 hash of hostname to determine this color.
+  # This way it is different on every machine
+  prompt_color1=$(echo "ibase=16; `echo $HOST | md5sum | cut -b 1-2`" | bc) # hyphens
   prompt_color2='green'   # current directory
   prompt_color3='yellow'  # user@host
-  prompt_color5='red'     # date
+  prompt_color5='yellow'  # date
 
-  # If we are over ssh
-  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] ; then
-    prompt_color1='75'
-  fi
-  
   # If we are root
   if [ $UID = 0 ] ; then
-    prompt_color1='red'
+    prompt_color3='red'
+    prompt_color5='red'
   fi
 
 else
   # We have no 256-color support
-  prompt_color1='green'    # hyphens
+  prompt_color1='green'   # hyphens
   prompt_color2='green'   # current directory
   prompt_color3='yellow'  # user@host
   prompt_color5='red'     # date
