@@ -1,6 +1,6 @@
 [submodule "zsh/components/zsh-syntax-highlighting"]
 	path = zsh/components/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "lib/globalrc"]
-	path = lib/globalrc
+[submodule "lib/csdt-globalrc"]
+	path = lib/csdt-globalrc
 	url = https://github.com/csdt/globalrc
