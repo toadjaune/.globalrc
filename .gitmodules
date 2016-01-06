@@ -1,5 +1,5 @@
 [submodule "zsh/components/zsh-syntax-highlighting"]
-	path = zsh/components/zsh-syntax-highlighting
+	path = lib/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "lib/csdt-globalrc"]
 	path = lib/csdt-globalrc

@@ -6,8 +6,8 @@
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 # Then source the script
-if [ -f components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source components/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+if [ -f ../lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source ../lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 fi
 
 ZSH_HIGHLIGHT_STYLES+=(
