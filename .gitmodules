@@ -3,4 +3,4 @@
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "lib/csdt-globalrc"]
 	path = lib/csdt-globalrc
-	url = https://github.com/csdt/globalrc
+	url = https://github.com/toadjaune/globalrc
