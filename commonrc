@@ -2,12 +2,18 @@
 
 # /!\ You must already be in current directory for this to work /!\
 
-# Chargement des définitions
+# Testing Unicode environment
+# Currently, this automatically fails on a non-amd64 arch. I should fix it.
+if [[ `uname -i` = 'x86_64' ]] && `scripts/wcinfo 2713` ; then
+  export UNICODE_VALID=1
+fi
+
+# Loading definitions
 if [ -f definitions ]; then
   source definitions
 fi
 
-# Chargement des functions
+# Loading functions
 if [ -f functions ]; then
   source functions
 fi
@@ -16,11 +22,11 @@ fi
 if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
 
 #  echo ".globalrc version" $(cat $GLOBALRC/version)
-  # on affiche le logo
+  # Display the logo
   cat logo
 fi
 
-# Chargement des aliases
+# Loading aliases
 if [ -f aliases ]; then
   source aliases
 fi
