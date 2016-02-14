@@ -1,24 +1,37 @@
 #!/bin/zsh
 
 # Main file generating the prompt.
-# Based on ... many people's ones.
-# TODO: list the mains here
 
 ################################################################################
 #                                    CONFIG                                    #
 ################################################################################
 
 # Set of chars used in prompt
-prompt_tlc='┌'    # Top left
-prompt_mlc='├─'   # Medium left (for heredocs & co)
-prompt_blc='└'    # Bottom left
-prompt_hyphen='─' # Horizontal separations
-prompt_newline='
+if [[ $UNICODE_VALID != 0 ]]; then
+  # Real good-looking characters
+  prompt_tlc='┌'    # Top left
+  prompt_mlc='├─'   # Medium left (for heredocs & co)
+  prompt_blc='└'    # Bottom left
+  prompt_hyphen='─' # Horizontal separations
+  prompt_newline='
 '
-battery_charged_character='▬' #'▸'
-battery_discharged_character='▭' #'▹'
-battery_discharging='%F{red}◀ '
-battery_charging='%F{green}▶ '
+  battery_charged_character='▬' #'▸'
+  battery_discharged_character='▭' #'▹'
+  battery_discharging='%F{red}◀ '
+  battery_charging='%F{green}▶ '
+else
+  # ASCII FALLBACK
+  prompt_tlc=','    # Top left
+  prompt_mlc='|-'   # Medium left (for heredocs & co)
+  prompt_blc="'"    # Bottom left
+  prompt_hyphen='-' # Horizontal separations
+  prompt_newline='
+'
+  battery_charged_character='|'
+  battery_discharged_character='-'
+  battery_discharging='%F{red}< '
+  battery_charging='%F{green}> '
+fi
 
 ######################### Set of colors used in prompt #########################
 if [[ $TERM =~ '256color' ]]; then
