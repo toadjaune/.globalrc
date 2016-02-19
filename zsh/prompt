@@ -7,7 +7,7 @@
 ################################################################################
 
 # Set of chars used in prompt
-if [[ $UNICODE_VALID != 0 ]]; then
+if [[ $UNICODE_VALID == 1 ]]; then
   # Real good-looking characters
   prompt_tlc='┌'    # Top left
   prompt_mlc='├─'   # Medium left (for heredocs & co)
@@ -37,7 +37,7 @@ fi
 if [[ $TERM =~ '256color' ]]; then
   # We have 256-color support \o/
 
-  if [ -x /usr/bin/bc ]
+  if [ -x /usr/bin/bc ]; then
     # We are doing a md5 hash of hostname to determine this color.
     # This way it is different on every machine
     prompt_color1=$(echo "ibase=16; `echo $HOST | md5sum | cut -b 1-2`" | bc) # hyphens

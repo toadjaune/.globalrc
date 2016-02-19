@@ -4,7 +4,7 @@
 
 # Testing Unicode environment
 # Currently, this automatically fails on a non-amd64 arch. I should fix it.
-if [[ `uname -i` = 'x86_64' ]] && `scripts/unicode_test 2713` ; then
+if [[ `uname -m` = 'x86_64' ]] && `scripts/unicode_test 2713` ; then
   export UNICODE_VALID=1
 fi
 
