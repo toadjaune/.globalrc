@@ -37,9 +37,13 @@ fi
 if [[ $TERM =~ '256color' ]]; then
   # We have 256-color support \o/
 
-  # We are doing a md5 hash of hostname to determine this color.
-  # This way it is different on every machine
-  prompt_color1=$(echo "ibase=16; `echo $HOST | md5sum | cut -b 1-2`" | bc) # hyphens
+  if [ -x /usr/bin/bc ]
+    # We are doing a md5 hash of hostname to determine this color.
+    # This way it is different on every machine
+    prompt_color1=$(echo "ibase=16; `echo $HOST | md5sum | cut -b 1-2`" | bc) # hyphens
+  else
+    prompt_color1='green'
+  fi
   prompt_color2='green'   # current directory
   prompt_color3='yellow'  # user@host
   prompt_color5='yellow'  # date
