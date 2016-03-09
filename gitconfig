@@ -2,7 +2,7 @@
 
 [push]
   # Only push the current branch
-  default = simple
+  default = matching
 
 [core]
   # Global .gitignore
@@ -13,6 +13,8 @@
   # Repair files with Windows-endline-formatting-style (CRLF) on commit :
   autocrlf = input
 
+[alias]
+	fullog = commit --oneline --graph --all --decorate
 
 # Include private configuration
 [include]
