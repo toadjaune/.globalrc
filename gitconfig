@@ -14,7 +14,7 @@
   autocrlf = input
 
 [alias]
-	fullog = commit --oneline --graph --all --decorate
+	fullog = log --oneline --graph --all --decorate
 
 # Include private configuration
 [include]
