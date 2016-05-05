@@ -1,1 +1,57 @@
-../lib/csdt-globalrc/scripts/ldap_to_local
+#! /bin/bash
+
+# This script transforms a LDAP acces via PAM in a local access.
+# Be VERY careful using it, it could break LDAP access.
+source $GLOBALRC/bash/functions
+
+LdapUid=`id -u`
+Username=`id -u -n`
+
+if [ $LdapUid = 0 ] ; then
+  echo "Do not run this script as root (but you need sudo access)"
+else
+  if cat /etc/passwd | grep $Username > /dev/null ; then
+    echo "You already have a local account, there's no need to create one. (That's good !)"
+  else
+    echo "You only have a LDAP account, making a local one is usually a good idea.
+It is nessessary if zsh is not your default shell and if you want to change this locally.
+It is also more secure in case of LDAP downtime.
+However, don't do it unless you know what the scripts/ldap_to_local is doing."
+    if confirm "Do you want to create yourself a local account ?" "y"; then
+      # We use this trick to keep sudo access during the script, but we need to be
+      # careful escaping variables, etc ...
+      tempfile="/tmp/ldap-to-local-$UID-$$-$RANDOM"
+      # We need the confirm helper in the tempfile
+      cp $GLOBALRC/bash/functions $tempfile
+      echo "
+
+        echo 'Deactivating LDAP ...'
+        sed --in-place=.bak 's/ldap//' /etc/nsswitch.conf
+        echo 'Erasing names cache ...'
+        nscd -i passwd && service nscd stop
+        echo 'Creating new local user ...'
+        adduser $Username
+        adduser $Username sudo
+        LocalUid=\`id -u $Username\`
+        echo 'Changing file permissions in $HOME ...'
+        chown -R $Username: $HOME
+        echo \"Done. If you owned files in other places than $HOME, you might need to run something like :
+        \\\`find / -uid $LdapUid -exec chown \$LocalUid {} \\\`
+        LDAP uid : $LdapUid
+        Local uid : \$LocalUid \"
+        echo 'You might also need to do something about your gid'
+        echo 'Reactivating LDAP ...'
+        cp /etc/nsswitch.conf.bak /etc/nsswitch.conf
+        echo 'Restarting daemons'
+        service nscd start
+        echo 'Done. Everything should be okay now'
+        
+        if ! confirm 'Do you want to go on a rescue root shell to fix anything ?' 'n' ; then
+          exit
+        fi
+        " >> $tempfile
+      sudo bash --rcfile $tempfile
+      rm -f $tempfile
+    fi
+  fi
+fi
