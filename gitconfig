@@ -16,6 +16,8 @@
 [alias]
 	fullog = log --oneline --graph --all --decorate
 
+[merge]
+  tool = vimdiff
 # Include private configuration
 [include]
   path = gitconfig.private
