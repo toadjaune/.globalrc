@@ -14,6 +14,8 @@ set autoread
 
 "set directory=/tmp/vim-swapfiles-$UID//
 
+" Use :W to save with sudo if you opened the file without enough rights
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
