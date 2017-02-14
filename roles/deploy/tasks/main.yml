@@ -1,0 +1,13 @@
+- name: Create globalrc directory structure
+  file:
+    state: directory
+    dest: '~/globalrc/{{ item.path }}'
+  with_filetree: '../templates/globalrc'
+  when: item.state == 'directory'
+
+- name: Copy globalrc files
+  template:
+    src: '{{ item.src }}'
+    dest: '~/globalrc/{{ item.path }}'
+  with_filetree: '../templates/globalrc'
+  when: item.state == 'file'
