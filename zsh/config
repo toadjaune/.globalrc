@@ -19,9 +19,6 @@ watch=notme
 # because it's required for share_history.
 setopt append_history
 
-# import new commands from the history file also in other zsh-session
-setopt share_history
-
 # save each command's beginning timestamp and the duration to the history file
 setopt extended_history
 
@@ -49,39 +46,39 @@ setopt nobeep
 # don't push the same dir twice.
 setopt pushd_ignore_dups
 
-    # Provide more processes in completion of programs like killall:
-    zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+# Provide more processes in completion of programs like killall:
+zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
 
-    # Search path for sudo completion
-    zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
-                                               /usr/local/bin  \
-                                               /usr/sbin       \
-                                               /usr/bin        \
-                                               /sbin           \
-                                               /bin            \
-                                               /usr/X11R6/bin
+# Search path for sudo completion
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
+                                           /usr/local/bin  \
+                                           /usr/sbin       \
+                                           /usr/bin        \
+                                           /sbin           \
+                                           /bin            \
+                                           /usr/X11R6/bin
 
 
-    # host completion TODO: include .globalrc/ssh_hosts
-    [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
-    [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
-    [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-    
-    hosts=(
-        $(hostname)
-        "$_ssh_config_hosts[@]"
-        "$_ssh_hosts[@]"
-        "$_etc_hosts[@]"
-        localhost
-    )
-    zstyle ':completion:*:hosts' hosts $hosts
+# host completion TODO: include .globalrc/ssh_hosts
+[[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
+[[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+[[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
 
-    # use generic completion system for programs not yet defined; (_gnu_generic works
-    # with commands that provide a --help option with "standard" gnu-like output.)
-    for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
-                   pal stow uname ; do
-        [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
-    done; unset compcom
+hosts=(
+    $(hostname)
+    "$_ssh_config_hosts[@]"
+    "$_ssh_hosts[@]"
+    "$_etc_hosts[@]"
+    localhost
+)
+zstyle ':completion:*:hosts' hosts $hosts
+
+# use generic completion system for programs not yet defined; (_gnu_generic works
+# with commands that provide a --help option with "standard" gnu-like output.)
+for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
+               pal stow uname ; do
+    [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
+done; unset compcom
 
 # set variable debian_chroot if running in a chroot with /etc/debian_chroot
 if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]] ; then
