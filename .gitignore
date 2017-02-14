@@ -1,4 +1,3 @@
-ssh_config
-gitconfig.private
+globalrc/ssh_config
+globalrc/gitconfig.private
 *.swp
-scripts/local
