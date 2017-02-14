@@ -6,7 +6,8 @@
 
 [core]
   # Global .gitignore
-  excludesfile = gitignore
+  # TODO: Make this use $GLOBALRC
+  excludesfile = ~/.globalrc/gitignore
 
   # Adding some mergetool management here might be nice
   
