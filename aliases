@@ -48,8 +48,8 @@ alias ssuod='ssudo'
 alias suod='sudo'
 
 # maj
-if [ -f $(which apt-get) ]; then
-  alias maj='sudo apt-get update && sudo apt-get upgrade'
+if [ $(which apt-get 2> /dev/null) ]; then
+  alias maj='sudo apt-get update && sudo apt-get dist-upgrade'
 fi
 
 # les 10 plus gros fichiers/répertoires du réperoitre en cours
