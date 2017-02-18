@@ -1,4 +1,4 @@
-globalrc/ssh_config
-globalrc/gitconfig.private
+roles/deploy/files/ssh_config
+roles/deploy/files/gitconfig.private
 *.swp
 *.retry

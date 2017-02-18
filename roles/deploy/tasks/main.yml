@@ -50,9 +50,9 @@
     block:  |
       # Loading global git configuration
       [include]
-        path = {{ remote_directory }}/gitconfig
+        path = {{ remote_directory }}/files/gitconfig
       # Global .gitignore
       [core]
-        excludesfile = {{ remote_directory }}/gitignore
+        excludesfile = {{ remote_directory }}/files/gitignore
 
 
