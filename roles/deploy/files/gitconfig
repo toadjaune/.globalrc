@@ -5,10 +5,6 @@
   default = matching
 
 [core]
-  # Global .gitignore
-  # TODO: Make this use $GLOBALRC
-  excludesfile = ~/.globalrc/gitignore
-
   # Adding some mergetool management here might be nice
   
   # Repair files with Windows-endline-formatting-style (CRLF) on commit :

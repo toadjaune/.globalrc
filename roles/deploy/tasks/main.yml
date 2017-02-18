@@ -27,14 +27,14 @@
 
 - name: Setup the loading via .bashrc
   blockinfile:
-    dest:   ~/.bashrc
+    dest:   "{{ ansible_user_dir }}/.bashrc"
     block:  |
       # Load custom configuration
       . {{ remote_directory }}/files/bash/bashrc
 
 - name: Setup the loading via .zshrc
   blockinfile:
-    dest:   ~/.zshrc
+    dest:   "{{ ansible_user_dir }}/.zshrc"
     block:  |
       # Load custom configuration
       . {{ remote_directory }}/files/zsh/zshrc
@@ -43,4 +43,16 @@
   include: root.yml
   become:         true
   ignore_errors:  true
+
+- name: Load git configuration
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.gitconfig"
+    block:  |
+      # Loading global git configuration
+      [include]
+        path = {{ remote_directory }}/gitconfig
+      # Global .gitignore
+      [core]
+        excludesfile = {{ remote_directory }}/gitignore
+
 
