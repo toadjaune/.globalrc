@@ -1,2 +1,2 @@
 # Location of the main directory on the remote machine
-remote_directory:   ~/.globalrc
+remote_directory:   "{{ ansible_user_dir }}/.globalrc"
