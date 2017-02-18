@@ -39,9 +39,8 @@
       # Load custom configuration
       . {{ remote_directory }}/files/zsh/zshrc
 
-- name: Try to set zsh as default shell
-  user:
-    name:   "{{ ansible_user_id }}"
-    shell:  /bin/zsh
-  ignore_errors: true
+- name: Start the components requiring root access
+  include: root.yml
+  become:         true
+  ignore_errors:  true
 

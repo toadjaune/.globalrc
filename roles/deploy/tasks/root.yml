@@ -1,0 +1,21 @@
+
+- name: Set zsh as default shell
+  user:
+    name:   "{{ ansible_user_id }}"
+    shell:  /bin/zsh
+
+- name: Install zsh and usual tools (Debian)
+  apt:
+    name: "{{ item }}"
+    update_cache:     true
+    cache_valid_time: 3600
+  when: ansible_os_family == 'Debian'
+  with_items:
+    - zsh
+    - git
+    - vim
+    - screen
+    - tmux
+    - most
+
+  
