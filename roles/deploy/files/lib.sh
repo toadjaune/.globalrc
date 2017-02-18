@@ -1,1 +1,0 @@
-lib/csdt-globalrc/lib.sh
