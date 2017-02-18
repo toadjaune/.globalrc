@@ -1,13 +1,26 @@
-- name: Create globalrc directory structure
+- name: Create main directory
   file:
-    state: directory
-    dest: '~/globalrc/{{ item.path }}'
-  with_filetree: '../templates/globalrc'
-  when: item.state == 'directory'
+    path:   "{{ remote_directory }}"
+    state:  directory
 
-- name: Copy globalrc files
-  template:
-    src: '{{ item.src }}'
-    dest: '~/globalrc/{{ item.path }}'
-  with_filetree: '../templates/globalrc'
-  when: item.state == 'file'
+- name: Synchronize static files
+  synchronize:
+    src:        .
+    dest:       "{{ remote_directory }}/files"
+    recursive:  true
+    delete:     true
+    perms:      true
+
+# - name: Create globalrc directory structure
+#   file:
+#     state: directory
+#     dest: '{{ remote_directory }}/{{ item.path }}'
+#   with_filetree: '../templates/globalrc'
+#   when: item.state == 'directory'
+# 
+# - name: Copy globalrc files
+#   template:
+#     src: '{{ item.src }}'
+#     dest: '{{ remote_directory }}/{{ item.path }}'
+#   with_filetree: '../templates/globalrc'
+#   when: item.state == 'file'

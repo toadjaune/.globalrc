@@ -1,3 +1,4 @@
 globalrc/ssh_config
 globalrc/gitconfig.private
 *.swp
+*.retry
