@@ -15,6 +15,10 @@ set autoread
 " Use :W to save with sudo if you opened the file without enough rights
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
+" Allow use of ; instead of : to reduce the number of keystrokes on QWERTY
+" keyboard
+nnoremap ; :
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

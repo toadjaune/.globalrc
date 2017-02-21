@@ -31,9 +31,8 @@ alias ....='cd ../../..'
 # Historique
 alias h='history'
 
-# alias pour que vim utilise des profiles différents rapidement
-alias vimc='vim --profile c'
-alias vimp='vim --profile paste'
+# On RedHat family systems, use vimx if installed, to have access to clipboard from vim
+if [ -e /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 
 # alias pour que screen utilise le fichier de conf local
 alias screen='screen -c $GLOBALRC/screenrc'
