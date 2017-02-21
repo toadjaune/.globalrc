@@ -1,7 +1,3 @@
-set hidden
-
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -9,10 +5,12 @@ set hidden
 filetype plugin on
 filetype indent on
 
+" Hides buffers instead of closing them
+" This allows you to have several files open with unsaved chages
+set hidden
+
 " Set to auto read when a file is changed from the outside
 set autoread
-
-"set directory=/tmp/vim-swapfiles-$UID//
 
 " Use :W to save with sudo if you opened the file without enough rights
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!

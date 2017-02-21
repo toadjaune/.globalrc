@@ -28,6 +28,7 @@
 - name: Setup the loading via .bashrc
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.bashrc"
+    create: true
     block:  |
       # Load custom configuration
       . {{ remote_directory }}/files/bash/bashrc
@@ -35,6 +36,7 @@
 - name: Setup the loading via .zshrc
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.zshrc"
+    create: true
     block:  |
       # Load custom configuration
       . {{ remote_directory }}/files/zsh/zshrc
@@ -47,6 +49,7 @@
 - name: Load git configuration
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.gitconfig"
+    create: true
     block:  |
       # Loading global git configuration
       [include]
@@ -55,4 +58,12 @@
       [core]
         excludesfile = {{ remote_directory }}/files/gitignore
 
-
+- name: Load vim configuration
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.vimrc"
+    create: true
+    marker: "\" {mark} ANSIBLE MANAGED BLOCK"
+    block:  |
+      \" Loading global vim configuration
+      source {{ remote_directory }}/files/vimrc
+    
