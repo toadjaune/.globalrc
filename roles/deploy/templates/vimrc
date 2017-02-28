@@ -24,11 +24,13 @@ Plugin 'VundleVim/Vundle.vim'
 " http://vim.wikia.com/wiki/Use_Vim_like_an_IDE
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
-Plugin 'nvie/vim-togglemouse' " toggle mouse access with F12
+" Key mappings
+Plugin 'nvie/vim-togglemouse'   " toggle mouse access with F12
+Plugin 'vim-scripts/CycleColor' " cycle through colors via F4
 
 " Filesystem access (Tree ...)
-Plugin 'scrooloose/nerdtree'  " filesystem tree
-Plugin 'kien/ctrlp.vim'       " fuzzy search through filesystem/buffers
+Plugin 'scrooloose/nerdtree'    " filesystem tree
+Plugin 'kien/ctrlp.vim'         " fuzzy search through filesystem/buffers
 
 " Git
 Plugin 'tpope/vim-fugitive'
@@ -42,6 +44,11 @@ Plugin 'tpope/vim-endwise' " NB: This plugin also affects other languages
 
 " Colors
 Plugin 'agude/vim-eldar'
+" Plugin 'https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim'
+Plugin 'Lokaltog/vim-distinguished'
+" Plugin 'https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim'
+Plugin 'tpope/vim-vividchalk'
+" Plugin 'http://www.vim.org/scripts/download_script.php?src_id=817'
 
 """""""""""""""
 
@@ -106,7 +113,7 @@ map! <F9> <C-O>:set nu!<cr><C-O>:setlocal paste!<cr>
 
 " Color
 set background=dark
-colorscheme eldar
+silent! colorscheme eldar
 
 map <F12> :let @/ = ""<cr>
 
