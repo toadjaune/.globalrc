@@ -11,19 +11,19 @@
     delete:     true
     perms:      true
 
-# - name: Create globalrc directory structure
-#   file:
-#     state: directory
-#     dest: '{{ remote_directory }}/{{ item.path }}'
-#   with_filetree: '../templates/globalrc'
-#   when: item.state == 'directory'
-# 
-# - name: Copy globalrc files
-#   template:
-#     src: '{{ item.src }}'
-#     dest: '{{ remote_directory }}/{{ item.path }}'
-#   with_filetree: '../templates/globalrc'
-#   when: item.state == 'file'
+- name: Create templates directory structure
+  file:
+    state: directory
+    dest: '{{ remote_directory }}/templates/{{ item.path }}'
+  with_filetree: '../templates'
+  when: item.state == 'directory'
+
+- name: Process templates
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ remote_directory }}/templates/{{ item.path }}'
+  with_filetree: '../templates'
+  when: item.state == 'file'
 
 - name: Setup the loading via .bashrc
   blockinfile:
