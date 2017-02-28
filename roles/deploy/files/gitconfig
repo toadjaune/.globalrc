@@ -2,7 +2,7 @@
 
 [push]
   # Only push the current branch
-  default = matching
+  default = upstream
 
 [core]
   # Adding some mergetool management here might be nice
