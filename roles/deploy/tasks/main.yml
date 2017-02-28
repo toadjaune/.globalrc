@@ -42,9 +42,9 @@
       . {{ remote_directory }}/files/zsh/zshrc
 
 - name: Start the components requiring root access
-  include: root.yml
-  become:         true
-  ignore_errors:  true
+  include:  root.yml
+  become:   true
+  when:     have_root
 
 - name: Load git configuration
   blockinfile:

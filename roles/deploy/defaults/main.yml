@@ -1,2 +1,5 @@
 # Location of the main directory on the remote machine
 remote_directory:   "{{ ansible_user_dir }}/.globalrc"
+
+# Set this to true if you want to perform the operations requiring root, for a first-time install
+have_root:  false
