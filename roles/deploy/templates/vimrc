@@ -24,9 +24,10 @@ Plugin 'VundleVim/Vundle.vim'
 " http://vim.wikia.com/wiki/Use_Vim_like_an_IDE
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
-" Key mappings
+" User interface
 Plugin 'nvie/vim-togglemouse'   " toggle mouse access with F12
 Plugin 'vim-scripts/CycleColor' " cycle through colors via F4
+Plugin 'godlygeek/tabular'      " provides :Tab to align text
 
 " Filesystem access (Tree ...)
 Plugin 'scrooloose/nerdtree'    " filesystem tree
