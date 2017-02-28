@@ -1,0 +1,19 @@
+- name: Setup Vim configuration loading
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.vimrc"
+    create: true
+    marker: "\" {mark} ANSIBLE MANAGED BLOCK"
+    block:  |
+      \" Loading global vim configuration
+      source {{ remote_directory }}/files/vimrc
+    
+- name: Install Vundle for Vim plugin management
+  git:
+    repo:   https://github.com/VundleVim/Vundle.vim.git
+    dest:   "{{ remote_directory }}/vim/bundle/Vundle.vim"
+    update: true
+
+- name: Use Vundle to Install/Update vim plugins
+  command:      vim +PluginInstall! +qall
+  # NB : We have no way to know if this commad actually changed something
+  changed_when: false

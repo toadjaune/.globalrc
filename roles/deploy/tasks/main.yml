@@ -58,12 +58,5 @@
       [core]
         excludesfile = {{ remote_directory }}/files/gitignore
 
-- name: Load vim configuration
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.vimrc"
-    create: true
-    marker: "\" {mark} ANSIBLE MANAGED BLOCK"
-    block:  |
-      \" Loading global vim configuration
-      source {{ remote_directory }}/files/vimrc
-    
+- name: Install vim configuration
+  include: vim.yml
