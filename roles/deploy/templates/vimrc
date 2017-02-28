@@ -33,18 +33,33 @@ Plugin 'kien/ctrlp.vim'       " fuzzy search through filesystem/buffers
 " Git
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " Ruby & Rails
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-endwise' " NB: This plugin also affects other languages
 
+" Colors
+Plugin 'agude/vim-eldar'
 
 """""""""""""""
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin-specific configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""" nerdtree """
+" start nerdtree automatically if vim is started without argument
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" start nerdtree automatically if vim starts opening a directory
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,6 +106,7 @@ map! <F9> <C-O>:set nu!<cr><C-O>:setlocal paste!<cr>
 
 " Color
 set background=dark
+colorscheme eldar
 
 map <F12> :let @/ = ""<cr>
 
