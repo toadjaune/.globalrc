@@ -60,6 +60,7 @@
 
 - name: Install vim configuration
   include: vim.yml
+  tags: vim
 
 # /!\ TODO: Find a way allowing local configuration
 # Currently, this task will fail if there is already a file
