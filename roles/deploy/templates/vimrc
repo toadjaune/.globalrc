@@ -1,3 +1,6 @@
+" Nice example to get started :
+" http://nvie.com/posts/how-i-boosted-my-vim/
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Load Plugins via Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -21,8 +24,11 @@ Plugin 'VundleVim/Vundle.vim'
 " http://vim.wikia.com/wiki/Use_Vim_like_an_IDE
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
+Plugin 'nvie/vim-togglemouse' " toggle mouse access with F12
+
 " Filesystem access (Tree ...)
-Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'  " filesystem tree
+Plugin 'kien/ctrlp.vim'       " fuzzy search through filesystem/buffers
 
 " Git
 Plugin 'tpope/vim-fugitive'
@@ -61,21 +67,11 @@ nnoremap ; :
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
+
+set backspace=eol,start,indent  " Allow backspacing over everything in insert mode
+
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases 
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -83,16 +79,10 @@ set lazyredraw
 " For regular expressions turn magic on
 set magic
 
-" Show matching brackets when text indicator is over them
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" Show line number
-set number
-
-" Enable mouse interaction
-" set mouse=a
+set showmatch     " Show matching brackets when text indicator is over them
+set mat=2         " How many tenths of a second to blink when matching brackets
+set number        " Show line number
+set mouse=a       " Enable mouse interaction
 
 " Enable/Disable Paste Mode
 set pastetoggle=<F10>
@@ -104,6 +94,36 @@ set background=dark
 
 map <F12> :let @/ = ""<cr>
 
+" change the mapleader from \ to ,
+let mapleader=","
+
+set history=1000         " remember more commands and search history
+set undolevels=1000      " remember more actions in undo buffer
+set title                " change the terminal's title
+set visualbell           " don't beep
+set noerrorbells         " don't beep
+
+" Display whitespaces
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Search settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set ignorecase    " Ignore case when searching
+set smartcase     " ignore case if search pattern is all lowercase,
+                    "    case-sensitive otherwise
+set hlsearch      " Highlight search results
+set incsearch     " show search matches as you type
+nmap <silent> ,/ :nohlsearch<CR>
+                  " clear search buffer by typing ,/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -122,19 +142,19 @@ set ffs=unix,dos,mac
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
 
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 2 spaces
-set shiftwidth=2
+set autoindent    " always set autoindenting on
+set copyindent    " copy the previous indentation on autoindenting
+set expandtab     " use spaces instead of tabs
+set smarttab      " insert tabs on the start of a line according to
+                    "    shiftwidth, not tabstop
+set shiftwidth=2  " 1 tab == 2 spaces
 set tabstop=2
+set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 
 set smartindent
 if has("autocmd")
-  filetype plugin indent on
+  filetype plugin indent on " Detect indentation rules based on file extension
 endif
 
 set ai "Auto indent
