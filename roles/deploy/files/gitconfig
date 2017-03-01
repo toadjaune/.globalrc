@@ -5,16 +5,15 @@
   default = upstream
 
 [core]
-  # Adding some mergetool management here might be nice
-  
   # Repair files with Windows-endline-formatting-style (CRLF) on commit :
   autocrlf = input
 
 [alias]
-	fullog = log --oneline --graph --all --decorate
+  fullog = log --oneline --graph --all --decorate
 
 [merge]
   tool = vimdiff
+
 # Include private configuration
 [include]
   path = gitconfig.private
