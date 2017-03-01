@@ -11,6 +11,11 @@
     delete:     true
     perms:      true
 
+- name: Create templates directory
+  file:
+    state:  directory
+    dest:   '{{ remote_directory }}/templates'
+
 - name: Create templates directory structure
   file:
     state: directory

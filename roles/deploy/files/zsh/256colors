@@ -9,8 +9,8 @@ export TERM_ORIG="$TERM"
 # Need to add some check here before doing it
 # Might also need to do something about $TERMCAP
 # Currently we assume that we have 256-color if there's no unicode problem detected
-if [[ $UNICODE_VALID == 1 ]]; then
-  export TERM=xterm-256color
-fi
+# if [[ $UNICODE_VALID == 1 ]]; then
+#   export TERM=xterm-256color
+# fi
 
 
