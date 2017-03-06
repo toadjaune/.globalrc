@@ -28,6 +28,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'nvie/vim-togglemouse'   " toggle mouse access with F12
 Plugin 'vim-scripts/CycleColor' " cycle through colors via F4
 Plugin 'godlygeek/tabular'      " provides :Tab to align text
+Plugin 'christoomey/vim-tmux-navigator'
+    " Consistent set of keys to navigate between vim splits and tmux panels
 
 " Filesystem access (Tree ...)
 Plugin 'scrooloose/nerdtree'    " filesystem tree
@@ -130,12 +132,6 @@ set noerrorbells         " don't beep
 " Display whitespaces
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-
-" Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
