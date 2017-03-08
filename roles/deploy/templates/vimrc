@@ -114,8 +114,8 @@ set mouse=a       " Enable mouse interaction
 
 " Enable/Disable Paste Mode
 set pastetoggle=<F10>
-map <F9> :set nu!<cr>:setlocal paste!<cr>
-map! <F9> <C-O>:set nu!<cr><C-O>:setlocal paste!<cr>
+noremap <F9> :set nu!<cr>:setlocal paste!<cr>
+noremap! <F9> <C-O>:set nu!<cr><C-O>:setlocal paste!<cr>
 
 " Reload vimrc with ,r
 nnoremap <leader>r :source $MYVIMRC<cr>
@@ -124,7 +124,7 @@ nnoremap <leader>r :source $MYVIMRC<cr>
 set background=dark
 silent! colorscheme eldar
 
-map <F12> :let @/ = ""<cr>
+noremap <F12> :let @/ = ""<cr>
 
 set history=1000         " remember more commands and search history
 set undolevels=1000      " remember more actions in undo buffer
@@ -145,7 +145,7 @@ set smartcase     " ignore case if search pattern is all lowercase,
                     "    case-sensitive otherwise
 set hlsearch      " Highlight search results
 set incsearch     " show search matches as you type
-nmap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<CR>
                   " clear search buffer by typing ,/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
