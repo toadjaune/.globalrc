@@ -145,7 +145,7 @@ set smartcase     " ignore case if search pattern is all lowercase,
                     "    case-sensitive otherwise
 set hlsearch      " Highlight search results
 set incsearch     " show search matches as you type
-nnoremap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<cr>
                   " clear search buffer by typing ,/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -183,7 +183,8 @@ endif
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-
+nnoremap <silent> <leader>w :set wrap!<cr> 
+      " Enable/disable line wrapping with ,w
 
 
 """"""""""""""""""""""""""""""
@@ -194,6 +195,7 @@ set laststatus=2
 
 " Format the status line
 set statusline=\ %{HasPaste()}%f%m%r%y\ %w\ \ CWD:\ %{GetCurrentDirectory()}%=b:%-2n\ \ r:%l/%L\ c:%-3v\ %P
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
