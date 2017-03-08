@@ -83,7 +83,7 @@ set hidden
 set autoread
 
 " Use :W to save with sudo if you opened the file without enough rights
-command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Allow use of ; instead of : to reduce the number of keystrokes on QWERTY
 " keyboard
@@ -92,6 +92,9 @@ nnoremap ; :
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" change the mapleader from \ to ,
+" this command must be before anything using <leader>
+let mapleader=","
 
 set backspace=eol,start,indent  " Allow backspacing over everything in insert mode
 
@@ -114,14 +117,14 @@ set pastetoggle=<F10>
 map <F9> :set nu!<cr>:setlocal paste!<cr>
 map! <F9> <C-O>:set nu!<cr><C-O>:setlocal paste!<cr>
 
+" Reload vimrc with ,r
+nnoremap <leader>r :source $MYVIMRC<cr>
+
 " Color
 set background=dark
 silent! colorscheme eldar
 
 map <F12> :let @/ = ""<cr>
-
-" change the mapleader from \ to ,
-let mapleader=","
 
 set history=1000         " remember more commands and search history
 set undolevels=1000      " remember more actions in undo buffer
@@ -142,7 +145,7 @@ set smartcase     " ignore case if search pattern is all lowercase,
                     "    case-sensitive otherwise
 set hlsearch      " Highlight search results
 set incsearch     " show search matches as you type
-nmap <silent> ,/ :nohlsearch<CR>
+nmap <silent> <leader>/ :nohlsearch<CR>
                   " clear search buffer by typing ,/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
