@@ -1,3 +1,4 @@
 # Global .gitignore file
 *.swp
+.byebug_history
 .idea/*
