@@ -15,6 +15,19 @@ call vundle#begin('{{ remote_directory }}/vim/bundle')
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin-specific pre-configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" change the mapleader from \ to ,
+" this command must be before anything using <leader>
+let mapleader=","
+
+""" bundle/vim-togglemouse/plugin/toggle_mouse.vim """
+
+map <leader>m <Plug>ToggleMouse
+      " toggle mouse usage with ,m
+
+
 """""""""""""""
 " Plugin list "
 """""""""""""""
@@ -25,7 +38,8 @@ Plugin 'VundleVim/Vundle.vim'
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
 " User interface
-Plugin 'nvie/vim-togglemouse'   " toggle mouse access with F12
+" Plugin 'nvie/vim-togglemouse'   " toggle mouse access (reconfigured earlier)
+Plugin 'toadjaune/vim-togglemouse'   " use my fork while it's not merged
 Plugin 'vim-scripts/CycleColor' " cycle through colors via F4
 Plugin 'godlygeek/tabular'      " provides :Tab to align text
 Plugin 'christoomey/vim-tmux-navigator'
@@ -61,7 +75,7 @@ filetype plugin indent on    " required
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin-specific configuration
+" => Plugin-specific post-configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """ nerdtree """
@@ -92,10 +106,6 @@ nnoremap ; :
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" change the mapleader from \ to ,
-" this command must be before anything using <leader>
-let mapleader=","
-
 set backspace=eol,start,indent  " Allow backspacing over everything in insert mode
 
 set whichwrap+=<,>,h,l
@@ -112,10 +122,8 @@ set mat=2         " How many tenths of a second to blink when matching brackets
 set number        " Show line number
 set mouse=a       " Enable mouse interaction
 
-" Enable/Disable Paste Mode
-set pastetoggle=<F10>
-noremap <F9> :set nu!<cr>:setlocal paste!<cr>
-noremap! <F9> <C-O>:set nu!<cr><C-O>:setlocal paste!<cr>
+" Enable/Disable Paste Mode with ,p
+noremap <silent> <leader>p :set nu!<cr>:setlocal paste!<cr>
 
 " Reload vimrc with ,r
 nnoremap <leader>r :source $MYVIMRC<cr>
@@ -123,8 +131,6 @@ nnoremap <leader>r :source $MYVIMRC<cr>
 " Color
 set background=dark
 silent! colorscheme eldar
-
-noremap <F12> :let @/ = ""<cr>
 
 set history=1000         " remember more commands and search history
 set undolevels=1000      " remember more actions in undo buffer
@@ -136,9 +142,9 @@ set noerrorbells         " don't beep
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
-" Remove trailing whitespaces with ,c
+" Remove trailing whitespaces with ,t
 " This currently adds a line to search history
-nnoremap <silent> <leader>c :%s/\s\+$//e <Bar> :nohl <CR>
+nnoremap <silent> <leader>t :%s/\s\+$//e <Bar> :nohl <CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
