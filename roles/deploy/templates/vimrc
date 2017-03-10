@@ -123,10 +123,10 @@ set number        " Show line number
 set mouse=a       " Enable mouse interaction
 
 " Enable/Disable Paste Mode with ,p
-noremap <silent> <leader>p :set nu!<cr>:setlocal paste!<cr>
+noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
 
 " Reload vimrc with ,r
-nnoremap <leader>r :source $MYVIMRC<cr>
+nnoremap <leader>r :source $MYVIMRC<CR>
 
 " Color
 set background=dark
@@ -143,8 +143,9 @@ set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " Remove trailing whitespaces with ,t
-" This currently adds a line to search history
-nnoremap <silent> <leader>t :%s/\s\+$//e <Bar> :nohl <CR>
+" This currently adds a line to search history, and disables highlighting if
+" currently enabled
+nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
@@ -155,7 +156,7 @@ set smartcase     " ignore case if search pattern is all lowercase,
                     "    case-sensitive otherwise
 set hlsearch      " Highlight search results
 set incsearch     " show search matches as you type
-nnoremap <silent> <leader>/ :nohlsearch<cr>
+nnoremap <silent> <leader>/ :nohlsearch<CR>
                   " clear search buffer by typing ,/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -193,7 +194,7 @@ endif
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-nnoremap <silent> <leader>w :set wrap!<cr> 
+nnoremap <silent> <leader>w :set wrap!<CR> 
       " Enable/disable line wrapping with ,w
 
 
@@ -204,20 +205,13 @@ nnoremap <silent> <leader>w :set wrap!<cr>
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%f%m%r%y\ %w\ \ CWD:\ %{GetCurrentDirectory()}%=b:%-2n\ \ r:%l/%L\ c:%-3v\ %P
+set statusline=\ %f%m%r%y\ %w\ \ CWD:\ %{GetCurrentDirectory()}%=b:%-2n\ \ r:%l/%L\ c:%-3v\ %P
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
-endfunction
-
 function! GetCurrentDirectory()
   return fnamemodify(getcwd(), ":~")
 endfunction
+nnoremap <silent> <leader>t :%s/\s\+$//e <Bar> :nohl <CR>
