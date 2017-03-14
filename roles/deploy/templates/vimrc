@@ -108,7 +108,8 @@ nnoremap ; :
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set backspace=eol,start,indent  " Allow backspacing over everything in insert mode
 
-set whichwrap+=<,>,h,l
+" Configure which keys can change line when at beginning/end of line (see :help 'whichwrap')
+set whichwrap+=[,]
 
 
 " Don't redraw while executing macros (good performance config)
