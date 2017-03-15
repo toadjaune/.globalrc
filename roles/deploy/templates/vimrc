@@ -89,7 +89,11 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 """ airline """
-let g:airline_theme='murmur' " Choose airline theme
+let g:airline_theme='murmur'      " Choose airline theme
+  " Enable Powerline enhanced fonts (nice git symbols + arrows in statusbar)
+  " This should be enabled only if a powerline font is detected in curent
+  " terminal
+let g:airline_powerline_fonts = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
