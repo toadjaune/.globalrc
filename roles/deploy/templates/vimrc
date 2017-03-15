@@ -38,12 +38,14 @@ map <leader>m <Plug>ToggleMouse
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
 " User interface
-" Plugin 'nvie/vim-togglemouse'   " toggle mouse access (reconfigured earlier)
+" Plugin 'nvie/vim-togglemouse'         " toggle mouse access (reconfigured earlier)
 Plugin 'toadjaune/vim-togglemouse'   " use my fork while it's not merged
-Plugin 'vim-scripts/CycleColor' " cycle through colors via F4
-Plugin 'godlygeek/tabular'      " provides :Tab to align text
+Plugin 'vim-scripts/CycleColor'         " cycle through colors via F4
+Plugin 'godlygeek/tabular'              " provides :Tab to align text
 Plugin 'christoomey/vim-tmux-navigator'
     " Consistent set of keys to navigate between vim splits and tmux panels
+Plugin 'vim-airline/vim-airline'        " OP statusbar
+Plugin 'vim-airline/vim-airline-themes' " Associated themes
 
 " Filesystem access (Tree ...)
 Plugin 'scrooloose/nerdtree'    " filesystem tree
@@ -86,6 +88,8 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " start nerdtree automatically if vim starts opening a directory
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
+""" airline """
+let g:airline_theme='murmur' " Choose airline theme
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -199,7 +203,7 @@ endif
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-nnoremap <silent> <leader>w :set wrap!<CR> 
+nnoremap <silent> <leader>w :set wrap!<CR>
       " Enable/disable line wrapping with ,w
 
 
@@ -209,8 +213,8 @@ nnoremap <silent> <leader>w :set wrap!<CR>
 " Always show the status line
 set laststatus=2
 
-" Format the status line
-set statusline=\ %f%m%r%y\ %w\ \ CWD:\ %{GetCurrentDirectory()}%=b:%-2n\ \ r:%l/%L\ c:%-3v\ %P
+" " Format the status line
+" set statusline=\ %f%m%r%y\ %w\ \ CWD:\ %{GetCurrentDirectory()}%=b:%-2n\ \ r:%l/%L\ c:%-3v\ %P
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
