@@ -90,10 +90,12 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 """ airline """
 let g:airline_theme='murmur'      " Choose airline theme
-  " Enable Powerline enhanced fonts (nice git symbols + arrows in statusbar)
-  " This should be enabled only if a powerline font is detected in curent
-  " terminal
+" Enable Powerline enhanced fonts (nice git symbols + arrows in statusbar)
+" This should be enabled only if a powerline font is detected in curent
+" terminal
 let g:airline_powerline_fonts = 1
+" Add a line with opened tabs
+let g:airline#extensions#tabline#enabled = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
