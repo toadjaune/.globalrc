@@ -111,6 +111,9 @@ set backspace=eol,start,indent  " Allow backspacing over everything in insert mo
 " Configure which keys can change line when at beginning/end of line (see :help 'whichwrap')
 set whichwrap+=[,]
 
+" Configure folding (see :help folding)
+set foldmethod=syntax
+set foldlevel=1
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
