@@ -23,6 +23,7 @@
   with_filetree: '../templates'
   when: item.state == 'directory'
 
+# TODO : This section is to remove, we're going to process templates separately
 - name: Process templates
   template:
     src: '{{ item.src }}'
