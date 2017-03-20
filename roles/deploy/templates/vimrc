@@ -46,13 +46,14 @@ Plugin 'christoomey/vim-tmux-navigator'
     " Consistent set of keys to navigate between vim splits and tmux panels
 Plugin 'vim-airline/vim-airline'        " OP statusbar
 Plugin 'vim-airline/vim-airline-themes' " Associated themes
+Plugin 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
 
 " Filesystem access (Tree ...)
 Plugin 'scrooloose/nerdtree'    " filesystem tree
 Plugin 'kien/ctrlp.vim'         " fuzzy search through filesystem/buffers
 
 " Git
-Plugin 'tpope/vim-fugitive'     " Access to git commands from Git
+Plugin 'tpope/vim-fugitive'     " Access to git commands from Vim
 Plugin 'tpope/vim-git'          " Git syntax highlighting
 Plugin 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
 Plugin 'airblade/vim-gitgutter' " Displays signs for git modifications
@@ -62,7 +63,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-endwise' " NB: This plugin also affects other languages
 
-" Colors
+" Colorschemes
 Plugin 'agude/vim-eldar'
 " Plugin 'https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim'
 Plugin 'Lokaltog/vim-distinguished'
@@ -145,10 +146,6 @@ noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
 " Reload vimrc with ,r
 nnoremap <leader>r :source $MYVIMRC<CR>
 
-" Color
-set background=dark
-silent! colorscheme eldar
-
 set history=1000         " remember more commands and search history
 set undolevels=1000      " remember more actions in undo buffer
 set title                " change the terminal's title
@@ -189,6 +186,13 @@ set fileencoding=utf-8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+" Base colorscheme choice
+set background=dark
+silent! colorscheme eldar
+
+" Manual color override
+" Trailing whitespaces & co in Orange
+hi  SpecialKey ctermfg=214
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
