@@ -4,7 +4,11 @@
 # for default zshrc loading
 
 # location of oh-my-zsh
-ZSH="$GLOBALRC/oh-my-zsh"
+# TODO: Maybe something much more cleaner should be with ansible variables
+ZSH="$GLOBALRC/../oh-my-zsh"
+
+# List of plugins to load
+plugins=(git bundler osx rake ruby)
 
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
