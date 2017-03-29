@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+# See https://github.com/robbyrussell/oh-my-zsh/blob/master/templates/zshrc.zsh-template
+# for default zshrc loading
+
+# location of oh-my-zsh
+ZSH="$GLOBALRC/oh-my-zsh"
+
+# Load oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+

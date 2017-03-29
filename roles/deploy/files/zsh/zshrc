@@ -2,8 +2,6 @@
 # Places you into current directory
 pushd $(dirname $0) > /dev/null
 
-
-
 # Loading common components
 if [ -f ../commonrc ]; then
   pushd .. > /dev/null
@@ -11,8 +9,11 @@ if [ -f ../commonrc ]; then
   popd > /dev/null
 fi
 
+# Loading oh-my-zsh
+source oh-my-zsh
+
 # Try to switch to a 256-color terminal
-# Can be cancelled setting the $DISABLE_256_COLORS to anything
+# Can be cancelled setting the $DISABLE_256_COLORS variable to anything
 if [ -z $DISABLE_256_COLORS ]; then
   source 256colors
 fi
