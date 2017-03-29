@@ -64,6 +64,10 @@
       [core]
         excludesfile = {{ remote_directory }}/files/gitignore
 
+- name: Install zsh configuration
+  include: zsh.yml
+  tags: zsh
+
 - name: Install vim configuration
   include: vim.yml
   tags: vim

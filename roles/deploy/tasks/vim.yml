@@ -21,7 +21,7 @@
   git:
     repo:   https://github.com/VundleVim/Vundle.vim.git
     dest:   "{{ remote_directory }}/vim/bundle/Vundle.vim"
-    update: true
+    depth:  1
   tags: vundle
 
 - name: Use Vundle to Install/Update vim plugins
@@ -34,7 +34,7 @@
   git:
     repo:   https://github.com/powerline/fonts
     dest:   "{{ remote_directory }}/powerline-fonts"
-    update: true
+    depth:  1
 
 # NB: you still have to reconfigure your terminal to use these fonts
 # TODO : Mention it in README ?
