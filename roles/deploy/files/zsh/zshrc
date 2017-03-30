@@ -32,7 +32,7 @@ source compinit
 source config
 
 # zsh-syntax-highlighting, MUST stay last
-source zsh-syntax-highlighting
+# source zsh-syntax-highlighting
 
 # Comes back into previous directory
 popd > /dev/null

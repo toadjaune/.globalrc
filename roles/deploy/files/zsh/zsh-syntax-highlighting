@@ -5,10 +5,11 @@
 # Choose enabled modules
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-# Then source the script
-if [ -f ../lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source ../lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-fi
+# now loading via oh-my-zsh
+# # Then source the script
+# if [ -f ../lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+#   source ../lib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+# fi
 
 ZSH_HIGHLIGHT_STYLES+=(
 # Main configuration (not all available options)
@@ -27,6 +28,6 @@ ZSH_HIGHLIGHT_STYLES+=(
   single-hyphen-option  'fg=purple,bold'
   double-hyphen-option  'fg=purple,bold'
   back-quoted-argument  'fg=purple,bold'
-  default               'fg=cyan,bold' 
+  default               'fg=cyan,bold'
 
 )
