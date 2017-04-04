@@ -1,8 +1,6 @@
-# See the official installation script in case of issues
-# (https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-- name: Clone oh-my-zsh
+- name: Clone zplug
   git:
-    repo:   'https://github.com/robbyrussell/oh-my-zsh.git'
-    dest:   "{{ remote_directory }}/oh-my-zsh"
+    repo:   'https://github.com/zplug/zplug.git'
+    dest:   "{{ remote_directory }}/zplug"
     depth:  1
 
