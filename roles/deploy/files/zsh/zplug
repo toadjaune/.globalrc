@@ -19,8 +19,13 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 ###############################################################################
 
-# Zplug list of plugins
+### Zplug list of plugins ###
+
+# Fish-like history-based suggestions
 zplug "zsh-users/zsh-autosuggestions"
+
+# Fish-like syntax highlighting
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 
 ###############################################################################
