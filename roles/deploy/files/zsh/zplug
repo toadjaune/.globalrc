@@ -27,6 +27,19 @@ zplug "zsh-users/zsh-autosuggestions"
 # Fish-like syntax highlighting
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
+#############################
+
+# TODO : Make this and update at deploy-time rather than run-time
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
 
 ###############################################################################
 # Plugins post-configuration                                                  #
@@ -55,14 +68,3 @@ ZSH_HIGHLIGHT_STYLES+=(
 
 ###############################################################################
 
-# TODO : Make this and update at deploy-time rather than run-time
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
