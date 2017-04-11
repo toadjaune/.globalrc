@@ -39,14 +39,6 @@
       # Load custom configuration
       . {{ remote_directory }}/files/bash/bashrc
 
-- name: Setup the loading via .zshrc
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.zshrc"
-    create: true
-    block:  |
-      # Load custom configuration
-      . {{ remote_directory }}/files/zsh/zshrc
-
 - name: Start the components requiring root access
   include:  root.yml
   become:   true

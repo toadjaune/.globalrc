@@ -20,6 +20,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ###############################################################################
 
 # Zplug list of plugins
+zplug "zsh-users/zsh-autosuggestions"
 
 
 ###############################################################################
@@ -49,3 +50,14 @@ ZSH_HIGHLIGHT_STYLES+=(
 
 ###############################################################################
 
+# TODO : Make this and update at deploy-time rather than run-time
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load

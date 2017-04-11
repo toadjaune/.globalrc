@@ -1,6 +1,16 @@
+# TODO : load this file only if zsh is installed
+
 - name: Clone zplug
   git:
     repo:   'https://github.com/zplug/zplug.git'
     dest:   "{{ remote_directory }}/zplug"
     depth:  1
+
+- name: Setup the loading via .zshrc
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.zshrc"
+    create: true
+    block:  |
+      # Load custom configuration
+      . {{ remote_directory }}/files/zsh/zshrc
 
