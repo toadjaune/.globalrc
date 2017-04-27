@@ -61,6 +61,9 @@ Plugin 'airblade/vim-gitgutter' " Displays signs for git modifications
 " Development tools
 Plugin 'Yggdroot/indentLine'      " Vertical bars to display indentation
 Plugin 'vim-syntastic/syntastic'  " Syntax checking
+Plugin 'Valloric/YouCompleteMe'   " Auto-completion
+    " /!\ Requires a compiled module, check on the source
+    " /!\ May not be very good for ruby&co, this is experimental
 
 " Ruby & Rails
 Plugin 'tpope/vim-rails'
