@@ -47,7 +47,6 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'        " OP statusbar
 Plugin 'vim-airline/vim-airline-themes' " Associated themes
 Plugin 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
-Plugin 'Yggdroot/indentLine'            " Vertical bars to display indentation
 
 " Filesystem access (Tree ...)
 Plugin 'scrooloose/nerdtree'    " filesystem tree
@@ -58,6 +57,10 @@ Plugin 'tpope/vim-fugitive'     " Access to git commands from Vim
 Plugin 'tpope/vim-git'          " Git syntax highlighting
 Plugin 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
 Plugin 'airblade/vim-gitgutter' " Displays signs for git modifications
+
+" Development tools
+Plugin 'Yggdroot/indentLine'      " Vertical bars to display indentation
+Plugin 'vim-syntastic/syntastic'  " Syntax checking
 
 " Ruby & Rails
 Plugin 'tpope/vim-rails'
@@ -100,6 +103,15 @@ let g:airline_theme='murmur'      " Choose airline theme
 let g:airline_powerline_fonts = 1
 " Add a line with opened tabs
 let g:airline#extensions#tabline#enabled = 1
+
+""" syntastic """
+" Automatically fill location list (disabled by default to limit conflict with
+" other plugins)
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
