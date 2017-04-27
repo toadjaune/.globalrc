@@ -47,6 +47,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'        " OP statusbar
 Plugin 'vim-airline/vim-airline-themes' " Associated themes
 Plugin 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
+Plugin 'Yggdroot/indentLine'            " Vertical bars to display indentation
 
 " Filesystem access (Tree ...)
 Plugin 'scrooloose/nerdtree'    " filesystem tree
