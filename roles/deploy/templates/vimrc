@@ -14,6 +14,8 @@ call vundle#begin('{{ remote_directory }}/vim/bundle')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+" TODO: Switch to junegunn/vim-plug, has async install and status check
+" commands + apparently better support of non-github repos
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin-specific pre-configuration
