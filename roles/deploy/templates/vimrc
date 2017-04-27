@@ -2,20 +2,16 @@
 " http://nvie.com/posts/how-i-boosted-my-vim/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Load Plugins via Vundle
+" => Load Plugins via vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+={{ remote_directory }}/vim/bundle/Vundle.vim
-" Start Vundle with a path for installing plugins
-call vundle#begin('{{ remote_directory }}/vim/bundle')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-" TODO: Switch to junegunn/vim-plug, has async install and status check
-" commands + apparently better support of non-github repos
+" Manually load vim-plug, to avoid installing it ouside the vim directory
+set rtp+={{ remote_directory }}/vim/bundle/vim-plug
+source {{ remote_directory }}/vim/bundle/vim-plug/plug.vim
+" Start vim-plug with a path for installing plugins
+call plug#begin('{{ remote_directory }}/vim/bundle')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin-specific pre-configuration
@@ -33,54 +29,54 @@ map <leader>m <Plug>ToggleMouse
 """""""""""""""
 " Plugin list "
 """""""""""""""
-" See https://github.com/VundleVim/Vundle.vim for supported syntaxes
+" See https://github.com/junegunn/vim-plug for supported syntaxes
 
 " Nice examples here :
 " http://vim.wikia.com/wiki/Use_Vim_like_an_IDE
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
 " User interface
-" Plugin 'nvie/vim-togglemouse'         " toggle mouse access (reconfigured earlier)
-Plugin 'toadjaune/vim-togglemouse'   " use my fork while it's not merged
-Plugin 'vim-scripts/CycleColor'         " cycle through colors via F4
-Plugin 'godlygeek/tabular'              " provides :Tab to align text
-Plugin 'christoomey/vim-tmux-navigator'
+" Plug 'nvie/vim-togglemouse'         " toggle mouse access (reconfigured earlier)
+Plug 'toadjaune/vim-togglemouse'   " use my fork while it's not merged
+Plug 'vim-scripts/CycleColor'         " cycle through colors via F4
+Plug 'godlygeek/tabular'              " provides :Tab to align text
+Plug 'christoomey/vim-tmux-navigator'
     " Consistent set of keys to navigate between vim splits and tmux panels
-Plugin 'vim-airline/vim-airline'        " OP statusbar
-Plugin 'vim-airline/vim-airline-themes' " Associated themes
-Plugin 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
+Plug 'vim-airline/vim-airline'        " OP statusbar
+Plug 'vim-airline/vim-airline-themes' " Associated themes
+Plug 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
 
 " Filesystem access (Tree ...)
-Plugin 'scrooloose/nerdtree'    " filesystem tree
-Plugin 'kien/ctrlp.vim'         " fuzzy search through filesystem/buffers
+Plug 'scrooloose/nerdtree'    " filesystem tree
+Plug 'kien/ctrlp.vim'         " fuzzy search through filesystem/buffers
 
 " Git
-Plugin 'tpope/vim-fugitive'     " Access to git commands from Vim
-Plugin 'tpope/vim-git'          " Git syntax highlighting
-Plugin 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
-Plugin 'airblade/vim-gitgutter' " Displays signs for git modifications
+Plug 'tpope/vim-fugitive'     " Access to git commands from Vim
+Plug 'tpope/vim-git'          " Git syntax highlighting
+Plug 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
+Plug 'airblade/vim-gitgutter' " Displays signs for git modifications
 
 " Development tools
-Plugin 'Yggdroot/indentLine'      " Vertical bars to display indentation
-Plugin 'vim-syntastic/syntastic'  " Syntax checking
+Plug 'Yggdroot/indentLine'      " Vertical bars to display indentation
+Plug 'vim-syntastic/syntastic'  " Syntax checking
 
 " Ruby & Rails
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-endwise' " NB: This plugin also affects other languages
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise' " NB: This plugin also affects other languages
 
 " Colorschemes
-Plugin 'agude/vim-eldar'
-" Plugin 'https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim'
-Plugin 'Lokaltog/vim-distinguished'
-" Plugin 'https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim'
-Plugin 'tpope/vim-vividchalk'
-" Plugin 'http://www.vim.org/scripts/download_script.php?src_id=817'
+Plug 'agude/vim-eldar'
+" Plug 'https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim'
+Plug 'Lokaltog/vim-distinguished'
+" Plug 'https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim'
+Plug 'tpope/vim-vividchalk'
+" Plug 'http://www.vim.org/scripts/download_script.php?src_id=817'
 
 """""""""""""""
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()              " required
 filetype plugin indent on    " required
 
 

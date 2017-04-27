@@ -17,18 +17,18 @@
       " Loading global vim configuration
       source {{ remote_directory }}/vim/vimrc
 
-- name: Install Vundle for Vim plugin management
+- name: Install vim-plug for Vim plugin management
   git:
-    repo:   https://github.com/VundleVim/Vundle.vim.git
-    dest:   "{{ remote_directory }}/vim/bundle/Vundle.vim"
+    repo:   https://github.com/junegunn/vim-plug
+    dest:   "{{ remote_directory }}/vim/bundle/vim-plug"
     depth:  1
   tags: vundle
 
-- name: Use Vundle to Install/Update vim plugins
-  command:      vim +PluginInstall! +qall
-  # NB : We have no way to know if this commad actually changed something
-  changed_when: false
-  tags: vundle
+  #- name: Use Vundle to Install/Update vim plugins
+  #  command:      vim +PluginInstall! +qall
+  #  # NB : We have no way to know if this commad actually changed something
+  #  changed_when: false
+  #  tags: vundle
 
 - name: Download powerline modified fonts for vim-airline
   git:
