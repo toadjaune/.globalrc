@@ -201,6 +201,10 @@ nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar>
 nnoremap <S-j> 5j
 nnoremap <S-k> 5k
 
+" Make vim use the system clipboard ("+) by default
+" See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
+set clipboard=unnamedplus
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
