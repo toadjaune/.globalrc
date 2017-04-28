@@ -17,19 +17,6 @@
       " Loading global vim configuration
       source {{ remote_directory }}/vim/vimrc
 
-- name: Install vim-plug for Vim plugin management
-  git:
-    repo:   https://github.com/junegunn/vim-plug
-    dest:   "{{ remote_directory }}/vim/bundle/vim-plug"
-    depth:  1
-  tags: vimplug
-
-- name: Use vim-plug to Install/Update vim plugins
-  command:  vim +PlugUpdate +qall
-  # NB : We have no way to know if this commad actually changed something
-  changed_when: false
-  tags: vimplug
-
 - name: Download powerline modified fonts for vim-airline
   git:
     repo:   https://github.com/powerline/fonts
@@ -43,4 +30,31 @@
   args:
     chdir: "{{ remote_directory }}/powerline-fonts"
   changed_when: false
+
+- name: Create colorschemes-manual directory
+  file:
+    path:   "{{ remote_directory }}/vim/bundle/colorschemes-manual/colors"
+    state:  directory
+
+- name: Download manually managed colorschemes
+  get_url:
+    url:  "{{ item }}"
+    dest: "{{ remote_directory }}/vim/bundle/colorschemes-manual/colors"
+  with_items:
+    - https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim
+    - https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim
+    - https://vim.sourceforge.io/scripts/download_script.php?src_id=817
+
+- name: Install vim-plug for Vim plugin management
+  git:
+    repo:   https://github.com/junegunn/vim-plug
+    dest:   "{{ remote_directory }}/vim/bundle/vim-plug"
+    depth:  1
+  tags: vimplug
+
+- name: Use vim-plug to Install/Update vim plugins
+  command:  vim +PlugUpdate +qall
+  # NB : We have no way to know if this commad actually changed something
+  changed_when: false
+  tags: vimplug
 

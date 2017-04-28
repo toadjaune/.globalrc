@@ -83,11 +83,10 @@ Plug 'tpope/vim-endwise' " NB: This plugin also affects other languages
 
 " Colorschemes
 Plug 'agude/vim-eldar'
-" Plug 'https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim'
 Plug 'Lokaltog/vim-distinguished'
-" Plug 'https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim'
 Plug 'tpope/vim-vividchalk'
-" Plug 'http://www.vim.org/scripts/download_script.php?src_id=817'
+" The following directory contains badly packaged colorschemes, downloaded by Ansible
+Plug '{{ remote_directory }}/vim/bundle/colorschemes-manual'
 
 """""""""""""""
 
@@ -189,6 +188,7 @@ set cursorline  " highlight cursor line
     " Apparently not possible yet :
     " https://stackoverflow.com/questions/15980451/cursorline-and-nontext-specialkey-highlight-clash
     " https://github.com/vim/vim/blob/master/runtime/doc/todo.txt
+    " https://vi.stackexchange.com/questions/3288/override-cursorline-background-color-by-syntax-highlighting
     " Eventual possible hack :
     " https://github.com/ntpeters/vim-better-whitespace
 
