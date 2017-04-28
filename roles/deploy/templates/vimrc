@@ -58,6 +58,8 @@ Plug 'airblade/vim-gitgutter' " Displays signs for git modifications
 
 " Development tools
 Plug 'Yggdroot/indentLine'      " Vertical bars to display indentation with conceal feature
+    " TODO : Try to find a way to keep trailing characters displayed instead
+    " of concealing them too
 Plug 'vim-syntastic/syntastic'  " Syntax checking
 
 " Ruby & Rails
@@ -168,11 +170,17 @@ set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 set cursorline  " highlight cursor line
+    " TODO: Find a way to only change the background color, not the trailing
+    " characters or the highlightings of TODO ...
 
 " Remove trailing whitespaces with ,t
 " This currently adds a line to search history, and disables highlighting if
 " currently enabled
 nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+" Quick cursor movement with Shift key
+nnoremap <S-j> 5j
+nnoremap <S-k> 5k
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
