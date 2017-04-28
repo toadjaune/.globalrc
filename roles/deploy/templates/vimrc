@@ -62,6 +62,20 @@ Plug 'Yggdroot/indentLine'      " Vertical bars to display indentation with conc
     " of concealing them too
 Plug 'vim-syntastic/syntastic'  " Syntax checking
 
+" Auto-completion, with omnicomp
+" Plug 'Valloric/YouCompleteMe'
+    " Seems both overkill and not really adapted to my needs, let's keep it
+    " there just in case
+    " /!\ Requires a compiled module, check on the source
+    " /!\ May not be very good for ruby&co, this is experimental
+" Plug 'vim-scripts/AutoComplPop' " Display automatically the omni completion popup/dropdown while typing
+    " Weird errors, gonna try to summon with C-x C-o for now
+Plug 'ervandew/supertab'      " Use tab for completion
+
+" TODO: See similar behavior with wildmenu and wildmode
+" Also see ballooning
+" So far, couldn't find a way to use the mouse on the completion dropdown
+
 " Ruby & Rails
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
