@@ -61,7 +61,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
 Plugin 'airblade/vim-gitgutter' " Displays signs for git modifications
 
 " Development tools
-Plugin 'Yggdroot/indentLine'      " Vertical bars to display indentation
+Plugin 'Yggdroot/indentLine'      " Vertical bars to display indentation with conceal feature
 Plugin 'vim-syntastic/syntastic'  " Syntax checking
 
 " Ruby & Rails
@@ -170,6 +170,8 @@ set noerrorbells         " don't beep
 " Display whitespaces
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+set cursorline  " highlight cursor line
 
 " Remove trailing whitespaces with ,t
 " This currently adds a line to search history, and disables highlighting if
