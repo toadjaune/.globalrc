@@ -1,0 +1,70 @@
+#!/bin/zsh
+
+# See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
+
+# location of oh-my-zsh
+# TODO: Maybe something much more cleaner should be with ansible variables
+export ZPLUG_HOME="$GLOBALRC/../zplug"
+
+# source zplug
+source "$ZPLUG_HOME/init.zsh"
+
+###############################################################################
+# Plugins pre-configuration                                                   #
+###############################################################################
+
+### zsh-syntax-highlighting ###
+# Choose enabled highlighters
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+###############################################################################
+
+### Zplug list of plugins ###
+
+# Fish-like history-based suggestions
+zplug "zsh-users/zsh-autosuggestions"
+
+# Fish-like syntax highlighting
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+#############################
+
+# TODO : Make this and update at deploy-time rather than run-time
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+
+###############################################################################
+# Plugins post-configuration                                                  #
+###############################################################################
+
+### zsh-syntax-highlighting ###
+# Main highlight configuration (not all available options)
+ZSH_HIGHLIGHT_STYLES+=(
+  unknown-token         'fg=red,bold'
+  reserved-word         'fg=yellow'
+  alias                 'fg=green,bold'
+  builtin               'fg=green,bold'
+  function              'fg=green,bold'
+  command               'fg=green,bold'
+  precommand            'fg=green'
+  hashed-command        'fg=green'
+  path                  'fg=blue,bold'
+  path_prefix           'fg=blue'
+  path_approx           'fg=blue,underlined'
+  globbing              'fg=yellow,underlined'
+  single-hyphen-option  'fg=purple,bold'
+  double-hyphen-option  'fg=purple,bold'
+  back-quoted-argument  'fg=purple,bold'
+  default               'fg=cyan,bold'
+)
+
+###############################################################################
+

@@ -30,8 +30,8 @@ source compinit
 # Miscellaneous conf (including parts from gmrl)
 source config
 
-# zsh-syntax-highlighting, MUST stay last
-source zsh-syntax-highlighting
+# Start zplug plugin manager
+source zplug
 
 # Comes back into previous directory
 popd > /dev/null
