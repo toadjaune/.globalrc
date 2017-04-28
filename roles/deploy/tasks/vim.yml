@@ -22,13 +22,13 @@
     repo:   https://github.com/junegunn/vim-plug
     dest:   "{{ remote_directory }}/vim/bundle/vim-plug"
     depth:  1
-  tags: vundle
+  tags: vimplug
 
-  #- name: Use Vundle to Install/Update vim plugins
-  #  command:      vim +PluginInstall! +qall
-  #  # NB : We have no way to know if this commad actually changed something
-  #  changed_when: false
-  #  tags: vundle
+- name: Use vim-plug to Install/Update vim plugins
+  command:  vim +PlugUpdate +qall
+  # NB : We have no way to know if this commad actually changed something
+  changed_when: false
+  tags: vimplug
 
 - name: Download powerline modified fonts for vim-airline
   git:

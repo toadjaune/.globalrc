@@ -172,6 +172,11 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set cursorline  " highlight cursor line
     " TODO: Find a way to only change the background color, not the trailing
     " characters or the highlightings of TODO ...
+    " Apparently not possible yet :
+    " https://stackoverflow.com/questions/15980451/cursorline-and-nontext-specialkey-highlight-clash
+    " https://github.com/vim/vim/blob/master/runtime/doc/todo.txt
+    " Eventual possible hack :
+    " https://github.com/ntpeters/vim-better-whitespace
 
 " Remove trailing whitespaces with ,t
 " This currently adds a line to search history, and disables highlighting if
