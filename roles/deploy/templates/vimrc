@@ -2,18 +2,16 @@
 " http://nvie.com/posts/how-i-boosted-my-vim/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Load Plugins via Vundle
+" => Load Plugins via vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+={{ remote_directory }}/vim/bundle/Vundle.vim
-" Start Vundle with a path for installing plugins
-call vundle#begin('{{ remote_directory }}/vim/bundle')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Manually load vim-plug, to avoid installing it ouside the vim directory
+set rtp+={{ remote_directory }}/vim/bundle/vim-plug
+source {{ remote_directory }}/vim/bundle/vim-plug/plug.vim
+" Start vim-plug with a path for installing plugins
+call plug#begin('{{ remote_directory }}/vim/bundle')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin-specific pre-configuration
@@ -31,68 +29,70 @@ map <leader>m <Plug>ToggleMouse
 """""""""""""""
 " Plugin list "
 """""""""""""""
-" See https://github.com/VundleVim/Vundle.vim for supported syntaxes
+" See https://github.com/junegunn/vim-plug for supported syntaxes
 
 " Nice examples here :
 " http://vim.wikia.com/wiki/Use_Vim_like_an_IDE
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
 " User interface
-" Plugin 'nvie/vim-togglemouse'         " toggle mouse access (reconfigured earlier)
-Plugin 'toadjaune/vim-togglemouse'   " use my fork while it's not merged
-Plugin 'vim-scripts/CycleColor'         " cycle through colors via F4
-Plugin 'godlygeek/tabular'              " provides :Tab to align text
-Plugin 'christoomey/vim-tmux-navigator'
+" Plug 'nvie/vim-togglemouse'         " toggle mouse access (reconfigured earlier)
+Plug 'toadjaune/vim-togglemouse'   " use my fork while it's not merged
+Plug 'vim-scripts/CycleColor'         " cycle through colors via F4
+Plug 'godlygeek/tabular'              " provides :Tab to align text
+Plug 'christoomey/vim-tmux-navigator'
     " Consistent set of keys to navigate between vim splits and tmux panels
-Plugin 'vim-airline/vim-airline'        " OP statusbar
-Plugin 'vim-airline/vim-airline-themes' " Associated themes
-Plugin 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
+Plug 'vim-airline/vim-airline'        " OP statusbar
+Plug 'vim-airline/vim-airline-themes' " Associated themes
+Plug 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
 
 " Filesystem access (Tree ...)
-Plugin 'scrooloose/nerdtree'    " filesystem tree
-Plugin 'kien/ctrlp.vim'         " fuzzy search through filesystem/buffers
+Plug 'scrooloose/nerdtree'    " filesystem tree
+Plug 'kien/ctrlp.vim'         " fuzzy search through filesystem/buffers
 
 " Git
-Plugin 'tpope/vim-fugitive'     " Access to git commands from Vim
-Plugin 'tpope/vim-git'          " Git syntax highlighting
-Plugin 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
-Plugin 'airblade/vim-gitgutter' " Displays signs for git modifications
+Plug 'tpope/vim-fugitive'     " Access to git commands from Vim
+Plug 'tpope/vim-git'          " Git syntax highlighting
+Plug 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
+Plug 'airblade/vim-gitgutter' " Displays signs for git modifications
 
 " Development tools
-Plugin 'Yggdroot/indentLine'      " Vertical bars to display indentation
-Plugin 'vim-syntastic/syntastic'  " Syntax checking
+Plug 'Yggdroot/indentLine'      " Vertical bars to display indentation with conceal feature
+    " TODO : Try to find a way to keep trailing characters displayed instead
+    " of concealing them too
+Plug 'vim-syntastic/syntastic'  " Syntax checking
 
 " Auto-completion, with omnicomp
-" Plugin 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
     " Seems both overkill and not really adapted to my needs, let's keep it
     " there just in case
     " /!\ Requires a compiled module, check on the source
     " /!\ May not be very good for ruby&co, this is experimental
-" Plugin 'vim-scripts/AutoComplPop' " Display automatically the omni completion popup/dropdown while typing
+" Plug 'vim-scripts/AutoComplPop' " Display automatically the omni completion popup/dropdown while typing
     " Weird errors, gonna try to summon with C-x C-o for now
-Plugin 'ervandew/supertab'      " Use tab for completion
+Plug 'ervandew/supertab'      " Use tab for completion
 
 " TODO: See similar behavior with wildmenu and wildmode
 " Also see ballooning
 " So far, couldn't find a way to use the mouse on the completion dropdown
 
 " Ruby & Rails
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-endwise' " NB: This plugin also affects other languages
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise' " NB: This plugin also affects other languages
 
 " Colorschemes
-Plugin 'agude/vim-eldar'
-" Plugin 'https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim'
-Plugin 'Lokaltog/vim-distinguished'
-" Plugin 'https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim'
-Plugin 'tpope/vim-vividchalk'
-" Plugin 'http://www.vim.org/scripts/download_script.php?src_id=817'
+Plug 'agude/vim-eldar'
+" Plug 'https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim'
+Plug 'Lokaltog/vim-distinguished'
+" Plug 'https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim'
+Plug 'tpope/vim-vividchalk'
+" Plug 'http://www.vim.org/scripts/download_script.php?src_id=817'
 
 """""""""""""""
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()              " required
 filetype plugin indent on    " required
 
 
@@ -183,10 +183,23 @@ set noerrorbells         " don't beep
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
+set cursorline  " highlight cursor line
+    " TODO: Find a way to only change the background color, not the trailing
+    " characters or the highlightings of TODO ...
+    " Apparently not possible yet :
+    " https://stackoverflow.com/questions/15980451/cursorline-and-nontext-specialkey-highlight-clash
+    " https://github.com/vim/vim/blob/master/runtime/doc/todo.txt
+    " Eventual possible hack :
+    " https://github.com/ntpeters/vim-better-whitespace
+
 " Remove trailing whitespaces with ,t
 " This currently adds a line to search history, and disables highlighting if
 " currently enabled
 nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+" Quick cursor movement with Shift key
+nnoremap <S-j> 5j
+nnoremap <S-k> 5k
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
