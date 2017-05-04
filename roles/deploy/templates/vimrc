@@ -1,5 +1,6 @@
-" Nice example to get started :
+" Nice resources to get started :
 " http://nvie.com/posts/how-i-boosted-my-vim/
+" http://learnvimscriptthehardway.stevelosh.com/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Load Plugins via vim-plug
@@ -200,10 +201,22 @@ nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar>
 " Quick cursor movement with Shift key
 noremap <S-j> 5j
 noremap <S-k> 5k
+noremap <S-h> 5h
+noremap <S-l> 5l
+
+" Quick getting out of insert mode
+inoremap jk <esc>
 
 " Make vim use the system clipboard ("+) by default
 " See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 set clipboard=unnamedplus
+
+" Unmapping of default keys, to get used to remappings
+inoremap <esc>    <nop>
+noremap  <up>     <nop>
+noremap  <down>   <nop>
+noremap  <left>   <nop>
+noremap  <right>  <nop>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
