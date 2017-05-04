@@ -136,12 +136,12 @@ set hidden
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" Use :W to save with sudo if you opened the file without enough rights
-command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+" Use :WS to save with sudo if you opened the file without enough rights
+command! WS :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Allow use of ; instead of : to reduce the number of keystrokes on QWERTY
 " keyboard
-nnoremap ; :
+noremap ; :
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -198,8 +198,8 @@ set cursorline  " highlight cursor line
 nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " Quick cursor movement with Shift key
-nnoremap <S-j> 5j
-nnoremap <S-k> 5k
+noremap <S-j> 5j
+noremap <S-k> 5k
 
 " Make vim use the system clipboard ("+) by default
 " See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
