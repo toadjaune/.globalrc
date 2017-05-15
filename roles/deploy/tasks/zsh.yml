@@ -2,7 +2,7 @@
 
 - name: Clone zplug
   git:
-    repo:   'https://github.com/zplug/zplug.git'
+    repo:   'https://github.com/toadjaune/zplug.git'
     dest:   "{{ remote_directory }}/zplug"
     depth:  1
 
