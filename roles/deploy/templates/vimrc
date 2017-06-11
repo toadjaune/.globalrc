@@ -212,11 +212,11 @@ inoremap jk <esc>
 set clipboard=unnamedplus
 
 " Unmapping of default keys, to get used to remappings
-inoremap <esc>    <nop>
-noremap  <up>     <nop>
-noremap  <down>   <nop>
-noremap  <left>   <nop>
-noremap  <right>  <nop>
+" inoremap <esc>    <nop>
+" noremap  <up>     <nop>
+" noremap  <down>   <nop>
+" noremap  <left>   <nop>
+" noremap  <right>  <nop>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
