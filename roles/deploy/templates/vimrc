@@ -225,7 +225,7 @@ noremap <silent> <C-n> :TmuxNavigateLeft<cr>
 noremap <silent> <C-t> :TmuxNavigateDown<cr>
 noremap <silent> <C-s> :TmuxNavigateUp<cr>
 noremap <silent> <C-r> :TmuxNavigateRight<cr>
-noremap <silent> <C-m> :TmuxNavigatePrevious<cr>
+" noremap <silent> <C-m> :TmuxNavigatePrevious<cr>
 
 " Unmapping of default keys, to get used to remappings
 " inoremap <esc>    <nop>
