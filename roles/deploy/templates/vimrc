@@ -22,9 +22,12 @@ call plug#begin('{{ remote_directory }}/vim/bundle')
 let mapleader=","
 
 """ bundle/vim-togglemouse/plugin/toggle_mouse.vim """
-
 map <leader>m <Plug>ToggleMouse
-      " toggle mouse usage with ,m
+    " toggle mouse usage with ,m
+
+""" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+    " Do not use the default mappings
 
 
 """""""""""""""
@@ -214,6 +217,15 @@ noremap s k
 noremap k s
 noremap r l
 noremap l r
+noremap n h
+noremap h n
+
+" Navigating across vim splits and tmux panes
+noremap <silent> <C-n> :TmuxNavigateLeft<cr>
+noremap <silent> <C-t> :TmuxNavigateDown<cr>
+noremap <silent> <C-s> :TmuxNavigateUp<cr>
+noremap <silent> <C-r> :TmuxNavigateRight<cr>
+noremap <silent> <C-m> :TmuxNavigatePrevious<cr>
 
 " Unmapping of default keys, to get used to remappings
 " inoremap <esc>    <nop>
