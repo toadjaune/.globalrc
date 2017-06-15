@@ -3,7 +3,7 @@
 # See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
 
 # location of oh-my-zsh
-# TODO: Maybe something much more cleaner should be with ansible variables
+# TODO: Maybe something much more cleaner should be done with ansible variables
 export ZPLUG_HOME="$GLOBALRC/../zplug"
 
 # source zplug
@@ -44,6 +44,10 @@ zplug load
 ###############################################################################
 # Plugins post-configuration                                                  #
 ###############################################################################
+
+### zsh-autosggestions ###
+# Shift-Tab accepts current autosuggestion
+bindkey '^[[Z' autosuggest-accept
 
 ### zsh-syntax-highlighting ###
 # Main highlight configuration (not all available options)
