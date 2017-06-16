@@ -44,6 +44,14 @@
   become:   true
   when:     have_root
 
+- name: Load IRB configuration
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.irbrc"
+    create: true
+    block:  |
+      IRB.conf[:SAVE_HISTORY] = 200
+      IRB.conf[:HISTORY_FILE] = '~/.irb-history'
+
 - name: Load git configuration
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.gitconfig"
