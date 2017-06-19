@@ -9,7 +9,7 @@
   autocrlf = input
 
 [alias]
-  fullog = log --oneline --graph --all --decorate
+  fullog = log --oneline --graph --all --decorate --date-order
 
 [merge]
   tool = vimdiff
