@@ -17,19 +17,20 @@
       " Loading global vim configuration
       source {{ remote_directory }}/vim/vimrc
 
-- name: Download powerline modified fonts for vim-airline
+- name: Download nerd-fonts for vim-airline
   git:
-    repo:   https://github.com/powerline/fonts
-    dest:   "{{ remote_directory }}/powerline-fonts"
+    repo:   https://github.com/ryanoasis/nerd-fonts
+    dest:   "{{ remote_directory }}/nerd-fonts"
     depth:  1
 
 # NB: you still have to reconfigure your terminal to use these fonts
 # TODO : Mention it in README ?
-- name: Install powerline modified fonts for airline
+- name: Install nerd-fonts for airline
   command: './install.sh'
   args:
-    chdir: "{{ remote_directory }}/powerline-fonts"
-  changed_when: false
+    chdir: "{{ remote_directory }}/nerd-fonts"
+  changed_when:   false
+  ignore_errors:  true
 
 - name: Create colorschemes-manual directory
   file:
