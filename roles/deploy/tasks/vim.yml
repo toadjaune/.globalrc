@@ -17,7 +17,7 @@
       " Loading global vim configuration
       source {{ remote_directory }}/vim/vimrc
 
-- name: Download nerd-fonts for vim-airline
+- name: Download nerd-fonts
   git:
     repo:   https://github.com/ryanoasis/nerd-fonts
     dest:   "{{ remote_directory }}/nerd-fonts"
@@ -25,7 +25,11 @@
 
 # NB: you still have to reconfigure your terminal to use these fonts
 # TODO : Mention it in README ?
-- name: Install nerd-fonts for airline
+# These fonts are required by :
+# - vim-airline
+# - vim-devicons
+# - vim-nerdtree-syntax-highlight
+- name: Install nerd-fonts
   command: './install.sh'
   args:
     chdir: "{{ remote_directory }}/nerd-fonts"

@@ -52,7 +52,7 @@ Plug 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color 
 
 " Filesystem access (Tree ...)
 Plug 'scrooloose/nerdtree'    " filesystem tree
-Plug 'kien/ctrlp.vim'         " fuzzy search through filesystem/buffers
+Plug 'ctrlpvim/ctrlp.vim'     " fuzzy search through filesystem/buffers
 
 " Git
 Plug 'tpope/vim-fugitive'     " Access to git commands from Vim
@@ -91,6 +91,10 @@ Plug 'Lokaltog/vim-distinguished'
 Plug 'tpope/vim-vividchalk'
 " The following directory contains badly packaged colorschemes, downloaded by Ansible
 Plug '{{ remote_directory }}/vim/bundle/colorschemes-manual'
+
+" Nice icons (must be loaded after the plugins it affects)
+Plug 'ryanoasis/vim-devicons'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 """""""""""""""
 
