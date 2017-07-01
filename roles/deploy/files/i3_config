@@ -1,6 +1,9 @@
 # i3 config file
 #
 # Nothing is done to install it, symlink it manually if you want to use it
+#
+# Dependencies :
+# - feh
 
 # i3 config file (v4)
 #
@@ -178,3 +181,12 @@ bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+######
+
+# Wallpaper, chosen randomly in this directory
+exec_always feh --randomize --bg-fill Pictures/Wallpapers/*
+
+# Start firefox at i3 startup
+exec firefox
+
