@@ -222,21 +222,25 @@ nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar>
 " Quick getting out of insert mode
 inoremap ts <esc>
 
-" Movement keys for bépo
-noremap t j
-noremap j t
-noremap s k
-noremap k s
-noremap r l
-noremap l r
-noremap n h
-noremap h n
+" Movement keys for bépo, and reverse mapping
+" left
+noremap t h
+noremap h t
+" up
+noremap s j
+noremap j s
+" down
+noremap r k
+noremap k r
+" right
+noremap n l
+noremap l n
 
 " Navigating across vim splits and tmux panes
-noremap <silent> <C-n> :TmuxNavigateLeft<cr>
-noremap <silent> <C-t> :TmuxNavigateDown<cr>
+noremap <silent> <C-t> :TmuxNavigateLeft<cr>
 noremap <silent> <C-s> :TmuxNavigateUp<cr>
-noremap <silent> <C-r> :TmuxNavigateRight<cr>
+noremap <silent> <C-r> :TmuxNavigateDown<cr>
+noremap <silent> <C-n> :TmuxNavigateRight<cr>
 " noremap <silent> <C-m> :TmuxNavigatePrevious<cr>
 
 " Unmapping of default keys, to get used to remappings
