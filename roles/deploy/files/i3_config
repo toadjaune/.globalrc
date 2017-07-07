@@ -4,6 +4,7 @@
 #
 # Dependencies :
 # - feh
+# - lxappearance (for choosing GTK theme)
 
 # i3 config file (v4)
 #
