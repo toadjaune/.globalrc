@@ -227,11 +227,11 @@ inoremap ts <esc>
 noremap t h
 noremap h t
 " up
-noremap s j
-noremap j s
+noremap s k
+noremap k s
 " down
-noremap r k
-noremap k r
+noremap r j
+noremap j r
 " right
 noremap n l
 noremap l n
