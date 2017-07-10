@@ -217,7 +217,9 @@ set cursorline  " highlight cursor line
 nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " Switch focus to NERDTree, or open it if not opened
-nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <silent> <leader>n :NERDTreeFocus<CR>
+" Open the current file in NERDTree
+nnoremap <silent> <leader>f :NERDTreeFind<CR>
 
 " Quick cursor movement with Shift key
 " noremap <S-j> 5j
