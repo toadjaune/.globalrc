@@ -65,6 +65,7 @@ Plug 'Yggdroot/indentLine'      " Vertical bars to display indentation with conc
     " TODO : Try to find a way to keep trailing characters displayed instead
     " of concealing them too
 Plug 'vim-syntastic/syntastic'  " Syntax checking
+Plug 'tpope/vim-commentary'     " Add a comment operator (gc)
 
 " Auto-completion, with omnicomp
 " Plug 'Valloric/YouCompleteMe'
