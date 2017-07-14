@@ -217,6 +217,9 @@ set cursorline  " highlight cursor line
     " Eventual possible hack :
     " https://github.com/ntpeters/vim-better-whitespace
 
+" Remap the backwards character search
+nnoremap <silent> ,, ,
+
 " Remove trailing whitespaces with ,t
 " This currently adds a line to search history, and disables highlighting if
 " currently enabled
