@@ -167,7 +167,7 @@ command! WS :execute ':silent w !sudo tee % > /dev/null' | :edit!
 set backspace=eol,start,indent  " Allow backspacing over everything in insert mode
 
 " Configure which keys can change line when at beginning/end of line (see :help 'whichwrap')
-set whichwrap+=[,]
+" set whichwrap+=[,]
 
 " Configure folding (see :help folding)
 set foldmethod=syntax
@@ -181,7 +181,7 @@ set magic
 
 set showmatch     " Show matching brackets when text indicator is over them
 set mat=2         " How many tenths of a second to blink when matching brackets
-set number        " Show line number
+set number        " Show line numbers
 set mouse=a       " Enable mouse interaction
 
 " Enable/Disable Paste Mode with ,p
