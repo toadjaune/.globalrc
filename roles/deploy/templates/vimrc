@@ -17,13 +17,13 @@ call plug#begin('{{ remote_directory }}/vim/bundle')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin-specific pre-configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" change the mapleader from \ to ,
+" change the mapleader from \ to Space
 " this command must be before anything using <leader>
-let mapleader=","
+let mapleader=" "
 
 """ bundle/vim-togglemouse/plugin/toggle_mouse.vim """
 map <leader>m <Plug>ToggleMouse
-    " toggle mouse usage with ,m
+    " toggle mouse usage with leader-m
 
 """ vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
@@ -184,10 +184,10 @@ set mat=2         " How many tenths of a second to blink when matching brackets
 set number        " Show line numbers
 set mouse=a       " Enable mouse interaction
 
-" Enable/Disable Paste Mode with ,p
+" Enable/Disable Paste Mode with leader-p
 noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
 
-" Reload vimrc with ,r
+" Reload vimrc with leader-r
 nnoremap <leader>r :source $MYVIMRC<CR>
 
 set history=1000         " remember more commands and search history
@@ -217,10 +217,7 @@ set cursorline  " highlight cursor line
     " Eventual possible hack :
     " https://github.com/ntpeters/vim-better-whitespace
 
-" Remap the backwards character search
-nnoremap <silent> ,, ,
-
-" Remove trailing whitespaces with ,t
+" Remove trailing whitespaces with leader-t
 " This currently adds a line to search history, and disables highlighting if
 " currently enabled
 nnoremap <silent> <leader>t :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
@@ -260,7 +257,7 @@ set smartcase     " ignore case if search pattern is all lowercase,
 set hlsearch      " Highlight search results
 set incsearch     " show search matches as you type
 nnoremap <silent> <leader>/ :nohlsearch<CR>
-                  " clear search buffer by typing ,/
+                  " clear search buffer by typing leader-/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -305,7 +302,7 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 nnoremap <silent> <leader>w :set wrap!<CR>
-      " Enable/disable line wrapping with ,w
+      " Enable/disable line wrapping with leader-w
 
 
 """"""""""""""""""""""""""""""
@@ -324,4 +321,3 @@ set laststatus=2
 function! GetCurrentDirectory()
   return fnamemodify(getcwd(), ":~")
 endfunction
-nnoremap <silent> <leader>t :%s/\s\+$//e <Bar> :nohl <CR>
