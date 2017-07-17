@@ -230,12 +230,6 @@ nnoremap <silent> <leader>n :NERDTreeFocus<CR>
 " Open the current file in NERDTree
 nnoremap <silent> <leader>f :NERDTreeFind<CR>
 
-" Quick cursor movement with Shift key
-" noremap <S-j> 5j
-" noremap <S-k> 5k
-" noremap <S-h> 5h
-" noremap <S-l> 5l
-
 " Quick getting out of insert mode with Alt-space
 inoremap   <esc>
 
@@ -255,13 +249,6 @@ noremap <silent> <C-s> :TmuxNavigateUp<cr>
 noremap <silent> <C-r> :TmuxNavigateDown<cr>
 noremap <silent> <C-n> :TmuxNavigateRight<cr>
 " noremap <silent> <C-m> :TmuxNavigatePrevious<cr>
-
-" Unmapping of default keys, to get used to remappings
-" inoremap <esc>    <nop>
-" noremap  <up>     <nop>
-" noremap  <down>   <nop>
-" noremap  <left>   <nop>
-" noremap  <right>  <nop>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
