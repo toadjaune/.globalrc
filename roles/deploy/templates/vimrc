@@ -234,14 +234,14 @@ nnoremap <Space> <nop>
 inoremap   <esc>
 
 " Movement keys for bépo with Alt (Issues with <A-> and <M-> notations ...)
-" left
-noremap t h
-" up
-noremap s j
-" down
-noremap r k
-" right
-noremap n l
+noremap t <left>
+noremap s <down>
+noremap r <up>
+noremap n <right>
+inoremap t <left>
+inoremap s <down>
+inoremap r <up>
+inoremap n <right>
 
 " Navigating across vim splits and tmux panes
 noremap <silent> <C-t> :TmuxNavigateLeft<cr>
