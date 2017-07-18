@@ -227,6 +227,9 @@ nnoremap <silent> <leader>n :NERDTreeFocus<CR>
 " Open the current file in NERDTree
 nnoremap <silent> <leader>f :NERDTreeFind<CR>
 
+" Space alone doesn't do anything
+nnoremap <Space> <nop>
+
 " Quick getting out of insert mode with Alt-space
 inoremap   <esc>
 
