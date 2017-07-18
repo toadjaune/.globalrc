@@ -234,9 +234,9 @@ inoremap   <esc>
 " left
 noremap t h
 " up
-noremap s k
+noremap s j
 " down
-noremap r j
+noremap r k
 " right
 noremap n l
 
