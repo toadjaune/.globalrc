@@ -244,10 +244,10 @@ inoremap {{ key_rh_up    }} <up>
 inoremap {{ key_rh_right }} <right>
 
 " Navigating across vim splits and tmux panes
-noremap <silent> <C-t> :TmuxNavigateLeft<cr>
-noremap <silent> <C-s> :TmuxNavigateUp<cr>
-noremap <silent> <C-r> :TmuxNavigateDown<cr>
-noremap <silent> <C-n> :TmuxNavigateRight<cr>
+noremap <silent> <C-{{ key_rh_left  }}> :TmuxNavigateLeft<cr>
+noremap <silent> <C-{{ key_rh_down  }}> :TmuxNavigateDown<cr>
+noremap <silent> <C-{{ key_rh_up    }}> :TmuxNavigateUp<cr>
+noremap <silent> <C-{{ key_rh_right }}> :TmuxNavigateght<cr>
 " noremap <silent> <C-m> :TmuxNavigatePrevious<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
