@@ -3,3 +3,16 @@ remote_directory:   "{{ ansible_user_dir }}/.globalrc"
 
 # Set this to true if you want to perform the operations requiring root, for a first-time install
 have_root:  false
+
+# Movement keys (defaults are for bépo layout)
+# Right hand
+key_rh_left:  't'
+key_rh_down:  's'
+key_rh_up:    'r'
+key_rh_right: 'n'
+
+# Left hand
+key_lh_left:  'a'
+key_lh_down:  'u'
+key_lh_up:    'i'
+key_lh_right: 'e'
