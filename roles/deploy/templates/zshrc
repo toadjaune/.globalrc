@@ -12,7 +12,7 @@ if [ -f ../commonrc ]; then
 fi
 
 # Try to switch to a 256-color terminal
-# Can be cancelled setting the $DISABLE_256_COLORS to anything
+# Can be cancelled setting the $DISABLE_256_COLORS variable to anything
 if [ -z $DISABLE_256_COLORS ]; then
   source 256colors
 fi
@@ -32,6 +32,15 @@ source config
 
 # Start zplug plugin manager
 source zplug
+
+# Aliasing movement keys (With Alt) to arrow keys
+# NB: It is nice to do that instead of mapping directly to the corresponding
+# zle widgets, to avoid having to manually which widget is the correct one
+# See http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
+bindkey -s '^[{{ key_rh_left  }}' '^[[D'
+bindkey -s '^[{{ key_rh_down  }}' '^[[B'
+bindkey -s '^[{{ key_rh_up    }}' '^[[A'
+bindkey -s '^[{{ key_rh_right }}' '^[[C'
 
 # Comes back into previous directory
 popd > /dev/null
