@@ -1,0 +1,37 @@
+#!/bin/zsh
+# Places you into current directory
+pushd $(dirname $0) > /dev/null
+
+
+
+# Loading common components
+if [ -f ../commonrc ]; then
+  pushd .. > /dev/null
+  source commonrc
+  popd > /dev/null
+fi
+
+# Try to switch to a 256-color terminal
+# Can be cancelled setting the $DISABLE_256_COLORS to anything
+if [ -z $DISABLE_256_COLORS ]; then
+  source 256colors
+fi
+
+# RVM loading (if present)
+# This is quite a bit slow on prompt startup, but I need it ...
+source rvm
+
+# Loading prompt
+source prompt
+
+# Completion initialization, should be run as late as possible
+source compinit
+
+# Miscellaneous conf (including parts from gmrl)
+source config
+
+# Start zplug plugin manager
+source zplug
+
+# Comes back into previous directory
+popd > /dev/null
