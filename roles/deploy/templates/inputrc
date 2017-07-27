@@ -1,0 +1,16 @@
+# Before doing anything, we include the global inputrc
+# TODO: Check if this is really necessary
+$include /etc/inputrc
+
+# # want vi to be the default editor for readline
+# set editing-mode vi
+# 
+# # vi settings
+# # normal mode
+# set keymap vi-command
+# "t": backward-char
+# "n": forward-char
+# # insert mode
+
+# Let the user override with local settings
+$include {{ ansible_user_dir }}/.inputrc
