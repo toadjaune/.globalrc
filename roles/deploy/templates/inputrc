@@ -2,15 +2,19 @@
 # TODO: Check if this is really necessary
 $include /etc/inputrc
 
-# want vi to be the default editor for readline
+# want vi to be the default edition mode for readline
 set editing-mode vi
 
 # vi settings
-# normal mode
-set keymap vi-command
-"t": backward-char
-"n": forward-char
 # insert mode
+set keymap vi-insert
+# Still buggy, try to understand why, and to directly map to the arrow
+# keys (Seems to work)
+"{{ key_rh_left  }}": backward-char
+"{{ key_rh_down  }}": next-history
+"{{ key_rh_up    }}": previous-history
+"{{ key_rh_right }}": forward-char
+
 
 # Let the user override with local settings
 $include {{ ansible_user_dir }}/.inputrc
