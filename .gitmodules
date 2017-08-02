@@ -2,3 +2,6 @@
 	path = roles/deploy/files/lib/csdt-globalrc
   url = https://github.com/toadjaune/globalrc
 	pushurl = git@github.com:toadjaune/globalrc
+[submodule "roles/deploy/files/lib/sshrc"]
+	path = roles/deploy/files/lib/sshrc
+	url = https://github.com/Russell91/sshrc
