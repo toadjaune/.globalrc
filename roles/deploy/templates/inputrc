@@ -1,5 +1,5 @@
 # Before doing anything, we include the global inputrc
-# TODO: Check if this is really necessary
+# It is apparently not always included by default
 $include /etc/inputrc
 
 # want vi to be the default edition mode for readline
@@ -8,8 +8,7 @@ set editing-mode vi
 # vi settings
 # insert mode
 set keymap vi-insert
-# Still buggy, try to understand why, and to directly map to the arrow
-# keys (Seems to work)
+# Note : directly mapping to the arrow keys is buggy
 "{{ key_rh_left  }}": backward-char
 "{{ key_rh_down  }}": next-history
 "{{ key_rh_up    }}": previous-history
