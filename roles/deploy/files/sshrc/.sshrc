@@ -1,1 +1,13 @@
+# /!\ This script is copied over at each ssh connexion
+# Therefore, it must stay as small and simple as possible
+# TODO : Use the templating system to "Compile" only the
+# strict necessary at deploy-time
+
+# Check if the globalrc is installed, if so, abort everything
+# /!\ The location is currently not configurable
+if [ -d .globalrc ]; then
+  echo "SSHRC disabled because GLOBALRC present"
+  return 0
+fi
+
 export INPUTRC="$SSHHOME/.sshrc.d/inputrc"
