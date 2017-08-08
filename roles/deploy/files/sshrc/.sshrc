@@ -2,6 +2,7 @@
 # Therefore, it must stay as small and simple as possible
 # TODO : Use the templating system to "Compile" only the
 # strict necessary at deploy-time
+# See https://github.com/Russell91/sshrc
 
 # Check if the globalrc is installed, if so, abort everything
 # /!\ The location is currently not configurable
@@ -10,4 +11,20 @@ if [ -d .globalrc ]; then
   return 0
 fi
 
+# keep an easy access to the original tmux, just in case
+alias tmux_vanilla="$(which tmux)"
+
+# Overload the tmux command to load sshrc
+tmuxrc() {
+  local TMUXDIR="/tmp/tmux-sshrc-$USER"
+  if ! [ -d $TMUXDIR ]; then
+    rm -rf $TMUXDIR
+    mkdir -p $TMUXDIR
+  fi
+  rm -rf $TMUXDIR/.sshrc.d
+  cp -r $SSHHOME/.sshrc $SSHHOME/bashsshrc $SSHHOME/sshrc $SSHHOME/.sshrc.d $TMUXDIR
+  SSHHOME=$TMUXDIR SHELL=$TMUXDIR/bashsshrc /usr/bin/tmux -S $TMUXDIR/tmuxserver $@
+}
+
+# Load the readline settings
 export INPUTRC="$SSHHOME/.sshrc.d/inputrc"
