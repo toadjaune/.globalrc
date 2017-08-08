@@ -1,1 +1,1 @@
-INPUTRC="$SSHHOME/.sshrc.d/inputrc"
+export INPUTRC="$SSHHOME/.sshrc.d/inputrc"
