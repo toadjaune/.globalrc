@@ -40,7 +40,7 @@
       . {{ remote_directory }}/files/bash/bashrc
 
 - name: Start the components requiring root access
-  include:  root.yml
+  import_tasks:  root.yml
   become:   true
   when:     have_root
 
@@ -66,11 +66,11 @@
         excludesfile = {{ remote_directory }}/files/gitignore
 
 - name: Install zsh configuration
-  include: zsh.yml
+  import_tasks: zsh.yml
   tags: zsh
 
 - name: Install vim configuration
-  include: vim.yml
+  import_tasks: vim.yml
   tags: vim
 
 # /!\ TODO: Find a way allowing local configuration
