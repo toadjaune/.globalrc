@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+# IRC-client-like input, to store in history a partial command
+# cf http://www.zshwiki.org/home/zle/ircclientlikeinput
+# /!\ This probably won't work if done after other widget
+# changes affecting down-line-or-history
+
+fake-accept-line() {
+  if [[ -n "$BUFFER" ]];
+  then
+    print -S "$BUFFER"
+  fi
+  return 0
+}
+zle -N fake-accept-line
+
+down-or-fake-accept-line() {
+  if (( HISTNO == HISTCMD )) && [[ "$RBUFFER" != *$'\n'* ]];
+  then
+    zle fake-accept-line
+  fi
+  zle .down-line-or-history "$@"
+}
+zle -N down-line-or-history down-or-fake-accept-line
