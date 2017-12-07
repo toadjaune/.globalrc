@@ -181,8 +181,16 @@ set magic
 
 set showmatch     " Show matching brackets when text indicator is over them
 set mat=2         " How many tenths of a second to blink when matching brackets
-set number        " Show line numbers
 set mouse=a       " Enable mouse interaction
+
+" Show line numbers, relative only in active file in normal mode
+" See https://github.com/jeffkreeftmeijer/vim-numbertoggle
+set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+augroup END
 
 " Enable/Disable Paste Mode with leader-p
 noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
