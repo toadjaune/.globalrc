@@ -3,7 +3,7 @@
 # See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
 
 # location of oh-my-zsh
-# TODO: Maybe something much more cleaner should be done with ansible variables
+# TODO: Maybe something cleaner should be done with ansible variables
 export ZPLUG_HOME="$GLOBALRC/../zplug"
 
 # source zplug
@@ -22,7 +22,9 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ### Zplug list of plugins ###
 
 # Fish-like history-based suggestions
-zplug "zsh-users/zsh-autosuggestions"
+# zplug "zsh-users/zsh-autosuggestions"
+# Waiting for the fork to be merged
+zplug "toadjaune/zsh-autosuggestions"
 
 # Fish-like syntax highlighting
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
@@ -30,6 +32,7 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 #############################
 
 # TODO : Make this and update at deploy-time rather than run-time
+# Needs https://github.com/zplug/zplug/issues/393
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
