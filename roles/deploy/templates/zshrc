@@ -25,9 +25,8 @@ source definitions
 source rvm
 
 # TODO: Stop hardcoding that, do it in a cleaner way
-POWERLINE_ROOT="$HOME/.local/lib/python2.7/site-packages"
+POWERLINE_ROOT="/usr/lib/python3.6/site-packages"
 POWERLINE_PATH="$POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh"
-echo $POWERLINE_PATH
 if [[ -a $POWERLINE_PATH ]]; then
   . $POWERLINE_PATH
 else

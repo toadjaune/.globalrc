@@ -11,11 +11,12 @@
 # --target ? https://stackoverflow.com/questions/2915471/install-a-python-package-into-a-different-directory-using-pip#19404371
 # TODO : See if we need extra dependencies for perfs
 # https://powerline.readthedocs.io/en/latest/installation.html
-- name: Install powerline
-  pip:
-    name:       powerline-status
-    state:      latest
-    extra_args: --user
+# For now, let's just install it from the package manager
+#- name: Install powerline
+#  pip:
+#    name:       powerline-status
+#    state:      latest
+#    extra_args: --user
 
 - name: Setup the loading via .zshrc
   blockinfile:
