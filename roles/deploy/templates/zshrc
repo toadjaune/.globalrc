@@ -24,8 +24,16 @@ source definitions
 # This is quite a bit slow on prompt startup, but I need it ...
 source rvm
 
-# Loading prompt
-source prompt
+# TODO: Stop hardcoding that, do it in a cleaner way
+POWERLINE_ROOT="$HOME/.local/lib/python2.7/site-packages"
+POWERLINE_PATH="$POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh"
+echo $POWERLINE_PATH
+if [[ -a $POWERLINE_PATH ]]; then
+  . $POWERLINE_PATH
+else
+  # Loading prompt
+  source prompt
+fi
 
 # Completion initialization, should be run as late as possible
 source compinit
