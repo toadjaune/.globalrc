@@ -12,11 +12,11 @@
 # TODO : See if we need extra dependencies for perfs
 # https://powerline.readthedocs.io/en/latest/installation.html
 # For now, let's just install it from the package manager
-#- name: Install powerline
-#  pip:
-#    name:       powerline-status
-#    state:      latest
-#    extra_args: --user
+- name: Install powerline
+  pip:
+    name:       powerline-status
+    state:      latest
+    extra_args: --user
 
 - name: Setup the loading via .zshrc
   blockinfile:
