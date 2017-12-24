@@ -13,7 +13,7 @@ watch=notme
 
 
 
-### Extracted from gmrl conf. See file in 'components' folder ###
+### Extracted from gmrl conf. See https://grml.org/zsh/ ###
 
 # append history list to the history file; this is the default but we make sure
 # because it's required for share_history.

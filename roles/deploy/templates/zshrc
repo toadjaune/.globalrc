@@ -2,8 +2,6 @@
 # Places you into current directory
 pushd $(dirname $0) > /dev/null
 
-
-
 # Loading common components
 if [ -f ../commonrc ]; then
   pushd .. > /dev/null
@@ -19,10 +17,6 @@ fi
 
 # Custom functions definition
 source definitions
-
-# RVM loading (if present)
-# This is quite a bit slow on prompt startup, but I need it ...
-source rvm
 
 # TODO: Stop hardcoding that, do it in a cleaner way
 POWERLINE_ROOT="$HOME/.local/lib/python2.7/site-packages"
