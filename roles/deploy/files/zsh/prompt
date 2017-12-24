@@ -8,17 +8,13 @@
 
 # Set of chars used in prompt
 if [[ $UNICODE_VALID == 1 ]]; then
-  # Real good-looking characters
+  # Real good-looking characters
   prompt_tlc='┌'    # Top left
   prompt_mlc='├─'   # Medium left (for heredocs & co)
   prompt_blc='└'    # Bottom left
   prompt_hyphen='─' # Horizontal separations
   prompt_newline='
 '
-  battery_charged_character='▬' #'▸'
-  battery_discharged_character='▭' #'▹'
-  battery_discharging='%F{red}◀ '
-  battery_charging='%F{green}▶ '
 else
   # ASCII FALLBACK
   prompt_tlc=','    # Top left
@@ -27,10 +23,6 @@ else
   prompt_hyphen='-' # Horizontal separations
   prompt_newline='
 '
-  battery_charged_character='|'
-  battery_discharged_character='-'
-  battery_discharging='%F{red}< '
-  battery_charging='%F{green}> '
 fi
 
 ######################### Set of colors used in prompt #########################
@@ -65,7 +57,7 @@ else
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] ; then
     prompt_color1='cyan'
   fi
-  
+
   # If we are root
   if [ $UID = 0 ] ; then
     prompt_color1='red'
@@ -76,17 +68,12 @@ battery_color_high=%F{green}
 battery_color_medium=%F{yellow}
 battery_color_low=%b%F{red}
 battery_color_background=''
-  
+
 ################################################################################
 
 # Loading git info
 if [ -f prompt_git ]; then
   source prompt_git
-fi
-
-# Loading battery info
-if [ -f prompt_battery ]; then
-  source prompt_battery
 fi
 
 
@@ -135,7 +122,7 @@ precmd () {
 
     update_battery
     RPROMPT=$battery_level
-    
+
     # adjust title of xterm
     # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
 #    [[ ${NOTITLE} -gt 0 ]] && return 0
@@ -148,7 +135,7 @@ precmd () {
     local prompt_line_1a_width=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
     local prompt_line_1b_width=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
     local prompt_git_width=${#${(S%%)git_info//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-  
+
     local prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_line_1b_width - prompt_git_width - 2 ))
 
     # Try to fit in long path and time, and vcs_info
@@ -158,7 +145,7 @@ precmd () {
       prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$git_info%F{$prompt_color1}$prompt_hyphen$prompt_line_1b"
     else
         prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_git_width - 2 ))
-      
+
         # Didn't fit; try to fit in long path and vcs_info
         if (( prompt_padding_size > 0 )); then
             local prompt_padding
@@ -172,13 +159,13 @@ precmd () {
                 eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
                 prompt_line_1="$prompt_line_1a$prompt_padding"
             else
-                # Still didn't fit; truncate 
+                # Still didn't fit; truncate
                 local prompt_pwd_size=$(( COLUMNS - 5 ))
                 prompt_line_1="$prompt_tbox$prompt_l_paren%B%F{$prompt_color2}%$prompt_pwd_size<...<%~%<<$prompt_r_paren%b%F{$prompt_color1}$prompt_hyphen"
             fi
         fi
     fi
-  
+
     # Main prompt
     PS1="$prompt_line_1$prompt_newline$prompt_line_2%B%F{red}${EXITCODE}%b%F{$prompt_color1}$prompt_hyphen%B%F{white}$prompt_char %b%f%k"
     # secondary prompt, printed when the shell needs more information to
