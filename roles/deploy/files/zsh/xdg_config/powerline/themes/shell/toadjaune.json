@@ -63,6 +63,11 @@
 				"dir_limit_depth": 8,
 				"use_path_separator": "True"
 			}
+		},
+		"branch": {
+			"args": {
+				"status_colors": "True"
+			}
 		}
 	}
 }
