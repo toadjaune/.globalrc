@@ -29,6 +29,7 @@ POWERLINE_ROOT="$HOME/.local/lib/python2.7/site-packages"
 POWERLINE_PATH="$POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh"
 export PATH="$HOME/.local/bin:$PATH"
 if [[ -a $POWERLINE_PATH ]]; then
+  powerline-daemon -q
   . $POWERLINE_PATH
 else
   # Loading prompt
