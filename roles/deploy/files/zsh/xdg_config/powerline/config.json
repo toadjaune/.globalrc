@@ -1,7 +1,7 @@
 {
 	"ext": {
 		"shell": {
-			"colorscheme": "solarized",
+			"colorscheme": "default",
 			"theme": "toadjaune",
 			"local_themes": {
 				"continuation": "continuation",
