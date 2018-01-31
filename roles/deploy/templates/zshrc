@@ -18,18 +18,8 @@ fi
 # Custom functions definition
 source definitions
 
-# TODO: Stop hardcoding that, do it in a cleaner way
-POWERLINE_ROOT="$HOME/.local/lib/python2.7/site-packages"
-POWERLINE_PATH="$POWERLINE_ROOT/powerline/bindings/zsh/powerline.zsh"
-export PATH="$HOME/.local/bin:$PATH"
-export XDG_CONFIG_DIRS="$GLOBALRC/zsh/xdg_config/"
-if [[ -a $POWERLINE_PATH ]]; then
-  powerline-daemon -q
-  . $POWERLINE_PATH
-else
-  # Loading prompt
-  source prompt
-fi
+# Loading prompt
+source prompt
 
 # Completion initialization, should be run as late as possible
 source compinit
