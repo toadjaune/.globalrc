@@ -64,11 +64,6 @@ else
   fi
 fi
 
-battery_color_high=%F{green}
-battery_color_medium=%F{yellow}
-battery_color_low=%b%F{red}
-battery_color_background=''
-
 ################################################################################
 
 # Loading git info
@@ -119,9 +114,6 @@ precmd () {
             ESC_print "zsh"
         fi
     fi
-
-    update_battery
-    RPROMPT=$battery_level
 
     # adjust title of xterm
     # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
