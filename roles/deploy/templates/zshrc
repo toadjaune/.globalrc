@@ -18,8 +18,8 @@ fi
 # Custom functions definition
 source definitions
 
-# Loading prompt
-source prompt
+# Load legacy prompt
+# source prompt
 
 # Completion initialization, should be run as late as possible
 source compinit
