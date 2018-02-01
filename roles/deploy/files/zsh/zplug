@@ -153,8 +153,16 @@ zplug "toadjaune/zsh-autosuggestions"
 # Fish-like syntax highlighting
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
-# Powerlevel9k, prompt configuration
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+# We assume that if a prompt does not support 256 colors, it's probably
+# a tty or some sort of prompt without proper support for glyphs
+# It's not necessarily true but it's a good heuristic
+if [[ $TERM =~ '256color' ]]; then
+  # Powerlevel9k, prompt configuration
+  zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+else
+  # Just load legacy prompt
+  source prompt
+fi
 
 #############################
 
