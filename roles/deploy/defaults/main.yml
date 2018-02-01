@@ -4,6 +4,9 @@ remote_directory:   "{{ ansible_user_dir }}/.globalrc"
 # Set this to true if you want to perform the operations requiring root, for a first-time install
 have_root:  false
 
+# Set this to true if the machine has no graphical interface. It skips useless steps.
+server: false
+
 # Movement keys (defaults are for bépo layout)
 # Right hand
 key_rh_left:  't'
