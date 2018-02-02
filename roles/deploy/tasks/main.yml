@@ -73,6 +73,10 @@
   import_tasks: vim.yml
   tags: vim
 
+- name: Install ssh configuration
+  import_tasks: ssh.yml
+  tags: ssh
+
 # /!\ TODO: Find a way allowing local configuration
 # Currently, this task will fail if there is already a file
 - name: Install tmux configuration
