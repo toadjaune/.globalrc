@@ -16,16 +16,17 @@ fi
 # If we are running bash, but zsh is installed, switch to zsh
 # TODO : we should not hardcode this path
 if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
-  export ZDOTDIR="$SSHHOME/.sshrc.d"
+  #export ZDOTDIR="$SSHHOME/.sshrc.d"
   export SHELL='/usr/bin/zsh' # Why the hell do we need to do that ?!
-  exec zsh
+  echo 'a'
+  exec zsh --rcs "$SSHHOME/.sshrc.d/.zshrc"
 fi
 
 # If we are running zsh, source the normal startup files
 if [[ $SHELL =~ 'zsh' ]]; then
   echo 'c'
   # TODO : Conditionally load these
-  export ZDOTDIR=''
+  #export ZDOTDIR=''
   source ~/.zshenv
   source ~/.zprofile
   source ~/.zshrc
@@ -49,3 +50,5 @@ tmuxrc() {
 
 # Load the readline settings
 export INPUTRC="$SSHHOME/.sshrc.d/inputrc"
+
+echo 'd'
