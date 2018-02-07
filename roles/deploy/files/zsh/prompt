@@ -66,12 +66,6 @@ fi
 
 ################################################################################
 
-# Loading git info
-if [ -f prompt_git ]; then
-  source prompt_git
-fi
-
-
 # see man zshmisc for explanation about %B, %F, %b…
 prompt_tbox="%b%F{$prompt_color1}${prompt_tlc}%b%F{$prompt_color1}${prompt_hyphen}"
 prompt_bbox="%b%F{$prompt_color1}${prompt_blc}%b%F{$prompt_color1}"
@@ -103,9 +97,6 @@ EXITCODE="%(?..[%?]%1v)"
 precmd () {
     setopt noxtrace localoptions extendedglob
     local prompt_line_1
-    # update git information
-    update_git_vars
-    git_info=$(prompt_git_info)
 
     if [[ $TERM == screen* ]] ; then
         if [[ -n ${VCS_INFO_message_1_} ]] ; then
@@ -126,23 +117,22 @@ precmd () {
 
     local prompt_line_1a_width=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
     local prompt_line_1b_width=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-    local prompt_git_width=${#${(S%%)git_info//(\%([KF1]|)\{*\}|\%[Bbkf])}}
 
-    local prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_line_1b_width - prompt_git_width - 2 ))
+    local prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_line_1b_width - 2 ))
 
     # Try to fit in long path and time, and vcs_info
     if (( prompt_padding_size > 0 )); then
       local prompt_padding
       eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
-      prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$git_info%F{$prompt_color1}$prompt_hyphen$prompt_line_1b"
+      prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen%F{$prompt_color1}$prompt_hyphen$prompt_line_1b"
     else
-        prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - prompt_git_width - 2 ))
+        prompt_padding_size=$(( COLUMNS - prompt_line_1a_width - 2 ))
 
         # Didn't fit; try to fit in long path and vcs_info
         if (( prompt_padding_size > 0 )); then
             local prompt_padding
             eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_hyphen}:)_empty_zz}"
-            prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen$git_info%F{$prompt_color1}$prompt_hyphen"
+            prompt_line_1="$prompt_line_1a$prompt_padding$prompt_hyphen%F{$prompt_color1}$prompt_hyphen"
         else
             prompt_padding_size=$(( COLUMNS - prompt_line_1a_width ))
 
