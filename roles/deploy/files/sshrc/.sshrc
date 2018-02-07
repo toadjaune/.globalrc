@@ -16,30 +16,14 @@ fi
 # If we are running bash, but zsh is installed, switch to zsh
 # TODO : we should not hardcode this path
 if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
+  export ZDOTDIR_ORIG="$HOME" # TODO : check if ZDOTDIR is defined
   export ZDOTDIR="$SSHHOME/.sshrc.d"
   export SHELL='/usr/bin/zsh' # Why the hell do we need to do that ?!
   exec zsh
 fi
 
-# If we are running zsh, source the normal startup files
-if [[ $SHELL =~ 'zsh' ]]; then
-  # TODO : Conditionally load these
-  # NB : This is currently loaded from a .zshrc file, so some tests are redundant
-  # We could probably either load it from a .zprofile file, or remove some
-  #export ZDOTDIR=''
-  if [[ -e $HOME/.zshenv ]]; then
-    source ~/.zshenv
-  fi
-  if [[ -e $HOME/.zprofile && -o login ]]; then
-    source ~/.zprofile
-  fi
-  if [[ -e $HOME/.zshrc && -o interactive ]]; then
-    source ~/.zshrc
-  fi
-  if [[ -e $HOME/.zlogin && -o login ]]; then
-    source ~/.zlogin
-  fi
-fi
+#if [[ $SHELL =~ 'zsh' ]]; then
+#fi
 
 # keep an easy access to the original tmux, just in case
 alias tmux_vanilla="$(which tmux)"
