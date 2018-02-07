@@ -16,21 +16,29 @@ fi
 # If we are running bash, but zsh is installed, switch to zsh
 # TODO : we should not hardcode this path
 if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
-  #export ZDOTDIR="$SSHHOME/.sshrc.d"
+  export ZDOTDIR="$SSHHOME/.sshrc.d"
   export SHELL='/usr/bin/zsh' # Why the hell do we need to do that ?!
-  echo 'a'
-  exec zsh --rcs "$SSHHOME/.sshrc.d/.zshrc"
+  exec zsh
 fi
 
 # If we are running zsh, source the normal startup files
 if [[ $SHELL =~ 'zsh' ]]; then
-  echo 'c'
   # TODO : Conditionally load these
+  # NB : This is currently loaded from a .zshrc file, so some tests are redundant
+  # We could probably either load it from a .zprofile file, or remove some
   #export ZDOTDIR=''
-  source ~/.zshenv
-  source ~/.zprofile
-  source ~/.zshrc
-  source ~/.zlogin
+  if [[ -e $HOME/.zshenv ]]; then
+    source ~/.zshenv
+  fi
+  if [[ -e $HOME/.zprofile && -o login ]]; then
+    source ~/.zprofile
+  fi
+  if [[ -e $HOME/.zshrc && -o interactive ]]; then
+    source ~/.zshrc
+  fi
+  if [[ -e $HOME/.zlogin && -o login ]]; then
+    source ~/.zlogin
+  fi
 fi
 
 # keep an easy access to the original tmux, just in case
@@ -50,5 +58,3 @@ tmuxrc() {
 
 # Load the readline settings
 export INPUTRC="$SSHHOME/.sshrc.d/inputrc"
-
-echo 'd'
