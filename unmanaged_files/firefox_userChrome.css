@@ -1,0 +1,5 @@
+/* Configuration of Firefox for usage with Tree Style Tab */
+/* Hide tab bar at the top */
+#tabbrowser-tabs { visibility: collapse !important; }
+/* Hide the header at the top of the sidebar */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header { display: none; }

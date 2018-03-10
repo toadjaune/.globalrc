@@ -1,0 +1,28 @@
+/* This is my custom configuration for Tree Style Tab */
+
+/* Reduce tab height */
+.tab {
+  height: 23px;
+}
+
+/* Change styling of pending (unloaded) tabs */
+.tab.discarded {
+  opacity: 0.75;
+}
+.tab.discarded .label {
+  font-style: italic !important;
+  color: #808080 !important;
+}
+
+
+/* Show title of unread tabs with red and italic font */
+
+.tab.unread .label {
+  color: red !important;
+  font-style: italic !important;
+}
+
+/* Add private browsing indicator per tab */
+.tab.private-browsing .label:before {
+  content: "🕶";
+}
