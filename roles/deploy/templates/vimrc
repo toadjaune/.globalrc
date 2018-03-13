@@ -57,7 +57,8 @@ Plug 'ctrlpvim/ctrlp.vim'     " fuzzy search through filesystem/buffers
 " Git
 Plug 'tpope/vim-fugitive'     " Access to git commands from Vim
 Plug 'tpope/vim-git'          " Git syntax highlighting
-Plug 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
+" Plug 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
+Plug 'toadjaune/nerdtree-git-plugin'  " Diplays git files status in NERDtree
 Plug 'airblade/vim-gitgutter' " Displays signs for git modifications
 
 " Development tools
@@ -137,10 +138,25 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-""" vim-devicons
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+""" nerdtree-git-plugin """
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
 
-""" vim-nerdtree-syntax-highlight
+""" vim-devicons """
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+let g:webdevicons_conceal_nerdtree_brackets = 1
+
+""" vim-nerdtree-syntax-highlight """
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1

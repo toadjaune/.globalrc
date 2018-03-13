@@ -23,6 +23,7 @@
     dest:   "{{ remote_directory }}/nerd-fonts"
     depth:  1
   when: not server
+  tags: nerd-fonts
 
 # NB: you still have to reconfigure your terminal to use these fonts
 # TODO : Mention it in README ?
@@ -37,6 +38,7 @@
   changed_when:   false
   ignore_errors:  true
   when: not server
+  tags: nerd-fonts
 
 - name: Create colorschemes-manual directory
   file:
