@@ -139,18 +139,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 """ nerdtree-git-plugin """
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+let g:NERDTreeGitUnchangedIndicator = '-'
 
 """ vim-devicons """
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
