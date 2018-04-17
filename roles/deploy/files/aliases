@@ -54,6 +54,10 @@ alias topten='du -sk $(/bin/ls -A) | sort -rn | head -10'
 # arbre des dossiers
 alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
 
+# Use sshrc by default
+# We use an alias so that it doesn't get called when not directly typed by the user
+alias ssh="sshrc"
+
 # Alias pour recharger le bashrc
 alias brc='source ~/.bashrc'
 
