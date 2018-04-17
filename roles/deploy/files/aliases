@@ -38,9 +38,6 @@ if [ -e /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 alias screen='screen -c $GLOBALRC/screenrc'
 alias sc='screen'
 
-# make scp use the custom ssh call
-alias scp="scp -S ssh"
-
 # sudo -sE
 alias ssudo='sudo -sE'
 alias ssuod='ssudo'
@@ -56,6 +53,11 @@ alias topten='du -sk $(/bin/ls -A) | sort -rn | head -10'
 
 # arbre des dossiers
 alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
+
+# Use sshrc by default
+# We use an alias so that it doesn't get called when not directly typed by the user
+alias ssh="sshrc"
+alias mosh="moshrc"
 
 # Alias pour recharger le bashrc
 alias brc='source ~/.bashrc'

@@ -3,15 +3,10 @@
     path:   "{{ ansible_user_dir }}/.ssh"
     state:  directory
 
-- name: Create .ssh/config file
-  file:
-    path:   "{{ ansible_user_dir }}/.ssh/config"
-    state:  touch
-    mode:   0644
-
 - name: Load ssh configuration
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.ssh/config"
+    create: yes
     insertbefore: BOF
     block:  |
       # Loading global ssh configuration
