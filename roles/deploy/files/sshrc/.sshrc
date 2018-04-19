@@ -6,13 +6,6 @@
 # strict necessary at deploy-time
 # See https://github.com/Russell91/sshrc
 
-# Check if the globalrc is installed, if so, abort everything
-# /!\ The location is currently not configurable
-if [ -d .globalrc ]; then
-  echo "SSHRC disabled because GLOBALRC present"
-  return 0
-fi
-
 # If we are running bash, but zsh is installed, switch to zsh
 # TODO : we should not hardcode this path
 if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
@@ -20,6 +13,13 @@ if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
   export ZDOTDIR="$SSHHOME/.sshrc.d"
   export SHELL='/usr/bin/zsh' # Why the hell do we need to do that ?!
   exec zsh
+fi
+
+# Check if the globalrc is installed, if so, abort everything
+# /!\ The location is currently not configurable
+if [ -d .globalrc ]; then
+  echo "SSHRC disabled because GLOBALRC present"
+  return 0
 fi
 
 #if [[ $SHELL =~ 'zsh' ]]; then
