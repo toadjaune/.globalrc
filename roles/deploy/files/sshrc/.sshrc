@@ -8,18 +8,19 @@
 
 # If we are running bash, but zsh is installed, switch to zsh
 # TODO : we should not hardcode this path
-
-if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
+if [[ $0 =~ 'bash' && -x '/usr/bin/zsh' ]]; then
+  echo "b"
+  # TODO : these affectations should probably not be triggered if there is a remote globalrc
   export ZDOTDIR_ORIG="${ZDOTDIR_ORIG:-${ZDOTDIR:-$HOME}}"
   export ZDOTDIR="$SSHHOME/.sshrc.d"
-  export SHELL='/usr/bin/zsh' # Why the hell do we need to do that ?!
+  # $export SHELL='/usr/bin/zsh' # Why the hell do we need to do that ?!
   exec zsh
 fi
 
 # Check if the globalrc is installed, if so, abort everything
-# Please note that since this file is sourced after the local bashrc,
+# Please note that since this file is sourced after the remote bashrc,
 # if there is an installed globalrc remotely, SSHHOME is overrided, and
-# the _local_ .sshrc gets sourced
+# the _remote_ .sshrc gets sourced
 # /!\ The location is currently not configurable
 if [ -d .globalrc ]; then
   echo "SSHRC disabled because GLOBALRC present"
