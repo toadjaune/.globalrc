@@ -8,6 +8,7 @@
 
 # If we are running bash, but zsh is installed, switch to zsh
 # TODO : we should not hardcode this path
+
 if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
   export ZDOTDIR_ORIG="${ZDOTDIR_ORIG:-${ZDOTDIR:-$HOME}}"
   export ZDOTDIR="$SSHHOME/.sshrc.d"
@@ -16,14 +17,16 @@ if [[ $SHELL =~ 'bash' && -x '/usr/bin/zsh' ]]; then
 fi
 
 # Check if the globalrc is installed, if so, abort everything
+# Please note that since this file is sourced after the local bashrc,
+# if there is an installed globalrc remotely, SSHHOME is overrided, and
+# the _local_ .sshrc gets sourced
 # /!\ The location is currently not configurable
 if [ -d .globalrc ]; then
   echo "SSHRC disabled because GLOBALRC present"
   return 0
 fi
 
-#if [[ $SHELL =~ 'zsh' ]]; then
-#fi
+### Actual payload ###
 
 # keep an easy access to the original tmux, just in case
 alias tmux_vanilla="$(which tmux)"
