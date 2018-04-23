@@ -1,3 +1,0 @@
-[submodule "roles/deploy/files/lib/sshrc"]
-	path = roles/deploy/files/lib/sshrc
-	url = https://github.com/Russell91/sshrc

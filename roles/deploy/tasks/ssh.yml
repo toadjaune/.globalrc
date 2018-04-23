@@ -11,3 +11,10 @@
     block:  |
       # Loading global ssh configuration
       Include {{ remote_directory }}/files/ssh_config
+
+- name: Clone sshrc
+  git:
+    repo:   https://github.com/Russell91/sshrc
+    dest:   "{{ remote_directory }}/sshrc"
+    depth:  1
+
