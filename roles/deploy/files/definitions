@@ -10,11 +10,11 @@ then
   PATH="$(pwd)/scripts:$PATH"
 fi
 
-if [ -x most ]; then
-  export PAGER="most"
+if [ -x /usr/bin/most ]; then
+  export PAGER="/usr/bin/most"
 fi
 
-if [ -x vim ]; then
+if [ -x /usr/bin/vim ]; then
   export EDITOR="vim"
 fi
 
