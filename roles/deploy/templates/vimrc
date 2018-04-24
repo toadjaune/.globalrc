@@ -244,17 +244,18 @@ nnoremap <silent> <leader>f :NERDTreeFind<CR>
 nnoremap <Space> <nop>
 
 " Quick getting out of insert mode with Alt-space
-inoremap   <esc>
+lnoremap   <esc>
 
 " Movement keys for bépo with Alt (Issues with <A-> and <M-> notations ...)
+" See :help mapmode-l for lnoremap
 noremap  {{ key_rh_left  }} <left>
 noremap  {{ key_rh_down  }} <down>
 noremap  {{ key_rh_up    }} <up>
 noremap  {{ key_rh_right }} <right>
-inoremap {{ key_rh_left  }} <left>
-inoremap {{ key_rh_down  }} <down>
-inoremap {{ key_rh_up    }} <up>
-inoremap {{ key_rh_right }} <right>
+lnoremap {{ key_rh_left  }} <left>
+lnoremap {{ key_rh_down  }} <down>
+lnoremap {{ key_rh_up    }} <up>
+lnoremap {{ key_rh_right }} <right>
 
 " Navigating across vim splits and tmux panes
 noremap <silent> <C-{{ key_rh_left  }}> :TmuxNavigateLeft<cr>
