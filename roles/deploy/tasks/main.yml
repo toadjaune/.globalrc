@@ -10,6 +10,8 @@
     recursive:  true
     delete:     true
     perms:      true
+    rsync_opts:
+      - "--exclude=*.swp" # vim tempfiles
 
 - name: Create templates directory
   file:
@@ -29,7 +31,7 @@
     src: '{{ item.src }}'
     dest: '{{ remote_directory }}/templates/{{ item.path }}'
   with_filetree: '../templates'
-  when: item.state == 'file'
+  when: item.state == 'file' and not (item.path | regex_search('.swp'))
 
 - name: Setup the loading via .bashrc
   blockinfile:
