@@ -28,8 +28,17 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# Historique
+# History-related commands
 alias h='history'
+# This re-executes the last command, writes the output in a file descriptor, and opens it with vim,
+# thanks to process substitution
+# This syntax is compatible with both bash and zsh (unlike `fc -s`)
+# See :
+# - http://www.gnu.org/software/bash/manual/bashref.html#Bash-History-Builtins
+# - http://zsh.sourceforge.net/Doc/Release/Shell-Builtin-Commands.html
+# - https://www-s.acm.illinois.edu/workshops/zsh/history/fc.html
+# - http://tldp.org/LDP/abs/html/process-sub.html
+alias invim='vim <(fc -e true)'
 
 # On RedHat family systems, use vimx if installed, to have access to clipboard from vim
 if [ -x /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
