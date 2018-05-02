@@ -259,6 +259,11 @@ lnoremap {{ key_rh_left  }} <left>
 lnoremap {{ key_rh_down  }} <down>
 lnoremap {{ key_rh_up    }} <up>
 lnoremap {{ key_rh_right }} <right>
+" I don't understand why we need cnoremap when we have lnoremap
+cnoremap {{ key_rh_left  }} <left>
+cnoremap {{ key_rh_down  }} <down>
+cnoremap {{ key_rh_up    }} <up>
+cnoremap {{ key_rh_right }} <right>
 
 " Navigating across vim splits and tmux panes
 noremap <silent> <C-{{ key_rh_left  }}> :TmuxNavigateLeft<cr>
