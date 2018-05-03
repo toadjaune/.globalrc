@@ -5,6 +5,9 @@ $include /etc/inputrc
 # want vi to be the default edition mode for readline
 set editing-mode vi
 
+# For explanation on the different keymaps, see :
+# https://superuser.com/questions/286781/readline-difference-between-vi-vi-move-vi-command-vi-insert-keymaps
+
 # vi settings
 # insert mode
 set keymap vi-insert
@@ -13,9 +16,15 @@ set keymap vi-insert
 "{{ key_rh_down  }}": next-history
 "{{ key_rh_up    }}": previous-history
 "{{ key_rh_right }}": forward-char
-# Map Alt-space to esc
+# Map Alt-space to exit insert mode
 " ":                  vi-movement-mode
 
+# Command mode
+set keymap vi-command
+"{{ key_rh_left  }}": backward-char
+"{{ key_rh_down  }}": next-history
+"{{ key_rh_up    }}": previous-history
+"{{ key_rh_right }}": forward-char
 
 # Let the user override with local settings
 $include {{ ansible_user_dir }}/.inputrc
