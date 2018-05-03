@@ -1,4 +1,4 @@
-# Before doing anything, we include the global inputrc
+# Before doing anything, we include the system inputrc
 # It is apparently not always included by default
 $include /etc/inputrc
 
@@ -13,6 +13,8 @@ set keymap vi-insert
 "{{ key_rh_down  }}": next-history
 "{{ key_rh_up    }}": previous-history
 "{{ key_rh_right }}": forward-char
+# Map Alt-space to esc
+" ":                  vi-movement-mode
 
 
 # Let the user override with local settings
