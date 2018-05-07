@@ -150,8 +150,12 @@ POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="$DEFAULT_BACKGROUND"
 # Waiting for the fork to be merged
 # zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
 zplug "toadjaune/zsh-autosuggestions", at:fix-vi-partial-accept # temporary
+
 # Fish-like syntax highlighting
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+# Community packaging of completions for common programs
+zplug 'zsh-users/zsh-completions'
 
 # We assume that if a prompt does not support 256 colors, it's probably
 # a tty or some sort of prompt without proper support for glyphs
