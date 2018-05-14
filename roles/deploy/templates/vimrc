@@ -271,6 +271,11 @@ noremap <silent> <C-{{ key_rh_right }}> :TmuxNavigateRight<cr>
 " /!\ Not perfect yet, does not behave as a proper dead key
 noremap <leader>r <C-r>
 
+" Search for text in visual selection
+" see http://vim.wikia.com/wiki/Search_for_visually_selected_text
+vnoremap // y/\V<C-R>"<CR>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
