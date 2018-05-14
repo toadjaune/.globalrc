@@ -79,13 +79,9 @@
   import_tasks: ssh.yml
   tags: ssh
 
-# /!\ TODO: Find a way allowing local configuration
-# Currently, this task will fail if there is already a file
 - name: Install tmux configuration
-  file:
-    path:   "{{ ansible_user_dir }}/.tmux.conf"
-    src:    "{{ remote_directory }}/files/tmux.conf"
-    state:  link
+  import_tasks: tmux.yml
+  tags: tmux
 
 # Mass-renaming tool with vim
 - name: Download vimv

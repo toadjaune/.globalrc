@@ -1,0 +1,24 @@
+# NOTE : This is temporary, for migration. It deletes the symlink and avoids an infinite sourcing loop
+# TODO : Remove, at some point
+- name: See if .tmux.conf is a symlink
+  stat:
+    path:   "{{ ansible_user_dir }}/.tmux.conf"
+  register: sym
+
+- name: Remove current tmux configuration file
+  file:
+    dest:         "{{ ansible_user_dir }}/.tmux.conf"
+    state:        absent
+  when: sym.stat.islnk is defined and sym.stat.islnk
+
+
+
+- name: Load tmux configuration
+  blockinfile:
+    dest:         "{{ ansible_user_dir }}/.tmux.conf"
+    insertbefore: BOF
+    create:       true
+    block:  |
+      # Loading global tmux configuration
+      source-file {{ remote_directory }}/files/tmux.conf
+
