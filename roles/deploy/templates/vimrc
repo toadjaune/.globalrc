@@ -203,8 +203,8 @@ augroup END
 " Enable/Disable Paste Mode with leader-p
 noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
 
-" Reload vimrc with leader-r
-nnoremap <leader>r :source $MYVIMRC<CR>
+" Reload vimrc with leader-c
+nnoremap <leader>c :source $MYVIMRC<CR>
 
 set history=1000         " remember more commands and search history
 set undolevels=1000      " remember more actions in undo buffer
@@ -269,7 +269,7 @@ noremap <silent> <C-{{ key_rh_right }}> :TmuxNavigateRight<cr>
 
 " Remap the redo key, overloaded by vim-tmux navigation
 " /!\ Not perfect yet, does not behave as a proper dead key
-noremap <leader>r <C-r>
+nnoremap <leader>r <C-r>
 
 " Search for text in visual selection
 " see http://vim.wikia.com/wiki/Search_for_visually_selected_text
