@@ -35,7 +35,7 @@ fi
 alias tmux_vanilla="$(which tmux)"
 
 # Overload the tmux command to load sshrc
-tmuxrc() {
+tmux() {
   local TMUXDIR="/tmp/tmux-sshrc-$USER"
   if ! [ -d $TMUXDIR ]; then
     rm -rf $TMUXDIR
