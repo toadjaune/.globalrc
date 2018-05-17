@@ -17,78 +17,6 @@ source "$ZPLUG_HOME/init.zsh"
 # Choose enabled highlighters
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-###############################################################################
-
-### Zplug list of plugins ###
-
-# Fish-like history-based suggestions
-# zplug "zsh-users/zsh-autosuggestions"
-# Waiting for the fork to be merged
-# zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
-zplug "toadjaune/zsh-autosuggestions", at:fix-vi-partial-accept # temporary
-
-# Fish-like syntax highlighting
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-# Community packaging of completions for common programs
-zplug 'zsh-users/zsh-completions'
-
-# We assume that if a prompt does not support 256 colors, it's probably
-# a tty or some sort of prompt without proper support for glyphs
-# It's not necessarily true but it's a good heuristic
-if [[ $TERM =~ '256color' ]]; then
-  # Powerlevel9k, prompt configuration
-  zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-else
-  # Just load legacy prompt
-  source prompt
-fi
-
-#############################
-
-# TODO : Make this and update at deploy-time rather than run-time
-# Needs https://github.com/zplug/zplug/issues/393
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
-
-###############################################################################
-# Plugins post-configuration                                                  #
-###############################################################################
-
-### zsh-autosggestions ###
-# Shift-Tab accepts current autosuggestion
-bindkey '^[[Z' autosuggest-accept
-
-
-### zsh-syntax-highlighting ###
-# Main highlight configuration (not all available options)
-ZSH_HIGHLIGHT_STYLES+=(
-  unknown-token         'fg=red,bold'
-  reserved-word         'fg=yellow'
-  alias                 'fg=green,bold'
-  builtin               'fg=green,bold'
-  function              'fg=green,bold'
-  command               'fg=green,bold'
-  precommand            'fg=green'
-  hashed-command        'fg=green'
-  path                  'fg=blue,bold'
-  path_prefix           'fg=blue'
-  path_approx           'fg=blue,underlined'
-  globbing              'fg=yellow,underlined'
-  single-hyphen-option  'fg=purple,bold'
-  double-hyphen-option  'fg=purple,bold'
-  back-quoted-argument  'fg=purple,bold'
-  default               'fg=cyan,bold'
-)
-
 
 ### powerlevel9k ###
 # based on https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
@@ -129,6 +57,7 @@ POWERLEVEL9K_STATUS_HIDE_SIGNAME=true
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="╭"
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="╰\uF460 "
 
+# NB : kubecontext module is sloooooow
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator host context dir_writable dir vcs rbenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext command_execution_time background_jobs virtualenv status time ssh)
 
@@ -212,5 +141,77 @@ POWERLEVEL9K_BATTERY_LEVEL_BACKGROUND_COLOR="$DEFAULT_BACKGROUND"
 POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND="$DEFAULT_BACKGROUND"
 POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND="$DEFAULT_BACKGROUND"
 POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="$DEFAULT_BACKGROUND"
+
+###############################################################################
+
+### Zplug list of plugins ###
+
+# Fish-like history-based suggestions
+# zplug "zsh-users/zsh-autosuggestions"
+# Waiting for the fork to be merged
+# zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
+zplug "toadjaune/zsh-autosuggestions", at:fix-vi-partial-accept # temporary
+
+# Fish-like syntax highlighting
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+# Community packaging of completions for common programs
+zplug 'zsh-users/zsh-completions'
+
+# We assume that if a prompt does not support 256 colors, it's probably
+# a tty or some sort of prompt without proper support for glyphs
+# It's not necessarily true but it's a good heuristic
+if [[ $TERM =~ '256color' ]]; then
+  # Powerlevel9k, prompt configuration
+  zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+else
+  # Just load legacy prompt
+  source prompt
+fi
+
+#############################
+
+# TODO : Make this and update at deploy-time rather than run-time
+# Needs https://github.com/zplug/zplug/issues/393
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+
+###############################################################################
+# Plugins post-configuration                                                  #
+###############################################################################
+
+### zsh-autosggestions ###
+# Shift-Tab accepts current autosuggestion
+bindkey '^[[Z' autosuggest-accept
+
+
+### zsh-syntax-highlighting ###
+# Main highlight configuration (not all available options)
+ZSH_HIGHLIGHT_STYLES+=(
+  unknown-token         'fg=red,bold'
+  reserved-word         'fg=yellow'
+  alias                 'fg=green,bold'
+  builtin               'fg=green,bold'
+  function              'fg=green,bold'
+  command               'fg=green,bold'
+  precommand            'fg=green'
+  hashed-command        'fg=green'
+  path                  'fg=blue,bold'
+  path_prefix           'fg=blue'
+  path_approx           'fg=blue,underlined'
+  globbing              'fg=yellow,underlined'
+  single-hyphen-option  'fg=purple,bold'
+  double-hyphen-option  'fg=purple,bold'
+  back-quoted-argument  'fg=purple,bold'
+  default               'fg=cyan,bold'
+)
 ###############################################################################
 
