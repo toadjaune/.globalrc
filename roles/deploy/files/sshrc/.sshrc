@@ -39,11 +39,11 @@ tmux() {
   local TMUXDIR="/tmp/tmux-sshrc-$USER"
   if ! [ -d "$TMUXDIR" ]; then
     rm -rf "$TMUXDIR"
-    mkdir -p "$TMUXDIR"
+    mkdir -m 0700 "$TMUXDIR"
   fi
   rm -rf "$TMUXDIR/.sshrc.d"
-  cp -r "$SSHHOME/.sshrc" "$SSHHOME/bashsshrc" "$SSHHOME/sshrc" "$SSHHOME/.sshrc.d" "$TMUXDIR"
-  SSHHOME="$TMUXDIR" SHELL="$TMUXDIR/bashsshrc" /usr/bin/tmux -S "$TMUXDIR/tmuxserver" "$@"
+  \cp -r "$SSHHOME/.sshrc" "$SSHHOME/bashsshrc" "$SSHHOME/sshrc" "$SSHHOME/.sshrc.d" "$TMUXDIR"
+  SSHHOME="$TMUXDIR" SHELL="$TMUXDIR/bashsshrc" /usr/bin/tmux -S "$TMUXDIR/tmuxserver" -f "$TMUXDIR/.sshrc.d/.tmux.conf" "$@"
 }
 
 # Load the readline settings
