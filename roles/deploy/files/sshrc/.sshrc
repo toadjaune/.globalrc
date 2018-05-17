@@ -20,7 +20,7 @@ fi
 # Check if the globalrc is installed, if so, abort everything
 # Please note that since this file is sourced after the remote bashrc,
 # if there is an installed globalrc remotely, SSHHOME is overrided, and
-# the _remote_ .sshrc gets sourced
+# the .sshrc of the _server_ gets sourced
 # TODO : make bashrc abort early in this case, to save time, since the whole
 #   zsh environment is gonna get sourced anyway
 # /!\ The location is currently not configurable
@@ -37,13 +37,13 @@ alias tmux_vanilla="$(which tmux)"
 # Overload the tmux command to load sshrc
 tmux() {
   local TMUXDIR="/tmp/tmux-sshrc-$USER"
-  if ! [ -d $TMUXDIR ]; then
-    rm -rf $TMUXDIR
-    mkdir -p $TMUXDIR
+  if ! [ -d "$TMUXDIR" ]; then
+    rm -rf "$TMUXDIR"
+    mkdir -p "$TMUXDIR"
   fi
-  rm -rf $TMUXDIR/.sshrc.d
-  cp -r $SSHHOME/.sshrc $SSHHOME/bashsshrc $SSHHOME/sshrc $SSHHOME/.sshrc.d $TMUXDIR
-  SSHHOME=$TMUXDIR SHELL=$TMUXDIR/bashsshrc /usr/bin/tmux -S $TMUXDIR/tmuxserver $@
+  rm -rf "$TMUXDIR/.sshrc.d"
+  cp -r "$SSHHOME/.sshrc" "$SSHHOME/bashsshrc" "$SSHHOME/sshrc" "$SSHHOME/.sshrc.d" "$TMUXDIR"
+  SSHHOME="$TMUXDIR" SHELL="$TMUXDIR/bashsshrc" /usr/bin/tmux -S "$TMUXDIR/tmuxserver" "$@"
 }
 
 # Load the readline settings
