@@ -19,3 +19,7 @@ key_lh_left:  'a'
 key_lh_down:  'u'
 key_lh_up:    'i'
 key_lh_right: 'e'
+
+# Tmux configuration
+tmux_status_bar_colour: 'colour2'
+tmux_status_bar_inactive_colour: 'colour25'
