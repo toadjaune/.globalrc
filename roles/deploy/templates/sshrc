@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# /!\ This script is copied over at each ssh connexion
+# Therefore, it must stay as small and simple as possible
+# NB : This file has to stay compatible both with bash and zsh
+# TODO : Use the templating system to "Compile" only the
+# strict necessary at deploy-time
+# See https://github.com/Russell91/sshrc
+
+# If we are running bash, but zsh is installed, switch to zsh
+# TODO : we should not hardcode this path
+if [[ $0 =~ 'bash' && -x '/usr/bin/zsh' ]]; then
+  if [ ! -d .globalrc ]; then
+    export ZDOTDIR_ORIG="${ZDOTDIR_ORIG:-${ZDOTDIR:-$HOME}}"
+    export ZDOTDIR="$SSHHOME/.sshrc.d"
+  fi
+  # $export SHELL='/usr/bin/zsh' # Why the hell do we need to do that ?!
+  exec zsh
+fi
+
+# Check if the globalrc is installed, if so, abort everything
+# Please note that since this file is sourced after the remote bashrc,
+# if there is an installed globalrc remotely, SSHHOME is overrided, and
+# the .sshrc of the _server_ gets sourced
+# TODO : make bashrc abort early in this case, to save time, since the whole
+#   zsh environment is gonna get sourced anyway
+# /!\ The location is currently not configurable
+if [ -d .globalrc ]; then
+  echo "SSHRC disabled because GLOBALRC present"
+  return 0
+fi
+
+### Actual payload ###
+
+# keep an easy access to the original tmux, just in case
+alias tmux_vanilla="$(which tmux)"
+
+# Overload the tmux command to load sshrc
+tmux() {
+  local TMUXDIR="/tmp/tmux-sshrc-$USER"
+  if ! [ -d "$TMUXDIR" ]; then
+    rm -rf "$TMUXDIR"
+    mkdir -m 0700 "$TMUXDIR"
+  fi
+  rm -rf "$TMUXDIR/.sshrc.d"
+  \cp -r "$SSHHOME/.sshrc" "$SSHHOME/bashsshrc" "$SSHHOME/sshrc" "$SSHHOME/.sshrc.d" "$TMUXDIR"
+  SSHHOME="$TMUXDIR" SHELL="$TMUXDIR/bashsshrc" /usr/bin/tmux -S "$TMUXDIR/tmuxserver" -f "$TMUXDIR/.sshrc.d/.tmux.conf" "$@"
+}
+
+# Load the readline settings
+export INPUTRC="$SSHHOME/.sshrc.d/inputrc"
+
