@@ -23,3 +23,6 @@ key_lh_right: 'e'
 # Tmux configuration
 tmux_status_bar_colour: 'colour2'
 tmux_status_bar_inactive_colour: 'colour25'
+
+# SSH Agent Forwarding socket symlink
+ssh_auth_sock: '/tmp/ssh-auth-sock-$UID'
