@@ -41,7 +41,7 @@
     create: true
     block:  |
       # Load custom configuration
-      . {{ remote_directory }}/files/bash/bashrc
+      . {{ remote_directory }}/files/bashrc
 
 - name: Start the components requiring root access
   import_tasks:  root.yml
