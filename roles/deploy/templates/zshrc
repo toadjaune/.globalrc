@@ -33,8 +33,9 @@ keymap_list=('viins' 'vicmd' 'visual')
 
 for keymap in $keymap_list; do
   # Aliasing movement keys (With Alt) to arrow keys
-  # NB: It is nice to do that instead of mapping directly to the corresponding
-  # zle widgets, to avoid having to manually which widget is the correct one
+  # NB: Mapping to arrow keys instead of directly to corresponding
+  # zle widgets is convenient, because it uses every default mapping
+  # to these arrows
   # See http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
   bindkey -M $keymap -s '^[{{ key_rh_left  }}' '^[[D'
   bindkey -M $keymap -s '^[{{ key_rh_down  }}' '^[[B'
