@@ -46,9 +46,11 @@ done
 # Get out of insert/visual mode with Alt-space (mapping to Esc)
 bindkey -s '^[ ' '\e'
 
-# Extra manual completion definitions
-# /!\ This must be done after compinit
+# Extra manual completion aliasing
+# /!\ This MUST be done after compinit
 compdef sshrc=ssh
+compdef mosh=ssh
+compdef moshrc=ssh
 
 # Comes back into previous directory
 popd > /dev/null
