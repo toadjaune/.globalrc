@@ -33,44 +33,14 @@ if [ -z $DISABLE_256_COLORS ]; then
   # fi
 fi
 
-### Begin functions definition ###
+### Begin completion pre-configuration ###
 
-# IRC-client-like input, to store in history a partial command
-# cf http://www.zshwiki.org/home/zle/ircclientlikeinput
-# /!\ This probably won't work if done after other widget
-# changes affecting down-line-or-history
-
-fake-accept-line() {
-  if [[ -n "$BUFFER" ]];
-  then
-    print -S "$BUFFER"
-  fi
-  return 0
-}
-zle -N fake-accept-line
-
-down-or-fake-accept-line() {
-  if (( HISTNO == HISTCMD )) && [[ "$RBUFFER" != *$'\n'* ]];
-  then
-    zle fake-accept-line
-  fi
-  zle .down-line-or-history "$@"
-}
-zle -N down-line-or-history down-or-fake-accept-line
-
-### End custom functions definition ###
-
-### Begin completion initialization ###
-
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory autocd
 unsetopt beep
 bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
@@ -85,11 +55,8 @@ zstyle ':completion:*' menu select=5
 zstyle ':completion:*' original false
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' use-compctl false
-zstyle :compinstall filename '/home/toadjaune/.globalrc/zsh/compinstall'
 
-# End of lines added by compinstall
-
-### End completion initialization ###
+### End completion pre-configuration ###
 
 ### Begin misc conf ###
 
@@ -198,6 +165,33 @@ function info_print () {
 }
 
 ### End misc conf ###
+
+### Begin custom functions definition ###
+
+# IRC-client-like input, to store in history a partial command
+# cf http://www.zshwiki.org/home/zle/ircclientlikeinput
+# /!\ This probably won't work if done after other widget
+# changes affecting down-line-or-history
+
+fake-accept-line() {
+  if [[ -n "$BUFFER" ]];
+  then
+    print -S "$BUFFER"
+  fi
+  return 0
+}
+zle -N fake-accept-line
+
+down-or-fake-accept-line() {
+  if (( HISTNO == HISTCMD )) && [[ "$RBUFFER" != *$'\n'* ]];
+  then
+    zle fake-accept-line
+  fi
+  zle .down-line-or-history "$@"
+}
+zle -N down-line-or-history down-or-fake-accept-line
+
+### End custom functions definition ###
 
 # Start zplug plugin manager
 source zplug
