@@ -12,5 +12,4 @@
     create: true
     block:  |
       # Load custom configuration
-      . {{ remote_directory }}/files/zsh/zshrc
-
+      . {{ remote_directory }}/files/zshrc
