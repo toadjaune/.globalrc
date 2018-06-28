@@ -4,7 +4,7 @@
 
 # Testing Unicode environment
 # Currently, this automatically fails on a non-amd64 arch. I should fix it.
-if [[ `uname -m` = 'x86_64' ]] && `scripts/unicode_test 2713` ; then
+if [[ $(uname -m) = 'x86_64' ]] && scripts/unicode_test 2713 ; then
   export UNICODE_VALID=1
 fi
 
@@ -24,8 +24,7 @@ fi
 
 # Login shell
 if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
-
-#  echo ".globalrc version" $(cat $GLOBALRC/version)
+  # echo ".globalrc version" $(cat $GLOBALRC/version)
   # Display the logo
   cat logo
 fi

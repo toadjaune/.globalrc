@@ -6,7 +6,7 @@ if [ -f keyboards ]; then
 fi
 
 # repeat n times command
-function repeat()       
+function repeat()
 {
   local i max
   max=$1; shift;

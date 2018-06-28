@@ -8,14 +8,14 @@ function g () {
 }
 
 # Couleurs normales
-username_color=`g $BYellow`
-hostname_color=`g $BBlue`
-ssh_hostname_color=`g $BCyan`
-pwd_color=`g $BGreen`
-history_color=`g $Yellow`
-root_color=`g $BRed`
-true_color=`g $Green`
-false_color=`g $Red`
+username_color=$(g $BYellow)
+hostname_color=$(g $BBlue)
+ssh_hostname_color=$(g $BCyan)
+pwd_color=$(g $BGreen)
+history_color=$(g $Yellow)
+root_color=$(g $BRed)
+true_color=$(g $Green)
+false_color=$(g $Red)
 end_color=$pwd_color
 
 # Signes
@@ -44,7 +44,7 @@ fi
 # Couleurs dans un screen
 if [[ $TERMCAP =~ screen ]] || [[ $TERM == "screen" ]]
 then
-  pwd_color=`g $BPurple`
+  pwd_color=$(g $BPurple)
 fi
 
 execution="\$(if [[ \$? == 0 ]]; then echo \"$true_color$True\"; else echo \"$false_color$False\"; fi)"
