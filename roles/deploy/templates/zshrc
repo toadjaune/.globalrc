@@ -68,6 +68,9 @@ setopt hist_find_no_dups
 # line is a space
 setopt hist_ignore_space
 
+# Store commands in history without extraneous spaces
+setopt hist_reduce_blanks
+
 # Report about cpu-/system-/user-time of command if running longer than 5 seconds
 REPORTTIME=5
 
@@ -148,7 +151,7 @@ done; unset compcom
 
 
 
-### Begin custom functions definition ###
+### Begin custom stuff ###
 
 # IRC-client-like input, to store in history a partial command
 # cf http://www.zshwiki.org/home/zle/ircclientlikeinput
@@ -193,12 +196,17 @@ function info_print () {
 }
 
 # set variable debian_chroot if running in a chroot with /etc/debian_chroot
-# TODO: This is probably movable to common conf. And it's not a custom function.
+# TODO: This is probably movable to common conf.
 if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]] ; then
     debian_chroot=$(</etc/debian_chroot)
 fi
 
-### End custom functions definition ###
+# Just use G to pipe to grep
+# NB: this only expands in the case of space-separated G alone
+# See alias, in `man zshbuiltins`
+alias -g G='| grep'
+
+### End custom stuff ###
 
 # Start zplug plugin manager
 source zplug
