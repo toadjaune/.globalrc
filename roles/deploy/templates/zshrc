@@ -43,7 +43,7 @@ autoload zmv
 
 # Path of file containing command history
 # NB: This path is in user's home even in case of sshrc
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 
 # Number of history commands to read at shell startup, and to keep per session
 HISTSIZE=1000
