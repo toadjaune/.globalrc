@@ -1,29 +1,23 @@
 #! /bin/bash
 
-# ls en couleur et ses variantes
+# ls variants
 alias ls='ls --color=auto'
 alias ll='ls -Alh'
-alias la='ls -A'
 
-# grep en couleur
-alias grpe='grep'
-alias gerp='grep'
+# add colors to grep
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias rgrep='rgrep --color=auto'
 
-# Alias de sécurité
+# security aliases
 alias rm='rm --preserve-root'
 alias shred='shred -n 35 -z -u -v'
 
-# Recursivly create directories
-alias mkdir='mkdir -p'
-
-# Git avec un certificat auto-signé
+# Git with a self-signed certificate
 alias gitc='git -c http.sslVerify=false'
 
-# Déplacement parents
+# Movements to parent directories
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -43,24 +37,22 @@ alias invim='vim <(fc -e true)'
 # On RedHat family systems, use vimx if installed, to have access to clipboard from vim
 if [ -x /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 
-# alias pour que screen utilise le fichier de conf local
+# alias to load screen config file
+# TODO: do this through ansible
 alias screen='screen -c $GLOBALRC/screenrc'
-alias sc='screen'
 
-# sudo -sE
+# sudo shell with environment
 alias ssudo='sudo -sE'
-alias ssuod='ssudo'
-alias suod='sudo'
 
 # maj
 if [ "$(which apt-get 2> /dev/null)" ]; then
   alias maj='sudo apt-get update && sudo apt-get dist-upgrade'
 fi
 
-# les 10 plus gros fichiers/répertoires du réperoitre en cours
+# 10 biggest files/directories in current directory
 alias topten='du -sk $(/bin/ls -A) | sort -rn | head -10'
 
-# arbre des dossiers
+# tree from current directory
 alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
 
 # Use sshrc by default
@@ -70,15 +62,9 @@ if [ -x /usr/bin/mosh ]; then
   alias mosh="moshrc"
 fi
 
-# Alias pour recharger le bashrc
-alias brc='source ~/.bashrc'
-
-# Alias pour un logwatch sur le stdout
-alias loclog='logwatch --output stdout'
-
 # Docker aliases
 alias stop_docker="docker ps | awk '{ print \$1 }' | grep -v '^CONTAINER' | xargs docker stop"
 
-# Marche impériale
+# Imperial march on buzzer
 alias imperial-march="beep -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 700 -f 392 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 250 -f 622.26 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 350 -f 369.99 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 700 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 739.98 -D 100 --new -l 25 -f 698.46 -D 100 --new -l 25 -f 659.26 -D 100 --new -l 25 -f 622.26 -D 100 --new -l 50 -f 659.26 -D 400 --new -l 25 -f 415.3 -D 200 --new -l 350 -f 554.36 -D 100 --new -l 250 -f 523.25 -D 100 --new -l 25 -f 493.88 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 25 -f 440 -D 100 --new -l 50 -f 466.16 -D 400 --new -l 25 -f 311.13 -D 200 --new -l 350 -f 369.99 -D 100 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 466.16 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 700 -f 587.32 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 739.98 -D 100 --new -l 25 -f 698.46 -D 100 --new -l 25 -f 659.26 -D 100 --new -l 25 -f 622.26 -D 100 --new -l 50 -f 659.26 -D 400 --new -l 25 -f 415.3 -D 200 --new -l 350 -f 554.36 -D 100 --new -l 250 -f 523.25 -D 100 --new -l 25 -f 493.88 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 25 -f 440 -D 100 --new -l 50 -f 466.16 -D 400 --new -l 25 -f 311.13 -D 200 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 300 -f 392.00 -D 150 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 700 -f 392"
 

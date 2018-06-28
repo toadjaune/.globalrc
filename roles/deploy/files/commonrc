@@ -13,14 +13,10 @@ fi
 stty -ixon
 
 # Loading definitions
-if [ -f definitions ]; then
-  source definitions
-fi
+source definitions
 
 # Loading functions
-if [ -f functions ]; then
-  source functions
-fi
+source functions
 
 # Login shell
 if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
@@ -30,6 +26,4 @@ if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q logi
 fi
 
 # Loading aliases
-if [ -f aliases ]; then
-  source aliases
-fi
+source aliases
