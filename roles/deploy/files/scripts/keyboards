@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO : Change this script so that we can call it from the CLI
 ## Affichage du clavier bepo dans un terminal
 function bépo(){
   #----------- couleurs

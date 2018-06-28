@@ -1,10 +1,5 @@
 #! /bin/bash
 
-# Functions to print keyboard mapping
-if [ -f keyboards ]; then
-  source keyboards
-fi
-
 # repeat n times command
 function repeat()
 {
