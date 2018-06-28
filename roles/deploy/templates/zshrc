@@ -58,12 +58,8 @@ HISTSIZE=1000
 # Number of history commands to write at shell exit
 SAVEHIST=1000
 
-# append history list to the history file; this is the default but we make sure
-# because it's required for share_history.
-setopt append_history
-
-# save each command's beginning timestamp and the duration to the history file
-setopt extended_history
+# Add commands to history file directly at execution time
+setopt inc_append_history_time
 
 # If a new command line being added to the history list duplicates an older
 # one, the older command is removed from the list
