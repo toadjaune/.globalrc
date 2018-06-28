@@ -35,9 +35,10 @@ fi
 
 ### Begin various configuration ###
 
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+# For `setopt` possible values and documentation, see : http://zsh.sourceforge.net/Doc/Release/Options.html
+# For history variables, see : http://zsh.sourceforge.net/Guide/zshguide02.html#l17
+
+# Switch to vi keymap
 bindkey -v
 
 # Allow help
@@ -47,11 +48,15 @@ autoload run-help-git
 # zmv is a mass-rename tool
 autoload zmv
 
-# Report about cpu-/system-/user-time of command if running longer than 5 seconds
-REPORTTIME=5
+# Path of file containing command history
+# NB: This path is in user's home even in case of sshrc
+HISTFILE=~/.histfile
 
-# This prints a message every time somebody else than me logs in/out
-watch=notme
+# Number of history commands to read at shell startup, and to keep per session
+HISTSIZE=1000
+
+# Number of history commands to write at shell exit
+SAVEHIST=1000
 
 # append history list to the history file; this is the default but we make sure
 # because it's required for share_history.
@@ -67,6 +72,12 @@ setopt histignorealldups
 # remove command lines from the history list when the first character on the
 # line is a space
 setopt histignorespace
+
+# Report about cpu-/system-/user-time of command if running longer than 5 seconds
+REPORTTIME=5
+
+# Print a message every time somebody else than me logs in/out
+watch=notme
 
 # if a command is issued that can't be executed as a normal command, and the
 # command is the name of a directory, perform the cd command to that directory.
@@ -117,7 +128,7 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
                                            /usr/X11R6/bin
 
 
-# host completion TODO: include .globalrc/ssh_hosts
+# host completion
 [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
 [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
 [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
