@@ -38,9 +38,6 @@ fi
 # For `setopt` possible values and documentation, see : http://zsh.sourceforge.net/Doc/Release/Options.html
 # For history variables, see : http://zsh.sourceforge.net/Guide/zshguide02.html#l17
 
-# Switch to vi keymap
-bindkey -v
-
 # Allow help
 autoload -U run-help
 autoload run-help-git
@@ -222,6 +219,10 @@ source zplug
 #   compinit
 # fi
 
+### Start key mappings ###
+
+# Switch to vi keymaps
+bindkey -v
 
 # Key mappings common to several keymaps
 keymap_list=('viins' 'vicmd' 'visual')
@@ -243,6 +244,8 @@ bindkey '^[c' history-incremental-pattern-search-backward
 
 # Get out of insert/visual mode with Alt-space (mapping to Esc)
 bindkey -s '^[ ' '\e'
+
+### End key mappings ###
 
 # Extra manual completion aliasing
 # /!\ This MUST be done after compinit
