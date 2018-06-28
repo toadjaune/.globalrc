@@ -33,7 +33,7 @@ if [ -z $DISABLE_256_COLORS ]; then
   # fi
 fi
 
-### Begin completion pre-configuration ###
+### Begin various configuration ###
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -41,26 +41,6 @@ SAVEHIST=1000
 setopt appendhistory autocd
 unsetopt beep
 bindkey -v
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _complete _ignored _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' insert-unambiguous true
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*'
-zstyle ':completion:*' max-errors 2
-zstyle ':completion:*' menu select=5
-zstyle ':completion:*' original false
-zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-zstyle ':completion:*' use-compctl false
-
-### End completion pre-configuration ###
-
-### Begin misc conf ###
-
-# zsh-specific configuration file
 
 # Allow help
 autoload -U run-help
@@ -106,6 +86,26 @@ setopt nobeep
 # don't push the same dir twice.
 setopt pushd_ignore_dups
 
+### End various configuration ###
+
+
+
+### Begin completion pre-configuration ###
+
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _complete _ignored _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*'
+zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' menu select=5
+zstyle ':completion:*' original false
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*' use-compctl false
+
 # Provide more processes in completion of programs like killall:
 zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
 
@@ -140,31 +140,9 @@ for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
     [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
 done; unset compcom
 
-# set variable debian_chroot if running in a chroot with /etc/debian_chroot
-if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]] ; then
-    debian_chroot=$(</etc/debian_chroot)
-fi
+### End completion pre-configuration ###
 
-# Terminal-title wizardry
 
-function ESC_print () {
-    info_print $'\ek' $'\e\\' "$@"
-}
-function set_title () {
-    info_print  $'\e]0;' $'\a' "$@"
-}
-
-function info_print () {
-    local esc_begin esc_end
-    esc_begin="$1"
-    esc_end="$2"
-    shift 2
-    printf '%s' ${esc_begin}
-    printf '%s' "$*"
-    printf '%s' "${esc_end}"
-}
-
-### End misc conf ###
 
 ### Begin custom functions definition ###
 
@@ -190,6 +168,31 @@ down-or-fake-accept-line() {
   zle .down-line-or-history "$@"
 }
 zle -N down-line-or-history down-or-fake-accept-line
+
+
+# Terminal-title wizardry
+function ESC_print () {
+    info_print $'\ek' $'\e\\' "$@"
+}
+function set_title () {
+    info_print  $'\e]0;' $'\a' "$@"
+}
+
+function info_print () {
+    local esc_begin esc_end
+    esc_begin="$1"
+    esc_end="$2"
+    shift 2
+    printf '%s' ${esc_begin}
+    printf '%s' "$*"
+    printf '%s' "${esc_end}"
+}
+
+# set variable debian_chroot if running in a chroot with /etc/debian_chroot
+# TODO: This is probably movable to common conf. And it's not a custom function.
+if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]] ; then
+    debian_chroot=$(</etc/debian_chroot)
+fi
 
 ### End custom functions definition ###
 
