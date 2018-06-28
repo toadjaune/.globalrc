@@ -133,3 +133,6 @@ genpasswd() {
     tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
+running_shell() {
+  basename -- "${0#-}" | grep $1 >/dev/null
+}
