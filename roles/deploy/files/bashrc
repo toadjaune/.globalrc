@@ -4,35 +4,6 @@
 # /!\ Only works since bash 3.x /!\
 pushd "$(dirname ${BASH_SOURCE[0]})" > /dev/null
 
-# confirm helper
-# Usage: confirm "Whould you like to continue?" [yn]
-# if y or n is specified, it will be the default answer
-function confirm() {
-    space="[y/n]"
-        if [ -n "$2" ]; then
-                case "$2" in
-            [yY]) space="[Y/n]" ;;
-            [nN]) space="[y/N]" ;;
-                esac
-        fi
-
-        while true; do
-                read -r -n 1 -p "$1 $space " yn
-
-                # default value
-                if [[ "$yn" == "" && "$2" ]]; then
-                        yn=$2
-                else
-                        echo
-                fi
-
-                case $yn in
-                    [Yy]*) return 0;;
-                    [Nn]*) return 1;;
-                esac
-        done
-}
-
 # Loading common components
 source commonrc
 

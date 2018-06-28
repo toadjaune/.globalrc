@@ -2,7 +2,36 @@
 
 # This script transforms a LDAP acces via PAM in a local access.
 # Be VERY careful using it, it could break LDAP access.
-source $GLOBALRC/bash/functions
+
+# confirm helper
+# Usage: confirm "Whould you like to continue?" [yn]
+# if y or n is specified, it will be the default answer
+function confirm() {
+  space="[y/n]"
+  if [ -n "$2" ]; then
+    case "$2" in
+      [yY]) space="[Y/n]" ;;
+      [nN]) space="[y/N]" ;;
+    esac
+  fi
+
+  while true; do
+    read -r -n 1 -p "$1 $space " yn
+
+    # default value
+    if [[ "$yn" == "" && "$2" ]]; then
+      yn=$2
+    else
+      echo
+    fi
+
+    case $yn in
+      [Yy]*) return 0;;
+      [Nn]*) return 1;;
+    esac
+  done
+}
+
 
 LdapUid=`id -u`
 Username=`id -u -n`
@@ -45,7 +74,7 @@ However, don't do it unless you know what the scripts/ldap_to_local is doing."
         echo 'Restarting daemons'
         service nscd start
         echo 'Done. Everything should be okay now'
-        
+
         if ! confirm 'Do you want to go on a rescue root shell to fix anything ?' 'n' ; then
           exit
         fi
