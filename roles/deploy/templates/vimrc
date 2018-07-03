@@ -163,6 +163,9 @@ set hidden
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Refesh display (gitgutter hunks…) every half second
+set updatetime=500
+
 " Improve % motion (see :h matchit-install and :h matchit)
 runtime macros/matchit.vim
 
