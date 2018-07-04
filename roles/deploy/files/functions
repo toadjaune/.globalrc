@@ -104,20 +104,18 @@ bonjour (){
 
 # Get your public IP
 pub(){
-  local ip_site
+  ip_site="http://whatismyip.akamai.com"
 
-  ip_site="http://curlmyip.com"
-
-  echo "Your public IP is :"
-
-  if [ "$(which curl)" ]; then
-    echo -ne "$BYellow \t"; curl $ip_site; echo -e "${Color_Off}"
-  elif [ "$(which wget)" ]; then
-    echo -ne "$BYellow \t"; wget -O - -q $ip_site; echo -e "${Color_Off}"
+  if [ "$(which wget)" ]; then
+    wget -O - -q $ip_site
+  elif [ "$(which curl)" ]; then
+    curl $ip_site
   elif [ "$(which lynx)" ]; then
-    echo -ne "$BYellow \t"; lynx --dump $ip_site; echo -e "${Color_Off}"
+    lynx --dump $ip_site
+  elif [ "$(which dig)" ]; then
+    dig +short myip.opendns.com @resolver1.opendns.com
   else
-    echo "Couldn't find any program to get a webpage"
+    >&2 echo "Couldn't find any program to get a webpage"
     exit 1
   fi
 }
