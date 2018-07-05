@@ -5,10 +5,10 @@
 pushd "$(dirname ${BASH_SOURCE[0]})" > /dev/null
 
 # Loading common components
-source commonrc
+source bazshrc.sh
 
 # Loading the prompt
-source bash_prompt
+source bash_prompt.sh
 
 # Coming back to precedent directory
 popd > /dev/null

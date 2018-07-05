@@ -197,7 +197,7 @@ if [[ $TERM =~ '256color' ]]; then
   zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 else
   # Just load legacy prompt
-  source prompt
+  source zsh_prompt.zsh
 fi
 
 #############################

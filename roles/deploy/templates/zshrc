@@ -10,7 +10,7 @@
 pushd $(dirname $0) > /dev/null
 
 # Loading common components
-source commonrc
+source bazshrc.sh
 
 # Try to switch to a 256-color terminal
 # Can be cancelled setting the $DISABLE_256_COLORS variable to anything
@@ -202,7 +202,7 @@ alias -g G='| grep'
 ### End custom stuff ###
 
 # Start zplug plugin manager
-source zsh_zplug
+source zsh_zplug.zsh
 # The completion initialization is done by zplug, we shouldn't do it ourselves unless zplug is disabled
 # TODO: re-enable this for sshrc compilation, when disabling zplug
 # autoload -Uz compinit

@@ -7,4 +7,4 @@ fi
 # Load the configuration common with bash
 source "$SSHHOME/.sshrc"
 
-source "$ZDOTDIR/prompt.zsh"
+source "$ZDOTDIR/zsh_prompt.zsh"
