@@ -2,8 +2,18 @@
 
 # /!\ You must already be in current directory for this to work /!\
 
+# Loading functions (we need the running_shell function)
+source functions
+
+# Login shell
+if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
+  # echo ".globalrc version" $(cat $GLOBALRC/version)
+  # Display the logo
+  cat logo
+fi
+
 # Testing Unicode environment
-# Currently, this automatically fails on a non-amd64 arch. I should fix it.
+# Currently, this automatically fails on a non-amd64 arch. I should fix it. Yeah, I definitely should.
 if [[ $(uname -m) = 'x86_64' ]] && scripts/unicode_test 2713 ; then
   export UNICODE_VALID=1
 fi
@@ -14,16 +24,6 @@ stty -ixon
 
 # Loading definitions
 source definitions
-
-# Loading functions
-source functions
-
-# Login shell
-if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
-  # echo ".globalrc version" $(cat $GLOBALRC/version)
-  # Display the logo
-  cat logo
-fi
 
 # Loading aliases
 source aliases
