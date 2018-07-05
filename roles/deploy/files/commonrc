@@ -2,6 +2,8 @@
 
 # /!\ You must already be in current directory for this to work /!\
 
+export GLOBALRC="$(pwd -P)"
+
 # Loading functions (we need the running_shell function)
 source functions
 

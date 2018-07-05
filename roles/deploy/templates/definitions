@@ -2,7 +2,6 @@
 
 # Copyright csdt
 
-export GLOBALRC="$(pwd -P)"
 
 # Add scripts to $PATH
 if [ -d "$(pwd)/scripts" ] ; then
