@@ -18,4 +18,6 @@
     - tmux
     - most
     - mosh
+    # gawk is required by zplug : https://github.com/zplug/zplug/issues/359
+    - gawk
 
