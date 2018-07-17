@@ -85,6 +85,15 @@
   import_tasks: tmux.yml
   tags: tmux
 
+- name: Load screen configuration
+  blockinfile:
+    dest:         "{{ ansible_user_dir }}/.screenrc"
+    insertbefore: BOF
+    create:       true
+    block:  |
+      # Loading global screen configuration
+      source {{ remote_directory }}/files/screenrc
+
 # Mass-renaming tool with vim
 - name: Download vimv
   get_url:

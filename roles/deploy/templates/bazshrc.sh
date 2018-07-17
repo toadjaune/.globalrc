@@ -230,10 +230,6 @@ alias invim='vim <(fc -e true)'
 # On RedHat family systems, use vimx if installed, to have access to clipboard from vim
 if [ -x /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 
-# alias to load screen config file
-# TODO: do this through ansible
-alias screen='screen -c $GLOBALRC/screenrc'
-
 # sudo shell with environment
 alias ssudo='sudo -sE'
 
