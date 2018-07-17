@@ -13,6 +13,7 @@
   with_items:
     - zsh
     - git
+    # TODO: If we're on a desktop, install vim with clipboard support (vim-gui-common)
     - vim
     - screen
     - tmux
