@@ -30,10 +30,8 @@ POWERLEVEL9K_HOME_ICON=''
 POWERLEVEL9K_HOME_SUB_ICON=''
 POWERLEVEL9K_FOLDER_ICON=''
 
-# Temporary disable directory shortening due to a bug
-# TODO: Fix that
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
 
 POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=false
 
@@ -196,7 +194,10 @@ zplug 'zsh-users/zsh-completions'
 # It's not necessarily true but it's a good heuristic
 if [[ $TERM =~ '256color' ]]; then
   # Powerlevel9k, prompt configuration
-  zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+  # zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+  # Temporarily use a fork to work around a bug
+  # TODO: Switch back to upstream once merged
+  zplug "onaforeignshore/powerlevel9k", use:powerlevel9k.zsh-theme, at:fix_truncate_to_unique
 else
   # Just load legacy prompt
   source zsh_prompt.zsh
