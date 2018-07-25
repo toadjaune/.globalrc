@@ -184,6 +184,8 @@ POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="$DEFAULT_BACKGROUND"
 zplug "toadjaune/zsh-autosuggestions", at:fix-vi-partial-accept # temporary
 
 # Fish-like syntax highlighting
+# NB : The highlighting gets slow on large buffers.
+# TODO: For a fix approach, see : https://github.com/zsh-users/zsh-syntax-highlighting/issues/361
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # Community packaging of completions for common programs
