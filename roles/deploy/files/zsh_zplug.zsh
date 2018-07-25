@@ -196,10 +196,7 @@ zplug 'zsh-users/zsh-completions'
 # It's not necessarily true but it's a good heuristic
 if [[ $TERM =~ '256color' ]]; then
   # Powerlevel9k, prompt configuration
-  # zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-  # Temporarily use a fork to work around a bug
-  # TODO: Switch back to upstream once merged
-  zplug "onaforeignshore/powerlevel9k", use:powerlevel9k.zsh-theme, at:fix_truncate_to_unique
+  zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 else
   # Just load legacy prompt
   source zsh_prompt.zsh
