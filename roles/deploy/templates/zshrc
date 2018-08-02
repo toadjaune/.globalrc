@@ -251,8 +251,13 @@ done; unset compcom
 
 ### Begin lazy loaded modules and completions ###
 
+# We lazy-load these because they take WAY too long to load otherwise.
+# See https://blog.jonlu.ca/posts/speeding-up-zsh and all the links at the bottom of the post
+
 # Lazily load nvm and its completion if installed
-# NB : This unloads nvm when re-sourcing .zshrc. Not an issue for me.
+# NB : This unloads nvm when re-sourcing .zshrc. Don't care.
+# It is possible to load it even on commands such as npm, grunt, etc...
+# with https://github.com/robbyrussell/oh-my-zsh/issues/5327#issuecomment-386480914
 export NVM_DIR="$HOME/.nvm"
 if [[ -d $NVM_DIR ]]; then
   nvm() {
