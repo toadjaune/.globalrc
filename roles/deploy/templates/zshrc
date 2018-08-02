@@ -9,6 +9,9 @@
 # Places you into current directory
 pushd $(dirname $0) > /dev/null
 
+# Expand fpath to include custom functions
+fpath=($GLOBALRC/zsh_fpath $fpath)
+
 # Loading common components
 source bazshrc.sh
 
