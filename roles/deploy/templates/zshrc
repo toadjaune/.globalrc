@@ -249,5 +249,11 @@ for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
     [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
 done; unset compcom
 
+# Load nvm and its completion if installed
+# /!\ This is EXTREMELY slow
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Comes back into previous directory
 popd > /dev/null
