@@ -249,6 +249,8 @@ for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
     [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
 done; unset compcom
 
+### Begin lazy loaded modules and completions ###
+
 # Lazily load nvm and its completion if installed
 # NB : This unloads nvm when re-sourcing .zshrc. Not an issue for me.
 export NVM_DIR="$HOME/.nvm"
@@ -260,6 +262,8 @@ if [[ -d $NVM_DIR ]]; then
     nvm $@ # Execute the newly defined nvm
   }
 fi
+
+### End lazy loaded modules and completions ###
 
 # Comes back into previous directory
 popd > /dev/null
