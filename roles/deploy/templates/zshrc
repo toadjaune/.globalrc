@@ -9,11 +9,11 @@
 # Places you into current directory
 pushd $(dirname $0) > /dev/null
 
-# Expand fpath to include custom functions
-fpath=($GLOBALRC/zsh_fpath $fpath)
-
 # Loading common components
 source bazshrc.sh
+
+# Expand fpath to include custom functions
+fpath=($GLOBALRC/zsh_fpath $fpath)
 
 # Try to switch to a 256-color terminal
 # Can be cancelled setting the $DISABLE_256_COLORS variable to anything
@@ -241,7 +241,6 @@ bindkey -s '^[ ' '\e'
 
 # Extra manual completion aliasing
 # /!\ This MUST be done after compinit
-compdef sshrc=ssh
 compdef mosh=ssh
 compdef moshrc=ssh
 

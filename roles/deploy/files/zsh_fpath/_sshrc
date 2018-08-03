@@ -1,2 +1,8 @@
-#compdef sshrc=ssh
+#compdef sshrc
 # TODO : WIP, this doesn't work
+
+_sshrc () {
+  _ssh "$@"
+}
+
+_sshrc "$@"
