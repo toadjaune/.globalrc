@@ -1,0 +1,6 @@
+#compdef sshrc mosh moshrc
+
+# Completion definition for ssh wrappers
+# NB : This could also be done with `compdef mosh=ssh` in zshrc
+
+_ssh "$@"

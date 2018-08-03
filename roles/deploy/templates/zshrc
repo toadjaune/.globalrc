@@ -239,11 +239,6 @@ bindkey -s '^[ ' '\e'
 
 ### End key mappings ###
 
-# Extra manual completion aliasing
-# /!\ This MUST be done after compinit
-compdef mosh=ssh
-compdef moshrc=ssh
-
 # use generic completion system for programs not yet defined; (_gnu_generic works
 # with commands that provide a --help option with "standard" gnu-like output.)
 for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
