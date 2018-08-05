@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+#
+# This script generates a password that can be typed identically on
+# azerty and qwerty keyboards
+#
+# Each character of the password contains 4 bits of entropy
+# (one hexadecimal character)
+#
+# Usage :
+#   ./gen_passwd_qwerty.rb [nb_bits]
+#
+# nb_bits is the desired number entropy bits.
+#   Rounded to the next superior multiple of 4
+#   Defaults to 256
+
+n = ((ARGV.length > 0 ? ARGV[0].to_i : 256)/4.0).ceil
+
+dict = {
+  '0' => 's',
+  '1' => 'd',
+  '2' => 'f',
+  '3' => 'g',
+  '4' => 'h',
+  '5' => 'j',
+  '6' => 'k',
+  '7' => 'l',
+  '8' => 'e',
+  '9' => 'r',
+  'a' => 't',
+  'b' => 'y',
+  'c' => 'u',
+  'd' => 'i',
+  'e' => 'o',
+  'f' => 'p'
+}
+result = ''
+File.open('/dev/random') do |file|
+  for i in 1..n do
+    result += dict[file.read(1).unpack('h')[0]]
+  end
+end
+puts result
+return 0
