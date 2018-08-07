@@ -1,0 +1,7 @@
+#compdef kubectl
+
+# Lazy-load kubectl completion at first tab press
+
+# TODO: add existence test ?
+source <(kubectl completion zsh)
+
