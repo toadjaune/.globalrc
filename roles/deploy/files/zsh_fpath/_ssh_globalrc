@@ -1,0 +1,7 @@
+#compdef gcloud
+
+# NB : This version lazy-loads the gcloud completion at first tab press, but only works at the second
+
+# TODO: add existence test ?
+source /usr/share/google-cloud-sdk/completion.zsh.inc
+
