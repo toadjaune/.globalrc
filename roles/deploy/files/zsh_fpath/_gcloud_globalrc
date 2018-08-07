@@ -1,8 +1,7 @@
-#compdef sshrc=ssh mosh=ssh moshrc=ssh
+#compdef gcloud
 
-# Completion definition for ssh wrappers
-# NB : This could also be done with `compdef sshrc=ssh` in zshrc
-#
-# TODO: Mosh should have a specific completion (like in bash), but ssh completion is good enough for now
+# NB : This version lazy-loads the gcloud completion at first tab press, but only works at the second
 
-_ssh "$@"
+# TODO: add existence test ?
+source /usr/share/google-cloud-sdk/completion.zsh.inc
+
