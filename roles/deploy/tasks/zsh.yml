@@ -6,6 +6,38 @@
     dest:   "{{ remote_directory }}/zplug"
     depth:  1
 
+- name: Create zsh_plugins directory
+  file:
+    path:   "{{ remote_directory }}/zsh_plugins"
+    state:  directory
+
+- name: Clone zsh plugins
+  git:
+    repo:     "{{ item.repo }}"
+    dest:     "{{ remote_directory }}/zsh_plugins/{{ item.name }}"
+    depth:    1
+    version:  "{{ item.version }}"
+  with_items:
+    - name:     powerlevel9k
+      repo:     https://github.com/bhilburn/powerlevel9k
+      version:  master
+
+    - name:     zsh-autosuggestions
+#     repo:     https://github.com/zsh-users/zsh-autosuggestions
+      repo:     https://github.com/toadjaune/zsh-autosuggestions
+#     version:  master
+#     version:  compatibility-syntax-hl # Waiting for my fork to be merged
+      version:  fix-vi-partial-accept # Temporary
+
+    - name:     zsh-completions
+      repo:     https://github.com/zsh-users/zsh-completions
+      version:  master
+
+    - name:     zsh-syntax-highlighting
+      repo:     https://github.com/zsh-users/zsh-syntax-highlighting
+      version:  master
+
+
 - name: Setup the loading via .zshrc
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.zshrc"
