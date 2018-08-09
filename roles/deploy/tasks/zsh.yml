@@ -26,8 +26,7 @@
 #     repo:     https://github.com/zsh-users/zsh-autosuggestions
       repo:     https://github.com/toadjaune/zsh-autosuggestions
 #     version:  master
-#     version:  compatibility-syntax-hl # Waiting for my fork to be merged
-      version:  fix-vi-partial-accept # Temporary
+      version:  compatibility-syntax-hl # Waiting for my fork to be merged
 
     - name:     zsh-completions
       repo:     https://github.com/zsh-users/zsh-completions

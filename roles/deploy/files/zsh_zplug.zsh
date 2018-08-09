@@ -180,8 +180,7 @@ POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="$DEFAULT_BACKGROUND"
 # Fish-like history-based suggestions
 # zplug "zsh-users/zsh-autosuggestions"
 # Waiting for the fork to be merged
-# zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
-zplug "toadjaune/zsh-autosuggestions", at:fix-vi-partial-accept # temporary
+zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
 
 # Fish-like syntax highlighting
 # NB : The highlighting gets slow on large buffers.
