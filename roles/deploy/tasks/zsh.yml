@@ -1,11 +1,5 @@
 # TODO : load this file only if zsh is installed ?
 
-- name: Clone zplug
-  git:
-    repo:   'https://github.com/toadjaune/zplug.git'
-    dest:   "{{ remote_directory }}/zplug"
-    depth:  1
-
 - name: Create zsh_plugins directory
   file:
     path:   "{{ remote_directory }}/zsh_plugins"

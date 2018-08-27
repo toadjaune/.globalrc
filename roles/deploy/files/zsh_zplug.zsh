@@ -2,13 +2,6 @@
 
 # See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
 
-# location of oh-my-zsh
-# TODO: Maybe something cleaner should be done with ansible variables
-export ZPLUG_HOME="$GLOBALRC/../zplug"
-
-# source zplug
-source "$ZPLUG_HOME/init.zsh"
-
 ###############################################################################
 # Plugins pre-configuration                                                   #
 ###############################################################################
@@ -175,17 +168,13 @@ POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="$DEFAULT_BACKGROUND"
 
 ###############################################################################
 
-### Zplug list of plugins ###
+### List of plugins ###
 
 # Fish-like history-based suggestions
-# zplug "zsh-users/zsh-autosuggestions"
-# Waiting for the fork to be merged
-# zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
 # TODO : Use ansible templating instead of this variable
 source "$GLOBALRC/../zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Community packaging of completions for common programs
-# zplug 'zsh-users/zsh-completions'
 fpath=($GLOBALRC/../zsh_plugins/zsh-completions/src $fpath)
 
 # We assume that if a prompt does not support 256 colors, it's probably
@@ -193,7 +182,6 @@ fpath=($GLOBALRC/../zsh_plugins/zsh-completions/src $fpath)
 # It's not necessarily true but it's a good heuristic
 if [[ $TERM =~ '256color' ]]; then
   # Powerlevel9k, prompt configuration
-  # zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
   source "$GLOBALRC/../zsh_plugins/powerlevel9k/powerlevel9k.zsh-theme"
 else
   # Just load legacy prompt
@@ -214,23 +202,7 @@ fi
 # NB : MUST be sourced after compinit (and as late as possible)
 # NB : The highlighting gets slow on large buffers.
 # TODO: For a fix approach, see : https://github.com/zsh-users/zsh-syntax-highlighting/issues/361
-# zplug "zsh-users/zsh-syntax-highlighting", defer:2
 source "$GLOBALRC/../zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-#############################
-
-# TODO : Make this and update at deploy-time rather than run-time
-# Needs https://github.com/zplug/zplug/issues/393
-# Install plugins if there are plugins that have not been installed
-# if ! zplug check --verbose; then
-#     printf "Install? [y/N]: "
-#     if read -q; then
-#         echo; zplug install
-#     fi
-# fi
-
-# Then, source plugins and add commands to $PATH
-# zplug load
 
 ###############################################################################
 # Plugins post-configuration                                                  #
