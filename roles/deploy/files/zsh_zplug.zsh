@@ -180,41 +180,57 @@ POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="$DEFAULT_BACKGROUND"
 # Fish-like history-based suggestions
 # zplug "zsh-users/zsh-autosuggestions"
 # Waiting for the fork to be merged
-zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
-
-# Fish-like syntax highlighting
-# NB : The highlighting gets slow on large buffers.
-# TODO: For a fix approach, see : https://github.com/zsh-users/zsh-syntax-highlighting/issues/361
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# zplug "toadjaune/zsh-autosuggestions", at:compatibility-syntax-hl
+# TODO : Use ansible templating instead of this variable
+source "$GLOBALRC/../zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Community packaging of completions for common programs
-zplug 'zsh-users/zsh-completions'
+# zplug 'zsh-users/zsh-completions'
+fpath=($GLOBALRC/../zsh_plugins/zsh-completions/src $fpath)
 
 # We assume that if a prompt does not support 256 colors, it's probably
 # a tty or some sort of prompt without proper support for glyphs
 # It's not necessarily true but it's a good heuristic
 if [[ $TERM =~ '256color' ]]; then
   # Powerlevel9k, prompt configuration
-  zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+  # zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+  source "$GLOBALRC/../zsh_plugins/powerlevel9k/powerlevel9k.zsh-theme"
 else
   # Just load legacy prompt
   source zsh_prompt.zsh
 fi
+
+autoload -Uz compinit
+if [[ ${UID} -eq 0 ]] && [[ -n ${SUDO_USER} ]]; then
+  # We are root, do not check for insecure directories, since this check was
+  # done for your regular user, and since some files in fpath do not belong to
+  # root but to your regular user
+  compinit -u
+else
+  compinit
+fi
+
+# Fish-like syntax highlighting
+# NB : MUST be sourced after compinit (and as late as possible)
+# NB : The highlighting gets slow on large buffers.
+# TODO: For a fix approach, see : https://github.com/zsh-users/zsh-syntax-highlighting/issues/361
+# zplug "zsh-users/zsh-syntax-highlighting", defer:2
+source "$GLOBALRC/../zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 #############################
 
 # TODO : Make this and update at deploy-time rather than run-time
 # Needs https://github.com/zplug/zplug/issues/393
 # Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
+# if ! zplug check --verbose; then
+#     printf "Install? [y/N]: "
+#     if read -q; then
+#         echo; zplug install
+#     fi
+# fi
 
 # Then, source plugins and add commands to $PATH
-zplug load
+# zplug load
 
 ###############################################################################
 # Plugins post-configuration                                                  #
