@@ -30,6 +30,17 @@
       repo:     https://github.com/zsh-users/zsh-syntax-highlighting
       version:  master
 
+# Some specific tasks need to be done before loading .zshrc
+# https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout#71258
+# http://zsh.sourceforge.net/Intro/intro_3.html
+# Currently, we need it only to run code before loading /etc/zsh/zshrc
+- name: Setup early configuration via .zshenv
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.zshenv"
+    create: true
+    block:  |
+      # Disable compinit call in /etc/zsh/zshrc on ubuntu
+      skip_global_compinit=1
 
 - name: Setup the loading via .zshrc
   blockinfile:
