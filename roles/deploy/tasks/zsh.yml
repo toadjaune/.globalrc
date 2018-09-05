@@ -9,7 +9,6 @@
   git:
     repo:     "{{ item.repo }}"
     dest:     "{{ remote_directory }}/zsh_plugins/{{ item.name }}"
-    depth:    1
     version:  "{{ item.version }}"
   with_items:
     - name:     powerlevel9k
