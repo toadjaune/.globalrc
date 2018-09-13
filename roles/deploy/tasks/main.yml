@@ -35,6 +35,20 @@
   when: item.state == 'file' and not (item.path | regex_search('.swp'))
   tags: always
 
+- name: Create the local_bin directory
+  file:
+    state: directory
+    dest: '{{ remote_directory }}/local_bin'
+
+# NB: Nothing is done to remove executables added by previous versions or by the user
+- name: Download programs in local_bin directory
+  get_url:
+    url:  "{{ item }}"
+    dest: "{{ remote_directory }}/local_bin/"
+    mode: 0755
+  with_items:
+    - https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+
 - name: Setup the loading via .bashrc
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.bashrc"

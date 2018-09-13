@@ -158,9 +158,7 @@ stty -ixon
 ### Begin definitions ###
 
 # Add scripts to $PATH
-if [ -d "$(pwd)/scripts" ] ; then
-  PATH="$(pwd)/scripts:$PATH"
-fi
+PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:$PATH"
 
 if [ -x /usr/bin/most ]; then
   export PAGER="/usr/bin/most"
