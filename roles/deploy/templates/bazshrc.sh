@@ -4,7 +4,7 @@
 
 export GLOBALRC="$(pwd -P)"
 
-### Begin custom functions ###
+### Begin utility functions ###
 
 # repeat n times command
 function repeat()
@@ -136,7 +136,7 @@ running_shell() {
   basename -- "${0#-}" | grep $1 >/dev/null
 }
 
-### End custom functions ###
+### End utility functions ###
 
 # Login shell
 if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
@@ -191,7 +191,7 @@ LS_COLORS="$LS_COLORS*.JPG=01;35:*.GIF=01;35:*.jpg=01;35:*.gif=01;35:*.jpeg=01;3
 
 ### End definitions ###
 
-### Begin aliases ###
+### Begin aliases & alias functions ###
 
 # ls variants
 alias ls='ls --color=auto'
@@ -233,6 +233,11 @@ if [ -x /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 # sudo shell with environment
 alias ssudo='sudo -sE'
 
+# use prettyping if installed
+if command -v prettyping &>/dev/null; then
+  alias ping=prettyping
+fi
+
 # maj
 if [ "$(which apt-get 2> /dev/null)" ]; then
   alias maj='sudo apt-get update && sudo apt-get dist-upgrade'
@@ -257,4 +262,4 @@ alias stop_docker="docker ps | awk '{ print \$1 }' | grep -v '^CONTAINER' | xarg
 # Imperial march on buzzer
 alias imperial-march="beep -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 700 -f 392 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 350 -f 587.32 -D 100 --new -l 250 -f 622.26 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 350 -f 369.99 -D 100 --new -l 250 -f 311.1 -D 100 --new -l 25 -f 466.2 -D 100 --new -l 700 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 739.98 -D 100 --new -l 25 -f 698.46 -D 100 --new -l 25 -f 659.26 -D 100 --new -l 25 -f 622.26 -D 100 --new -l 50 -f 659.26 -D 400 --new -l 25 -f 415.3 -D 200 --new -l 350 -f 554.36 -D 100 --new -l 250 -f 523.25 -D 100 --new -l 25 -f 493.88 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 25 -f 440 -D 100 --new -l 50 -f 466.16 -D 400 --new -l 25 -f 311.13 -D 200 --new -l 350 -f 369.99 -D 100 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 466.16 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 700 -f 587.32 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 392 -D 100 --new -l 25 -f 392 -D 100 --new -l 350 -f 784 -D 100 --new -l 250 -f 739.98 -D 100 --new -l 25 -f 698.46 -D 100 --new -l 25 -f 659.26 -D 100 --new -l 25 -f 622.26 -D 100 --new -l 50 -f 659.26 -D 400 --new -l 25 -f 415.3 -D 200 --new -l 350 -f 554.36 -D 100 --new -l 250 -f 523.25 -D 100 --new -l 25 -f 493.88 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 25 -f 440 -D 100 --new -l 50 -f 466.16 -D 400 --new -l 25 -f 311.13 -D 200 --new -l 350 -f 392 -D 100 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 300 -f 392.00 -D 150 --new -l 250 -f 311.13 -D 100 --new -l 25 -f 466.16 -D 100 --new -l 700 -f 392"
 
-### End aliases ###
+### End aliases & alias functions ###
