@@ -11,3 +11,14 @@
   * Testing if a program exists at source-time, and then define an alias
   * Always define a function that tests at runtime
   (after moving to a builtin check, should not be a significative difference)
+
+
+Links for zsh profiling :
+* https://blog.jonlu.ca/posts/speeding-up-zsh
+* https://kev.inburke.com/kevin/profiling-zsh-startup-time/
+* https://stackoverflow.com/questions/4351244/can-i-profile-my-zshrc-zshenv
+
+Nice terminal emulator, see about implementing some of the things it supports : https://sw.kovidgoyal.net/kitty/
+such as : https://cirw.in/blog/bracketed-paste
+
+Nice tools : https://remysharp.com/2018/08/23/cli-improved
