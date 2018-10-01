@@ -86,7 +86,6 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
 bindcode $mod+$return exec gnome-terminal
 
 # kill focused window
@@ -105,23 +104,11 @@ bindcode $mod+$s focus down
 bindcode $mod+$r focus up
 bindcode $mod+$n focus right
 
-# alternatively, you can use the cursor keys:
-# bindsym $mod+Left focus left
-# bindsym $mod+Down focus down
-# bindsym $mod+Up focus up
-# bindsym $mod+Right focus right
-
 # move focused window
 bindcode $mod+Shift+$t move left
 bindcode $mod+Shift+$s move down
 bindcode $mod+Shift+$r move up
 bindcode $mod+Shift+$n move right
-
-# alternatively, you can use the cursor keys:
-# bindsym $mod+Shift+Left move left
-# bindsym $mod+Shift+Down move down
-# bindsym $mod+Shift+Up move up
-# bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
 bindcode $mod+$c split h
@@ -205,12 +192,6 @@ mode "resize" {
         bindcode $s resize grow height 10 px or 10 ppt
         bindcode $r resize shrink height 10 px or 10 ppt
         bindcode $n resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        # bindsym Left resize shrink width 10 px or 10 ppt
-        # bindsym Down resize grow height 10 px or 10 ppt
-        # bindsym Up resize shrink height 10 px or 10 ppt
-        # bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindcode $return mode "default"
