@@ -2,6 +2,10 @@
 #
 # Nothing is done to install it, symlink it manually if you want to use it
 
+# Dependencies :
+# - dmenu
+
+
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -92,11 +96,11 @@ bindcode $mod+$return exec gnome-terminal
 bindcode $mod+Shift+$b kill
 
 # start dmenu (a program launcher)
-bindcode $mod+$i exec dmenu_run
+# bindcode $mod+$i exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindcode $mod+$t focus left
