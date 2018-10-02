@@ -4,6 +4,7 @@
 
 # Dependencies :
 # - dmenu
+# - feh
 
 
 # i3 config file (v4)
@@ -100,6 +101,7 @@ bindcode $mod+Shift+$b kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
+
 bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
 
 # change focus
@@ -210,3 +212,8 @@ bindcode $mod+$o mode "resize"
 bar {
         status_command i3status
 }
+
+# Programs to run at startup
+
+# Wallpaper image
+exec_always feh --randomize --bg-fill Pictures/Wallpapers/*
