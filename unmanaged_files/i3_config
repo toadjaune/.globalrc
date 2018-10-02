@@ -28,7 +28,9 @@ set $p 26
 set $o 27
 
 # D on bépo, I on azerty
-set $d 24
+set $d 31
+# L on bépo, O on azerty
+set $l 32
 
 # A on bépo, Q on azerty
 set $a 38
@@ -141,6 +143,9 @@ bindcode $mod+$a focus parent
 
 # focus the child container
 bindcode $mod+$d focus child
+
+# lock screen
+bindcode $mod+$l exec i3lock --image Pictures/lock_screen.png --ignore-empty-password --show-failed-attempts
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
