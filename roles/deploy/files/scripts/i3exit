@@ -1,0 +1,32 @@
+#!/bin/sh
+# Script to handle i3 operations such as locking, rebooting, etc...
+
+lock() {
+    i3lock --image Pictures/lock_screen.png --ignore-empty-password --show-failed-attempts
+}
+
+case "$1" in
+    lock)
+        lock
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    suspend)
+        lock && systemctl suspend
+        ;;
+    hibernate)
+        lock && systemctl hibernate
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    shutdown)
+        systemctl poweroff
+        ;;
+    *)
+        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
+        exit 2
+esac
+
+exit 0

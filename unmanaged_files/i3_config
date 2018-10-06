@@ -27,6 +27,8 @@ set $p 26
 # O on bépo, R on azerty
 set $o 27
 
+# V on bépo, U on azerty
+set $v 30
 # D on bépo, I on azerty
 set $d 31
 # L on bépo, O on azerty
@@ -51,6 +53,8 @@ set $s 45
 set $r 46
 # N on bépo, M on azerty
 set $n 47
+# M on bépo, u on azerty
+set $m 48
 
 # . on bépo, V on azerty
 set $. 55
@@ -145,7 +149,7 @@ bindcode $mod+$a focus parent
 bindcode $mod+$d focus child
 
 # lock screen
-bindcode $mod+$l exec i3lock --image Pictures/lock_screen.png --ignore-empty-password --show-failed-attempts
+bindcode $mod+$l exec i3exit lock
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -209,8 +213,26 @@ mode "resize" {
         bindcode $escape mode "default"
         bindcode $mod+$o mode "default"
 }
-
 bindcode $mod+$o mode "resize"
+
+# Based on https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
+# The i3exit script is installed at deploy-time
+set $mode_system "system"
+mode $mode_system {
+    # Same position as default shortcut
+    bindcode $p exec --no-startup-id i3exit logout,    mode "default"
+    # Right hand default position, with a gradation
+    bindcode $t exec --no-startup-id i3exit lock,      mode "default"
+    bindcode $s exec --no-startup-id i3exit suspend,   mode "default"
+    bindcode $r exec --no-startup-id i3exit hibernate, mode "default"
+    bindcode $n exec --no-startup-id i3exit shutdown,  mode "default"
+    bindcode $m exec --no-startup-id i3exit reboot,    mode "default"
+
+    # back to normal: Enter or Escape
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+}
+bindcode $mod+$v mode $mode_system
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
