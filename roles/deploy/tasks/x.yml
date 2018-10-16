@@ -1,0 +1,9 @@
+- name: Load urxvt configuration via .Xresources
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.Xresources"
+    create: true
+    marker: "! {mark} ANSIBLE MANAGED BLOCK"
+    block:  |
+      ! Load urxvt configuration
+      #include "{{ remote_directory }}/files/urxvt.conf"
+  when: not server

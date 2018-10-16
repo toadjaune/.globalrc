@@ -99,6 +99,10 @@
   import_tasks: tmux.yml
   tags: tmux
 
+- name: Install various x configurations
+  import_tasks: x.yml
+  tags: x
+
 - name: Load screen configuration
   blockinfile:
     dest:         "{{ ansible_user_dir }}/.screenrc"
