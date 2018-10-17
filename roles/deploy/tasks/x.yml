@@ -1,3 +1,29 @@
+- name: Create font directories
+  file:
+    state:  directory
+    dest: '{{ remote_directory }}/{{ item }}'
+  loop:
+    - font_archives
+    - fonts
+
+- name: Download/extract extra fonts
+  include_tasks: font.yml
+  loop_control:
+    loop_var: font_url
+  loop:
+    - https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/UbuntuMono.zip
+  notify: Regenerate font cache
+
+- name: Install fonts (by symlinking)
+  file:
+    state:  link
+    src:    "{{ remote_directory }}/fonts/"
+    dest:   "{{ ansible_user_dir }}/.local/share/fonts/globalrc_fonts"
+
+  # This is not strictly necessary, but we prefer changing configuration requiring specific fonts only once they are installed
+  # If this ever causes issues with another handler, change it to a conditional task
+- meta: flush_handlers
+
 - name: Load urxvt configuration via .Xresources
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.Xresources"

@@ -1,0 +1,12 @@
+- name: Download font archive
+  get_url:
+    url:  "{{ font_url }}"
+    dest: "{{ remote_directory }}/font_archives/"
+  register: archive
+
+- name: Extract font archive
+  unarchive:
+    src:  "{{ archive.dest }}"
+    dest: "{{ remote_directory }}/fonts/"
+    remote_src: yes
+  notify: Regenerate font cache
