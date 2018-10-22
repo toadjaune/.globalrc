@@ -97,7 +97,8 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindcode $mod+$return exec gnome-terminal
+bindcode $mod+$return exec urxvt
+bindcode $mod+$t      exec gnome-terminal
 
 # kill focused window
 bindcode $mod+Shift+$b kill
