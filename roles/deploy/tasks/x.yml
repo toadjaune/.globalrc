@@ -38,3 +38,15 @@
       ! Load urxvt configuration
       #include "{{ remote_directory }}/files/urxvt.conf"
   when: desktop
+
+- name: Create i3 config directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/i3"
+
+- name: Install i3 config (by symlinking)
+  file:
+    state:  link
+    follow: false
+    src:    "{{ remote_directory }}/files/i3_config"
+    dest:   "{{ ansible_user_dir }}/.config/i3/config"
