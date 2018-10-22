@@ -37,7 +37,6 @@
     block:  |
       ! Load urxvt configuration
       #include "{{ remote_directory }}/files/urxvt.conf"
-  when: desktop
 
 - name: Create i3 config directory
   file:

@@ -85,6 +85,7 @@
 
 - name: Install various x configurations
   import_tasks: x.yml
+  when: desktop
   tags: x
 
 - name: Install zsh configuration
