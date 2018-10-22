@@ -37,4 +37,4 @@
     block:  |
       ! Load urxvt configuration
       #include "{{ remote_directory }}/files/urxvt.conf"
-  when: not server
+  when: desktop
