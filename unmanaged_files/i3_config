@@ -7,6 +7,7 @@
 # - feh
 
 
+# The following line is _actually_ parsed by i3 to indicate the file format version
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
