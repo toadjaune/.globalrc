@@ -83,6 +83,10 @@
       [core]
         excludesfile = {{ remote_directory }}/files/gitignore
 
+- name: Install various x configurations
+  import_tasks: x.yml
+  tags: x
+
 - name: Install zsh configuration
   import_tasks: zsh.yml
   tags: zsh
@@ -98,10 +102,6 @@
 - name: Install tmux configuration
   import_tasks: tmux.yml
   tags: tmux
-
-- name: Install various x configurations
-  import_tasks: x.yml
-  tags: x
 
 - name: Load screen configuration
   blockinfile:

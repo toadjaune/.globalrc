@@ -6,6 +6,11 @@
     - font_archives
     - fonts
 
+# TODO : Mention it in README ?
+# These fonts are required by :
+# - vim-airline
+# - vim-devicons
+# - vim-nerdtree-syntax-highlight
 - name: Download/extract extra fonts
   include_tasks: font.yml
   loop_control:

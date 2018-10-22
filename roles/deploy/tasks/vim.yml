@@ -17,29 +17,6 @@
       " Loading global vim configuration
       source {{ remote_directory }}/vim/vimrc
 
-- name: Download nerd-fonts
-  git:
-    repo:   https://github.com/ryanoasis/nerd-fonts
-    dest:   "{{ remote_directory }}/nerd-fonts"
-    depth:  1
-  when: not server
-  tags: nerd-fonts
-
-# NB: you still have to reconfigure your terminal to use these fonts
-# TODO : Mention it in README ?
-# These fonts are required by :
-# - vim-airline
-# - vim-devicons
-# - vim-nerdtree-syntax-highlight
-- name: Install nerd-fonts
-  command: './install.sh'
-  args:
-    chdir: "{{ remote_directory }}/nerd-fonts"
-  changed_when:   false
-  ignore_errors:  true
-  when: not server
-  tags: nerd-fonts
-
 - name: Create colorschemes-manual directory
   file:
     path:   "{{ remote_directory }}/vim/bundle/colorschemes-manual/colors"
