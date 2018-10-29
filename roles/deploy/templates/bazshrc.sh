@@ -213,6 +213,9 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+# Create a temporary directory and move to it
+alias cdtmp='pushd $(mktemp -d)'
+
 # History-related commands
 alias h='history'
 # This re-executes the last command, writes the output in a file descriptor, and opens it with vim,
