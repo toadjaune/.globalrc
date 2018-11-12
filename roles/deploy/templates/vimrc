@@ -207,7 +207,7 @@ augroup numbertoggle
 augroup END
 
 " Enable/Disable Paste Mode with leader-p
-noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
+" noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
 
 " Reload vimrc with leader-c
 nnoremap <leader>c :source $MYVIMRC<CR>
@@ -227,7 +227,12 @@ autocmd FileType nerdtree setlocal nolist
 
 " Make vim use the system clipboard ("+) by default
 " See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
+noremap <leader>y  "+y
+noremap <leader>yy "+yy
+noremap <leader>Y  "+Y
+noremap <leader>p  "+p
+noremap <leader>P  "+P
 
 set cursorline  " highlight cursor line
     " TODO: Find a way to only change the background color, not the trailing
