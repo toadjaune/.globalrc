@@ -1,0 +1,5 @@
+# Options documentation : https://github.com/jwilm/alacritty/blob/master/alacritty.yml
+
+# Enable on i3
+#window:
+#  decorations: none
