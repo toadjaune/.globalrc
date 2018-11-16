@@ -3,3 +3,15 @@
 # Enable on i3
 #window:
 #  decorations: none
+
+font:
+  normal:
+    family: "UbuntuMono Nerd Font Mono"
+  bold:
+    family: "UbuntuMono Nerd Font Mono"
+    style:  Bold
+  italic:
+    family: "UbuntuMono Nerd Font Mono"
+    style:  Italic
+  size: 12
+
