@@ -1,5 +1,8 @@
 # Options documentation : https://github.com/jwilm/alacritty/blob/master/alacritty.yml
 
+# Requires :
+# xclip for copy-paste shortcuts (optional)
+
 env:
   # This variable is set directly by the terminal, so that we can have different behaviour
   # depending on the terminal emulator
