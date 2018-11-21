@@ -23,6 +23,10 @@ font:
     style:  Italic
   size: 12
 
+# Maybe at some point we're gonna need to put this somewhere else, because it may interact
+# badly with i3 focus transparency
+background_opacity: 0.7
+
 # I don't really see why I would need that. Just restart alacritty to apply changes
 live_config_reload: true
 
@@ -83,7 +87,6 @@ colors:
 visual_bell:
   animation: EaseOutExpo
   duration: 0
-background_opacity: 1.0
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 mouse:
