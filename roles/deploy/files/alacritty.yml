@@ -23,6 +23,8 @@ font:
     style:  Italic
   size: 12
 
+# I don't really see why I would need that. Just restart alacritty to apply changes
+live_config_reload: true
 
 # /!\ some options are not defined by default, so it is required to keep all the unmodified
 # default configuration in this config file.
@@ -97,7 +99,6 @@ dynamic_title: true
 cursor:
   style: Block
   unfocused_hollow: true
-live_config_reload: true
 key_bindings:
   - { key: V,        mods: Control|Shift,    action: Paste               }
   - { key: C,        mods: Control|Shift,    action: Copy                }
