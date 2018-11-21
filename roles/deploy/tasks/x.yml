@@ -71,13 +71,14 @@
     cache_valid_time: 86400 # 1 day
     name:
       - xclip
+  become: true
   when: have_root and ansible_os_family == "Debian"
 
 - name: Install xclip (RedHat)
   dnf:
-    update_cache: true
     name:
       - xclip
+  become: true
   when: have_root and ansible_os_family == "RedHat"
 
 ### Other ###
