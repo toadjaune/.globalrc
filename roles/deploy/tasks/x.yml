@@ -81,16 +81,12 @@
   become: true
   when: have_root and ansible_os_family == "RedHat"
 
-### Other ###
+### Graphical environment Themes ###
 
-- name: Load urxvt configuration via .Xresources
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.Xresources"
-    create: true
-    marker: "! {mark} ANSIBLE MANAGED BLOCK"
-    block:  |
-      ! Load urxvt configuration
-      #include "{{ remote_directory }}/files/urxvt.conf"
+# See : https://www.reddit.com/r/archlinux/comments/2eo3qq/is_it_possible_to_get_qt_to_properly_use_gtk/
+# See : https://wiki.archlinux.org/index.php/Uniform_look_for_Qt_and_GTK_applications#Using_a_GTK.2B_icon_theme_in_Qt_apps
+# The solution chosen here for consistent look between Qt and GTK applications is to use a same theme implemented
+# in both native formats
 
 - name: Load GTK2 configuration via .gtkrc-2.0
   blockinfile:
@@ -108,6 +104,44 @@
       # Load GTK3 configuration
       [Settings]
       include={{ remote_directory }}/files/gtk-3.0-settings.ini
+
+# This is a Qt5-native port of GTK Adwaita theme
+# TODO : check it also works for Qt4 (or add adwaita-qt4)
+- name: Install adwaita-qt (Debian)
+  apt:
+    cache_valid_time: 86400 # 1 day
+    name:
+      - adwaita-qt
+  become: true
+  when: have_root and ansible_os_family == "Debian"
+
+- name: Install adwaita-qt (RedHat)
+  dnf:
+    name:
+      - adwaita-qt
+  become: true
+  when: have_root and ansible_os_family == "RedHat"
+
+# NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
+- name: Load Qt4 graphical configuration via .config/Trolltech.conf
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.config/Trolltech.conf"
+    create: true
+    block:  |
+      # Set Qt4 Theme
+      [Qt]
+      style=Adwaita-Dark
+
+### Other ###
+
+- name: Load urxvt configuration via .Xresources
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.Xresources"
+    create: true
+    marker: "! {mark} ANSIBLE MANAGED BLOCK"
+    block:  |
+      ! Load urxvt configuration
+      #include "{{ remote_directory }}/files/urxvt.conf"
 
 - name: Create i3 config directory
   file:
