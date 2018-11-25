@@ -26,7 +26,8 @@ else
 fi
 
 ######################### Set of colors used in prompt #########################
-if [[ $TERM =~ '256color' ]]; then
+
+if [[ -n $GLOBALRC_256_COLORS ]]; then
   # We have 256-color support \o/
 
   if [ -x /usr/bin/bc ]; then

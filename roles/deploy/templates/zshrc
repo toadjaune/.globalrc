@@ -15,23 +15,6 @@ source bazshrc.sh
 # Expand fpath to include custom functions
 fpath=($GLOBALRC/zsh_fpath $fpath)
 
-# Try to switch to a 256-color terminal
-# Can be cancelled setting the $DISABLE_256_COLORS variable to anything
-if [ -z $DISABLE_256_COLORS ]; then
-  # This section tries to set 256-colors environment
-  # run `for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done` to see possible colors
-
-  # We save the original terminal status, in case we need it
-  export TERM_ORIG="$TERM"
-
-  # Need to add some check here before doing it
-  # Might also need to do something about $TERMCAP
-  # Currently we assume that we have 256-color if there's no unicode problem detected
-  # if [[ $UNICODE_VALID == 1 ]]; then
-  #   export TERM=xterm-256color
-  # fi
-fi
-
 ### Begin various configuration ###
 
 # For `setopt` possible values and documentation, see : http://zsh.sourceforge.net/Doc/Release/Options.html

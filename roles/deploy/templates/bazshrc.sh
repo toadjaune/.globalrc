@@ -138,12 +138,19 @@ running_shell() {
 
 ### End utility functions ###
 
-# Login shell
-if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
-  # echo ".globalrc version" $(cat $GLOBALRC/version)
-  # Display the logo
-  cat logo
-fi
+### Begin test of terminal capabilities and configuration ###
+
+# For terminal capabilities, we shouldn't rely on $TERM, instead, make a lookup in the terminfo database, cf :
+# - https://unix.stackexchange.com/a/9960/293790
+# - http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x405.html
+# - man terminfo
+# (And obviously, changing $TERM yourself is TERRIBLY WRONG)
+# TODO: Forward the terminal capabilities over ssh (forwarding $TERM and $TERMCAP ?)
+
+# Test for 256colors support
+# NB : I'm not certain if `tput colors` can output a value higher than 256, which would break this test
+# run `for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done` to see possible colors
+[[ $(tput colors) == '256' ]] && export GLOBALRC_256_COLORS='1'
 
 # Testing Unicode environment
 # Currently, this automatically fails on a non-amd64 arch. I should fix it. Yeah, I definitely should.
@@ -154,6 +161,15 @@ fi
 # Disable flow control, to free C-S and C-Q
 # cf https://unix.stackexchange.com/questions/12107/how-to-unfreeze-after-accidentally-pressing-ctrl-s-in-a-terminal
 stty -ixon
+
+### End test of terminal capabilities and configuration ###
+
+# Login shell
+if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
+  # echo ".globalrc version" $(cat $GLOBALRC/version)
+  # Display the logo
+  cat logo
+fi
 
 ### Begin definitions ###
 

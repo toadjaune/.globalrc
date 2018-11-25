@@ -177,10 +177,8 @@ source "$GLOBALRC/../zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # Community packaging of completions for common programs
 fpath=($GLOBALRC/../zsh_plugins/zsh-completions/src $fpath)
 
-# We assume that if a prompt does not support 256 colors, it's probably
-# a tty or some sort of prompt without proper support for glyphs
-# It's not necessarily true but it's a good heuristic
-if [[ $TERM =~ '256color' ]]; then
+# We both need 256 colors support, and a patched font, for p9k to work normally
+if [[ -n $GLOBALRC_256_COLORS && -n $GLOBALRC_PATCHED_FONT ]]; then
   # Powerlevel9k, prompt configuration
   source "$GLOBALRC/../zsh_plugins/powerlevel9k/powerlevel9k.zsh-theme"
 else
