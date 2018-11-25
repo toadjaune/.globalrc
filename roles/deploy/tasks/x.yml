@@ -132,6 +132,15 @@
       [Qt]
       style=Adwaita-Dark
 
+- name: Load .profile
+  blockinfile:
+    dest:         "{{ ansible_user_dir }}/.profile"
+    insertbefore: BOF
+    create:       true
+    block:  |
+      # Loading global .profile
+      source {{ remote_directory }}/files/profile
+
 ### Other ###
 
 - name: Load urxvt configuration via .Xresources
