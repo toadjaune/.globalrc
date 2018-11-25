@@ -6,7 +6,7 @@
 env:
   # This variable is set directly by the terminal, so that we can have different behaviour
   # depending on the terminal emulator
-  GLOBALRC_PATCHED_FONT: true
+  GLOBALRC_PATCHED_FONT: 1
 
 # Enable on i3
 #window:

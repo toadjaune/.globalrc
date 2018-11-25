@@ -128,7 +128,7 @@ let g:airline_theme='murmur'      " Choose airline theme
 " Enable Powerline enhanced fonts (nice git symbols + arrows in statusbar)
 " This should be enabled only if a powerline font is detected in curent
 " terminal
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = $GLOBALRC_PATCHED_FONT
 " Add a line with opened tabs
 let g:airline#extensions#tabline#enabled = 1
 
@@ -145,6 +145,7 @@ let g:syntastic_check_on_wq = 0
 let g:NERDTreeGitUnchangedIndicator = ' '
 
 """ vim-devicons """
+let g:webdevicons_enable = $GLOBALRC_PATCHED_FONT
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 
