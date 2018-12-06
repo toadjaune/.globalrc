@@ -14,7 +14,8 @@
 
 - name: Clone sshrc
   git:
-    repo:   https://github.com/Russell91/sshrc
-    dest:   "{{ remote_directory }}/sshrc"
-    depth:  1
+    repo:     https://github.com/Russell91/sshrc
+    dest:     "{{ remote_directory }}/sshrc"
+    version:  0.6.2
+    depth:    1
 
