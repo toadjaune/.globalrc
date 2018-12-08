@@ -142,6 +142,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 """ nerdtree-git-plugin """
+let g:NERDTreeShowGitStatus = $GLOBALRC_PATCHED_FONT
 let g:NERDTreeGitUnchangedIndicator = ' '
 
 """ vim-devicons """

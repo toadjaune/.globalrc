@@ -155,6 +155,9 @@
   dnf:
     name:
       - i3
+      # nmtui is a terminal graphical interface to NetworkManager
+      # TODO : Find the equivalent debian package
+      - NetworkManager-tui
   become: true
   when: have_root and ansible_os_family == "RedHat"
 
