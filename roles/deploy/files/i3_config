@@ -103,7 +103,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindcode $mod+$return       exec urxvt
+bindcode $mod+$return       exec alacritty
 bindcode $mod+Shift+$return exec gnome-terminal
 
 # kill focused window
