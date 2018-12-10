@@ -231,7 +231,6 @@ autocmd FileType nerdtree setlocal nolist
 " See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 " set clipboard=unnamedplus
 noremap <leader>y  "+y
-noremap <leader>yy "+yy
 noremap <leader>Y  "+Y
 noremap <leader>p  "+p
 noremap <leader>P  "+P
