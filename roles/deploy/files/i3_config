@@ -251,4 +251,4 @@ bar {
 # Programs to run at startup
 
 # Wallpaper image
-exec_always feh --randomize --bg-fill Pictures/Wallpapers/*
+exec_always --no-startup-id feh --randomize --bg-fill Pictures/Wallpapers/*

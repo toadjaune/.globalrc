@@ -148,6 +148,8 @@
     cache_valid_time: 86400 # 1 day
     name:
       - i3
+      # Display desktop background image
+      - feh
   become: true
   when: have_root and ansible_os_family == "Debian"
 
@@ -155,6 +157,7 @@
   dnf:
     name:
       - i3
+      - feh
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian package
       - NetworkManager-tui
