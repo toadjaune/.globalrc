@@ -62,6 +62,8 @@ set $n 47
 # M on bépo, u on azerty
 set $m 48
 
+# X on bépo, C on azerty
+set $x 54
 # . on bépo, V on azerty
 set $. 55
 
@@ -249,6 +251,21 @@ mode $mode_system {
     bindcode $escape mode "default"
 }
 bindcode $mod+$v mode $mode_system
+
+set $mode_xrandr "xrandr"
+mode $mode_xrandr {
+    # Use `arandr` to generate the configurations locally
+
+    # Desktop mode (multiple screens, disable laptop screen)
+    bindcode $d exec --no-startup-id .screenlayout/desktop.sh, mode "default"
+    # Laptop mode (only laptop screen)
+    bindcode $l exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
+
+    # back to normal: Enter or Escape
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+}
+bindcode $mod+$x mode $mode_xrandr
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
