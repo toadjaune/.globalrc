@@ -151,6 +151,8 @@
       - i3
       # Display desktop background image
       - feh
+      # Tool to generate xrandr configurations
+      - arandr
   become: true
   when: have_root and ansible_os_family == "Debian"
 
@@ -159,12 +161,12 @@
     name:
       - i3
       - feh
+      - arandr
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian package
       - NetworkManager-tui
   become: true
   when: have_root and ansible_os_family == "RedHat"
-
 
 - name: Create i3 config directory
   file:
