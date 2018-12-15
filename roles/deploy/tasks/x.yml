@@ -96,14 +96,15 @@
       # Load GTK2 configuration
       include "{{ remote_directory }}/files/gtkrc-2.0"
 
+# /!\ This is a destructive operation /!\
+# It does not seem possible to make an include in gtk3 config
+# https://superuser.com/q/1370777/733026
 - name: Load GTK3 configuration via .config/gtk-3.0/settings.ini
-  blockinfile:
+  file:
     dest:   "{{ ansible_user_dir }}/.config/gtk-3.0/settings.ini"
-    create: true
-    block:  |
-      # Load GTK3 configuration
-      [Settings]
-      include={{ remote_directory }}/files/gtk-3.0-settings.ini
+    src:    "{{ remote_directory }}/files/gtk-3.0-settings.ini"
+    state:  link
+    force:  true
 
 # This is a Qt5-native port of GTK Adwaita theme
 # TODO : check it also works for Qt4 (or add adwaita-qt4)
@@ -148,6 +149,10 @@
     cache_valid_time: 86400 # 1 day
     name:
       - i3
+      # Display desktop background image
+      - feh
+      # Tool to generate xrandr configurations
+      - arandr
   become: true
   when: have_root and ansible_os_family == "Debian"
 
@@ -155,12 +160,13 @@
   dnf:
     name:
       - i3
+      - feh
+      - arandr
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian package
       - NetworkManager-tui
   become: true
   when: have_root and ansible_os_family == "RedHat"
-
 
 - name: Create i3 config directory
   file:
