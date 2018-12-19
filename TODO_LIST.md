@@ -21,4 +21,6 @@ Links for zsh profiling :
 Nice terminal emulator, see about implementing some of the things it supports : https://sw.kovidgoyal.net/kitty/
 such as : https://cirw.in/blog/bracketed-paste
 
-Nice tools : https://remysharp.com/2018/08/23/cli-improved
+Nice tools :
+  * https://remysharp.com/2018/08/23/cli-improved
+  * exa (better ls)
