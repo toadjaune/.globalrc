@@ -2,7 +2,7 @@
 # Script to handle i3 operations such as locking, rebooting, etc...
 
 lock() {
-    i3lock --image Pictures/lock_screen.png --ignore-empty-password --show-failed-attempts
+    i3lock --color 000000 --image Pictures/lock_screen.png --ignore-empty-password --show-failed-attempts
 }
 
 case "$1" in
