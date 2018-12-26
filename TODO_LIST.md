@@ -24,3 +24,4 @@ such as : https://cirw.in/blog/bracketed-paste
 Nice tools :
   * https://remysharp.com/2018/08/23/cli-improved
   * exa (better ls)
+  * lnav (log navigator)
