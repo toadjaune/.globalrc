@@ -1,4 +1,8 @@
 # Global .gitignore file
+
+# Vim tempfiles
 *.swp
+*.swo
+
 .byebug_history
 .idea/*
