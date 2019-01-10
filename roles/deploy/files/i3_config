@@ -164,16 +164,16 @@ bindcode $mod+$l exec .globalrc/files/scripts/i3exit lock
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
+set $ws1 "1:web"
 set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws8 "8:music"
+set $ws9 "9:chat"
+set $ws10 "10:mail"
 
 # switch to workspace
 bindcode $mod+$1 workspace $ws1
@@ -272,6 +272,13 @@ bindcode $mod+$x mode $mode_xrandr
 bar {
         status_command i3status
 }
+
+# Workspace assignment (use xprop to find classes)
+assign [class="Firefox"] $ws1
+assign [class="Spotify"] $ws8
+assign [class="Slack"] $ws9
+assign [class="Thunderbird"] $ws10
+
 
 # Programs to run at startup
 
