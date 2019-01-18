@@ -164,15 +164,15 @@ bindcode $mod+$l exec .globalrc/files/scripts/i3exit lock
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:web"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8:music"
-set $ws9 "9:chat"
+set $ws1  "1:web"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8:music"
+set $ws9  "9:chat"
 set $ws10 "10:mail"
 
 # switch to workspace
@@ -214,21 +214,21 @@ bindcode $mod+Shift+$p exec "i3-nagbar -t warning -m 'You pressed the exit short
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+    # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindcode $t resize shrink width 10 px or 10 ppt
-        bindcode $s resize grow height 10 px or 10 ppt
-        bindcode $r resize shrink height 10 px or 10 ppt
-        bindcode $n resize grow width 10 px or 10 ppt
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindcode $t resize shrink width 10 px or 10 ppt
+    bindcode $s resize grow height 10 px or 10 ppt
+    bindcode $r resize shrink height 10 px or 10 ppt
+    bindcode $n resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
-        bindcode $return mode "default"
-        bindcode $escape mode "default"
-        bindcode $mod+$o mode "default"
+    # back to normal: Enter or Escape or $mod+r
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+    bindcode $mod+$o mode "default"
 }
 bindcode $mod+$o mode "resize"
 
@@ -270,19 +270,19 @@ bindcode $mod+$x mode $mode_xrandr
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status
 }
 
 # Workspace assignment (use xprop to find classes)
-assign [class="Firefox"] $ws1
+assign [class="Firefox"]      $ws1
 
-assign [class="Spotify"] $ws8
+assign [class="Spotify"]      $ws8
 
-assign [class="quassel"] $ws9
-assign [class="riot"] $ws9
-assign [class="slack"] $ws9
+assign [class="quassel"]      $ws9
+assign [class="riot"]         $ws9
+assign [class="slack"]        $ws9
 
-assign [class="Thunderbird"] $ws10
+assign [class="Thunderbird"]  $ws10
 
 
 # Programs to run at startup
