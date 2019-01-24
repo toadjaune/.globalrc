@@ -311,7 +311,7 @@ workspace $ws10 output $output_right
 
 # Programs to run at startup
 
-# Enable NumLock
+# Enable NumLock by default
 # https://github.com/chanfrv/dotfiles/blob/master/config/i3/config
 # https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup
 exec --no-startup-id numlockx
