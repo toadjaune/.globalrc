@@ -149,10 +149,9 @@
     cache_valid_time: 86400 # 1 day
     name:
       - i3
-      # Display desktop background image
-      - feh
-      # Tool to generate xrandr configurations
-      - arandr
+      - feh       # Display desktop background image
+      - arandr    # Tool to generate xrandr configurations
+      - numlockx  # Automatically enable numlock
   become: true
   when: have_root and ansible_os_family == "Debian"
 
@@ -162,6 +161,8 @@
       - i3
       - feh
       - arandr
+      - numlockx
+
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian package
       - NetworkManager-tui
