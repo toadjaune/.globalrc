@@ -1,8 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 # Script to handle i3 operations such as locking, rebooting, etc...
 
 lock() {
-    i3lock --color 000000 --image Pictures/lock_screen.png --ignore-empty-password --show-failed-attempts
+
+    # cf: https://stackoverflow.com/a/45985000/5771067
+    # This selects a png file randomly across a directory structure
+    # NB : If no file is found, the globbing pattern is passed as-is to
+    # i3lock. Not an issue, since i3lock gracefully ignores it.
+    shopt -s globstar
+    files=(Pictures/lockscreen/**/*.png)
+
+    i3lock --color 000000 --image "${files[RANDOM % ${#files[@]}]}" --ignore-empty-password --show-failed-attempts &> ~/log.txt
 }
 
 case "$1" in
