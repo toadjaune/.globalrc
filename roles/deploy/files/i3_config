@@ -3,7 +3,7 @@
 # Nothing is done to install it, symlink it manually if you want to use it
 
 # Dependencies :
-# - dmenu
+# - rofi
 # - feh
 # - xnumlockx
 
@@ -15,7 +15,7 @@
 # Notes on usage :
 # For NetworkManager configuration, use :
 # - nmtui for most config
-# - "Network Connections" (launch from dmenu) for WPA2 Enterprise
+# - "Network Connections" (launch from rofi) for WPA2 Enterprise
 
 
 # Use Win key as modifier
@@ -119,8 +119,10 @@ bindcode $mod+Shift+$b kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
+# bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
 
-bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
+# Use Rofi instead of dmenu
+bindcode $mod+$i exec --no-startup-id rofi -show run
 
 # change focus
 bindcode $mod+$t focus left

@@ -149,6 +149,7 @@
     cache_valid_time: 86400 # 1 day
     name:
       - i3
+      - rofi      # Program launcher
       - feh       # Display desktop background image
       - arandr    # Tool to generate xrandr configurations
       - numlockx  # Automatically enable numlock
@@ -159,6 +160,7 @@
   dnf:
     name:
       - i3
+      - rofi
       - feh
       - arandr
       - numlockx
