@@ -122,7 +122,7 @@ bindcode $mod+Shift+$b kill
 # bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
 
 # Use Rofi instead of dmenu
-bindcode $mod+$i exec --no-startup-id rofi -show run
+bindcode $mod+$i exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -show run
 
 # change focus
 bindcode $mod+$t focus left
