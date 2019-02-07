@@ -306,6 +306,9 @@ nnoremap <silent> <leader>/ :nohlsearch<CR>
 " Enable syntax highlighting
 syntax enable
 
+" Disable syntax highlighting on too long lines to avoid slowing down vim
+set synmaxcol=100
+
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf-8
 set fileencoding=utf-8
