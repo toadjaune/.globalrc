@@ -6,17 +6,15 @@
 
 - name: Install zsh and usual tools (Debian)
   apt:
-    name: "{{ item }}"
     update_cache:     true
     cache_valid_time: 3600
+    name:
+      - zsh
+      - git
+      # TODO: If we're on a desktop, install vim with clipboard support (vim-gui-common)
+      - vim
+      - screen
+      - tmux
+      - most
+      - mosh
   when: ansible_os_family == 'Debian'
-  with_items:
-    - zsh
-    - git
-    # TODO: If we're on a desktop, install vim with clipboard support (vim-gui-common)
-    - vim
-    - screen
-    - tmux
-    - most
-    - mosh
-
