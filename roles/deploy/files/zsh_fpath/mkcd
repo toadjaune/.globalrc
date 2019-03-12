@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# This file is autoloaded as a zsh function
+# You can however use it with bash if you want to
+
+mkdir -p $1 && pushd $1 &> /dev/null
