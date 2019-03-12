@@ -1,6 +1,13 @@
-#!/bin/bash
+# vi: ft=sh
 
 # This file is autoloaded as a zsh function
 # You can however use it with bash if you want to
 
-mkdir -p $1 && pushd $1 &> /dev/null
+# Please note that we could remove the "mkcd(){}" part and consider the whole script to be the function
+# definition. We don't, to be able to define the function for bash by sourcing the script.
+# It _should_ be strictly equivalent
+# http://zsh.sourceforge.net/Doc/Release/Functions.html#Functions
+
+mkcd(){
+  mkdir -p $1 && pushd $1 &> /dev/null
+}

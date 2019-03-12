@@ -4,11 +4,14 @@
 # /!\ Only works since bash 3.x /!\
 pushd "$(dirname ${BASH_SOURCE[0]})" > /dev/null
 
-# Loading common components
+# Load common components
 source bazshrc.sh
 
-# Loading the prompt
+# Load (compatible) functions defined as zsh-autoloadable functions
+source zsh_fpath/mkcd
+
+# Load the prompt
 source bash_prompt.sh
 
-# Coming back to precedent directory
+# Come back to precedent directory
 popd > /dev/null
