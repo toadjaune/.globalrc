@@ -49,7 +49,8 @@ set $u 39
 set $i 40
 # E on bépo, F on azerty
 set $e 41
-
+# , on bépo, G on azerty
+set $, 42
 # C on bépo, H on azerty
 set $c 43
 # T on bépo, J on azerty
@@ -122,7 +123,9 @@ bindcode $mod+Shift+$b kill
 # bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
 
 # Use Rofi instead of dmenu
-bindcode $mod+$i exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -show run
+# Possible modi that might be interesting besides run and drun : ssh, window, combi
+bindcode $mod+$i exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -modi run  -show run
+bindcode $mod+$, exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -modi drun -show drun
 
 # change focus
 bindcode $mod+$t focus left
