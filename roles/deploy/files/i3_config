@@ -6,6 +6,7 @@
 # - rofi
 # - feh
 # - xnumlockx
+# - scrot (for screenshots)
 
 # The following line is _actually_ parsed by i3 to indicate the file format version
 # i3 config file (v4)
@@ -40,6 +41,8 @@ set $v 30
 set $d 31
 # L on bépo, O on azerty
 set $l 32
+# J on bépo, P on azerty
+set $j 33
 
 # A on bépo, Q on azerty
 set $a 38
@@ -126,6 +129,9 @@ bindcode $mod+Shift+$b kill
 # Possible modi that might be interesting besides run and drun : ssh, window, combi
 bindcode $mod+$i exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -modi run  -show run
 bindcode $mod+$, exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -modi drun -show drun
+
+# Take a screenshot
+bindcode $mod+$j exec --no-startup-id scrot -s '/tmp/%Y-%m-%d_$wx$h_scrot.png'
 
 # change focus
 bindcode $mod+$t focus left

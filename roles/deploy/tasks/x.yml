@@ -148,11 +148,12 @@
   apt:
     cache_valid_time: 86400 # 1 day
     name:
-      - i3
+      - i3        # Tiling window manager
       - rofi      # Program launcher
       - feh       # Display desktop background image
       - arandr    # Tool to generate xrandr configurations
       - numlockx  # Automatically enable numlock
+      - scrot     # Take screenshots from cli
   become: true
   when: have_root and ansible_os_family == "Debian"
 
@@ -164,9 +165,10 @@
       - feh
       - arandr
       - numlockx
+      - scrot
 
       # nmtui is a terminal graphical interface to NetworkManager
-      # TODO : Find the equivalent debian package
+      # TODO : Find the equivalent debian package (seems installed by default on Ubuntu)
       - NetworkManager-tui
   become: true
   when: have_root and ansible_os_family == "RedHat"
