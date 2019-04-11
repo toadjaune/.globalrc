@@ -131,7 +131,7 @@ bindcode $mod+$i exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pr
 bindcode $mod+$, exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -modi drun -show drun
 
 # Take a screenshot
-bindcode $mod+$j exec --no-startup-id scrot -s '/tmp/%Y-%m-%d_$wx$h_scrot.png'
+bindcode $mod+$j exec --no-startup-id .globalrc/files/scripts/i3-scrot
 
 # change focus
 bindcode $mod+$t focus left

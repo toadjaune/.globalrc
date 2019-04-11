@@ -1,0 +1,14 @@
+#!/bin/bash
+# We use a script for this because calling scrot directly from i3 doesn't work
+# Apparently, the current i3 binding prevents the input from reaching scrot
+
+# Be verbose and fail early in case of problem
+set -xe
+
+# Scrot doesn't get the inputs without this
+# Not sure why
+sleep 0.5
+
+mkdir -p /tmp/screenshots
+cd /tmp/screenshots
+scrot -s '/tmp/screenshots/%Y-%m-%d_$wx$h_scrot.png' -e 'notify-send "Screenshot done" "$f"'
