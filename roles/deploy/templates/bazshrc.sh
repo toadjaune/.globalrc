@@ -200,16 +200,9 @@ if [ -S "$SSH_AUTH_SOCK" ] && [ ! -h "$SSH_AUTH_SOCK" ]; then
   export SSH_AUTH_SOCK="{{ ssh_auth_sock }}"
 fi
 
-# ls extra colors
-LS_COLORS="$LS_COLORS*.JPG=01;35:*.GIF=01;35:*.jpg=01;35:*.gif=01;35:*.jpeg=01;35:*.pcx=01;35:*.png=01;35:*.pnm=01;35:*.bz2=01;31:*.mpg=01;38:*.mpeg=01;38:*.MPG=01;38:*.MPEG=01;38:*.m4v=01;038:*.mp4=01;038:*.swf=01;038:*.avi=01;38:*.AVI=01;38:*.wmv=01;38:*.WMV=01;38:*.asf=01;38:*.ASF=01;38:*.mov=01;38:*.MOV=01;38:*.mp3=01;39:*.ogg=01;39:*.MP3=01;39:*.Mp3=01;39"
-
 ### End definitions ###
 
 ### Begin aliases & alias functions ###
-
-# ls variants
-alias ls='ls --color=auto'
-alias ll='ls -Alh'
 
 # add colors to grep
 alias grep='grep --color=auto'
@@ -266,12 +259,14 @@ alias topten='du -sk $(/bin/ls -A) | sort -rn | head -10'
 # tree from current directory
 alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
 
-# Use sshrc by default
+# Use sshrc and exa by default
 # We use an alias so that it doesn't get called when not directly typed by the user
 alias ssh="sshrc"
 if [ -x /usr/bin/mosh ]; then
   alias mosh="moshrc"
 fi
+alias ls="exa"
+alias ll="exa -al"
 
 # Docker aliases
 alias stop_docker="docker ps | awk '{ print \$1 }' | grep -v '^CONTAINER' | xargs docker stop"
