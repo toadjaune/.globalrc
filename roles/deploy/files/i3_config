@@ -272,6 +272,9 @@ mode $mode_xrandr {
     bindcode $d exec --no-startup-id .screenlayout/desktop.sh, mode "default"
     # Laptop mode (only laptop screen)
     bindcode $l exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
+    # Dynamic dual-screen through rofi
+    # TODO : theme management
+    bindcode $c exec --no-startup-id .globalrc/files/scripts/i3-monitor-layout,  mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
