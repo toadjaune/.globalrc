@@ -173,7 +173,7 @@ bindcode $mod+$a focus parent
 bindcode $mod+$d focus child
 
 # lock screen
-bindcode $mod+$l exec .globalrc/files/scripts/i3exit lock
+bindcode $mod+$l exec .globalrc/files/scripts/i3-exit lock
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -246,18 +246,18 @@ mode "resize" {
 bindcode $mod+$o mode "resize"
 
 # Based on https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
-# The i3exit script is installed at deploy-time
-# TODO: Better way to call i3exit (templating ? Changing $PATH ?)
+# The i3-exit script is installed at deploy-time
+# TODO: Better way to call i3-exit (templating ? Changing $PATH ?)
 set $mode_system "system"
 mode $mode_system {
     # Same position as default shortcut
-    bindcode $p exec --no-startup-id .globalrc/files/scripts/i3exit logout,    mode "default"
+    bindcode $p exec --no-startup-id .globalrc/files/scripts/i3-exit logout,    mode "default"
     # Right hand default position, with a gradation
-    bindcode $t exec --no-startup-id .globalrc/files/scripts/i3exit lock,      mode "default"
-    bindcode $s exec --no-startup-id .globalrc/files/scripts/i3exit suspend,   mode "default"
-    bindcode $r exec --no-startup-id .globalrc/files/scripts/i3exit hibernate, mode "default"
-    bindcode $n exec --no-startup-id .globalrc/files/scripts/i3exit shutdown,  mode "default"
-    bindcode $m exec --no-startup-id .globalrc/files/scripts/i3exit reboot,    mode "default"
+    bindcode $t exec --no-startup-id .globalrc/files/scripts/i3-exit lock,      mode "default"
+    bindcode $s exec --no-startup-id .globalrc/files/scripts/i3-exit suspend,   mode "default"
+    bindcode $r exec --no-startup-id .globalrc/files/scripts/i3-exit hibernate, mode "default"
+    bindcode $n exec --no-startup-id .globalrc/files/scripts/i3-exit shutdown,  mode "default"
+    bindcode $m exec --no-startup-id .globalrc/files/scripts/i3-exit reboot,    mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
