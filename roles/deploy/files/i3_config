@@ -273,8 +273,8 @@ mode $mode_xrandr {
     # Laptop mode (only laptop screen)
     bindcode $l exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
     # Dynamic dual-screen through rofi
-    # TODO : theme management
-    bindcode $c exec --no-startup-id .globalrc/files/scripts/i3-monitor-layout,  mode "default"
+    # TODO : Properly factorize rofi theme (i3 variable ?)
+    bindcode $c exec --no-startup-id ROFI_ARGS="-theme /usr/share/rofi/themes/glue_pro_blue.rasi" .globalrc/files/scripts/i3-monitor-layout,  mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
