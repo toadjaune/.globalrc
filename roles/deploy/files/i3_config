@@ -126,9 +126,10 @@ bindcode $mod+Shift+$b kill
 # bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
 
 # Use Rofi instead of dmenu
+set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
 # Possible modi that might be interesting besides run and drun : ssh, window, combi
-bindcode $mod+$i exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -modi run  -show run
-bindcode $mod+$, exec --no-startup-id rofi -theme /usr/share/rofi/themes/glue_pro_blue.rasi -modi drun -show drun
+bindcode $mod+$i exec --no-startup-id rofi $rofi_common -modi run  -show run
+bindcode $mod+$, exec --no-startup-id rofi $rofi_common -modi drun -show drun
 
 # Take a screenshot
 bindcode $mod+$j exec --no-startup-id .globalrc/files/scripts/i3-scrot
@@ -273,8 +274,7 @@ mode $mode_xrandr {
     # Laptop mode (only laptop screen)
     bindcode $l exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
     # Dynamic dual-screen through rofi
-    # TODO : Properly factorize rofi theme (i3 variable ?)
-    bindcode $c exec --no-startup-id ROFI_ARGS="-theme /usr/share/rofi/themes/glue_pro_blue.rasi" .globalrc/files/scripts/i3-monitor-layout,  mode "default"
+    bindcode $c exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout,  mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
