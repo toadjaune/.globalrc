@@ -103,6 +103,16 @@ cursor:
   style: Block
   unfocused_hollow: true
 key_bindings:
+  # Custom keybindings
+
+  # Consistently delete last word with Ctrl-Backspace
+  # This is a standard across graphical apps, but terminal apps usually do it with Ctrl-W (Emacs bindings)
+  # It at least works with vim, zsh (with my zle config), readline (with my config) (includes bash)
+  # Should also work out of the box with these programs since my config pays attention to keep most emacs bindings when switching to vi mode
+  # NB : This is the actual Ctrl-W character, not an escape sequence
+  - { key: Back,     mods: Control, chars: ""                          }
+
+  # Defaults
   - { key: V,        mods: Control|Shift,    action: Paste               }
   - { key: C,        mods: Control|Shift,    action: Copy                }
   - { key: Paste,                   action: Paste                        }
