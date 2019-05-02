@@ -11,4 +11,4 @@ sleep 0.5
 
 mkdir -p /tmp/screenshots
 cd /tmp/screenshots
-scrot -s '/tmp/screenshots/%Y-%m-%d_$wx$h_scrot.png' -e 'notify-send "Screenshot done" "$f"'
+scrot -s '/tmp/screenshots/%FT%T%z_$wx$h_scrot.png' -e 'notify-send "Screenshot done" "$f"'
