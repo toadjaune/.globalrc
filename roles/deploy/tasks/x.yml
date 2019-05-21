@@ -185,8 +185,20 @@
     src:    "{{ remote_directory }}/files/i3_config"
     dest:   "{{ ansible_user_dir }}/.config/i3/config"
 
+  # NB : If there is anything already configured in this file, our addition probably won't
+  # change anything since it will likely be after an `exec`
+- name: Allow starting X and i3 with the startx command
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.xinitrc"
+    create: true
+    block: |
+      # Start i3
+      exec i3
+
 ### Other ###
 
+# TODO : I'm now pretty sure I'm never gonna actually use urxvt
+# Clean this mess up
 - name: Load urxvt configuration via .Xresources
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.Xresources"
