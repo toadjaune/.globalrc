@@ -1,5 +1,6 @@
 #!/bin/sh
 # This file is sourced in .profile
+# It MUST remain sh-compliant, because startx seems to always use sh
 
 # .profile is sourced at graphical session startup, and the environment defined here is inherited by every forked processes
 # (including shells or graphical programs)

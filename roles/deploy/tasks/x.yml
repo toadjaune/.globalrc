@@ -139,8 +139,10 @@
     insertbefore: BOF
     create:       true
     block:  |
-      # Loading global .profile
-      source {{ remote_directory }}/files/profile
+      # NB : This file must stay sh-compliant
+
+      # Load global .profile
+      . {{ remote_directory }}/files/profile
 
 ### i3 ###
 
@@ -192,9 +194,11 @@
     dest:   "{{ ansible_user_dir }}/.xinitrc"
     create: true
     block: |
+      # NB : This file must stay sh-compliant
+
       # Load very basic env (NB : this file is automatically sourced by gdm, not by startx)
       # Maybe we should ensure this is done in the tty shell directly (the one that executes startx)
-      source .profile
+      . .profile
 
       # Start i3
       exec i3
