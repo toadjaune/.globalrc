@@ -198,7 +198,7 @@
 
       # Load very basic env (NB : this file is automatically sourced by gdm, not by startx)
       # Maybe we should ensure this is done in the tty shell directly (the one that executes startx)
-      . .profile
+      . "{{ ansible_user_dir }}/.profile"
 
       # Start i3
       exec i3
