@@ -19,7 +19,6 @@
     loop_var: font_url
   loop:
     - https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/UbuntuMono.zip
-  notify: Regenerate font cache
 
 - name: Install fonts (by symlinking)
   file:
