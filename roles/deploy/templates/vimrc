@@ -21,10 +21,6 @@ call plug#begin('{{ remote_directory }}/vim/bundle')
 " this command must be before anything using <leader>
 let mapleader=" "
 
-""" bundle/vim-togglemouse/plugin/toggle_mouse.vim """
-map <leader>m <Plug>ToggleMouse
-    " toggle mouse usage with leader-m
-
 """ vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
     " Do not use the default mappings
@@ -40,8 +36,6 @@ let g:tmux_navigator_no_mappings = 1
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
 " User interface
-" Plug 'nvie/vim-togglemouse'         " toggle mouse access (reconfigured earlier)
-Plug 'toadjaune/vim-togglemouse'   " use my fork while it's not merged
 Plug 'vim-scripts/CycleColor'         " cycle through colors via F4
 Plug 'godlygeek/tabular'              " provides :Tab to align text
 Plug 'christoomey/vim-tmux-navigator'
@@ -80,7 +74,6 @@ Plug 'ervandew/supertab'      " Use tab for completion
 
 " TODO: See similar behavior with wildmenu and wildmode
 " Also see ballooning
-" So far, couldn't find a way to use the mouse on the completion dropdown
 
 " Ruby & Rails
 Plug 'tpope/vim-rails'
@@ -197,7 +190,7 @@ set magic
 
 set showmatch     " Show matching brackets when text indicator is over them
 set mat=2         " How many tenths of a second to blink when matching brackets
-set mouse=a       " Enable mouse interaction
+set mouse=""      " Disable mouse interaction
 
 " Show line numbers, relative only in active file in normal mode
 " See https://github.com/jeffkreeftmeijer/vim-numbertoggle
