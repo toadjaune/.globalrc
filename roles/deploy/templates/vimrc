@@ -293,6 +293,10 @@ set incsearch     " show search matches as you type
 nnoremap <silent> <leader>/ :nohlsearch<CR>
                   " clear search buffer by typing leader-/
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Navigation in file
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Center the cursor vertically when searching
 nnoremap n nzz
 nnoremap N Nzz
@@ -300,6 +304,9 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+
+" Start scrolling the file before the cursor reaches the top/bottom
+set scrolloff=5
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
