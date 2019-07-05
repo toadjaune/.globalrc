@@ -32,7 +32,7 @@ fi
 ### Actual payload ###
 
 # keep an easy access to the original tmux, just in case
-alias tmux_vanilla="$(which tmux)"
+alias tmux_vanilla="/usr/bin/tmux"
 
 # Overload the tmux command to load sshrc
 tmux() {
