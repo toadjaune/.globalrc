@@ -240,6 +240,11 @@ alias invim='vim <(fc -e true)'
 # On RedHat family systems, use vimx if installed, to have access to clipboard from vim
 if [ -x /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 
+# Open big files with a minimal vim configuration
+# TODO : see if we can have vim do this automatically based on file size
+# TODO : We should probably use a separate profile for that, with specific options enabled/disabled (swapfiles, etc…)
+alias bigvim='vim -u "NONE"'
+
 # sudo shell with environment
 alias ssudo='sudo -sE'
 
