@@ -330,5 +330,11 @@ workspace $ws10 output $output_right
 # https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup
 exec --no-startup-id numlockx
 
+# Start dunst (notification daemon)
+# NB : we could also configure dbus to autostart it in
+# /usr/share/dbus-1/services/org.freedesktop.Notifications.service
+# Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
+exec --no-startup-id dunst
+
 # Wallpaper image
 exec_always --no-startup-id feh --randomize --bg-fill Pictures/Wallpapers/*

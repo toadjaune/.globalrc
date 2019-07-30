@@ -156,11 +156,6 @@
       - numlockx  # Automatically enable numlock
       - scrot     # Take screenshots from cli
       - dunst     # Notification daemon
-          # NB : Currently, nothing is done to start dunst in this playbook
-          # On some machines, I had to configure dbus to start it automatically in
-          # /usr/share/dbus-1/services/org.freedesktop.Notifications.service
-          # Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
-          # We may want to start it from i3 with an exec
 
   become: true
   when: have_root and ansible_os_family == "Debian"
