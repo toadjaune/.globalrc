@@ -334,7 +334,14 @@ exec --no-startup-id numlockx
 # NB : we could also configure dbus to autostart it in
 # /usr/share/dbus-1/services/org.freedesktop.Notifications.service
 # Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
+# We currently use the default config
 exec --no-startup-id dunst
+
+# Start redshift
+# This reduces the amount of blue light emitted by the screen based
+# on the time of the day
+# We currently use the default config
+exec --no-startup-id redshift
 
 # Wallpaper image
 exec_always --no-startup-id feh --randomize --bg-fill Pictures/Wallpapers/*

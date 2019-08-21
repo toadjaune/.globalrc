@@ -156,6 +156,7 @@
       - numlockx  # Automatically enable numlock
       - scrot     # Take screenshots from cli
       - dunst     # Notification daemon
+      - redshift  # Adapt screen spectrum to the current day time
 
   become: true
   when: have_root and ansible_os_family == "Debian"
@@ -170,6 +171,7 @@
       - numlockx
       - scrot
       - dunst
+      - redshift
 
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian package (seems installed by default on Ubuntu)
