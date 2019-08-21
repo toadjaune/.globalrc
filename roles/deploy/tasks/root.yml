@@ -17,6 +17,7 @@
       - tmux
       - most
       - mosh
+      - exa
   when: ansible_os_family == 'Debian'
 
 - name: Install zsh and usual tools (RedHat)
@@ -30,5 +31,6 @@
       - tmux
       - most
       - mosh
+      - exa
   become: true
   when: have_root and ansible_os_family == "RedHat"
