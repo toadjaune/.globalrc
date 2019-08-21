@@ -270,8 +270,8 @@ alias ssh="sshrc"
 if [ -x /usr/bin/mosh ]; then
   alias mosh="moshrc"
 fi
-alias ls="exa"
-alias ll="exa -al"
+alias ls="exa --git"
+alias ll="exa --git -al"
 
 # Docker aliases
 alias stop_docker="docker ps | awk '{ print \$1 }' | grep -v '^CONTAINER' | xargs docker stop"
