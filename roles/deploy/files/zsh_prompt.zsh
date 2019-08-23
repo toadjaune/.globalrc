@@ -95,7 +95,9 @@ prompt_opts=(cr subst percent)
 EXITCODE="%(?..[%?]%1v)"
 
 # This function is called before each prompt regenation
-precmd () {
+# NB : it's better to give it an arbitrary name, and add it to precmd_functions than directly
+# calling it precmd (no conflicts)
+function prompt_precmd () {
     setopt noxtrace localoptions extendedglob
     local prompt_line_1
 
@@ -158,9 +160,10 @@ precmd () {
     PS3="$prompt_line_2$prompt_bbox_to_mbox%B%F{white}?# %b%f%k"
 
 }
+precmd_functions+=( prompt_precmd )
 
 # preexec() => a function running before every command
-preexec () {
+function prompt_preexec () {
     # set hostname if not running on host with name 'grml'
     if [[ -n "$HOSTNAME" ]] && [[ "$HOSTNAME" != $(hostname) ]] ; then
        NAME="@$HOSTNAME"
@@ -172,6 +175,7 @@ preexec () {
         local CMD="${1[(wr)^(*=*|sudo|ssh|-*)]}$NAME" # use hostname
         ESC_print ${CMD}
     fi
+preexec_functions+=( prompt_preexec )
 #    # adjust title of xterm
 #    [[ ${NOTITLE} -gt 0 ]] && return 0
 #    case $TERM in
