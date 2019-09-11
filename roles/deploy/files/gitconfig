@@ -20,6 +20,12 @@
 [rerere]
   enabled = true
 
+[mergetool]
+  # Git, please, just stop dropping files in my working directory whenever I run `git mergetool`
+  keepbackup = false
+  # Thank you
+
 # Include private configuration
 [include]
   path = gitconfig.private
+
