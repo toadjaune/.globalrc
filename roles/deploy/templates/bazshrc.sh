@@ -270,6 +270,9 @@ alias ssh="sshrc"
 if [ -x /usr/bin/mosh ]; then
   alias mosh="moshrc"
 fi
+
+# SSH without sshrc nor host key checking
+alias rescue_ssh="\ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias ls="exa --git"
 alias ll="exa --git -al"
 
