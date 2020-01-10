@@ -276,6 +276,9 @@ alias rescue_ssh="\ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=
 alias ls="exa --git"
 alias ll="exa --git -al"
 
+# Way too long commands
+alias tf="terraform"
+
 # Docker aliases
 alias stop_docker="docker ps | awk '{ print \$1 }' | grep -v '^CONTAINER' | xargs docker stop"
 
