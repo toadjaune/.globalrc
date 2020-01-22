@@ -9,4 +9,12 @@
     src:  "{{ archive.dest }}"
     dest: "{{ remote_directory }}/fonts/"
     remote_src: yes
-  notify: Regenerate font cache
+  register: extracted
+
+  # If there were several font archives, this would regenerate several times
+  # Not an issue, but a bit wasteful
+  # NB: Although maybe not required, we prefer regenerating the font cache before referring
+  # the fonts in any conf, just in case
+- name: Regenerate font cache
+  command: "fc-cache -fv"
+  when: extracted.changed

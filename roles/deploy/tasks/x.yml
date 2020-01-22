@@ -1,12 +1,19 @@
 ### Fonts ###
 
-- name: Create font directories
+- name: Create font-related directories
   file:
     state:  directory
-    dest: '{{ remote_directory }}/{{ item }}'
+    dest:   "{{ item }}"
   loop:
-    - font_archives
-    - fonts
+    - "{{ remote_directory }}/font_archives"
+    - "{{ remote_directory }}/fonts"
+    - "{{ ansible_user_dir }}/.local/share/fonts"
+
+- name: Include custom fonts directory
+  file:
+    state:  link
+    src:    "{{ remote_directory }}/fonts/"
+    dest:   "{{ ansible_user_dir }}/.local/share/fonts/globalrc_fonts"
 
 # TODO : Mention it in README ?
 # These fonts are required by :
@@ -19,12 +26,6 @@
     loop_var: font_url
   loop:
     - https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/UbuntuMono.zip
-
-- name: Install fonts (by symlinking)
-  file:
-    state:  link
-    src:    "{{ remote_directory }}/fonts/"
-    dest:   "{{ ansible_user_dir }}/.local/share/fonts/globalrc_fonts"
 
 ### Alacritty ###
 
