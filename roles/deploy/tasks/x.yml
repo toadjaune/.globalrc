@@ -26,10 +26,6 @@
     src:    "{{ remote_directory }}/fonts/"
     dest:   "{{ ansible_user_dir }}/.local/share/fonts/globalrc_fonts"
 
-  # This is not strictly necessary, but we prefer changing configuration requiring specific fonts only once they are installed
-  # If this ever causes issues with another handler, change it to a conditional task
-- meta: flush_handlers
-
 ### Alacritty ###
 
 - name: Create alacritty directory
