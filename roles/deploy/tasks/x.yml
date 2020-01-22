@@ -29,23 +29,28 @@
 
 ### Alacritty ###
 
+# TODO: It would seem there now are Debian and fedora packages for alacritty. Test and switch.
+
 - name: Create alacritty directory
   file:
     state:  directory
     dest: '{{ remote_directory }}/alacritty'
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
 
 - name: Download alacritty archive
   get_url:
     url:  "https://github.com/jwilm/alacritty/releases/download/binaries/Alacritty-x86_64.tar.gz"
     dest: "{{ remote_directory }}/alacritty/archive.tar.gz"
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
 
 - name: Extract alacritty archive
   unarchive:
     src:  "{{ remote_directory }}/alacritty/archive.tar.gz"
     dest: "{{ remote_directory }}/alacritty/"
     remote_src: yes
+  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
 
-- name: Copy alactritty executable to /usr/local/bin
+- name: Copy alacritty executable to /usr/local/bin
   copy:
     src:  "{{ remote_directory }}/alacritty/alacritty"
     dest: "/usr/local/bin/alacritty"
@@ -53,7 +58,7 @@
     group: root
     mode:  0755
   become: true
-  when: have_root | bool
+  when: have_root and ( ansible_os_family == "Debian" or ansible_os_family == "RedHat" )
 
 - name: Load alacritty config via .config/alacritty.yml
   file:
@@ -61,6 +66,13 @@
     follow: false
     src:    "{{ remote_directory }}/files/alacritty.yml"
     dest:   "{{ ansible_user_dir }}/.config/alacritty.yml"
+
+- name: Install alacritty (Archlinux)
+  pacman:
+    name:
+      - alacritty
+  become: true
+  when: have_root and ansible_os_family == "Archlinux"
 
 - name: Install xclip (Debian)
   apt:
@@ -76,6 +88,13 @@
       - xclip
   become: true
   when: have_root and ansible_os_family == "RedHat"
+
+- name: Install xclip (Archlinux)
+  pacman:
+    name:
+      - xclip
+  become: true
+  when: have_root and ansible_os_family == "Archlinux"
 
 ### Graphical environment Themes ###
 
