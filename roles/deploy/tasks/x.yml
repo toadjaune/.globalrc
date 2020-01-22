@@ -56,7 +56,7 @@
     group: root
     mode:  0755
   become: true
-  when: have_root
+  when: have_root | bool
 
 - name: Load alacritty config via .config/alacritty.yml
   file:

@@ -91,7 +91,7 @@
 - name: Start the components requiring root access
   import_tasks:  root.yml
   become:   true
-  when:     have_root
+  when:     have_root | bool
 
   # TODO : Do this with an include
 - name: Load IRB configuration
@@ -116,7 +116,7 @@
 
 - name: Install various x configurations
   import_tasks: x.yml
-  when: desktop
+  when: desktop | bool
   tags: x
 
 - name: Install zsh configuration
