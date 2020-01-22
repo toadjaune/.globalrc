@@ -35,3 +35,19 @@
       - exa
   become: true
   when: have_root and ansible_os_family == "RedHat"
+
+- name: install zsh and usual tools (Archlinux)
+  pacman:
+    name:
+      - zsh
+      - git
+      # TODO: if we're on a desktop, install vim with clipboard support (vimx ?)
+      - vim
+      - screen
+      - tmux
+      - most
+      - mosh
+      - exa
+  become: true
+  when: have_root and ansible_os_family == "Archlinux"
+
