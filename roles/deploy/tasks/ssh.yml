@@ -14,7 +14,9 @@
 
 - name: Clone sshrc
   git:
-    repo:     https://github.com/Russell91/sshrc
+    # The original repo (and user) are gone :/
+    # repo:     https://github.com/Russell91/sshrc
+    repo:     https://github.com/toadjaune/sshrc
     dest:     "{{ remote_directory }}/sshrc"
     version:  0.6.2
     depth:    1
