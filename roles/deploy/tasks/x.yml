@@ -138,6 +138,8 @@
   become: true
   when: have_root and ansible_os_family == "RedHat"
 
+# TODO: adwaita-qt for Arch
+
 # NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
 - name: Load Qt4 graphical configuration via .config/Trolltech.conf
   blockinfile:
@@ -190,10 +192,24 @@
       - redshift
 
       # nmtui is a terminal graphical interface to NetworkManager
-      # TODO : Find the equivalent debian package (seems installed by default on Ubuntu)
+      # TODO : Find the equivalent debian and arch packages (seems installed by default on Ubuntu and Manjaro)
       - NetworkManager-tui
   become: true
   when: have_root and ansible_os_family == "RedHat"
+
+- name: Install i3-related packages (Archlinux)
+  pacman:
+    name:
+      - i3
+      - rofi
+      - feh
+      - arandr
+      - numlockx
+      - scrot
+      - dunst
+      - redshift
+  become: true
+  when: have_root and ansible_os_family == "Archlinux"
 
 - name: Create i3 config directory
   file:
