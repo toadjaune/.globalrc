@@ -320,6 +320,7 @@ workspace $ws4  output $output_right
 workspace $ws5  output $output_right
 workspace $ws6  output $output_right
 workspace $ws7  output $output_right
+workspace $ws8  output $output_right
 workspace $ws9  output $output_right
 workspace $ws10 output $output_right
 
