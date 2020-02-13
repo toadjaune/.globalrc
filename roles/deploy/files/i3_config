@@ -297,7 +297,7 @@ for_window [class="Spotify"] move to workspace $ws8
 
 assign [class="quassel"]      $ws9
 assign [class="riot"]         $ws9
-assign [class="slack"]        $ws9
+assign [class="Slack"]        $ws9
 
 assign [class="Thunderbird"]  $ws10
 
