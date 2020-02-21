@@ -28,3 +28,8 @@ Nice tools :
 
 
 Power management : tlp
+
+* Media keys
+  * pulseaudio-ctl ?
+
+* Install required libs solokeys
