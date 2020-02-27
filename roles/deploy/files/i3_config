@@ -275,6 +275,8 @@ mode $mode_xrandr {
     bindcode $l exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
     # Dynamic dual-screen through rofi
     bindcode $c exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout,  mode "default"
+    # Reset everything. Useful if you have currently no display…
+    bindcode $r exec --no-startup-id xrandr --auto, mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
