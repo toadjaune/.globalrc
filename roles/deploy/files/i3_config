@@ -297,6 +297,7 @@ assign [class="Firefox"]      $ws1
 # assign [class="spotify"] $ws8
 for_window [class="Spotify"] move to workspace $ws8
 
+assign [class="discord"]      $ws9
 assign [class="quassel"]      $ws9
 assign [class="riot"]         $ws9
 assign [class="Slack"]        $ws9
