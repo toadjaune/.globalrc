@@ -63,6 +63,12 @@
     dest: "{{ remote_directory }}/local_bin/exa"
   when: ansible_os_family == "RedHat"
 
+- name: Create exa directory
+  file:
+    state: directory
+    dest: "{{ remote_directory }}/exa"
+  when: ansible_os_family == "Debian"
+
   # NB : exa is only packaged since debian 10 (buster) and ubuntu 19.04
   # Waiting for ubuntu 20.04
 - name: Download and extract exa
