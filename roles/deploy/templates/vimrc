@@ -52,7 +52,8 @@ Plug 'ctrlpvim/ctrlp.vim'     " fuzzy search through filesystem/buffers
 Plug 'tpope/vim-fugitive'     " Access to git commands from Vim
 Plug 'tpope/vim-git'          " Git syntax highlighting
 " Plug 'Xuyuanp/nerdtree-git-plugin'  " Diplays git files status in NERDtree
-Plug 'toadjaune/nerdtree-git-plugin'  " Diplays git files status in NERDtree
+" Plug 'toadjaune/nerdtree-git-plugin'  " Diplays git files status in NERDtree
+" TODO : Makes nerdtree loading crash
 Plug 'airblade/vim-gitgutter' " Displays signs for git modifications
 
 " Development tools
