@@ -67,6 +67,10 @@ set $n 47
 # M on bépo, u on azerty
 set $m 48
 
+# à on bépo, W on azerty
+set $à 52
+# Y on bépo, X on azerty
+set $y 53
 # X on bépo, C on azerty
 set $x 54
 # . on bépo, V on azerty
@@ -130,6 +134,7 @@ set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
 # Possible modi that might be interesting besides run and drun : ssh, window, combi
 bindcode $mod+$i exec --no-startup-id rofi $rofi_common -modi run  -show run
 bindcode $mod+$, exec --no-startup-id rofi $rofi_common -modi drun -show drun
+bindcode $mod+$à exec --no-startup-id rofimoji --rofi-args="$rofi_common"
 
 # Take a screenshot
 bindcode $mod+$j exec --no-startup-id .globalrc/files/scripts/i3-scrot

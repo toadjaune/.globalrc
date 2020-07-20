@@ -239,6 +239,14 @@
       # Start i3
       exec i3
 
+  # Insert emoji into any text field with rofi
+- name: Install rofimoji
+  pip:
+    name: git+https://github.com/fdw/rofimoji
+  become: true # We make a system install to be consistent with arch
+  when: have_root and ( ansible_os_family == "Debian" or ansible_os_family == "RedHat" )
+  # TODO : there is an arch package, add it somewhere
+
 ### Other ###
 
 # TODO : I'm now pretty sure I'm never gonna actually use urxvt
