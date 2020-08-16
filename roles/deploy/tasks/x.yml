@@ -200,7 +200,7 @@
 - name: Install i3-related packages (Archlinux)
   pacman:
     name:
-      - i3
+      - i3-wm
       - rofi
       - feh
       - arandr
