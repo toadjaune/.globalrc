@@ -333,6 +333,10 @@ silent! colorscheme eldar
 " Trailing whitespaces & co in Orange
 hi  SpecialKey ctermfg=214
 
+" Recognize Jenkinsfile as groovy
+" https://gist.github.com/richardsonlima/fd42bf8f34ca4444cc828a34c8093f4c
+au BufNewFile,BufRead Jenkinsfile setf groovy
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
