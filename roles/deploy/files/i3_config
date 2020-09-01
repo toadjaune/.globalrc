@@ -134,7 +134,7 @@ set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
 # Possible modi that might be interesting besides run and drun : ssh, window, combi
 bindcode $mod+$i exec --no-startup-id rofi $rofi_common -modi run  -show run
 bindcode $mod+$, exec --no-startup-id rofi $rofi_common -modi drun -show drun
-bindcode $mod+$à exec --no-startup-id rofimoji --rofi-args="$rofi_common"
+bindcode $mod+$à exec --no-startup-id rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
 
 # Take a screenshot
 bindcode $mod+$j exec --no-startup-id .globalrc/files/scripts/i3-scrot
