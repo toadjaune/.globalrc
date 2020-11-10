@@ -205,9 +205,6 @@ augroup END
 " Enable/Disable Paste Mode with leader-p
 " noremap <silent> <leader>p :set nu!<CR>:setlocal paste!<CR>
 
-" Reload vimrc with leader-c
-nnoremap <leader>c :source $MYVIMRC<CR>
-
 set history=1000         " remember more commands and search history
 set undolevels=1000      " remember more actions in undo buffer
 set title                " change the terminal's title
