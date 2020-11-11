@@ -1,3 +1,18 @@
+### Keyboard layouts ###
+
+- name: Install lxml with pip3
+  pip:
+    name: lxml
+    executable: pip3 # Should not be required, but I'd rather make sure
+  become: true
+  when: have_root | bool
+
+- name: Install lafayette keyboard layout
+  script: "{{ remote_directory }}/files/keyboards/lafayette_linux_v0.6.1.py"
+  changed_when: false
+  become: true
+  when: have_root | bool
+
 ### Fonts ###
 
 - name: Create font-related directories
