@@ -25,69 +25,41 @@ set $mod Mod4
 # Define variables corresponding to keyboard letters
 # We use keyboard to have a configuration independent from the keyboard layout
 # Use `xev` to get the keycode of a key
+# All variable names correspond to the qwerty lafayette position
 
-# B on bépo, A on azerty
-set $b 24
-# É on bépo, Z on azerty
-set $é 25
-# P on bépo, E on azerty
-set $p 26
-# O on bépo, R on azerty
-set $o 27
+set $q 24
+set $w 25
+set $e 26
+set $r 27
 
-# V on bépo, U on azerty
-set $v 30
-# D on bépo, I on azerty
-set $d 31
-# L on bépo, O on azerty
-set $l 32
-# J on bépo, P on azerty
-set $j 33
+set $u 30
+set $i 31
+set $o 32
+set $p 33
 
-# A on bépo, Q on azerty
 set $a 38
-# U on bépo, S on azerty
-set $u 39
-# I on bépo, D on azerty
-set $i 40
-# E on bépo, F on azerty
-set $e 41
-# , on bépo, G on azerty
-set $, 42
-# C on bépo, H on azerty
-set $c 43
-# T on bépo, J on azerty
-set $t 44
-# S on bépo, K on azerty
-set $s 45
-# R on bépo, L on azerty
-set $r 46
-# N on bépo, M on azerty
-set $n 47
-# M on bépo, u on azerty
-set $m 48
+set $s 39
+set $d 40
+set $f 41
+set $g 42
+set $h 43
+set $j 44
+set $k 45
+set $l 46
+set $★ 47
+set $' 48
 
-# à on bépo, W on azerty
-set $à 52
-# Y on bépo, X on azerty
-set $y 53
-# X on bépo, C on azerty
-set $x 54
-# . on bépo, V on azerty
-set $. 55
-# k on bépo, B on azerty
-set $k 56
+set $z 52
+set $x 53
+set $c 54
+set $v 55
+set $b 56
 
-# Return
 set $return 36
-# Space
 set $space 65
-# Escape
 set $escape 9
-# CTRL
 set $ctrl CTRL
 
-# Numbers row (even if they are not actually numbers without shift)
 set $1 10
 set $2 11
 set $3 12
@@ -121,14 +93,14 @@ exec --no-startup-id "setxkbmap fr -variant lafayette"
 # Add shortcuts to temporary change the layout
 set $mode_keyboard "keyboard layout selection"
 mode $mode_keyboard {
-    bindcode $t exec --no-startup-id "setxkbmap fr -variant lafayette && notify-send -t 2000 'Layout switched to qwerty lafayette'"; mode "default"
-    bindcode $s exec --no-startup-id "setxkbmap fr -variant bepo      && notify-send -t 2000 'Layout switched to bepo'";             mode "default"
-    bindcode $r exec --no-startup-id "setxkbmap fr                    && notify-send -t 2000 'Layout switched to azerty'";           mode "default"
+    bindcode $j exec --no-startup-id "setxkbmap fr -variant lafayette && notify-send -t 2000 'Layout switched to qwerty lafayette'"; mode "default"
+    bindcode $k exec --no-startup-id "setxkbmap fr -variant bepo      && notify-send -t 2000 'Layout switched to bepo'";             mode "default"
+    bindcode $l exec --no-startup-id "setxkbmap fr                    && notify-send -t 2000 'Layout switched to azerty'";           mode "default"
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
 }
-bindcode $mod+$k mode $mode_keyboard
+bindcode $mod+$b mode $mode_keyboard
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -138,50 +110,50 @@ bindcode $mod+$return       exec alacritty
 bindcode $mod+Shift+$return exec gnome-terminal
 
 # kill focused window
-bindcode $mod+Shift+$b kill
+bindcode $mod+Shift+$q kill
 
 # start dmenu (a program launcher)
-# bindcode $mod+$i exec dmenu_run
+# bindcode $mod+$d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindcode $mod+$i exec --no-startup-id i3-dmenu-desktop
+# bindcode $mod+$d exec --no-startup-id i3-dmenu-desktop
 
 # Use Rofi instead of dmenu
 set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
 # Possible modi that might be interesting besides run and drun : ssh, window, combi
-bindcode $mod+$i exec --no-startup-id rofi $rofi_common -modi run  -show run
-bindcode $mod+$, exec --no-startup-id rofi $rofi_common -modi drun -show drun
-bindcode $mod+$à exec --no-startup-id rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
+bindcode $mod+$d exec --no-startup-id rofi $rofi_common -modi run  -show run
+bindcode $mod+$g exec --no-startup-id rofi $rofi_common -modi drun -show drun
+bindcode $mod+$z exec --no-startup-id rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
 
 # Take a screenshot
-bindcode $mod+$j exec --no-startup-id .globalrc/files/scripts/i3-scrot
+bindcode $mod+$p exec --no-startup-id .globalrc/files/scripts/i3-scrot
 
 # change focus
-bindcode $mod+$t focus left
-bindcode $mod+$s focus down
-bindcode $mod+$r focus up
-bindcode $mod+$n focus right
+bindcode $mod+$j focus left
+bindcode $mod+$k focus down
+bindcode $mod+$l focus up
+bindcode $mod+$★ focus right
 
 # move focused window
-bindcode $mod+Shift+$t move left
-bindcode $mod+Shift+$s move down
-bindcode $mod+Shift+$r move up
-bindcode $mod+Shift+$n move right
+bindcode $mod+Shift+$j move left
+bindcode $mod+Shift+$k move down
+bindcode $mod+Shift+$l move up
+bindcode $mod+Shift+$★ move right
 
 # split in horizontal orientation
-bindcode $mod+$c split h
+bindcode $mod+$h split h
 
 # split in vertical orientation
-bindcode $mod+$. split v
+bindcode $mod+$v split v
 
 # enter fullscreen mode for the focused container
-bindcode $mod+$e fullscreen toggle
+bindcode $mod+$f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindcode $mod+$u layout stacking
-bindcode $mod+$é layout tabbed
-bindcode $mod+$p layout toggle split
+bindcode $mod+$s layout stacking
+bindcode $mod+$w layout tabbed
+bindcode $mod+$e layout toggle split
 
 # toggle tiling / floating
 bindcode $mod+Shift+$space floating toggle
@@ -193,10 +165,10 @@ bindcode $mod+$space focus mode_toggle
 bindcode $mod+$a focus parent
 
 # focus the child container
-bindcode $mod+$d focus child
+bindcode $mod+$i focus child
 
 # lock screen
-bindcode $mod+$l exec .globalrc/files/scripts/i3-exit lock
+bindcode $mod+$o exec .globalrc/files/scripts/i3-exit lock
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -236,17 +208,17 @@ bindcode $mod+Shift+$9 move container to workspace $ws9
 bindcode $mod+Shift+$0 move container to workspace $ws10
 
 # Move workspace to another screen
-bindcode $ctrl+$mod+$t move workspace to output left
-bindcode $ctrl+$mod+$s move workspace to output up
-bindcode $ctrl+$mod+$r move workspace to output down
-bindcode $ctrl+$mod+$n move workspace to output right
+bindcode $ctrl+$mod+$j move workspace to output left
+bindcode $ctrl+$mod+$k move workspace to output up
+bindcode $ctrl+$mod+$l move workspace to output down
+bindcode $ctrl+$mod+$★ move workspace to output right
 
 # reload the configuration file -> since restart preserves current layout, not really needed
 # bindsym $mod+Shift+X reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindcode $mod+Shift+$o restart
+bindcode $mod+Shift+$r restart
 # exit i3 (logs you out of your X session)
-bindcode $mod+Shift+$p exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindcode $mod+Shift+$e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -256,56 +228,56 @@ mode "resize" {
     # Pressing right will grow   the window’s width.
     # Pressing up    will shrink the window’s height.
     # Pressing down  will grow   the window’s height.
-    bindcode $t resize shrink width  10 px or 10 ppt
-    bindcode $s resize grow   height 10 px or 10 ppt
-    bindcode $r resize shrink height 10 px or 10 ppt
-    bindcode $n resize grow   width  10 px or 10 ppt
+    bindcode $j resize shrink width  10 px or 10 ppt
+    bindcode $k resize grow   height 10 px or 10 ppt
+    bindcode $l resize shrink height 10 px or 10 ppt
+    bindcode $★ resize grow   width  10 px or 10 ppt
 
     # back to normal: Enter or Escape or $mod+r
     bindcode $return mode "default"
     bindcode $escape mode "default"
-    bindcode $mod+$o mode "default"
+    bindcode $mod+$r mode "default"
 }
-bindcode $mod+$o mode "resize"
+bindcode $mod+$r mode "resize"
 
 # Based on https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
 # The i3-exit script is installed at deploy-time
-# TODO: Better way to call i3-exit (templating ? Changing $PATH ?)
+# TODO: Better way to call i3-exit (templating ? Changing $_PATH ?)
 set $mode_system "system"
 mode $mode_system {
     # Same position as default shortcut
-    bindcode $p exec --no-startup-id .globalrc/files/scripts/i3-exit logout,    mode "default"
+    bindcode $e exec --no-startup-id .globalrc/files/scripts/i3-exit logout,    mode "default"
     # Right hand default position, with a gradation
-    bindcode $t exec --no-startup-id .globalrc/files/scripts/i3-exit lock,      mode "default"
-    bindcode $s exec --no-startup-id .globalrc/files/scripts/i3-exit suspend,   mode "default"
-    bindcode $r exec --no-startup-id .globalrc/files/scripts/i3-exit hibernate, mode "default"
-    bindcode $n exec --no-startup-id .globalrc/files/scripts/i3-exit shutdown,  mode "default"
-    bindcode $m exec --no-startup-id .globalrc/files/scripts/i3-exit reboot,    mode "default"
+    bindcode $j exec --no-startup-id .globalrc/files/scripts/i3-exit lock,      mode "default"
+    bindcode $k exec --no-startup-id .globalrc/files/scripts/i3-exit suspend,   mode "default"
+    bindcode $l exec --no-startup-id .globalrc/files/scripts/i3-exit hibernate, mode "default"
+    bindcode $★ exec --no-startup-id .globalrc/files/scripts/i3-exit shutdown,  mode "default"
+    bindcode $' exec --no-startup-id .globalrc/files/scripts/i3-exit reboot,    mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
 }
-bindcode $mod+$v mode $mode_system
+bindcode $mod+$u mode $mode_system
 
 set $mode_xrandr "xrandr"
 mode $mode_xrandr {
     # Use `arandr` to generate the configurations locally
 
     # Desktop mode (multiple screens, disable laptop screen)
-    bindcode $d exec --no-startup-id .screenlayout/desktop.sh, mode "default"
+    bindcode $i exec --no-startup-id .screenlayout/desktop.sh, mode "default"
     # Laptop mode (only laptop screen)
-    bindcode $l exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
+    bindcode $o exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
     # Dynamic dual-screen through rofi
-    bindcode $c exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout,  mode "default"
+    bindcode $h exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout,  mode "default"
     # Reset everything. Useful if you have currently no display…
-    bindcode $r exec --no-startup-id xrandr --auto, mode "default"
+    bindcode $l exec --no-startup-id xrandr --auto, mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
 }
-bindcode $mod+$x mode $mode_xrandr
+bindcode $mod+$c mode $mode_xrandr
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -335,7 +307,7 @@ assign [class="Thunderbird"]  $ws10
 # maybe we can improve it by using marks
 
 # mapping to the actual screen names
-set $output_left  "DP-2"
+set $outputoeft  "DP-2"
 set $output_right "HDMI-1"
 
 # assigning each workspace to a screen
