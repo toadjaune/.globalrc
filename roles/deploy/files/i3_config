@@ -75,6 +75,8 @@ set $y 53
 set $x 54
 # . on bépo, V on azerty
 set $. 55
+# k on bépo, B on azerty
+set $k 56
 
 # Return
 set $return 36
@@ -111,6 +113,22 @@ font pango:monospace 8
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
+
+# setup keyboard layout to lafayette by default
+# TODO : this is only scoped to an x session, we need to make it the system default (gdm, LUKS…)
+exec --no-startup-id "setxkbmap fr -variant lafayette"
+
+# Add shortcuts to temporary change the layout
+set $mode_keyboard "keyboard layout selection"
+mode $mode_keyboard {
+    bindcode $t exec --no-startup-id "setxkbmap fr -variant lafayette && notify-send -t 2000 'Layout switched to qwerty lafayette'"; mode "default"
+    bindcode $s exec --no-startup-id "setxkbmap fr -variant bepo      && notify-send -t 2000 'Layout switched to bepo'";             mode "default"
+    bindcode $r exec --no-startup-id "setxkbmap fr                    && notify-send -t 2000 'Layout switched to azerty'";           mode "default"
+    # back to normal: Enter or Escape
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+}
+bindcode $mod+$k mode $mode_keyboard
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
