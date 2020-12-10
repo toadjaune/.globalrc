@@ -130,16 +130,16 @@ bindcode $mod+$z exec --no-startup-id rofimoji --insert-with-clipboard --rofi-ar
 bindcode $mod+$p exec --no-startup-id .globalrc/files/scripts/i3-scrot
 
 # change focus
-bindcode $mod+$j focus left
-bindcode $mod+$k focus down
-bindcode $mod+$l focus up
-bindcode $mod+$★ focus right
+bindcode $mod+$h focus left
+bindcode $mod+$j focus down
+bindcode $mod+$k focus up
+bindcode $mod+$l focus right
 
 # move focused window
-bindcode $mod+Shift+$j move left
-bindcode $mod+Shift+$k move down
-bindcode $mod+Shift+$l move up
-bindcode $mod+Shift+$★ move right
+bindcode $mod+Shift+$h move left
+bindcode $mod+Shift+$j move down
+bindcode $mod+Shift+$k move up
+bindcode $mod+Shift+$l move right
 
 # split in horizontal orientation
 bindcode $mod+$h split h
@@ -208,10 +208,10 @@ bindcode $mod+Shift+$9 move container to workspace $ws9
 bindcode $mod+Shift+$0 move container to workspace $ws10
 
 # Move workspace to another screen
-bindcode $ctrl+$mod+$j move workspace to output left
-bindcode $ctrl+$mod+$k move workspace to output up
-bindcode $ctrl+$mod+$l move workspace to output down
-bindcode $ctrl+$mod+$★ move workspace to output right
+bindcode $ctrl+$mod+$h move workspace to output left
+bindcode $ctrl+$mod+$j move workspace to output up
+bindcode $ctrl+$mod+$k move workspace to output down
+bindcode $ctrl+$mod+$l move workspace to output right
 
 # reload the configuration file -> since restart preserves current layout, not really needed
 # bindsym $mod+Shift+X reload
@@ -228,10 +228,10 @@ mode "resize" {
     # Pressing right will grow   the window’s width.
     # Pressing up    will shrink the window’s height.
     # Pressing down  will grow   the window’s height.
-    bindcode $j resize shrink width  10 px or 10 ppt
-    bindcode $k resize grow   height 10 px or 10 ppt
-    bindcode $l resize shrink height 10 px or 10 ppt
-    bindcode $★ resize grow   width  10 px or 10 ppt
+    bindcode $h resize shrink width  10 px or 10 ppt
+    bindcode $j resize grow   height 10 px or 10 ppt
+    bindcode $k resize shrink height 10 px or 10 ppt
+    bindcode $l resize grow   width  10 px or 10 ppt
 
     # back to normal: Enter or Escape or $mod+r
     bindcode $return mode "default"
