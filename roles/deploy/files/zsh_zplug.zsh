@@ -206,11 +206,6 @@ source "$GLOBALRC/../zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
 # Plugins post-configuration                                                  #
 ###############################################################################
 
-### zsh-autosggestions ###
-# Shift-Tab accepts current autosuggestion
-bindkey '^[[Z' autosuggest-accept
-
-
 ### zsh-syntax-highlighting ###
 # Main highlight configuration (not all available options)
 ZSH_HIGHLIGHT_STYLES+=(
