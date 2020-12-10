@@ -206,7 +206,7 @@ for keymap in $keymap_list; do
 done
 
 # History backwards search (supports globbing)
-bindkey '^[c' history-incremental-pattern-search-backward
+bindkey '^[h' history-incremental-pattern-search-backward
 
 # Get out of insert/visual mode with Alt-space (mapping to Esc)
 bindkey -s '^[ ' '\e'
