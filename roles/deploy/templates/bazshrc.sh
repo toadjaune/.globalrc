@@ -144,8 +144,9 @@ running_shell() {
 # - https://unix.stackexchange.com/a/9960/293790
 # - http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x405.html
 # - man terminfo
+# - termcap is an older mechanism for this, use terminfo when possible
 # (And obviously, changing $TERM yourself is TERRIBLY WRONG)
-# TODO: Forward the terminal capabilities over ssh (forwarding $TERM and $TERMCAP ?)
+# TODO: Forward the terminal capabilities over ssh (forwarding $TERM ?)
 
 # Test for 256colors support
 # NB : I'm not certain if `tput colors` can output a value higher than 256, which would break this test
