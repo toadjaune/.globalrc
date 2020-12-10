@@ -9,10 +9,10 @@ desktop: false
 
 # Movement keys (defaults are for bépo layout)
 # Right hand
-key_rh_left:  't'
-key_rh_down:  's'
-key_rh_up:    'r'
-key_rh_right: 'n'
+key_rh_left:  'h'
+key_rh_down:  'j'
+key_rh_up:    'k'
+key_rh_right: 'l'
 
 # Left hand
 key_lh_left:  'a'
