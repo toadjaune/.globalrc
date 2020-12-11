@@ -93,9 +93,9 @@ exec --no-startup-id "setxkbmap fr -variant lafayette"
 # Add shortcuts to temporary change the layout
 set $mode_keyboard "keyboard layout selection"
 mode $mode_keyboard {
-    bindcode $j exec --no-startup-id "setxkbmap fr -variant lafayette && notify-send -t 2000 'Layout switched to qwerty lafayette'"; mode "default"
-    bindcode $k exec --no-startup-id "setxkbmap fr -variant bepo      && notify-send -t 2000 'Layout switched to bepo'";             mode "default"
-    bindcode $l exec --no-startup-id "setxkbmap fr                    && notify-send -t 2000 'Layout switched to azerty'";           mode "default"
+    bindcode $j exec --no-startup-id "setxkbmap fr -variant lafayette && numlockx && notify-send -t 2000 'Layout switched to qwerty lafayette'"; mode "default"
+    bindcode $k exec --no-startup-id "setxkbmap fr -variant bepo      && numlockx && notify-send -t 2000 'Layout switched to bepo'";             mode "default"
+    bindcode $l exec --no-startup-id "setxkbmap fr                    && numlockx && notify-send -t 2000 'Layout switched to azerty'";           mode "default"
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
