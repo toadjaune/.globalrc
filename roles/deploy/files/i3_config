@@ -142,7 +142,8 @@ bindcode $mod+Shift+$k move up
 bindcode $mod+Shift+$l move right
 
 # split in horizontal orientation
-bindcode $mod+$h split h
+# h is used by movement keys
+bindcode $mod+$c split h
 
 # split in vertical orientation
 bindcode $mod+$v split v
@@ -277,7 +278,7 @@ mode $mode_xrandr {
     bindcode $return mode "default"
     bindcode $escape mode "default"
 }
-bindcode $mod+$c mode $mode_xrandr
+bindcode $mod+$x mode $mode_xrandr
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
