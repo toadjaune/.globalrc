@@ -192,7 +192,6 @@ alias -g G='| grep'
 # Choose enabled highlighters
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-
 ### powerlevel10k ###
 # based on https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
 source zsh_theme_config.zsh
@@ -257,6 +256,16 @@ ZSH_HIGHLIGHT_STYLES+=(
   back-quoted-argument  'fg=purple,bold'
   default               'fg=cyan,bold'
 )
+
+### zsh-autosuggestions ###
+ZSH_AUTOSUGGEST_USE_ASYNC=1         # fetch suggestions asynchronously
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=200 # Disable suggestions past a certain command length
+
+# We're not savages so we manually bind the wigets once, at initialization, instead of at
+# every single precmd
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+_zsh_autosuggest_bind_widgets
+
 ###############################################################################
 
 
