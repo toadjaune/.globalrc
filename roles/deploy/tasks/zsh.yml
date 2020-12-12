@@ -26,7 +26,7 @@
 
     - name:     zsh-syntax-highlighting
       repo:     https://github.com/zsh-users/zsh-syntax-highlighting
-      version:  db6cac391bee957c20ff3175b2f03c4817253e60
+      version:  0.7.0
 
 # Some specific tasks need to be done before loading .zshrc
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout#71258
