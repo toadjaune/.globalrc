@@ -1,3 +1,8 @@
 # This file contains tombstones for old configurations that may still
 # be present somewhere
 
+- name: Cleanup powerlevel9k
+  file:
+    path:  "{{ remote_directory }}/zsh_plugins/powerlevel9k"
+    state: absent
+

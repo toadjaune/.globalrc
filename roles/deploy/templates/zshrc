@@ -193,7 +193,7 @@ alias -g G='| grep'
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 
-### powerlevel9k ###
+### powerlevel10k ###
 # based on https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
 source zsh_theme_config.zsh
 
@@ -208,10 +208,10 @@ source "$GLOBALRC/../zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # Community packaging of completions for common programs
 fpath=($GLOBALRC/../zsh_plugins/zsh-completions/src $fpath)
 
-# We both need 256 colors support, and a patched font, for p9k to work normally
+# We both need 256 colors support, and a patched font, for p10k to work normally
 if [[ -n $GLOBALRC_256_COLORS && -n $GLOBALRC_PATCHED_FONT ]]; then
-  # Powerlevel9k, prompt configuration
-  source "$GLOBALRC/../zsh_plugins/powerlevel9k/powerlevel9k.zsh-theme"
+  # Powerlevel10k, prompt configuration
+  source "$GLOBALRC/../zsh_plugins/powerlevel10k/powerlevel10k.zsh-theme"
 else
   # Just load legacy prompt
   source zsh_prompt.zsh

@@ -10,10 +10,11 @@
     repo:     "{{ item.repo }}"
     dest:     "{{ remote_directory }}/zsh_plugins/{{ item.name }}"
     version:  "{{ item.version }}"
+    depth:    1
   with_items:
-    - name:     powerlevel9k
-      repo:     https://github.com/bhilburn/powerlevel9k
-      version:  dd25b5db1234ea2959b809b83990a7df493816d1
+    - name:     powerlevel10k
+      repo:     https://github.com/romkatv/powerlevel10k
+      version:  v1.14.3
 
     - name:     zsh-autosuggestions
 #     repo:     https://github.com/zsh-users/zsh-autosuggestions
