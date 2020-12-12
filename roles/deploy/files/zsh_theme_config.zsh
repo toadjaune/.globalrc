@@ -1,17 +1,5 @@
 #!/bin/zsh
 
-# See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
-
-###############################################################################
-# Plugins pre-configuration                                                   #
-###############################################################################
-
-### zsh-syntax-highlighting ###
-# Choose enabled highlighters
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-
-
-### powerlevel9k ###
 # based on https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
 
 DEFAULT_FOREGROUND=006 DEFAULT_BACKGROUND=235
@@ -165,66 +153,3 @@ POWERLEVEL9K_BATTERY_LEVEL_BACKGROUND_COLOR="$DEFAULT_BACKGROUND"
 POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND="$DEFAULT_BACKGROUND"
 POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND="$DEFAULT_BACKGROUND"
 POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND="$DEFAULT_BACKGROUND"
-
-###############################################################################
-
-### List of plugins ###
-
-# Fish-like history-based suggestions
-# TODO : Use ansible templating instead of this variable
-source "$GLOBALRC/../zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
-# Community packaging of completions for common programs
-fpath=($GLOBALRC/../zsh_plugins/zsh-completions/src $fpath)
-
-# We both need 256 colors support, and a patched font, for p9k to work normally
-if [[ -n $GLOBALRC_256_COLORS && -n $GLOBALRC_PATCHED_FONT ]]; then
-  # Powerlevel9k, prompt configuration
-  source "$GLOBALRC/../zsh_plugins/powerlevel9k/powerlevel9k.zsh-theme"
-else
-  # Just load legacy prompt
-  source zsh_prompt.zsh
-fi
-
-autoload -Uz compinit
-if [[ ${UID} -eq 0 ]] && [[ -n ${SUDO_USER} ]]; then
-  # We are root, do not check for insecure directories, since this check was
-  # done for your regular user, and since some files in fpath do not belong to
-  # root but to your regular user
-  compinit -u
-else
-  compinit
-fi
-
-# Fish-like syntax highlighting
-# NB : MUST be sourced after compinit (and as late as possible)
-# NB : The highlighting gets slow on large buffers.
-# TODO: For a fix approach, see : https://github.com/zsh-users/zsh-syntax-highlighting/issues/361
-source "$GLOBALRC/../zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-###############################################################################
-# Plugins post-configuration                                                  #
-###############################################################################
-
-### zsh-syntax-highlighting ###
-# Main highlight configuration (not all available options)
-ZSH_HIGHLIGHT_STYLES+=(
-  unknown-token         'fg=red,bold'
-  reserved-word         'fg=yellow'
-  alias                 'fg=green,bold'
-  builtin               'fg=green,bold'
-  function              'fg=green,bold'
-  command               'fg=green,bold'
-  precommand            'fg=green'
-  hashed-command        'fg=green'
-  path                  'fg=blue,bold'
-  path_prefix           'fg=blue'
-  path_approx           'fg=blue,underlined'
-  globbing              'fg=yellow,underlined'
-  single-hyphen-option  'fg=purple,bold'
-  double-hyphen-option  'fg=purple,bold'
-  back-quoted-argument  'fg=purple,bold'
-  default               'fg=cyan,bold'
-)
-###############################################################################
-
