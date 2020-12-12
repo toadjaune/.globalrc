@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# /!\ You must already be in current directory for this to work /!\
-
-export GLOBALRC="$(pwd -P)"
-
 ### Begin utility functions ###
 
 # repeat n times command
@@ -167,7 +163,6 @@ stty -ixon
 
 # Login shell
 if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
-  # echo ".globalrc version" $(cat $GLOBALRC/version)
   # Display the logo
   cat logo
 fi
@@ -186,10 +181,10 @@ if [ -x /usr/bin/vim ]; then
 fi
 
 # Use custom inputrc
-export INPUTRC="$GLOBALRC/../templates/inputrc"
+export INPUTRC="{{ remote_directory }}/templates/inputrc"
 
 # Use custom sshrc location
-export SSHHOME="$GLOBALRC/sshrc"
+export SSHHOME="{{ remote_directory }}/files/sshrc"
 
 # Make agent-forwarding work even when reattaching screen/tmux
 # NB : In case of multiple simultaneous connections with ssh agent forwarding

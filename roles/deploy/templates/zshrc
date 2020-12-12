@@ -13,7 +13,7 @@ pushd $(dirname $0) > /dev/null
 source bazshrc.sh
 
 # Expand fpath to include custom functions
-fpath=($GLOBALRC/zsh_fpath $fpath)
+fpath=({{ remote_directory }}/files/zsh_fpath $fpath)
 # Autoload custom functions defined in zsh_fpath
 autoload mkcd
 
@@ -203,15 +203,15 @@ source zsh_theme_config.zsh
 
 # Fish-like history-based suggestions
 # TODO : Use ansible templating instead of this variable
-source "$GLOBALRC/../zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "{{ remote_directory }}/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Community packaging of completions for common programs
-fpath=($GLOBALRC/../zsh_plugins/zsh-completions/src $fpath)
+fpath=({{ remote_directory }}/zsh_plugins/zsh-completions/src $fpath)
 
 # We both need 256 colors support, and a patched font, for p10k to work normally
 if [[ -n $GLOBALRC_256_COLORS && -n $GLOBALRC_PATCHED_FONT ]]; then
   # Powerlevel10k, prompt configuration
-  source "$GLOBALRC/../zsh_plugins/powerlevel10k/powerlevel10k.zsh-theme"
+  source "{{ remote_directory }}/zsh_plugins/powerlevel10k/powerlevel10k.zsh-theme"
 else
   # Just load legacy prompt
   source zsh_prompt.zsh
@@ -231,7 +231,7 @@ fi
 # NB : MUST be sourced after compinit (and as late as possible)
 # NB : The highlighting gets slow on large buffers.
 # TODO: For a fix approach, see : https://github.com/zsh-users/zsh-syntax-highlighting/issues/361
-source "$GLOBALRC/../zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "{{ remote_directory }}/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 ###############################################################################
 # Plugins post-configuration                                                  #
