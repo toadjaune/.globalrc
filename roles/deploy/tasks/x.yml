@@ -261,16 +261,3 @@
   become: true # We make a system install to be consistent with arch
   when: have_root and ( ansible_os_family == "Debian" or ansible_os_family == "RedHat" )
   # TODO : there is an arch package, add it somewhere
-
-### Other ###
-
-# TODO : I'm now pretty sure I'm never gonna actually use urxvt
-# Clean this mess up
-- name: Load urxvt configuration via .Xresources
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.Xresources"
-    create: true
-    marker: "! {mark} ANSIBLE MANAGED BLOCK"
-    block:  |
-      ! Load urxvt configuration
-      #include "{{ remote_directory }}/files/urxvt.conf"

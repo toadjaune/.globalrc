@@ -1,0 +1,9 @@
+# This file contains tombstones for old configurations that may still
+# be present somewhere
+
+- name: Cleanup urxvt configuration loading via .Xresources
+  blockinfile:
+    dest:   "{{ ansible_user_dir }}/.Xresources"
+    marker: "! {mark} ANSIBLE MANAGED BLOCK"
+    state: absent
+

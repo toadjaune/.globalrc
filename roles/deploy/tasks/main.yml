@@ -157,3 +157,7 @@
     dest: "{{ remote_directory }}/"
     mode: 0755
 
+- name: Cleanup old configs
+  import_tasks: cleanup.yml
+  tags: tmux
+
