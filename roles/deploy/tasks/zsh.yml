@@ -20,13 +20,13 @@
       repo:     https://github.com/zsh-users/zsh-autosuggestions
       version:  v0.6.4
 
-    - name:     zsh-completions
-      repo:     https://github.com/zsh-users/zsh-completions
-      version:  d3a273cedf788181db9a05726dcd4d930da9e248
-
     - name:     zsh-syntax-highlighting
       repo:     https://github.com/zsh-users/zsh-syntax-highlighting
       version:  0.7.0
+
+    - name:     zsh-completions
+      repo:     https://github.com/zsh-users/zsh-completions
+      version:  master
 
 # Some specific tasks need to be done before loading .zshrc
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout#71258
