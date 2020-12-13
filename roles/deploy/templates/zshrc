@@ -1,5 +1,20 @@
 #!/bin/zsh
 
+### begin VERY early initialization
+
+# Disable flow control, to free C-S and C-Q
+# cf https://unix.stackexchange.com/questions/12107/how-to-unfreeze-after-accidentally-pressing-ctrl-s-in-a-terminal
+stty -ixon
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+### end VERY early initialization
+
 # To get started with your own zshrc, start with the folloiwing script :
 # (it is the one run by default by zsh at shell startup if you have no zshrc)
 # `zsh /usr/share/zsh/functions/Newuser/zsh-newuser-install -f`
@@ -193,8 +208,8 @@ alias -g G='| grep'
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 ### powerlevel10k ###
-# based on https://github.com/tonylambiris/dotfiles/blob/master/dot.zshrc
-source zsh_theme_config.zsh
+# file generated with `p10k configure`
+source p10k.zsh
 
 ###############################################################################
 

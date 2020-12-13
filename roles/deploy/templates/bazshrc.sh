@@ -155,10 +155,6 @@ if [[ $(uname -m) = 'x86_64' ]] && scripts/unicode_test 2713 ; then
   export UNICODE_VALID=1
 fi
 
-# Disable flow control, to free C-S and C-Q
-# cf https://unix.stackexchange.com/questions/12107/how-to-unfreeze-after-accidentally-pressing-ctrl-s-in-a-terminal
-stty -ixon
-
 ### End test of terminal capabilities and configuration ###
 
 # Login shell
