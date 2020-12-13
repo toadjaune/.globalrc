@@ -184,12 +184,6 @@ function info_print () {
     printf '%s' "${esc_end}"
 }
 
-# set variable debian_chroot if running in a chroot with /etc/debian_chroot
-# TODO: This is probably movable to common conf.
-if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]] ; then
-    debian_chroot=$(</etc/debian_chroot)
-fi
-
 # Just use G to pipe to grep
 # NB: this only expands in the case of space-separated G alone
 # See alias, in `man zshbuiltins`
