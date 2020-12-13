@@ -27,14 +27,8 @@ true_color="$Green"
 false_color="$Red"
 end_color=$pwd_color
 
-# Unicode glyphs
-if [[ $UNICODE_VALID == 1 ]]; then
-  True="\342\234\223"
-  False="\342\234\227"
-else
-  True="y"
-  False="n"
-fi
+True="\342\234\223"
+False="\342\234\227"
 
 # If root
 if [ $EUID -eq 0 ]

@@ -17,12 +17,6 @@ if [[ $(tput colors) == '256' ]] ; then
   export GLOBALRC_256_COLORS='1'
 fi
 
-# Testing Unicode environment
-# Currently, this automatically fails on a non-amd64 arch. I should fix it. Yeah, I definitely should.
-if [[ $(uname -m) = 'x86_64' ]] && scripts/unicode_test 2713 ; then
-  export UNICODE_VALID=1
-fi
-
 ### End test of terminal capabilities and configuration ###
 
 ### Begin definitions ###

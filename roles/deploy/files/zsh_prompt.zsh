@@ -7,23 +7,12 @@
 ################################################################################
 
 # Set of chars used in prompt
-if [[ $UNICODE_VALID == 1 ]]; then
-  # Real good-looking characters
-  prompt_tlc='┌'    # Top left
-  prompt_mlc='├─'   # Medium left (for heredocs & co)
-  prompt_blc='└'    # Bottom left
-  prompt_hyphen='─' # Horizontal separations
-  prompt_newline='
+prompt_tlc='┌'    # Top left
+prompt_mlc='├─'   # Medium left (for heredocs & co)
+prompt_blc='└'    # Bottom left
+prompt_hyphen='─' # Horizontal separations
+prompt_newline='
 '
-else
-  # ASCII FALLBACK
-  prompt_tlc=','    # Top left
-  prompt_mlc='|-'   # Medium left (for heredocs & co)
-  prompt_blc="'"    # Bottom left
-  prompt_hyphen='-' # Horizontal separations
-  prompt_newline='
-'
-fi
 
 ######################### Set of colors used in prompt #########################
 
