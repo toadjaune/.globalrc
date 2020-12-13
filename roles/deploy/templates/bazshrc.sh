@@ -13,7 +13,9 @@
 # Test for 256colors support
 # NB : I'm not certain if `tput colors` can output a value higher than 256, which would break this test
 # run `for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done` to see possible colors
-[[ $(tput colors) == '256' ]] && export GLOBALRC_256_COLORS='1'
+if [[ $(tput colors) == '256' ]] ; then
+  export GLOBALRC_256_COLORS='1'
+fi
 
 # Testing Unicode environment
 # Currently, this automatically fails on a non-amd64 arch. I should fix it. Yeah, I definitely should.
@@ -28,11 +30,11 @@ fi
 # Add scripts to $PATH
 PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:$PATH"
 
-if [ -x /usr/bin/most ]; then
-  export PAGER="/usr/bin/most"
+if [ -x most ]; then
+  export PAGER="most"
 fi
 
-if [ -x /usr/bin/vim ]; then
+if [ -x vim ]; then
   export EDITOR="vim"
 fi
 
@@ -87,7 +89,7 @@ alias h='history'
 alias invim='vim <(fc -e true)'
 
 # On RedHat family systems, use vimx if installed, to have access to clipboard from vim
-if [ -x /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
+if [ -x vimx ]; then alias vim='vimx'; fi
 
 # Open big files with a minimal vim configuration
 # TODO : see if we can have vim do this automatically based on file size
@@ -116,7 +118,7 @@ alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
 # Use sshrc and exa by default
 # We use an alias so that it doesn't get called when not directly typed by the user
 alias ssh="sshrc"
-if [ -x /usr/bin/mosh ]; then
+if [ -x mosh ]; then
   alias mosh="moshrc"
 fi
 
