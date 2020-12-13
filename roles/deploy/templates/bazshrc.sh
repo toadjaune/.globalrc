@@ -157,12 +157,6 @@ fi
 
 ### End test of terminal capabilities and configuration ###
 
-# Login shell
-if (running_shell zsh && [[ -o login ]]) || (running_shell bash && shopt -q login_shell); then
-  # Display the logo
-  cat logo
-fi
-
 ### Begin definitions ###
 
 # Add scripts to $PATH
