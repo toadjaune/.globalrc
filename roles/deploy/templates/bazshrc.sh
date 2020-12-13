@@ -1,51 +1,5 @@
 #!/bin/bash
 
-### Begin utility functions ###
-
-# Find a file with a pattern in name - dans le rep local:
-function ff() { find . -type f -iname '*'$*'*' -ls ; }
-
-# For fun. Totally useless, but I couldn't just throw it away
-bonjour (){
-  local rnd
-  rnd=$[RANDOM%4]
-
-  case $rnd in
-    0 )
-      echo "Bonjour Maître vénéré"
-      ;;
-    1 )
-      echo "Quel plaisir de vous revoir Grand Maître!"
-      ;;
-    2 )
-      echo "Maître tout puissant, je vous salue"
-      ;;
-    3 )
-      echo "Mon Maître, je suis à vos ordres"
-      ;;
-  esac
-}
-
-# Get your public IP
-pub(){
-  ip_site="http://whatismyip.akamai.com"
-
-  if [ "$(which wget)" ]; then
-    wget -O - -q $ip_site
-  elif [ "$(which curl)" ]; then
-    curl $ip_site
-  elif [ "$(which lynx)" ]; then
-    lynx --dump $ip_site
-  elif [ "$(which dig)" ]; then
-    dig +short myip.opendns.com @resolver1.opendns.com
-  else
-    >&2 echo "Couldn't find any program to get a webpage"
-    exit 1
-  fi
-}
-
-### End utility functions ###
-
 ### Begin test of terminal capabilities and configuration ###
 
 # For terminal capabilities, we shouldn't rely on $TERM, instead, make a lookup in the terminfo database, cf :

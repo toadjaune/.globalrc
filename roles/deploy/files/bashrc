@@ -12,7 +12,10 @@ stty -ixon
 source bazshrc.sh
 
 # Load (compatible) functions defined as zsh-autoloadable functions
+source zsh_fpath/bonjour
+source zsh_fpath/ff
 source zsh_fpath/mkcd
+source zsh_fpath/pub
 
 # Load the prompt
 source bash_prompt.sh

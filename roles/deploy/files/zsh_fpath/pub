@@ -1,0 +1,21 @@
+# vi: ft=sh
+
+# cf mkcd comments
+
+# Get your public IP
+function pub() {
+  ip_site="http://whatismyip.akamai.com"
+
+  if [ "$(which wget)" ]; then
+    wget -O - -q $ip_site
+  elif [ "$(which curl)" ]; then
+    curl $ip_site
+  elif [ "$(which lynx)" ]; then
+    lynx --dump $ip_site
+  elif [ "$(which dig)" ]; then
+    dig +short myip.opendns.com @resolver1.opendns.com
+  else
+    >&2 echo "Couldn't find any program to get a webpage"
+    exit 1
+  fi
+}

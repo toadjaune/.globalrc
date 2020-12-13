@@ -1,0 +1,24 @@
+# vi: ft=sh
+
+# cf mkcd comments
+
+# For fun. Totally useless, but I couldn't just throw it away
+function bonjour () {
+  local rnd
+  rnd=$[RANDOM%4]
+
+  case $rnd in
+    0 )
+      echo "Bonjour Maître vénéré"
+      ;;
+    1 )
+      echo "Quel plaisir de vous revoir Grand Maître!"
+      ;;
+    2 )
+      echo "Maître tout puissant, je vous salue"
+      ;;
+    3 )
+      echo "Mon Maître, je suis à vos ordres"
+      ;;
+  esac
+}

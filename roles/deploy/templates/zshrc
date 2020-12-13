@@ -30,7 +30,7 @@ source bazshrc.sh
 # Expand fpath to include custom functions
 fpath=({{ remote_directory }}/files/zsh_fpath $fpath)
 # Autoload custom functions defined in zsh_fpath
-autoload mkcd
+autoload bonjour ff mkcd pub
 
 ### Begin various configuration ###
 

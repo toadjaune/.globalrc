@@ -1,0 +1,9 @@
+# vi: ft=sh
+
+# cf mkcd comments
+
+# Find a file with a pattern in name - dans le rep local:
+function ff() {
+  find . -type f -iname '*'$*'*' -ls ;
+}
+
