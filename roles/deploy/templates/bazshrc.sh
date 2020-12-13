@@ -2,86 +2,8 @@
 
 ### Begin utility functions ###
 
-# repeat n times command
-function repeat()
-{
-  local i max
-  max=$1; shift;
-  for ((i=1; i <= max ; i++)); do
-    eval "$@";
-  done
-}
-
 # Find a file with a pattern in name - dans le rep local:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
-
-
-# change window title
-t () {
-  echo -ne "\\e]2;$1\\a"
-}
-
-# Correct filenames to lowercase
-function fn_to_lowercase()
-{
-  if [ "$#" = 0 ]
-  then
-    echo "Usage: fn_to_lowercase [filenames...]"
-    return 0
-  fi
-
-  for arg in "$@"; do
-    filename=`basename "$arg"`
-    dirname=`dirname "$arg"`
-    oldname=`echo "$filename" | sed -e "s/ /\\\\ /"`
-    newname=`echo "$filename" | tr A-Z a-z`
-    if [ ! -e "$dirname/$oldname" ];
-    then
-      echo "$dirname/$oldname does not exists."
-    elif [ "$oldname" = "$newname" ]
-    then
-      echo "$dirname/$oldname needs no change, skipping..."
-    elif [ -e "$dirname/$newname" ]
-    then
-      echo "$dirname/$newname exists, skipping..."
-    else
-      mv "$dirname/$oldname" "$dirname/$newname"
-      echo "$dirname/$oldname => $dirname/$newname"
-    fi
-  done
-}
-
-# Correct spaces in filenames
-function fn_no_spaces()
-{
-  if [ "$#" = 0 ]
-  then
-    echo "Usage: fn_no_spaces [filenames...]"
-    return 0
-  fi
-
-  for arg in "$@"
-  do
-    filename=`basename "$arg"`
-    dirname=`dirname "$arg"`
-    oldname=`echo "$filename" | sed -e "s/ /\\\\ /"`
-    newname=`echo "$filename" | sed -e : -e s/\ /_/ -e s/%20/_/ -e s/%28/[/ -e s/%29/]/ -e s/%5B/[/ -e s/
-    %5D/]/ -e t`
-    if [ ! -e "$dirname/$oldname" ];
-    then
-      echo "$dirname/$oldname does not exists."
-    elif [ "$oldname" = "$newname" ]
-    then
-      echo "$dirname/$oldname needs no change, skipping..."
-    elif [ -e "$dirname/$newname" ]
-    then
-      echo "$dirname/$newname exists, skipping..."
-    else
-      mv "$dirname/$oldname" "$dirname/$newname"
-      echo "$dirname/$oldname => $dirname/$newname"
-    fi
-  done
-}
 
 # For fun. Totally useless, but I couldn't just throw it away
 bonjour (){
@@ -120,16 +42,6 @@ pub(){
     >&2 echo "Couldn't find any program to get a webpage"
     exit 1
   fi
-}
-
-genpasswd() {
-  local l=$1
-    [ "$l" == "" ] && l=20
-    tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
-}
-
-running_shell() {
-  basename -- "${0#-}" | grep $1 >/dev/null
 }
 
 ### End utility functions ###
@@ -199,9 +111,6 @@ alias rgrep='rgrep --color=auto'
 # security aliases
 alias rm='rm --preserve-root'
 alias shred='shred -n 35 -z -u -v'
-
-# Git with a self-signed certificate
-alias gitc='git -c http.sslVerify=false'
 
 # Movements to parent directories
 alias ..='cd ..'
