@@ -49,10 +49,12 @@ export SSHHOME="{{ remote_directory }}/files/sshrc"
 # to the same server as the same user, only the last to connect can be used
 # cf : https://superuser.com/questions/180148/how-do-you-get-screen-to-automatically-connect-to-the-current-ssh-agent-when-re/424588#424588
 # Note that since we skip if it this is already a symlink, it notably won't change in case of sudo -sE
-if [ -S "$SSH_AUTH_SOCK" ] && [ ! -h "$SSH_AUTH_SOCK" ]; then
-  ln -sf "$SSH_AUTH_SOCK" "{{ ssh_auth_sock }}"
-  export SSH_AUTH_SOCK="{{ ssh_auth_sock }}"
-fi
+#
+# However, it makes mounting the socket in a docker impossible. Since it's not really used, disabled for now
+# if [ -S "$SSH_AUTH_SOCK" ] && [ ! -h "$SSH_AUTH_SOCK" ]; then
+#   ln -sf "$SSH_AUTH_SOCK" "{{ ssh_auth_sock }}"
+#   export SSH_AUTH_SOCK="{{ ssh_auth_sock }}"
+# fi
 
 ### End definitions ###
 
