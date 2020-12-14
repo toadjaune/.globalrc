@@ -1,0 +1,17 @@
+
+  # This loads changes to /etc/default/keyboard
+- name: Restart keyboard-setup (Debian)
+  systemd:
+    name: keyboard-setup
+    state: restarted
+  become: true
+  listen: keyboard_layout
+  when: ansible_os_family == "Debian"
+
+  # Regenerate initramfs for layout in early stages (including LUKS password)
+- name: Regenerate initramfs (Debian)
+  command: "update-initramfs -u"
+  become: true
+  listen: keyboard_layout
+  when: ansible_os_family == "Debian"
+

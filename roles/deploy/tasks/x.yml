@@ -13,6 +13,17 @@
   become: true
   when: have_root | bool
 
+# Maybe for debian, configuring this through debconf would be cleaner
+# However I tried, and it was very annoying :
+# * updating the debconf database did not trigger anything
+#   * keyboard-configuration/layoutcode
+#   * keyboard-configuration/variantcode
+# * even manually triggering its reconfiguration with `dpkg-reconfigure keyboard-configuration -f noninteractive`
+#   does regenerate initramfs but without changing /etc/default/keyboard
+#
+# TODO: Same thing on Fedora
+# TODO: Same thing on Arch
+
 - name: Configure XKBLAYOUT in /etc/default/keyboard
   lineinfile:
     path: /etc/default/keyboard
@@ -20,7 +31,7 @@
     regexp: 'XKBLAYOUT=".*"'
   become: true
   when: have_root | bool
-  register: xkblayout_changed
+  notify: keyboard_layout
 
 - name: Configure XKBVARIANT in /etc/default/keyboard
   lineinfile:
@@ -29,12 +40,7 @@
     regexp: 'XKBVARIANT=".*"'
   become: true
   when: have_root | bool
-  register: xkvariant_changed
-
-- name: Regenerate initramfs (Debian family)
-  command: "update-initramfs -u"
-  become: true
-  when: (xkblayout_changed.changed or xkvariant_changed.changed) and ansible_os_family == "Debian"
+  notify: keyboard_layout
 
 ### Fonts ###
 
