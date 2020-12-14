@@ -86,10 +86,6 @@ font pango:monospace 8
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-# setup keyboard layout to lafayette by default
-# TODO : this is only scoped to an x session, we need to make it the system default (gdm, LUKS…)
-exec --no-startup-id "setxkbmap fr -variant lafayette"
-
 # Add shortcuts to temporary change the layout
 set $mode_keyboard "keyboard layout selection"
 mode $mode_keyboard {

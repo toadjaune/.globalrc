@@ -13,6 +13,29 @@
   become: true
   when: have_root | bool
 
+- name: Configure XKBLAYOUT in /etc/default/keyboard
+  lineinfile:
+    path: /etc/default/keyboard
+    line: 'XKBLAYOUT="fr"'
+    regexp: 'XKBLAYOUT=".*"'
+  become: true
+  when: have_root | bool
+  register: xkblayout_changed
+
+- name: Configure XKBVARIANT in /etc/default/keyboard
+  lineinfile:
+    path: /etc/default/keyboard
+    line: 'XKBVARIANT="lafayette"'
+    regexp: 'XKBVARIANT=".*"'
+  become: true
+  when: have_root | bool
+  register: xkvariant_changed
+
+- name: Regenerate initramfs (Debian family)
+  command: "update-initramfs -u"
+  become: true
+  when: (xkblayout_changed.changed or xkvariant_changed.changed) and ansible_os_family == "Debian"
+
 ### Fonts ###
 
 - name: Create font-related directories
