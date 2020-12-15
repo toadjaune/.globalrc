@@ -27,20 +27,20 @@
 - name: Configure XKBLAYOUT in /etc/default/keyboard
   lineinfile:
     path: /etc/default/keyboard
-    line: 'XKBLAYOUT="fr"'
+    line: 'XKBLAYOUT="{{ keyboard_layout }}"'
     regexp: 'XKBLAYOUT=".*"'
   become: true
   when: have_root | bool
-  notify: keyboard_layout
+  notify: keyboard_config
 
 - name: Configure XKBVARIANT in /etc/default/keyboard
   lineinfile:
     path: /etc/default/keyboard
-    line: 'XKBVARIANT="lafayette"'
+    line: 'XKBVARIANT="{{ keyboard_variant  }}"'
     regexp: 'XKBVARIANT=".*"'
   become: true
   when: have_root | bool
-  notify: keyboard_layout
+  notify: keyboard_config
 
 ### Fonts ###
 
