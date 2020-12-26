@@ -24,11 +24,11 @@ fi
 # Add scripts to $PATH
 PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:$PATH"
 
-if [ -x most ]; then
+if command -v most >/dev/null 2>&1 ; then
   export PAGER="most"
 fi
 
-if [ -x vim ]; then
+if command -v vim >/dev/null 2>&1 ; then
   export EDITOR="vim"
 fi
 
@@ -85,7 +85,7 @@ alias h='history'
 alias invim='vim <(fc -e true)'
 
 # On RedHat family systems, use vimx if installed, to have access to clipboard from vim
-if [ -x vimx ]; then alias vim='vimx'; fi
+if command -v vimx >/dev/null 2>&1 ; then alias vim='vimx'; fi
 
 # Open big files with a minimal vim configuration
 # TODO : see if we can have vim do this automatically based on file size
@@ -114,7 +114,7 @@ alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
 # Use sshrc and exa by default
 # We use an alias so that it doesn't get called when not directly typed by the user
 alias ssh="sshrc"
-if [ -x mosh ]; then
+if command -v mosh >/dev/null 2>&1 ; then
   alias mosh="moshrc"
 fi
 
