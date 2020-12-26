@@ -9,3 +9,8 @@
   listen: keyboard_config
   when: ansible_os_family == "Debian"
 
+- name: Regenerate initramfs (Fedora)
+  command: "dracut --force"
+  become: true
+  listen: keyboard_config
+  when: ansible_os_family == "RedHat"

@@ -21,26 +21,61 @@
 # * even manually triggering its reconfiguration with `dpkg-reconfigure keyboard-configuration -f noninteractive`
 #   does regenerate initramfs but without changing /etc/default/keyboard
 #
-# TODO: Same thing on Fedora
 # TODO: Same thing on Arch
+# TODO: See if we can use systemd commands for debian too
 
-- name: Configure XKBLAYOUT in /etc/default/keyboard
+- name: Configure XKBLAYOUT in /etc/default/keyboard (Debian)
   lineinfile:
     path: /etc/default/keyboard
     line: 'XKBLAYOUT="{{ keyboard_layout }}"'
     regexp: 'XKBLAYOUT=".*"'
   become: true
-  when: have_root | bool
+  when: (have_root | bool) and ansible_os_family == "Debian"
   notify: keyboard_config
 
-- name: Configure XKBVARIANT in /etc/default/keyboard
+- name: Configure XKBVARIANT in /etc/default/keyboard (Debian)
   lineinfile:
     path: /etc/default/keyboard
-    line: 'XKBVARIANT="{{ keyboard_variant  }}"'
+    line: 'XKBVARIANT="{{ keyboard_variant }}"'
     regexp: 'XKBVARIANT=".*"'
   become: true
-  when: have_root | bool
+  when: (have_root | bool) and ansible_os_family == "Debian"
   notify: keyboard_config
+
+# Fedora (systemd) configuration
+# * https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/basic-system-configuration/System_Locale_and_Keyboard_Configuration/
+# * https://github.com/systemd/systemd/issues/6403 -> bug preventing using lafayette in VC ?
+
+- name: Get previous keyboard layout configuration
+  command: "localectl status"
+  become: true
+  when: have_root | bool
+  changed_when: false # This command only reads state
+  register: keyboard_layout_before
+
+- name: Configure virtual console layout to vanilla qwerty (Fedora)
+  command: "localectl --no-convert set-keymap en"
+  become: true
+  when: (have_root | bool) and ansible_os_family == "RedHat"
+  changed_when: false # Sadly, we can't detect changes with command return
+
+- name: Configure X keyboard layout to lafayette (Fedora)
+  command: "localectl --no-convert set-x11-keymap {{ keyboard_layout }} '' {{ keyboard_variant }}"
+  become: true
+  when: (have_root | bool) and ansible_os_family == "RedHat"
+  changed_when: false # Sadly, we can't detect changes with command return
+
+- name: Get new keyboard layout configuration
+  command: "localectl status"
+  become: true
+  when: have_root | bool
+  changed_when: keyboard_layout_before.stdout != keyboard_layout_after.stdout
+  register: keyboard_layout_after
+  notify: keyboard_config
+
+
+
+
 
 ### Fonts ###
 
