@@ -26,6 +26,7 @@ Nice tools :
   * exa (better ls)
   * lnav (log navigator)
   * https://github.com/nitefood/asn -> ASN, BGP, réputations IP, etc…
+  * gping (https://github.com/orf/gping)
 
 
 Power management : tlp
