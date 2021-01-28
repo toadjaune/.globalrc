@@ -12,7 +12,7 @@
   # This pretty format is equivalent to --oneline --decorate, with the addition of commiter name and date
   # See https://stackoverflow.com/questions/5889878/color-in-git-log#16844346
   # and https://git-scm.com/docs/pretty-formats
-  fullog = log --graph --all --date-order --pretty=tformat:'%C(auto)%h%d %s %Cblue(%an %cr)'
+  fullog = log --graph --all --date-order --pretty=tformat:'%C(auto)%h%d %s %Cgreen(%cr) %Cblue<%an>'
 
 [merge]
   tool = vimdiff
