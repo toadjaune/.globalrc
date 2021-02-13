@@ -21,7 +21,6 @@
 # * even manually triggering its reconfiguration with `dpkg-reconfigure keyboard-configuration -f noninteractive`
 #   does regenerate initramfs but without changing /etc/default/keyboard
 #
-# TODO: Same thing on Arch
 # TODO: See if we can use systemd commands for debian too
 
 - name: Configure XKBLAYOUT in /etc/default/keyboard (Debian)
@@ -42,7 +41,7 @@
   when: (have_root | bool) and ansible_os_family == "Debian"
   notify: keyboard_config
 
-# Fedora (systemd) configuration
+# Fedora + Arch (systemd) configuration
 # * https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/basic-system-configuration/System_Locale_and_Keyboard_Configuration/
 # * https://github.com/systemd/systemd/issues/6403 -> bug preventing using lafayette in VC ?
 
@@ -53,16 +52,16 @@
   changed_when: false # This command only reads state
   register: keyboard_layout_before
 
-- name: Configure virtual console layout to vanilla qwerty (Fedora)
+- name: Configure virtual console layout to vanilla qwerty (Fedora + Arch)
   command: "localectl --no-convert set-keymap en"
   become: true
-  when: (have_root | bool) and ansible_os_family == "RedHat"
+  when: (have_root | bool) and ansible_os_family in [ "RedHat", "Archlinux" ]
   changed_when: false # Sadly, we can't detect changes with command return
 
-- name: Configure X keyboard layout to lafayette (Fedora)
+- name: Configure X keyboard layout to lafayette (Fedora + Arch)
   command: "localectl --no-convert set-x11-keymap {{ keyboard_layout }} '' {{ keyboard_variant }}"
   become: true
-  when: (have_root | bool) and ansible_os_family == "RedHat"
+  when: (have_root | bool) and ansible_os_family in [ "RedHat", "Archlinux" ]
   changed_when: false # Sadly, we can't detect changes with command return
 
 - name: Get new keyboard layout configuration
