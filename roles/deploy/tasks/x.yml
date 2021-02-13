@@ -1,3 +1,74 @@
+### Package manager
+
+- name: Install graphical packages (Debian)
+  apt:
+    cache_valid_time: 86400 # 1 day
+    name:
+      # i3-related
+      - i3        # Tiling window manager
+      - rofi      # Program launcher
+      - feh       # Display desktop background image
+      - arandr    # Tool to generate xrandr configurations
+      - numlockx  # Automatically enable numlock
+      - scrot     # Take screenshots from cli
+      - dunst     # Notification daemon
+      - redshift  # Adapt screen spectrum to the current day time
+      - xclip     # interact with X clipboard from cli
+
+      # alacritty
+
+      # graphical theme
+      - adwaita-qt
+  become: true
+  when: have_root and ansible_os_family == "Debian"
+
+- name: Install graphical packages (RedHat)
+  dnf:
+    name:
+      # i3-related
+      - i3
+      - rofi
+      - feh
+      - arandr
+      - numlockx
+      - scrot
+      - dunst
+      - redshift
+      - xclip
+
+      # alacritty
+
+      # graphical theme
+      - adwaita-qt
+
+      # nmtui is a terminal graphical interface to NetworkManager
+      # TODO : Find the equivalent debian and arch packages (seems installed by default on Ubuntu and Manjaro)
+      - NetworkManager-tui
+  become: true
+  when: have_root and ansible_os_family == "RedHat"
+
+- name: Install graphical packages (Archlinux)
+  pacman:
+    name:
+      # i3-related
+      - i3-wm
+      - rofi
+      - feh
+      - arandr
+      - numlockx
+      - scrot
+      - dunst
+      - redshift
+      - xclip
+
+      # alacritty
+      - alacritty
+
+      # graphical theme
+      # - adwaita-qt #TODO
+
+  become: true
+  when: have_root and ansible_os_family == "Archlinux"
 ### Keyboard layouts ###
 
 - name: Install lxml with pip3
@@ -72,10 +143,6 @@
   register: keyboard_layout_after
   notify: keyboard_config
 
-
-
-
-
 ### Fonts ###
 
 - name: Create font-related directories
@@ -145,35 +212,6 @@
     src:    "{{ remote_directory }}/files/alacritty.yml"
     dest:   "{{ ansible_user_dir }}/.config/alacritty.yml"
 
-- name: Install alacritty (Archlinux)
-  pacman:
-    name:
-      - alacritty
-  become: true
-  when: have_root and ansible_os_family == "Archlinux"
-
-- name: Install xclip (Debian)
-  apt:
-    cache_valid_time: 86400 # 1 day
-    name:
-      - xclip
-  become: true
-  when: have_root and ansible_os_family == "Debian"
-
-- name: Install xclip (RedHat)
-  dnf:
-    name:
-      - xclip
-  become: true
-  when: have_root and ansible_os_family == "RedHat"
-
-- name: Install xclip (Archlinux)
-  pacman:
-    name:
-      - xclip
-  become: true
-  when: have_root and ansible_os_family == "Archlinux"
-
 ### Graphical environment Themes ###
 
 # See : https://www.reddit.com/r/archlinux/comments/2eo3qq/is_it_possible_to_get_qt_to_properly_use_gtk/
@@ -199,25 +237,6 @@
     state:  link
     force:  true
 
-# This is a Qt5-native port of GTK Adwaita theme
-# TODO : check it also works for Qt4 (or add adwaita-qt4)
-- name: Install adwaita-qt (Debian)
-  apt:
-    cache_valid_time: 86400 # 1 day
-    name:
-      - adwaita-qt
-  become: true
-  when: have_root and ansible_os_family == "Debian"
-
-- name: Install adwaita-qt (RedHat)
-  dnf:
-    name:
-      - adwaita-qt
-  become: true
-  when: have_root and ansible_os_family == "RedHat"
-
-# TODO: adwaita-qt for Arch
-
 # NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
 - name: Load Qt4 graphical configuration via .config/Trolltech.conf
   blockinfile:
@@ -240,54 +259,6 @@
       . {{ remote_directory }}/files/profile
 
 ### i3 ###
-
-- name: Install i3-related packages (Debian)
-  apt:
-    cache_valid_time: 86400 # 1 day
-    name:
-      - i3        # Tiling window manager
-      - rofi      # Program launcher
-      - feh       # Display desktop background image
-      - arandr    # Tool to generate xrandr configurations
-      - numlockx  # Automatically enable numlock
-      - scrot     # Take screenshots from cli
-      - dunst     # Notification daemon
-      - redshift  # Adapt screen spectrum to the current day time
-
-  become: true
-  when: have_root and ansible_os_family == "Debian"
-
-- name: Install i3-related packages (RedHat)
-  dnf:
-    name:
-      - i3
-      - rofi
-      - feh
-      - arandr
-      - numlockx
-      - scrot
-      - dunst
-      - redshift
-
-      # nmtui is a terminal graphical interface to NetworkManager
-      # TODO : Find the equivalent debian and arch packages (seems installed by default on Ubuntu and Manjaro)
-      - NetworkManager-tui
-  become: true
-  when: have_root and ansible_os_family == "RedHat"
-
-- name: Install i3-related packages (Archlinux)
-  pacman:
-    name:
-      - i3-wm
-      - rofi
-      - feh
-      - arandr
-      - numlockx
-      - scrot
-      - dunst
-      - redshift
-  become: true
-  when: have_root and ansible_os_family == "Archlinux"
 
 - name: Create i3 config directory
   file:
