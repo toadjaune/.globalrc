@@ -16,9 +16,11 @@
       - xclip     # interact with X clipboard from cli
 
       # alacritty
+      # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
 
       # graphical theme
       - adwaita-qt
+
   become: true
   when: have_root and ansible_os_family == "Debian"
 
@@ -37,6 +39,7 @@
       - xclip
 
       # alacritty
+      - alacritty
 
       # graphical theme
       - adwaita-qt
@@ -44,6 +47,7 @@
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian and arch packages (seems installed by default on Ubuntu and Manjaro)
       - NetworkManager-tui
+
   become: true
   when: have_root and ansible_os_family == "RedHat"
 
@@ -69,6 +73,7 @@
 
   become: true
   when: have_root and ansible_os_family == "Archlinux"
+
 ### Keyboard layouts ###
 
 - name: Install lxml with pip3
@@ -173,37 +178,6 @@
     - https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/UbuntuMono.zip
 
 ### Alacritty ###
-
-# TODO: It would seem there now are Debian and fedora packages for alacritty. Test and switch.
-
-- name: Create alacritty directory
-  file:
-    state:  directory
-    dest: '{{ remote_directory }}/alacritty'
-  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
-
-- name: Download alacritty archive
-  get_url:
-    url:  "https://github.com/jwilm/alacritty/releases/download/binaries/Alacritty-x86_64.tar.gz"
-    dest: "{{ remote_directory }}/alacritty/archive.tar.gz"
-  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
-
-- name: Extract alacritty archive
-  unarchive:
-    src:  "{{ remote_directory }}/alacritty/archive.tar.gz"
-    dest: "{{ remote_directory }}/alacritty/"
-    remote_src: yes
-  when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
-
-- name: Copy alacritty executable to /usr/local/bin
-  copy:
-    src:  "{{ remote_directory }}/alacritty/alacritty"
-    dest: "/usr/local/bin/alacritty"
-    owner: root
-    group: root
-    mode:  0755
-  become: true
-  when: have_root and ( ansible_os_family == "Debian" or ansible_os_family == "RedHat" )
 
 - name: Load alacritty config via .config/alacritty.yml
   file:
