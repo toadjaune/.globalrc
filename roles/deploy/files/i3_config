@@ -321,6 +321,10 @@ workspace $ws10 output $output_right
 
 # Programs to run at startup
 
+# Default screen layout, to configure locally (see xrandr mode above)
+# default.sh should be a symlink to one of the modes otherwise accessible
+exec --no-startup-id .screenlayout/default.sh
+
 # Enable NumLock by default
 # https://github.com/chanfrv/dotfiles/blob/master/config/i3/config
 # https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup
