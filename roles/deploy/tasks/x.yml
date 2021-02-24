@@ -99,25 +99,25 @@
 #
 # TODO: See if we can use systemd commands for debian too
 
-- name: Configure XKBLAYOUT in /etc/default/keyboard (Debian)
-  lineinfile:
-    path: /etc/default/keyboard
-    line: 'XKBLAYOUT="{{ keyboard_layout }}"'
-    regexp: 'XKBLAYOUT=".*"'
-  become: true
-  when: (have_root | bool) and ansible_os_family == "Debian"
-  notify: keyboard_config
+# - name: Configure XKBLAYOUT in /etc/default/keyboard (Debian)
+#   lineinfile:
+#     path: /etc/default/keyboard
+#     line: 'XKBLAYOUT="{{ keyboard_layout }}"'
+#     regexp: 'XKBLAYOUT=".*"'
+#   become: true
+#   when: (have_root | bool) and ansible_os_family == "Debian"
+#   notify: keyboard_config
+# 
+# - name: Configure XKBVARIANT in /etc/default/keyboard (Debian)
+#   lineinfile:
+#     path: /etc/default/keyboard
+#     line: 'XKBVARIANT="{{ keyboard_variant }}"'
+#     regexp: 'XKBVARIANT=".*"'
+#   become: true
+#   when: (have_root | bool) and ansible_os_family == "Debian"
+#   notify: keyboard_config
 
-- name: Configure XKBVARIANT in /etc/default/keyboard (Debian)
-  lineinfile:
-    path: /etc/default/keyboard
-    line: 'XKBVARIANT="{{ keyboard_variant }}"'
-    regexp: 'XKBVARIANT=".*"'
-  become: true
-  when: (have_root | bool) and ansible_os_family == "Debian"
-  notify: keyboard_config
-
-# Fedora + Arch (systemd) configuration
+# generic systemd configuration
 # * https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/basic-system-configuration/System_Locale_and_Keyboard_Configuration/
 # * https://github.com/systemd/systemd/issues/6403 -> bug preventing using lafayette in VC ?
 
@@ -128,16 +128,16 @@
   changed_when: false # This command only reads state
   register: keyboard_layout_before
 
-- name: Configure virtual console layout to vanilla qwerty (Fedora + Arch)
+- name: Configure virtual console layout to vanilla qwerty
   command: "localectl --no-convert set-keymap en"
   become: true
-  when: (have_root | bool) and ansible_os_family in [ "RedHat", "Archlinux" ]
+  when: have_root | bool
   changed_when: false # Sadly, we can't detect changes with command return
 
-- name: Configure X keyboard layout to lafayette (Fedora + Arch)
+- name: Configure X keyboard layout to lafayette
   command: "localectl --no-convert set-x11-keymap {{ keyboard_layout }} '' {{ keyboard_variant }}"
   become: true
-  when: (have_root | bool) and ansible_os_family in [ "RedHat", "Archlinux" ]
+  when: have_root | bool
   changed_when: false # Sadly, we can't detect changes with command return
 
 - name: Get new keyboard layout configuration
