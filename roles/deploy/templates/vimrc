@@ -84,6 +84,9 @@ Plug 'tpope/vim-endwise' " NB: This plugin also affects other languages
 " JSON highlighting, concealing, folding
 Plug 'elzr/vim-json'
 
+" Dhall highlighting
+Plug 'vmchale/dhall-vim'
+
 " Colorschemes
 Plug 'agude/vim-eldar'
 Plug 'Lokaltog/vim-distinguished'
