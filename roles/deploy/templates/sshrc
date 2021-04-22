@@ -17,6 +17,13 @@ if [[ $0 =~ 'bash' && -x '/usr/bin/zsh' ]]; then
   exec zsh
 fi
 
+# alacritty is usually not installed on the remote system, and therefore not present in the terminfo database
+# We want to override TERM in this case
+# TODO : maybe make an actual terminfo lookup ? And see if we can use xterm-256colors...
+if [ "$TERM" == "alacritty" ]; then
+  export TERM=xterm
+fi
+
 # Check if the globalrc is installed, if so, abort everything
 # Please note that since this file is sourced after the remote bashrc,
 # if there is an installed globalrc remotely, SSHHOME is overrided, and
