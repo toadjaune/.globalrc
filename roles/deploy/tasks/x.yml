@@ -129,7 +129,7 @@
   register: keyboard_layout_before
 
 - name: Configure virtual console layout to vanilla qwerty
-  command: "localectl --no-convert set-keymap en"
+  command: "localectl --no-convert set-keymap us"
   become: true
   when: have_root | bool
   changed_when: false # Sadly, we can't detect changes with command return
