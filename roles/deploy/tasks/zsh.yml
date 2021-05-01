@@ -22,7 +22,7 @@
 
     - name:     zsh-syntax-highlighting
       repo:     https://github.com/zsh-users/zsh-syntax-highlighting
-      version:  0.7.0
+      version:  0.7.1
 
     - name:     zsh-completions
       repo:     https://github.com/zsh-users/zsh-completions
