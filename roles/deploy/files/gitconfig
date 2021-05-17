@@ -4,6 +4,10 @@
   # Only push the current branch
   default = upstream
 
+[pull]
+  # Abort pulling if local and remote have diverged
+  ff = only
+
 [core]
   # Repair files with Windows-endline-formatting-style (CRLF) on commit :
   autocrlf = input
