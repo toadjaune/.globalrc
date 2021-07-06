@@ -260,15 +260,20 @@ bindcode $mod+$u mode $mode_system
 set $mode_xrandr "xrandr"
 mode $mode_xrandr {
     # Use `arandr` to generate the configurations locally
+    # You can also manually craft the xrandr scripts if you wish
 
-    # Desktop mode (multiple screens, disable laptop screen)
-    bindcode $i exec --no-startup-id .screenlayout/desktop.sh, mode "default"
-    # Laptop mode (only laptop screen)
-    bindcode $o exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
     # Dynamic dual-screen through rofi
-    bindcode $h exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout,  mode "default"
+    bindcode $h exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout, mode "default"
     # Reset everything. Useful if you have currently no display…
-    bindcode $l exec --no-startup-id xrandr --auto, mode "default"
+    bindcode $' exec --no-startup-id xrandr --auto, mode "default"
+
+    # Laptop mode (only laptop screen)
+    bindcode $j exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
+
+    # Desktop modes (multiple screens, disable laptop screen or not, etc...)
+    bindcode $k exec --no-startup-id .screenlayout/desktop_1.sh, mode "default"
+    bindcode $l exec --no-startup-id .screenlayout/desktop_2.sh, mode "default"
+    bindcode $★ exec --no-startup-id .screenlayout/desktop_3.sh, mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
