@@ -31,6 +31,7 @@ set $q 24
 set $w 25
 set $e 26
 set $r 27
+set $t 28
 
 set $u 30
 set $i 31
@@ -280,6 +281,18 @@ mode $mode_xrandr {
     bindcode $escape mode "default"
 }
 bindcode $mod+$x mode $mode_xrandr
+
+set $mode_type "type"
+mode $mode_type {
+    # --release is required because otherwise the cursor is still grabbed by i3 and xdotool can't find your window
+    # type current date in iso 8601 format
+    bindcode --release $d exec --no-startup-id xdotool type "$(date --iso-8601)", mode "default"
+
+    # back to normal: Enter or Escape
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+}
+bindcode $mod+$t mode $mode_type
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

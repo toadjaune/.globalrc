@@ -14,6 +14,7 @@
       - dunst     # Notification daemon
       - redshift  # Adapt screen spectrum to the current day time
       - xclip     # interact with X clipboard from cli
+      - xdotool   # input text as if typed from the user
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
@@ -37,6 +38,7 @@
       - dunst
       - redshift
       - xclip
+      - xdotool
 
       # alacritty
       - alacritty
@@ -64,6 +66,7 @@
       - dunst
       - redshift
       - xclip
+      - xdotool
 
       # alacritty
       - alacritty
