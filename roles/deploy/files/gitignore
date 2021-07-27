@@ -3,6 +3,7 @@
 # Vim tempfiles
 *.swp
 *.swo
+*.swn
 
 .byebug_history
 .idea/*
