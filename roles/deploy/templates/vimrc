@@ -221,6 +221,9 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:_
 " https://github.com/ryanoasis/vim-devicons/issues/133
 autocmd FileType nerdtree setlocal nolist
 
+" Disable swapfiles
+set noswapfile
+
 " Make vim use the system clipboard ("+) by default
 " See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 " set clipboard=unnamedplus
