@@ -7,18 +7,12 @@ have_root:  false
 # Set this to true if the machine has a graphical interface (X server, etc…). It skips useless steps.
 desktop: false
 
-# Movement keys (defaults are for bépo layout)
+# Movement keys
 # Right hand
 key_rh_left:  'h'
 key_rh_down:  'j'
 key_rh_up:    'k'
 key_rh_right: 'l'
-
-# Left hand
-key_lh_left:  'a'
-key_lh_down:  'u'
-key_lh_up:    'i'
-key_lh_right: 'e'
 
 # Tmux configuration
 tmux_status_bar_colour: 'colour2'
