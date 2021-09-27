@@ -16,6 +16,9 @@
       - xclip     # interact with X clipboard from cli
       - xdotool   # input text as if typed from the user
 
+      # sway/wayland related
+      - sway      # Tiling window manager
+
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
 
@@ -264,6 +267,19 @@
 
       # Start i3
       exec i3
+
+### sway ###
+
+- name: Create sway config directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/sway"
+
+- name: Create sway config file
+  template:
+    src:    "sway_config"
+    dest:   "{{ ansible_user_dir }}/.config/sway/config"
+
 
   # Insert emoji into any text field with rofi
 - name: Install rofimoji
