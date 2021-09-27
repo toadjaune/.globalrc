@@ -127,9 +127,9 @@
         excludesfile = {{ remote_directory }}/files/gitignore
 
 - name: Install various x configurations
-  import_tasks: x.yml
+  import_tasks: desktop.yml
   when: desktop | bool
-  tags: x
+  tags: desktop
 
 - name: Install zsh configuration
   import_tasks: zsh.yml
