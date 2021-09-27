@@ -121,7 +121,9 @@ set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
 # Possible modi that might be interesting besides run and drun : ssh, window, combi
 bindcode $mod+$d exec --no-startup-id rofi $rofi_common -modi run  -show run
 bindcode $mod+$g exec --no-startup-id rofi $rofi_common -modi drun -show drun
-bindcode $mod+$z exec --no-startup-id rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
+# Rofimoji is currently broken
+# TODO : fix and rebind somewhere else
+# bindcode $mod+$z exec --no-startup-id rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
 
 # Take a screenshot
 bindcode $mod+$p exec --no-startup-id .globalrc/files/scripts/i3-scrot
@@ -166,7 +168,7 @@ bindcode $mod+$a focus parent
 bindcode $mod+$i focus child
 
 # lock screen
-bindcode $mod+$o exec .globalrc/files/scripts/i3-exit lock
+bindcode $mod+$z exec .globalrc/files/scripts/i3-exit lock
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -258,8 +260,8 @@ mode $mode_system {
 }
 bindcode $mod+$u mode $mode_system
 
-set $mode_xrandr "xrandr"
-mode $mode_xrandr {
+set $mode_output "output"
+mode $mode_output {
     # Use `arandr` to generate the configurations locally
     # You can also manually craft the xrandr scripts if you wish
 
@@ -280,7 +282,7 @@ mode $mode_xrandr {
     bindcode $return mode "default"
     bindcode $escape mode "default"
 }
-bindcode $mod+$x mode $mode_xrandr
+bindcode $mod+$o mode $mode_output
 
 set $mode_type "type"
 mode $mode_type {
