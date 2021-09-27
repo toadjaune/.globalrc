@@ -17,6 +17,7 @@
       - tmux
       - most
       - mosh
+      - curl
       # Exa is currently installed manually for debian-based distros
       # - exa
   when: have_root and ansible_os_family == 'Debian'
@@ -32,6 +33,7 @@
       - tmux
       - most
       - mosh
+      - curl
       - exa
   become: true
   when: have_root and ansible_os_family == "RedHat"
@@ -47,6 +49,7 @@
       - tmux
       - most
       - mosh
+      - curl
       - exa
   become: true
   when: have_root and ansible_os_family == "Archlinux"
