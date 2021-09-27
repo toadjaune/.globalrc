@@ -58,12 +58,6 @@ set $7 16
 set $8 17
 set $9 18
 set $0 19
-# Your preferred terminal emulator
-set $term x-terminal-emulator
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 ### Output configuration
 #
@@ -114,13 +108,23 @@ input "type:keyboard" {
 # Basics:
 #
     # Start a terminal
-    bindcode $mod+$return exec $term
+    bindcode $mod+$return exec alacritty
 
     # Kill focused window
     bindcode $mod+Shift+$q kill
 
     # Start your launcher
-    bindcode $mod+$d exec $menu
+    # Note: pass the final command to swaymsg so that the resulting window can be opened
+    # on the original workspace that the command was run on.
+    # set $menu dmenu_path | dmenu | xargs swaymsg exec --
+    set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
+    # Possible modi that might be interesting besides run and drun : ssh, window, combi
+    bindcode $mod+$d exec --no-startup-id rofi $rofi_common -modi run  -show run
+    bindcode $mod+$g exec --no-startup-id rofi $rofi_common -modi drun -show drun
+    # Rofimoji is currently broken
+    # TODO : fix and rebind somewhere else
+    # bindcode $mod+$z exec --no-startup-id rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
+
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
