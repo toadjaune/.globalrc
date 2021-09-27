@@ -6,7 +6,6 @@
     name:
       # i3-related
       - i3        # Tiling window manager
-      - rofi      # Program launcher
       - feh       # Display desktop background image
       - arandr    # Tool to generate xrandr configurations
       - numlockx  # Automatically enable numlock
@@ -18,6 +17,7 @@
 
       # sway/wayland related
       - sway      # Tiling window manager
+      - rofi      # Program launcher
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
