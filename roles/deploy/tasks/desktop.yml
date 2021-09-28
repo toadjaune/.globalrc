@@ -17,6 +17,7 @@
 
       # sway/wayland related
       - sway      # Tiling window manager
+      - swaylock  # trigger wayland lockscreen
       - rofi      # Program launcher
 
       # alacritty
