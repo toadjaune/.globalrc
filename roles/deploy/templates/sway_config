@@ -162,30 +162,50 @@ input "type:keyboard" {
 #
 # Workspaces:
 #
-    # Switch to workspace
-    bindcode $mod+$1 workspace 1
-    bindcode $mod+$2 workspace 2
-    bindcode $mod+$3 workspace 3
-    bindcode $mod+$4 workspace 4
-    bindcode $mod+$5 workspace 5
-    bindcode $mod+$6 workspace 6
-    bindcode $mod+$7 workspace 7
-    bindcode $mod+$8 workspace 8
-    bindcode $mod+$9 workspace 9
-    bindcode $mod+$0 workspace 10
-    # Move focused container to workspace
-    bindcode $mod+Shift+$1 move container to workspace 1
-    bindcode $mod+Shift+$2 move container to workspace 2
-    bindcode $mod+Shift+$3 move container to workspace 3
-    bindcode $mod+Shift+$4 move container to workspace 4
-    bindcode $mod+Shift+$5 move container to workspace 5
-    bindcode $mod+Shift+$6 move container to workspace 6
-    bindcode $mod+Shift+$7 move container to workspace 7
-    bindcode $mod+Shift+$8 move container to workspace 8
-    bindcode $mod+Shift+$9 move container to workspace 9
-    bindcode $mod+Shift+$0 move container to workspace 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1  "1:web"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8:music"
+set $ws9  "9:chat"
+set $ws10 "10:mail"
+
+# switch to workspace
+bindcode $mod+$1 workspace $ws1
+bindcode $mod+$2 workspace $ws2
+bindcode $mod+$3 workspace $ws3
+bindcode $mod+$4 workspace $ws4
+bindcode $mod+$5 workspace $ws5
+bindcode $mod+$6 workspace $ws6
+bindcode $mod+$7 workspace $ws7
+bindcode $mod+$8 workspace $ws8
+bindcode $mod+$9 workspace $ws9
+bindcode $mod+$0 workspace $ws10
+
+# move focused container to workspace
+bindcode $mod+Shift+$1 move container to workspace $ws1
+bindcode $mod+Shift+$2 move container to workspace $ws2
+bindcode $mod+Shift+$3 move container to workspace $ws3
+bindcode $mod+Shift+$4 move container to workspace $ws4
+bindcode $mod+Shift+$5 move container to workspace $ws5
+bindcode $mod+Shift+$6 move container to workspace $ws6
+bindcode $mod+Shift+$7 move container to workspace $ws7
+bindcode $mod+Shift+$8 move container to workspace $ws8
+bindcode $mod+Shift+$9 move container to workspace $ws9
+bindcode $mod+Shift+$0 move container to workspace $ws10
+
+# Move workspace to another screen
+bindcode $ctrl+$mod+$left move workspace to output left
+bindcode $ctrl+$mod+$down move workspace to output up
+bindcode $ctrl+$mod+$up move workspace to output down
+bindcode $ctrl+$mod+$right move workspace to output right
+
 #
 # Layout stuff:
 #
@@ -226,6 +246,7 @@ input "type:keyboard" {
 #
 # Resizing containers:
 #
+# resize window (you can also use the mouse for that)
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -258,4 +279,165 @@ bar {
     # }
 }
 
-include /etc/sway/config.d/*
+
+
+
+
+
+### old i3 config not migrated yet
+
+# # Dependencies :
+# # - feh
+# # - xnumlockx
+# # - scrot (for screenshots)
+# 
+# # Notes on usage :
+# # For NetworkManager configuration, use :
+# # - nmtui for most config
+# # - "Network Connections" (launch from rofi) for WPA2 Enterprise
+# 
+# 
+# # Add shortcuts to temporary change the layout
+# set $mode_keyboard "keyboard layout selection"
+# mode $mode_keyboard {
+#     bindcode $down exec --no-startup-id "setxkbmap fr -variant lafayette && numlockx && notify-send -t 2000 'Layout switched to qwerty lafayette'"; mode "default"
+#     bindcode $up exec --no-startup-id "setxkbmap fr -variant bepo      && numlockx && notify-send -t 2000 'Layout switched to bepo'";             mode "default"
+#     bindcode $right exec --no-startup-id "setxkbmap fr                    && numlockx && notify-send -t 2000 'Layout switched to azerty'";           mode "default"
+#     # back to normal: Enter or Escape
+#     bindcode $return mode "default"
+#     bindcode $escape mode "default"
+# }
+# bindcode $mod+$b mode $mode_keyboard
+# 
+# # Use Mouse+$mod to drag floating windows to their wanted position
+# floating_modifier $mod
+# 
+# # Take a screenshot
+# bindcode $mod+$p exec --no-startup-id .globalrc/files/scripts/i3-scrot
+# 
+# 
+# # Based on https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
+# # The i3-exit script is installed at deploy-time
+# # TODO: Better way to call i3-exit (templating ? Changing $_PATH ?)
+# set $mode_system "system"
+# mode $mode_system {
+#     # Same position as default shortcut
+#     bindcode $e exec --no-startup-id .globalrc/files/scripts/i3-exit logout,    mode "default"
+#     # Right hand default position, with a gradation
+#     bindcode $down exec --no-startup-id .globalrc/files/scripts/i3-exit lock,      mode "default"
+#     bindcode $up exec --no-startup-id .globalrc/files/scripts/i3-exit suspend,   mode "default"
+#     bindcode $right exec --no-startup-id .globalrc/files/scripts/i3-exit hibernate, mode "default"
+#     bindcode $★ exec --no-startup-id .globalrc/files/scripts/i3-exit shutdown,  mode "default"
+#     bindcode $' exec --no-startup-id .globalrc/files/scripts/i3-exit reboot,    mode "default"
+# 
+#     # back to normal: Enter or Escape
+#     bindcode $return mode "default"
+#     bindcode $escape mode "default"
+# }
+# bindcode $mod+$u mode $mode_system
+# 
+# set $mode_output "output"
+# mode $mode_output {
+#     # Use `arandr` to generate the configurations locally
+#     # You can also manually craft the xrandr scripts if you wish
+# 
+#     # Dynamic dual-screen through rofi
+#     bindcode $left exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout, mode "default"
+#     # Reset everything. Useful if you have currently no display…
+#     bindcode $' exec --no-startup-id xrandr --auto, mode "default"
+# 
+#     # Laptop mode (only laptop screen)
+#     bindcode $down exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
+# 
+#     # Desktop modes (multiple screens, disable laptop screen or not, etc...)
+#     bindcode $up exec --no-startup-id .screenlayout/desktop_1.sh, mode "default"
+#     bindcode $right exec --no-startup-id .screenlayout/desktop_2.sh, mode "default"
+#     bindcode $★ exec --no-startup-id .screenlayout/desktop_3.sh, mode "default"
+# 
+#     # back to normal: Enter or Escape
+#     bindcode $return mode "default"
+#     bindcode $escape mode "default"
+# }
+# bindcode $mod+$o mode $mode_output
+# 
+# set $mode_type "type"
+# mode $mode_type {
+#     # --release is required because otherwise the cursor is still grabbed by i3 and xdotool can't find your window
+#     # type current date in iso 8601 format
+#     bindcode --release $d exec --no-startup-id xdotool type "$(date --iso-8601)", mode "default"
+# 
+#     # back to normal: Enter or Escape
+#     bindcode $return mode "default"
+#     bindcode $escape mode "default"
+# }
+# bindcode $mod+$t mode $mode_type
+# 
+# # Start i3bar to display a workspace bar (plus the system information i3status
+# # finds out, if available)
+# bar {
+#     status_command i3status
+# }
+# 
+# # Assign windows to specific workspaces (use xprop to find classes)
+# assign [class="Firefox"]      $ws1
+# 
+# # https://github.com/i3/i3/issues/2060
+# # assign [class="spotify"] $ws8
+# for_window [class="Spotify"] move to workspace $ws8
+# 
+# assign [class="discord"]      $ws9
+# assign [class="quassel"]      $ws9
+# assign [class="riot"]         $ws9
+# assign [class="Slack"]        $ws9
+# 
+# assign [class="Thunderbird"]  $ws10
+# 
+# 
+# # Assign workspaces to specific outputs (xrandr output names)
+# 
+# # This is for a layout with 2 horizontal screens.
+# # It is absolutely not portable in the current state
+# # maybe we can improve it by using marks
+# 
+# # mapping to the actual screen names
+# set $outputoeft  "DP-2"
+# set $output_right "HDMI-1"
+# 
+# # assigning each workspace to a screen
+# workspace $ws1  output $output_left
+# workspace $ws2  output $output_right
+# workspace $ws3  output $output_right
+# workspace $ws4  output $output_right
+# workspace $ws5  output $output_right
+# workspace $ws6  output $output_right
+# workspace $ws7  output $output_right
+# workspace $ws8  output $output_right
+# workspace $ws9  output $output_right
+# workspace $ws10 output $output_right
+# 
+# # Programs to run at startup
+# 
+# # Default screen layout, to configure locally (see xrandr mode above)
+# # default.sh should be a symlink to one of the modes otherwise accessible
+# exec --no-startup-id .screenlayout/default.sh
+# 
+# # Enable NumLock by default
+# # https://github.com/chanfrv/dotfiles/blob/master/config/i3/config
+# # https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup
+# exec --no-startup-id numlockx
+# 
+# # Start dunst (notification daemon)
+# # NB : we could also configure dbus to autostart it in
+# # /usr/share/dbus-1/services/org.freedesktop.Notifications.service
+# # Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
+# # We currently use the default config
+# exec --no-startup-id dunst
+# 
+# # Start redshift
+# # This reduces the amount of blue light emitted by the screen based
+# # on the time of the day
+# # We currently use the default config
+# exec --no-startup-id redshift
+# 
+# # Wallpaper image
+# exec_always --no-startup-id feh --randomize --bg-fill Pictures/Wallpapers/*
