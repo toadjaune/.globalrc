@@ -1,0 +1,13 @@
+# Based on https://unix.stackexchange.com/questions/339840/how-to-start-and-use-ssh-agent-as-systemd-service
+
+[Unit]
+Description=SSH key agent
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+[Install]
+# Maybe try graphical-session.target ?
+WantedBy=graphical.target
