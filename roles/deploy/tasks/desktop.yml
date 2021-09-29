@@ -289,3 +289,22 @@
   become: true # We make a system install to be consistent with arch
   when: have_root and ( ansible_os_family == "Debian" or ansible_os_family == "RedHat" )
   # TODO : there is an arch package, add it somewhere
+
+- name: Create systemd user units directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/systemd/user"
+
+- name: Create ssh-agent unit file
+  copy:
+    src:    "ssh-agent.service"
+    dest:   "{{ ansible_user_dir }}/.config/systemd/user/"
+
+- name: Enable ssh-agent user unit
+  systemd:
+    name: ssh-agent.service
+    enabled:  true
+    state:    started
+    scope:    user
+    daemon_reload: true
+
