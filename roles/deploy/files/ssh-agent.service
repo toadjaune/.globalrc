@@ -1,13 +1,26 @@
 # Based on https://unix.stackexchange.com/questions/339840/how-to-start-and-use-ssh-agent-as-systemd-service
+#
+# We prefer using a systemd unit, because it's way cleaner than shelling out a daemon, or have i3/sway fork it itself
+# (you get logs, status, declarative config, control over restarts, etc)
+# See https://unix.stackexchange.com/questions/90853/how-can-i-run-ssh-add-automatically-without-password-prompt#90869
+#
+# Starting this unit won't be enough, you also need :
+# * SSH_AUTH_SOCK env var configured to point to the socket of the daemon started here
+# * ssh_config option AddKeysToAgent, to add unlocked keys automatically (TODO : automate this config)
 
 [Unit]
 Description=SSH key agent
 
 [Service]
 Type=simple
+# This should resolve to /run/user/<userid>/ssh-agent.socket
+# https://www.freedesktop.org/software/systemd/man/systemd.unit.html
+# TODO : maybe we can find a way to have asingle definition for here and shell env ?
 Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
 ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
 
 [Install]
 # Maybe try graphical-session.target ?
+# If so, change the socket path to a session-scoped path (instead of user-scoped as currently)
 WantedBy=graphical.target
+

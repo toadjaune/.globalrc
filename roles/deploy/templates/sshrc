@@ -59,7 +59,7 @@ export INPUTRC="$SSHHOME/.sshrc.d/inputrc"
 # Make agent-forwarding work even when reattaching screen/tmux
 # TODO: This is copied from commonrc, we need to find a way to manage common components like that
 if [ -S "$SSH_AUTH_SOCK" ] && [ ! -h "$SSH_AUTH_SOCK" ]; then
-  ln -sf "$SSH_AUTH_SOCK" "{{ ssh_auth_sock }}"
-  export SSH_AUTH_SOCK="{{ ssh_auth_sock }}"
+  ln -sf "$SSH_AUTH_SOCK" "{{ ssh_agent_symlink_path }}"
+  export SSH_AUTH_SOCK="{{ ssh_agent_symlink_path }}"
 fi
 
