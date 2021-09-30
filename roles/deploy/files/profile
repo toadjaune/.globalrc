@@ -11,11 +11,3 @@
 # Configure theme for Qt5 applications (such as vlc)
 export QT_STYLE_OVERRIDE=Adwaita-Dark
 
-# SSH-agent setup
-# This code is executed only if there is no current $SSH_AUTH_SOCK, so it should be safe not to test for $DESKTOP_SESSION
-# See https://unix.stackexchange.com/questions/90853/how-can-i-run-ssh-add-automatically-without-password-prompt#90869
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval `ssh-agent -s`
-  # NB: This sets up a common SSH-agent, but it doesn't automatically add your keys to it.
-  # Use with ssh_config option AddKeysToAgent, to add unlocked keys automatically
-fi

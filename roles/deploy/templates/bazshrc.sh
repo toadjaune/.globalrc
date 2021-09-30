@@ -38,6 +38,9 @@ export INPUTRC="{{ remote_directory }}/templates/inputrc"
 # Use custom sshrc location
 export SSHHOME="{{ remote_directory }}/files/sshrc"
 
+# SSH-agent setup, cf ssh-agent.service file
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+
 # Make agent-forwarding work even when reattaching screen/tmux
 # NB : In case of multiple simultaneous connections with ssh agent forwarding
 # to the same server as the same user, only the last to connect can be used
@@ -46,8 +49,8 @@ export SSHHOME="{{ remote_directory }}/files/sshrc"
 #
 # However, it makes mounting the socket in a docker impossible. Since it's not really used, disabled for now
 # if [ -S "$SSH_AUTH_SOCK" ] && [ ! -h "$SSH_AUTH_SOCK" ]; then
-#   ln -sf "$SSH_AUTH_SOCK" "{{ ssh_auth_sock }}"
-#   export SSH_AUTH_SOCK="{{ ssh_auth_sock }}"
+#   ln -sf "$SSH_AUTH_SOCK" "{{ ssh_agent_symlink_path }}"
+#   export SSH_AUTH_SOCK="{{ ssh_agent_symlink_path }}"
 # fi
 
 ### End definitions ###
