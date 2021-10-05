@@ -20,7 +20,11 @@ Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
 ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
 
 [Install]
-# Maybe try graphical-session.target ?
+# Careful, those are the user systemd instance targets, list them with `systemctl --user list-units -t target`
+# For some reason, graphical.target is not loaded by default
+# TODO : Maybe try graphical-session.target ? It's loaded but inactive,not sure why.
 # If so, change the socket path to a session-scoped path (instead of user-scoped as currently)
-WantedBy=graphical.target
+# Careful when changing the WantedBy target : the task enabling the unit won't update the required symlinks
+# TODO : Make a task disabling the units before re-enabling them when changed ?
+WantedBy=default.target
 
