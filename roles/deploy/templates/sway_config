@@ -279,6 +279,16 @@ bar {
     # }
 }
 
+### Misc keybindings
+
+# Take a screenshot
+# This command :
+# * creates the screenshots directory with mkdir
+# * asks the user for a screen area to capture with slurp
+# * takes a screenshot of it with grim
+# * copies the resulting image to the screenshot directory with tee
+# * sends the image to the wayland clipboard with wl-copy
+bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
 
 
 
@@ -289,7 +299,6 @@ bar {
 # # Dependencies :
 # # - feh
 # # - xnumlockx
-# # - scrot (for screenshots)
 # 
 # # Notes on usage :
 # # For NetworkManager configuration, use :
@@ -311,10 +320,6 @@ bar {
 # 
 # # Use Mouse+$mod to drag floating windows to their wanted position
 # floating_modifier $mod
-# 
-# # Take a screenshot
-# bindcode $mod+$p exec --no-startup-id .globalrc/files/scripts/i3-scrot
-# 
 # 
 # # Based on https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
 # # The i3-exit script is installed at deploy-time
