@@ -9,16 +9,18 @@
       - feh       # Display desktop background image
       - arandr    # Tool to generate xrandr configurations
       - numlockx  # Automatically enable numlock
-      - scrot     # Take screenshots from cli
       - dunst     # Notification daemon
       - redshift  # Adapt screen spectrum to the current day time
       - xclip     # interact with X clipboard from cli
       - xdotool   # input text as if typed from the user
 
       # sway/wayland related
-      - sway      # Tiling window manager
-      - swaylock  # trigger wayland lockscreen
-      - rofi      # Program launcher
+      - sway          # Tiling window manager
+      - swaylock      # trigger wayland lockscreen
+      - rofi          # Program launcher
+      - grim          # Take a screenshot
+      - slurp         # Select a screen area, to pass to grim
+      - wl-clipboard  # Interact with wayland clipboard (includes wl-copy)
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
