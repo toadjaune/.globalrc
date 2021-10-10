@@ -108,6 +108,7 @@ bindcode $mod+$z exec $lock_command
 input "type:keyboard" {
   xkb_layout  "fr"
   xkb_variant "lafayette"
+  xkb_numlock "enabled"
 }
 
 ### Key bindings
@@ -267,6 +268,7 @@ bindcode $mod+$r mode "resize"
 # Status Bar:
 #
 # Replace the defaut swaybar with waybar
+# TODO : Maybe switch it to a systemd user unit (there's already one installed by the package)
 bar {
     swaybar_command waybar
 }
@@ -290,25 +292,12 @@ bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "
 
 # # Dependencies :
 # # - feh
-# # - xnumlockx
 # 
 # # Notes on usage :
 # # For NetworkManager configuration, use :
 # # - nmtui for most config
 # # - "Network Connections" (launch from rofi) for WPA2 Enterprise
 # 
-# 
-# # Add shortcuts to temporary change the layout
-# set $mode_keyboard "keyboard layout selection"
-# mode $mode_keyboard {
-#     bindcode $down exec --no-startup-id "setxkbmap fr -variant lafayette && numlockx && notify-send -t 2000 'Layout switched to qwerty lafayette'"; mode "default"
-#     bindcode $up exec --no-startup-id "setxkbmap fr -variant bepo      && numlockx && notify-send -t 2000 'Layout switched to bepo'";             mode "default"
-#     bindcode $right exec --no-startup-id "setxkbmap fr                    && numlockx && notify-send -t 2000 'Layout switched to azerty'";           mode "default"
-#     # back to normal: Enter or Escape
-#     bindcode $return mode "default"
-#     bindcode $escape mode "default"
-# }
-# bindcode $mod+$b mode $mode_keyboard
 # 
 # # Use Mouse+$mod to drag floating windows to their wanted position
 # floating_modifier $mod
@@ -369,12 +358,6 @@ bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "
 # }
 # bindcode $mod+$t mode $mode_type
 # 
-# # Start i3bar to display a workspace bar (plus the system information i3status
-# # finds out, if available)
-# bar {
-#     status_command i3status
-# }
-# 
 # # Assign windows to specific workspaces (use xprop to find classes)
 # assign [class="Firefox"]      $ws1
 # 
@@ -417,11 +400,6 @@ bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "
 # # Default screen layout, to configure locally (see xrandr mode above)
 # # default.sh should be a symlink to one of the modes otherwise accessible
 # exec --no-startup-id .screenlayout/default.sh
-# 
-# # Enable NumLock by default
-# # https://github.com/chanfrv/dotfiles/blob/master/config/i3/config
-# # https://wiki.archlinux.org/index.php/Activating_Numlock_on_Bootup
-# exec --no-startup-id numlockx
 # 
 # # Start dunst (notification daemon)
 # # NB : we could also configure dbus to autostart it in
