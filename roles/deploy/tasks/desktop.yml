@@ -21,6 +21,7 @@
       - grim          # Take a screenshot
       - slurp         # Select a screen area, to pass to grim
       - wl-clipboard  # Interact with wayland clipboard (includes wl-copy)
+      - waybar        # Nice-looking bar
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
@@ -309,4 +310,15 @@
     state:    started
     scope:    user
     daemon_reload: true
+
+- name: Create waybar config directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/waybar"
+
+- name: Symlink waybar config
+  file:
+    state:  link
+    src:    "{{ remote_directory }}/files/waybar_config"
+    dest:   "{{ ansible_user_dir }}/.config/waybar/config"
 
