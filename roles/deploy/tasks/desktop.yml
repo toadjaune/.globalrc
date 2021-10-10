@@ -14,14 +14,15 @@
       - xdotool   # input text as if typed from the user
 
       # sway/wayland related
-      - sway                # Tiling window manager
-      - swaylock            # trigger wayland lockscreen
-      - rofi                # Program launcher
-      - grim                # Take a screenshot
-      - slurp               # Select a screen area, to pass to grim
-      - wl-clipboard        # Interact with wayland clipboard (includes wl-copy)
-      - waybar              # Nice-looking bar
-      - fonts-font-awesome  # Font for waybar icons
+      - sway                  # Tiling window manager
+      - swaylock              # trigger wayland lockscreen
+      - rofi                  # Program launcher
+      - grim                  # Take a screenshot
+      - slurp                 # Select a screen area, to pass to grim
+      - wl-clipboard          # Interact with wayland clipboard (includes wl-copy)
+      - waybar                # Nice-looking bar
+      - fonts-font-awesome    # Font for waybar icons
+      - gir1.2-playerctl-2.0  # used by the mediaplayer.py script, to display currently playing conten
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
@@ -321,4 +322,10 @@
     state:  link
     src:    "{{ remote_directory }}/files/waybar_config"
     dest:   "{{ ansible_user_dir }}/.config/waybar/config"
+
+- name: Download mediaplayer.py script
+  get_url:
+    url:  "https://raw.githubusercontent.com/Alexays/Waybar/master/resources/custom_modules/mediaplayer.py"
+    dest: "{{ remote_directory }}/mediaplayer.py"
+    mode: 0700
 
