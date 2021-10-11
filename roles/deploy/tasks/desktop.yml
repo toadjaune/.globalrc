@@ -11,7 +11,6 @@
       - dunst     # Notification daemon
       - redshift  # Adapt screen spectrum to the current day time
       - xclip     # interact with X clipboard from cli
-      - xdotool   # input text as if typed from the user
 
       # sway/wayland related
       - sway                  # Tiling window manager
@@ -24,6 +23,7 @@
       - fonts-font-awesome    # Font for waybar icons
       - gir1.2-playerctl-2.0  # used by the mediaplayer.py script, to display currently playing conten
       - x11-apps              # xeyes allows to know easily if a program is running through XWayland or not
+      - xdotool               # input text as if typed from the user
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
@@ -77,6 +77,7 @@
       # - gir1.2-playerctl-2.0 # TODO
       - xorg-xeyes
       - xorg-xwayland # NB : not installed by default on arch
+      - xdotool
 
       # alacritty
       - alacritty
