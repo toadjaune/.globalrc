@@ -23,7 +23,7 @@
       - waybar                # Nice-looking bar
       - fonts-font-awesome    # Font for waybar icons
       - gir1.2-playerctl-2.0  # used by the mediaplayer.py script, to display currently playing conten
-      # TODO : add xeyes
+      - x11-apps              # xeyes allows to know easily if a program is running through XWayland or not
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
