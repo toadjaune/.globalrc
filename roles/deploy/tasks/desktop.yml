@@ -23,6 +23,7 @@
       - waybar                # Nice-looking bar
       - fonts-font-awesome    # Font for waybar icons
       - gir1.2-playerctl-2.0  # used by the mediaplayer.py script, to display currently playing conten
+      # TODO : add xeyes
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
@@ -64,17 +65,18 @@
 - name: Install graphical packages (Archlinux)
   pacman:
     name:
-      # i3-related
-      - i3-wm
+      # sway/wayland related
+      - sway
+      - swaylock
       - rofi
-      - feh
-      - arandr
-      - numlockx
-      - scrot
-      - dunst
-      - redshift
-      - xclip
-      - xdotool
+      - grim
+      - slurp
+      - wl-clipboard
+      - waybar
+      - otf-font-awesome
+      # - gir1.2-playerctl-2.0 # TODO
+      - xorg-xeyes
+      - xorg-xwayland # NB : not installed by default on arch
 
       # alacritty
       - alacritty
@@ -118,7 +120,7 @@
 #   become: true
 #   when: (have_root | bool) and ansible_os_family == "Debian"
 #   notify: keyboard_config
-# 
+#
 # - name: Configure XKBVARIANT in /etc/default/keyboard (Debian)
 #   lineinfile:
 #     path: /etc/default/keyboard
