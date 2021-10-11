@@ -16,3 +16,8 @@
   listen: keyboard_config
   changed_when: true
   when: ansible_os_family == "RedHat"
+
+- name: Reload sway config
+  command: "swaymsg reload"
+  changed_when: true
+
