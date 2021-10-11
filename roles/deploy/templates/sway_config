@@ -298,7 +298,13 @@ mode $mode_type {
     bindcode $escape mode "default"
 }
 
-
+# TODO : Find a way to replicate this functionality, since the Wayland protocol prevents this by design
+# Will likely require explicit support from the compositor
+# Start redshift
+# This reduces the amount of blue light emitted by the screen based
+# on the time of the day
+# We currently use the default config
+# exec --no-startup-id redshift
 
 
 
@@ -412,8 +418,3 @@ mode $mode_type {
 # # We currently use the default config
 # exec --no-startup-id dunst
 # 
-# # Start redshift
-# # This reduces the amount of blue light emitted by the screen based
-# # on the time of the day
-# # We currently use the default config
-# exec --no-startup-id redshift

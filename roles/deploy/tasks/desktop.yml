@@ -9,7 +9,6 @@
       - feh       # Display desktop background image
       - arandr    # Tool to generate xrandr configurations
       - dunst     # Notification daemon
-      - redshift  # Adapt screen spectrum to the current day time
       - xclip     # interact with X clipboard from cli
 
       # sway/wayland related
@@ -45,7 +44,6 @@
       - numlockx
       - scrot
       - dunst
-      - redshift
       - xclip
       - xdotool
 
