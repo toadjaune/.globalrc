@@ -225,6 +225,44 @@ bindcode $ctrl+$mod+$down move workspace to output up
 bindcode $ctrl+$mod+$up move workspace to output down
 bindcode $ctrl+$mod+$right move workspace to output right
 
+# Assign windows to specific workspaces (use xprop to find classes)
+assign [class="Firefox"]      $ws1
+
+# https://github.com/i3/i3/issues/2060
+# assign [class="spotify"] $ws8
+for_window [class="Spotify"] move to workspace $ws8
+
+assign [class="discord"]      $ws9
+assign [class="quassel"]      $ws9
+assign [class="riot"]         $ws9
+assign [class="Slack"]        $ws9
+
+assign [class="Thunderbird"]  $ws10
+
+
+# Assign workspaces to specific outputs (xrandr output names)
+
+# This is for a layout with 2 horizontal screens.
+# It is absolutely not portable in the current state
+# maybe we can improve it by using marks
+
+# mapping to the actual screen names
+# TODO : Make this configurable
+set $output_left  "DP-2"
+set $output_right "HDMI-1"
+
+# assigning each workspace to a screen
+workspace $ws1  output $output_left
+workspace $ws2  output $output_right
+workspace $ws3  output $output_right
+workspace $ws4  output $output_right
+workspace $ws5  output $output_right
+workspace $ws6  output $output_right
+workspace $ws7  output $output_right
+workspace $ws8  output $output_right
+workspace $ws9  output $output_right
+workspace $ws10 output $output_right
+
 #
 # Layout stuff:
 #
@@ -361,43 +399,6 @@ mode $mode_type {
 #     bindcode $escape mode "default"
 # }
 # bindcode $mod+$o mode $mode_output
-#
-# # Assign windows to specific workspaces (use xprop to find classes)
-# assign [class="Firefox"]      $ws1
-#
-# # https://github.com/i3/i3/issues/2060
-# # assign [class="spotify"] $ws8
-# for_window [class="Spotify"] move to workspace $ws8
-#
-# assign [class="discord"]      $ws9
-# assign [class="quassel"]      $ws9
-# assign [class="riot"]         $ws9
-# assign [class="Slack"]        $ws9
-#
-# assign [class="Thunderbird"]  $ws10
-#
-#
-# # Assign workspaces to specific outputs (xrandr output names)
-#
-# # This is for a layout with 2 horizontal screens.
-# # It is absolutely not portable in the current state
-# # maybe we can improve it by using marks
-#
-# # mapping to the actual screen names
-# set $outputoeft  "DP-2"
-# set $output_right "HDMI-1"
-#
-# # assigning each workspace to a screen
-# workspace $ws1  output $output_left
-# workspace $ws2  output $output_right
-# workspace $ws3  output $output_right
-# workspace $ws4  output $output_right
-# workspace $ws5  output $output_right
-# workspace $ws6  output $output_right
-# workspace $ws7  output $output_right
-# workspace $ws8  output $output_right
-# workspace $ws9  output $output_right
-# workspace $ws10 output $output_right
 #
 # # Programs to run at startup
 #
