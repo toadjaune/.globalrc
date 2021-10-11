@@ -62,6 +62,7 @@ set $0 19
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# TODO : Make this configurable per-host ?
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
@@ -284,6 +285,21 @@ bar {
 # * sends the image to the wayland clipboard with wl-copy
 bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
 
+# Mode to insert text directly
+set $mode_type "type"
+mode $mode_type {
+    # type current date in iso 8601 format
+    # TODO : xdotool does work through XWayland, but only for windows going through XWayland themselves...
+    # TODO : replace with wtype (only packaged for ubuntu after 21.04)
+    bindcode $d exec xdotool type "$(date --iso-8601)", mode "default"
+
+    # back to normal: Enter or Escape
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+}
+
+
+
 
 
 
@@ -346,18 +362,6 @@ bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "
 # }
 # bindcode $mod+$o mode $mode_output
 # 
-# set $mode_type "type"
-# mode $mode_type {
-#     # --release is required because otherwise the cursor is still grabbed by i3 and xdotool can't find your window
-#     # type current date in iso 8601 format
-#     bindcode --release $d exec --no-startup-id xdotool type "$(date --iso-8601)", mode "default"
-# 
-#     # back to normal: Enter or Escape
-#     bindcode $return mode "default"
-#     bindcode $escape mode "default"
-# }
-# bindcode $mod+$t mode $mode_type
-# 
 # # Assign windows to specific workspaces (use xprop to find classes)
 # assign [class="Firefox"]      $ws1
 # 
@@ -413,6 +417,3 @@ bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "
 # # on the time of the day
 # # We currently use the default config
 # exec --no-startup-id redshift
-# 
-# # Wallpaper image
-# exec_always --no-startup-id feh --randomize --bg-fill Pictures/Wallpapers/*
