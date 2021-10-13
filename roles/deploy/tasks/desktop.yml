@@ -331,3 +331,11 @@
     dest: "{{ remote_directory }}/mediaplayer.py"
     mode: 0700
 
+- name: Create /usr/local/bin/firefox
+  copy:
+    src:    "firefox"
+    dest:   "/usr/local/bin/firefox"
+    mode: 0755
+  become: true
+  when: have_root | bool
+
