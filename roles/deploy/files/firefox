@@ -1,12 +1,67 @@
 #!/bin/sh
 
-# TODO : Document why we use a script instead of a "cleaner" solution
+# This script is installed to /usr/local/bin/firefox, so that every invocation of firefox uses the configuration made here.
+# This is especially important because an instance started without the Wayland flag won't be able to open a new tab in an alredy existing instance on wayland, but will try and raise an error.
+# This includes clicking on links on various apps.
+# Also note that some apps, if started through XWayland, will still error despite this setup
+#
+# The types of invocations we want to cover include :
+# * .desktop file (Various graphical tools, rofi in drun mode, etc...) (https://wiki.archlinux.org/title/Desktop_entries)
+# * bare binary (cli, rofi in run mode, etc...)
+# * XDG (default program for opening links) (https://wiki.archlinux.org/title/Default_applications, https://wiki.archlinux.org/title/XDG_MIME_Applications)
+#
+# Several other options were considered but too limited :
+# * sway keybinding :
+#   * Only affects direct sway invocations
+# * Override firefox.desktop file (or make another one) :
+#   * Only affects desktop-based starts
+#   * Requires maintaining the entire .desktop file, which might otherwise be updated by the distro, different across distros, etc...
+# * Custom binary in a directory added to the user $PATH :
+#   * There is no way to configure the $PATH change so that every single program invoked from the graphical session will respect it
+#   * Therefore, will only ever affect some of the invocation modes mentioned above
+# * Shell alias : Only affects shell
+# * Combinations of several solutions above : could probably be made to work almost always, but :
+#   * No guarantee that we can cover everything
+#   * Extra complexity in setup and understanding
+# * Firefox setting via config file :
+#   * Maybe possible, but if so, I did not understand how (TODO ?)
+#
+# In the end, putting this script in a system path is the only reliable way I found.
+# I don't like much having globalrc setup leaking out of my personal user setup, but so far I have seen no setup where I need a graphical setup on a shared computer, so this should be fine.
+
+# Warn in both outputs that we're starting firefox through an very non-standard way
+echo "WARNING (stdout) : Firefox starting through a custom wrapper at $0"
+echo "WARNING (stderr) : Firefox starting through a custom wrapper at $0" >&2
 
 # Template variables to integrate
-# unset GDK_CORE_DEVICE_ErENTS; MOZ_X11_EGL=1 GTK_USE_PORTAL=1 MOZ_USE_XINPUT2=1 MOZ_WEBRENDER=1
+#  MOZ_X11_EGL=1 GTK_USE_PORTAL=1
 
 # Enable Wayland support
+# Problems currently identified to be caused by this setting :
+# * Bitwarden / Dark Reader extension panels weird flickering (https://github.com/bitwarden/browser/issues/2068 ?)
+# * Cursor sometimes not changing based on what it is hovering (https://bugzilla.mozilla.org/show_bug.cgi?id=1699942)
+# * Firefox issue tracker meta-issue for wayland-specific issues : https://bugzilla.mozilla.org/show_bug.cgi?id=635134
 export MOZ_ENABLE_WAYLAND=1
+
+# Enable WebRender support
+# WebRender is Firefox's new rust-based compositor, extracted from servo : https://wiki.mozilla.org/Platform/GFX/Quantum_Render
+# It is now enabled by default everywhere ... except on Wayland : https://wiki.mozilla.org/Platform/GFX/WebRender_Where
+# It can still be disabled if hardware acceleration is disabled/unavailable.
+# To check if it is enabled, look at the gfx.webrender.enabled flag in about:config, or "Compositing" in about:support
+# TODO : Enable this if necessary and make sure it works on all my computers
+# export MOZ_WEBRENDER=1
+
+# Use XINPUT2 for pixel-perfect/smooth scrolling with touchpad
+# TODO : Enable this if necessary and make sure it works on all my computers
+# unset GDK_CORE_DEVICE_EVENTS ; export MOZ_USE_XINPUT2=1
+
+# Hardware acceleration for WebRender ?
+# TODO : Enable this if necessary and make sure it works on all my computers
+# export MOZ_X11_EGL=1
+
+# OS Handover of most popups (file pickers, etc...)
+# TODO : Not even sure I want that ?
+# export GTK_USE_PORTAL=1
 
 # TODO : do not hardcode the path to the real binary
 exec /usr/bin/firefox "$@"
