@@ -57,7 +57,7 @@ export MOZ_ENABLE_WAYLAND=1
 
 # Hardware acceleration for WebRender ?
 # TODO : Enable this if necessary and make sure it works on all my computers
-# export MOZ_X11_EGL=1
+export MOZ_X11_EGL=1
 
 # OS Handover of most popups (file pickers, etc...)
 # TODO : Not even sure I want that ?
