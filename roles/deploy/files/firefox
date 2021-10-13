@@ -3,8 +3,10 @@
 # TODO : Document why we use a script instead of a "cleaner" solution
 
 # Template variables to integrate
-# unset GDK_CORE_DEVICE_EVENTS; MOZ_ENABLE_WAYLAND=1 MOZ_X11_EGL=1 GTK_USE_PORTAL=1 MOZ_USE_XINPUT2=1 MOZ_WEBRENDER=1
+# unset GDK_CORE_DEVICE_ErENTS; MOZ_X11_EGL=1 GTK_USE_PORTAL=1 MOZ_USE_XINPUT2=1 MOZ_WEBRENDER=1
 
+# Enable Wayland support
+export MOZ_ENABLE_WAYLAND=1
 
 # TODO : do not hardcode the path to the real binary
 exec /usr/bin/firefox "$@"
