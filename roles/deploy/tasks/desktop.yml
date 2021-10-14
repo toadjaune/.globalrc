@@ -7,8 +7,6 @@
       # i3-related
       - i3        # Tiling window manager
       - feh       # Display desktop background image
-      - arandr    # Tool to generate xrandr configurations
-      - dunst     # Notification daemon
       - xclip     # interact with X clipboard from cli
 
       # sway/wayland related
@@ -23,6 +21,8 @@
       - gir1.2-playerctl-2.0  # used by the mediaplayer.py script, to display currently playing conten
       - x11-apps              # xeyes allows to know easily if a program is running through XWayland or not
       - xdotool               # input text as if typed from the user
+      - dunst                 # Notification daemon (NB : the version in ubuntu is too old to have wayland support)
+      - wdisplays             # Graphical tool for monitors setup
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
@@ -36,16 +36,20 @@
 - name: Install graphical packages (RedHat)
   dnf:
     name:
-      # i3-related
-      - i3
+      # sway/wayland related
+      - sway
+      - swaylock
       - rofi
-      - feh
-      - arandr
-      - numlockx
-      - scrot
-      - dunst
-      - xclip
+      - grim
+      - slurp
+      - wl-clipboard
+      - waybar
+      - fontawesome-fonts
+      - playerctl-libs # for mediaplayer.py
+      - xeyes
       - xdotool
+      - dunst
+      - wdisplays
 
       # alacritty
       - alacritty
@@ -76,6 +80,8 @@
       - xorg-xeyes
       - xorg-xwayland # NB : not installed by default on arch
       - xdotool
+      - dunst
+      - wdisplays
 
       # alacritty
       - alacritty
