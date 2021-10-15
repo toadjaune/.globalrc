@@ -2,6 +2,8 @@
 
 # This script is based on https://github.com/davatorium/rofi-scripts/blob/master/monitor_layout.sh
 
+# TODO : This was for i3/x, see if we can find/make an equivalent for sway/wayland
+
 XRANDR=$(which xrandr)
 
 MONITORS=( $( ${XRANDR} | awk '( $2 == "connected" ){ print $1 }' ) )

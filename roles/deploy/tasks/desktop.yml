@@ -4,11 +4,6 @@
   apt:
     cache_valid_time: 86400 # 1 day
     name:
-      # i3-related
-      - i3        # Tiling window manager
-      - feh       # Display desktop background image
-      - xclip     # interact with X clipboard from cli
-
       # sway/wayland related
       - sway                  # Tiling window manager
       - swaylock              # trigger wayland lockscreen
@@ -249,36 +244,6 @@
 
       # Load global .profile
       . {{ remote_directory }}/files/profile
-
-### i3 ###
-
-- name: Create i3 config directory
-  file:
-    state:  directory
-    dest:   "{{ ansible_user_dir }}/.config/i3"
-
-- name: Install i3 config (by symlinking)
-  file:
-    state:  link
-    follow: false
-    src:    "{{ remote_directory }}/files/i3_config"
-    dest:   "{{ ansible_user_dir }}/.config/i3/config"
-
-  # NB : If there is anything already configured in this file, our addition probably won't
-  # change anything since it will likely be after an `exec`
-- name: Allow starting X and i3 with the startx command
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.xinitrc"
-    create: true
-    block: |
-      # NB : This file must stay sh-compliant
-
-      # Load very basic env (NB : this file is automatically sourced by gdm, not by startx)
-      # Maybe we should ensure this is done in the tty shell directly (the one that executes startx)
-      . "{{ ansible_user_dir }}/.profile"
-
-      # Start i3
-      exec i3
 
 ### sway ###
 
