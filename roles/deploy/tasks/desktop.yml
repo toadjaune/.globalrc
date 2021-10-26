@@ -310,3 +310,12 @@
   become: true
   when: have_root | bool
 
+- name: Install wrapper scripts for electron-based apps
+  template:
+    src:  "electron_wayland_wrapper.sh"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+  become: true
+  when: have_root | bool
+  loop: "{{ electron_wayland_to_wrap }}"
+

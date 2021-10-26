@@ -7,6 +7,10 @@ have_root:  false
 # Set this to true if the machine has a graphical interface (X server, etc…). It skips useless steps.
 desktop: false
 
+# Desktop-specific options
+electron_wayland_to_wrap:
+  - slack
+
 # Movement keys
 # Right hand
 key_rh_left:  'h'
