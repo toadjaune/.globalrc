@@ -13,6 +13,8 @@ desktop: false
 electron_wayland_to_wrap:
   - slack
   - discord
+  # spotify has a weird behavior, where it creates a second window via XWayland, empty
+  # - spotify
 
 # Movement keys
 # Right hand

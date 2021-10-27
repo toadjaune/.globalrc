@@ -310,6 +310,7 @@
   become: true
   when: have_root | bool
 
+  # NB : Removing elements from the list won't remove the corresponding scripts
 - name: Install wrapper scripts for electron-based apps
   template:
     src:  "electron_wayland_wrapper.sh"
