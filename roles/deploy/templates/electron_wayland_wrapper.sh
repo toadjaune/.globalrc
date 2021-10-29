@@ -13,6 +13,11 @@
 echo "WARNING (stdout) : {{ item }} starting through a custom wrapper at $0"
 echo "WARNING (stderr) : {{ item }} starting through a custom wrapper at $0" >&2
 
-# TODO : do not hardcode the path to the real binary
-exec /usr/bin/{{ item }} --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+# Find the "real" binary path, to execute it with extra arguments / envvars
+# NB : We don't want to persistently change the PATH variable, so that the final program is exec'd with the normal PATH (less intrusive)
+# TODO : Maybe autodetect the directory to be excluded in the script (suprisingly hard) or set it with the jinja template ?
+# TODO : Maybe replace item templating by sh logic ? Not sure waht behavior we want for symlinks
+actual_binary=$( PATH=$(echo $PATH | sed 's@/usr/local/bin:@@') which {{ item }} )
+
+exec $actual_binary --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
 
