@@ -39,3 +39,5 @@ keyboard_variant: 'lafayette'
 # git_user_name: "Henri Golo"
 # git_user_email: "henri.golo@example.com"
 
+# Extra host-specific ssh config to be appended to the global config
+extra_ssh_config: ""
