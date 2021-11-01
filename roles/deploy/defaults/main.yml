@@ -41,3 +41,8 @@ keyboard_variant: 'lafayette'
 
 # Extra host-specific ssh config to be appended to the global config
 extra_ssh_config: ""
+
+# Sway output setup
+# sway_output_primary: "" # Mandatory for graphical setup
+sway_output_custom_1: "nop 'Mode not defined'"
+sway_output_custom_2: "nop 'Mode not defined'"

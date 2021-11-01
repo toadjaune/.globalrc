@@ -1,5 +1,10 @@
 # Read `man 5 sway` for a complete reference.
 
+# Notes on usage :
+# For NetworkManager configuration, use :
+# - nmtui for most config
+# - "Network Connections" (launch from rofi) for WPA2 Enterprise
+
 ### Variables
 #
 # Logo key
@@ -74,6 +79,36 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+# For a laptop, this is the integrated screen
+set $output_primary "{{ sway_output_primary }}"
+
+set $mode_output "output"
+mode $mode_output {
+    # Use `wdisplays` for manual setups
+    # You can also use it as a base for pixels offsets and such
+
+    # Dynamic dual-screen through rofi
+    # TODO : Find a way to do this for wayland ?
+    # bindcode $left exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout, mode "default"
+    # cf https://github.com/davatorium/rofi-scripts/blob/master/monitor_layout.sh
+
+    # Reset everything. Useful if you have currently no display…
+    bindcode $h output '*' disable , output '*' enable , mode "default"
+
+    # Primary-only, ie laptop screen only
+    bindcode $j output '*' disable , output $output_primary enable , mode "default"
+
+    # Custom modes, depending on the specific setup (multiple screens, disable laptop screen or not, etc...)
+    bindcode $k {{ sway_output_custom_1 }} , mode "default"
+    bindcode $l {{ sway_output_custom_2 }} , mode "default"
+
+    # back to normal: Enter or Escape
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+}
+bindcode $mod+$o mode $mode_output
+
 
 ### Idle configuration
 #
@@ -356,6 +391,14 @@ mode $mode_type {
     bindcode $escape mode "default"
 }
 
+# TODO : once we have a recent enough version of dunst everywhere, see how to start it with a systemd user unit ?
+# # Start dunst (notification daemon)
+# # NB : we could also configure dbus to autostart it in
+# # /usr/share/dbus-1/services/org.freedesktop.Notifications.service
+# # Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
+# # We currently use the default config
+# exec --no-startup-id dunst
+
 # TODO : Find a way to replicate this functionality, since the Wayland protocol prevents this by design
 # Will likely require explicit support from the compositor
 # Start redshift
@@ -364,54 +407,3 @@ mode $mode_type {
 # We currently use the default config
 # exec --no-startup-id redshift
 
-
-
-
-
-### old i3 config not migrated yet
-
-# # Dependencies :
-# # - feh
-#
-# # Notes on usage :
-# # For NetworkManager configuration, use :
-# # - nmtui for most config
-# # - "Network Connections" (launch from rofi) for WPA2 Enterprise
-#
-#
-# set $mode_output "output"
-# mode $mode_output {
-#     # Use `arandr` to generate the configurations locally
-#     # You can also manually craft the xrandr scripts if you wish
-#
-#     # Dynamic dual-screen through rofi
-#     bindcode $left exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout, mode "default"
-#     # Reset everything. Useful if you have currently no display…
-#     bindcode $' exec --no-startup-id xrandr --auto, mode "default"
-#
-#     # Laptop mode (only laptop screen)
-#     bindcode $down exec --no-startup-id .screenlayout/laptop.sh,  mode "default"
-#
-#     # Desktop modes (multiple screens, disable laptop screen or not, etc...)
-#     bindcode $up exec --no-startup-id .screenlayout/desktop_1.sh, mode "default"
-#     bindcode $right exec --no-startup-id .screenlayout/desktop_2.sh, mode "default"
-#     bindcode $★ exec --no-startup-id .screenlayout/desktop_3.sh, mode "default"
-#
-#     # back to normal: Enter or Escape
-#     bindcode $return mode "default"
-#     bindcode $escape mode "default"
-# }
-# bindcode $mod+$o mode $mode_output
-#
-# # Programs to run at startup
-#
-# # Default screen layout, to configure locally (see xrandr mode above)
-# # default.sh should be a symlink to one of the modes otherwise accessible
-# exec --no-startup-id .screenlayout/default.sh
-#
-# # Start dunst (notification daemon)
-# # NB : we could also configure dbus to autostart it in
-# # /usr/share/dbus-1/services/org.freedesktop.Notifications.service
-# # Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
-# # We currently use the default config
-# exec --no-startup-id dunst
