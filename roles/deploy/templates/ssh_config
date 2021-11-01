@@ -1,1 +1,22 @@
+# Add host-specific configuration
+# NB : for each, parameter, only the first value fount is used
+# Therefore, overridable defaults need to come at the end
 {{ extra_ssh_config }}
+
+# Global defaults
+Host *
+  User toadjaune
+  Port 22
+  # Automatically add unlocked keys to running ssh-agent
+  AddKeysToAgent yes
+
+# Crypto hardening
+# Github needs diffie-hellman-group-exchange-sha1 some of the time but not always.
+Host github.com
+  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1
+Host *
+  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+  HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+  Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+  UseRoaming no
+  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com

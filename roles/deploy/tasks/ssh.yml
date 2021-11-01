@@ -7,7 +7,7 @@
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.ssh/config"
     create: yes
-    insertbefore: BOF
+    insertafter: EOF
     block:  |
       # Loading global ssh configuration
       Include {{ remote_directory }}/templates/ssh_config
