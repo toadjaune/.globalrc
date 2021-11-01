@@ -136,7 +136,7 @@
     block:  |
       # Loading global git configuration
       [include]
-        path = {{ remote_directory }}/files/gitconfig
+        path = {{ remote_directory }}/templates/gitconfig
       # Global .gitignore
       [core]
         excludesfile = {{ remote_directory }}/files/gitignore

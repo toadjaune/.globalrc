@@ -1,0 +1,1 @@
+host_vars/*   filter=git-crypt diff=git-crypt

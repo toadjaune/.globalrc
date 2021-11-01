@@ -34,3 +34,8 @@ ssh_agent_symlink_path: '/tmp/ssh-auth-sock-$UID'
 keyboard_layout: 'fr'
 keyboard_variant: 'lafayette'
 
+# Git config
+# NB : we let those undefined on purpose, we want them to be defined per host
+# git_user_name: "Henri Golo"
+# git_user_email: "henri.golo@example.com"
+
