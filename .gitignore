@@ -1,8 +1,2 @@
 roles/deploy/files/ssh_config
 roles/deploy/files/gitconfig.private
-*.swp
-*.retry
-inventories
-
-# When we need to have local hacks in the playbook…
-*local.yml

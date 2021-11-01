@@ -1,0 +1,22 @@
+# https://docs.ansible.com/ansible/latest/plugins/inventory/yaml.html
+
+# The "all" group contains all servers no matter what.
+# Might as well configure it explicitly
+all:
+  hosts:
+
+    valoo:
+      expected_hostname: valoo
+      ansible_connection: local
+      desktop: true
+
+    smaug:
+      expected_hostname: smaug
+      ansible_connection: local
+      desktop: true
+
+    arnaud-venturi:
+      expected_hostname: arnaud-venturi
+      ansible_connection: local
+      desktop: true
+
