@@ -200,6 +200,31 @@ input "type:keyboard" {
     # mouse button for dragging.
     floating_modifier $mod normal
 
+
+# Media keys
+# TODO : Do we want to complement these with normal keybindings for "normal" keyboards ?
+# Not configured yet keys that we might want to add
+# * XF86AudioMicMute
+# * XF86MonBrightnessDown
+# * XF86MonBrightnessUp
+# * XF86Display (Normally to choose the display mode, do we want it ?)
+# * XF86WLAN (Turn on/off WiFi, seems alredy done on my computers ?)
+# * XF86Tools (???)
+# * XF86Bluetooth
+# * XF86Favorites (???)
+
+# Pulseaudio
+# NB : Maybe we're gonna need to refine this logic for it to work with headphones
+bindsym --locked XF86AudioMute        exec pactl set-sink-mute    @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume  @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume  @DEFAULT_SINK@ +5%
+
+# Media player
+bindsym --locked XF86AudioPlay  exec playerctl play-pause
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioNext  exec playerctl next
+bindsym --locked XF86AudioPrev  exec playerctl prev
+
 #
 # Moving around:
 #

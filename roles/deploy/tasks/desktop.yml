@@ -14,6 +14,7 @@
       - waybar                # Nice-looking bar
       - fonts-font-awesome    # Font for waybar icons
       - gir1.2-playerctl-2.0  # used by the mediaplayer.py script, to display currently playing conten
+      - playerctl             # Command currently running player from the CLI / sway keybindings
       - x11-apps              # xeyes allows to know easily if a program is running through XWayland or not
       - xdotool               # input text as if typed from the user
       - dunst                 # Notification daemon (NB : the version in ubuntu is too old to have wayland support)
@@ -41,6 +42,7 @@
       - waybar
       - fontawesome-fonts
       - playerctl-libs # for mediaplayer.py
+      - playerctl
       - xeyes
       - xdotool
       - dunst
@@ -72,6 +74,7 @@
       - waybar
       - otf-font-awesome
       # - gir1.2-playerctl-2.0 # TODO
+      - playerctl
       - xorg-xeyes
       - xorg-xwayland # NB : not installed by default on arch
       - xdotool
