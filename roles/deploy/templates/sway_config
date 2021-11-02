@@ -87,6 +87,7 @@ set $mode_output "output"
 mode $mode_output {
     # Use `wdisplays` for manual setups
     # You can also use it as a base for pixels offsets and such
+    # NB : Be careful when crafting those commands, most programs crash if there is a state with no enabled output at all
 
     # Dynamic dual-screen through rofi
     # TODO : Find a way to do this for wayland ?
@@ -94,7 +95,7 @@ mode $mode_output {
     # cf https://github.com/davatorium/rofi-scripts/blob/master/monitor_layout.sh
 
     # Reset everything. Useful if you have currently no display…
-    bindcode $h output '*' disable , output '*' enable , mode "default"
+    bindcode $h output '*' enable , mode "default"
 
     # Primary-only, ie laptop screen only
     bindcode $j output '*' disable , output $output_primary enable , mode "default"
