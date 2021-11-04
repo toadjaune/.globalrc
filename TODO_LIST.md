@@ -1,3 +1,28 @@
+# Mac-specific stuff
+
+General issues that need solving :
+* find a tiling window manager
+* copy-paste keyboard shortcuts
+* screenshots with equivalent funtionality
+* maybe move rofi to cmd + space (this shortcut is cool)
+* automatic focus of windows when hovering with mouse
+* ssh-agent
+* Ctrl-backspace to delete word
+
+Fixed manually, to automate :
+* install brew
+* install qwerty-lafayette
+
+Nice stuff :
+* Dead keys representation in text fields
+* Permission management across the system (popup to allow terminal to access downloads directory...)
+* Per-app notification permissions
+
+
+
+
+
+
 # List of things that need to be done
 
 * Add a minimal vimrc to sshrc
