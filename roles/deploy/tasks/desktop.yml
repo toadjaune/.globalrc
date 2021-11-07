@@ -1,8 +1,7 @@
 ### Package manager
 
-- name: Install graphical packages (Debian)
-  apt:
-    cache_valid_time: 86400 # 1 day
+- name: Install graphical packages (RedHat)
+  dnf:
     name:
       # sway/wayland related
       - sway                  # Tiling window manager
@@ -12,44 +11,14 @@
       - slurp                 # Select a screen area, to pass to grim
       - wl-clipboard          # Interact with wayland clipboard (includes wl-copy)
       - waybar                # Nice-looking bar
-      - fonts-font-awesome    # Font for waybar icons
-      - gir1.2-playerctl-2.0  # used by the mediaplayer.py script, to display currently playing conten
+      - fontawesome-fonts     # Font for waybar icons
       - playerctl             # Command currently running player from the CLI / sway keybindings
-      - x11-apps              # xeyes allows to know easily if a program is running through XWayland or not
+      - playerctl-libs        # used by the mediaplayer.py script, to display currently playing content
+      - xeyes                 # xeyes allows to know easily if a program is running through XWayland or not
       - xdotool               # input text as if typed from the user
       - dunst                 # Notification daemon (NB : the version in ubuntu is too old to have wayland support)
       - wdisplays             # Graphical tool for monitors setup
-
-      # alacritty
-      # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
-
-      # graphical theme
-      - adwaita-qt
-
-  become: true
-  when: have_root and ansible_os_family == "Debian"
-
-- name: Install graphical packages (RedHat)
-  dnf:
-    name:
-      # sway/wayland related
-      - sway
-      - swaylock
-      - rofi
-      - grim
-      - slurp
-      - wl-clipboard
-      - waybar
-      - fontawesome-fonts
-      - playerctl-libs # for mediaplayer.py
-      - playerctl
-      - xeyes
-      - xdotool
-      - dunst
-      - wdisplays
-
-      # alacritty
-      - alacritty
+      - alacritty             # GPU-based terminal emulator
 
       # graphical theme
       - adwaita-qt
@@ -73,8 +42,8 @@
       - wl-clipboard
       - waybar
       - otf-font-awesome
-      # - gir1.2-playerctl-2.0 # TODO
       - playerctl
+      # - playerctl-libs # TODO
       - xorg-xeyes
       - xorg-xwayland # NB : not installed by default on arch
       - xdotool
@@ -89,6 +58,35 @@
 
   become: true
   when: have_root and ansible_os_family == "Archlinux"
+
+- name: Install graphical packages (Debian)
+  apt:
+    cache_valid_time: 86400 # 1 day
+    name:
+      # sway/wayland related
+      - sway
+      - swaylock
+      - rofi
+      - grim
+      - slurp
+      - wl-clipboard
+      - waybar
+      - fonts-font-awesome
+      - playerctl
+      - gir1.2-playerctl-2.0  # for mediaplayer.py
+      - x11-apps              # Contains xeyes
+      - xdotool               # input text as if typed from the user
+      - dunst                 # NB : the version in ubuntu is too old to have wayland support
+      - wdisplays
+
+      # alacritty
+      # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
+
+      # graphical theme
+      - adwaita-qt
+
+  become: true
+  when: have_root and ansible_os_family == "Debian"
 
 ### Keyboard layouts ###
 
