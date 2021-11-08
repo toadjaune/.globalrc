@@ -6,5 +6,5 @@
     create:       true
     block:  |
       # Loading global tmux configuration
-      source-file {{ remote_directory }}/files/tmux.conf
+      source-file {{ remote_directory }}/templates/tmux.conf
 
