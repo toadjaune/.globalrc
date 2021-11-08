@@ -70,43 +70,6 @@
   with_items:
     - https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
 
-# Cleanup previous manual exa install
-# TODO : remove, enventually
-- name: Remove exa directory
-  file:
-    state: absent
-    dest: "{{ remote_directory }}/exa"
-  when: ansible_os_family == "RedHat"
-
-- name: Remove exa binary
-  file:
-    state: absent
-    dest: "{{ remote_directory }}/local_bin/exa"
-  when: ansible_os_family == "RedHat"
-
-- name: Create exa directory
-  file:
-    state: directory
-    dest: "{{ remote_directory }}/exa"
-  when: ansible_os_family == "Debian"
-
-  # NB : exa is only packaged since debian 10 (buster) and ubuntu 19.04
-  # Waiting for ubuntu 20.04
-- name: Download and extract exa
-  unarchive:
-    # NB : There is no deb package for exa, nor any permalink to the latest version
-    src: https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
-    dest: "{{ remote_directory }}/exa/"
-    remote_src: true
-  when: ansible_os_family == 'Debian'
-
-- name: Copy exa binary
-  copy:
-    src: "{{ remote_directory }}/exa/exa-linux-x86_64"
-    dest: "{{ remote_directory }}/local_bin/exa"
-    mode: 0755
-  when: ansible_os_family == 'Debian'
-
 - name: Setup the loading via .bashrc
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.bashrc"
@@ -177,8 +140,3 @@
     url:  https://raw.githubusercontent.com/thameera/vimv/master/vimv
     dest: "{{ remote_directory }}/"
     mode: 0755
-
-- name: Cleanup old configs
-  import_tasks: cleanup.yml
-  tags: tmux
-
