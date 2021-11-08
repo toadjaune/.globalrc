@@ -12,6 +12,7 @@ General issues that need solving :
 Fixed manually, to automate :
 * install brew
 * install qwerty-lafayette
+* install md5sum (for old prompt)
 
 Nice stuff :
 * Dead keys representation in text fields

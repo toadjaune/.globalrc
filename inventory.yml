@@ -17,9 +17,9 @@ all:
       ansible_connection: local
       desktop: true
 
-    # Ubuntu
-    arnaud-venturi:
-      expected_hostname: arnaud-venturi
+    # MacOS
+    arnaudventuri:
+      expected_hostname: arnaudventuri
       ansible_connection: local
-      desktop: true
+      # desktop: true
 
