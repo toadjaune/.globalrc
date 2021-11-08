@@ -31,35 +31,31 @@
     recursive:  true
     delete:     true
     perms:      true
-    rsync_opts:
-      - "--exclude=*.swp" # vim tempfiles
   tags: always
 
 - name: Create templates directory
   file:
     state:  directory
-    dest:   '{{ remote_directory }}/templates'
+    dest:   "{{ remote_directory }}/templates"
 
-- name: Create templates directory structure
-  file:
-    state: directory
-    dest: '{{ remote_directory }}/templates/{{ item.path }}'
-  with_filetree: '../templates'
-  when: item.state == 'directory'
-
-# TODO : This section is to remove, we're going to process templates separately
-- name: Process templates
+- name: Process templates going into "templates" directory
   template:
-    src: '{{ item.src }}'
-    dest: '{{ remote_directory }}/templates/{{ item.path }}'
-  with_filetree: '../templates'
-  when: item.state == 'file' and not (item.path | regex_search('.swp'))
+    src:  "{{ item }}"
+    dest: "{{ remote_directory }}/templates/{{ item }}"
   tags: always
+  with_items:
+    - bazshrc.sh
+    - gitconfig
+    - inputrc
+    - ssh_config
+    - sshrc
+    - tmux.conf
+    - zshrc
 
 - name: Create the local_bin directory
   file:
     state: directory
-    dest: '{{ remote_directory }}/local_bin'
+    dest: "{{ remote_directory }}/local_bin"
 
 # NB: Nothing is done to remove executables added by previous versions or by the user
 - name: Download programs in local_bin directory
