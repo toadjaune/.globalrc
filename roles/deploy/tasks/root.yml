@@ -19,6 +19,7 @@
       - mosh
       - curl
       - exa
+      - prettyping
   when: have_root and ansible_os_family == 'Debian'
 
 - name: Install zsh and usual tools (RedHat)
@@ -34,6 +35,7 @@
       - mosh
       - curl
       - exa
+      - prettyping
   become: true
   when: have_root and ansible_os_family == "RedHat"
 
@@ -50,6 +52,7 @@
       - mosh
       - curl
       - exa
+      - prettyping
   become: true
   when: have_root and ansible_os_family == "Archlinux"
 

@@ -11,8 +11,12 @@ General issues that need solving :
 
 Fixed manually, to automate :
 * install brew
-* install qwerty-lafayette
-* install md5sum (for old prompt)
+* install with brew :
+  * qwerty-lafayette
+  * md5sum (for old prompt)
+  * prettyping
+  * exa
+
 
 Nice stuff :
 * Dead keys representation in text fields
@@ -49,15 +53,11 @@ such as : https://cirw.in/blog/bracketed-paste
 
 Nice tools :
   * https://remysharp.com/2018/08/23/cli-improved
-  * exa (better ls)
   * lnav (log navigator)
   * https://github.com/nitefood/asn -> ASN, BGP, réputations IP, etc…
   * gping (https://github.com/orf/gping)
 
 
 Power management : tlp
-
-* Media keys
-  * pulseaudio-ctl ?
 
 * Install required libs solokeys

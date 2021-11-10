@@ -57,14 +57,20 @@
     state: directory
     dest: "{{ remote_directory }}/local_bin"
 
-# NB: Nothing is done to remove executables added by previous versions or by the user
-- name: Download programs in local_bin directory
-  get_url:
-    url:  "{{ item }}"
-    dest: "{{ remote_directory }}/local_bin/"
-    mode: 0755
-  with_items:
-    - https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+# # NB: Nothing is done to remove executables added by previous versions or by the user
+# - name: Download programs in local_bin directory
+#   get_url:
+#     url:  "{{ item }}"
+#     dest: "{{ remote_directory }}/local_bin/"
+#     mode: 0755
+#   with_items:
+#     - https://path/to/some/bin
+
+# TODO : cleanup task, remove eventually
+- name: Remove manually-installed prettyping
+  file:
+    path: "{{ remote_directory }}/local_bin/prettyping"
+    state: absent
 
 - name: Setup the loading via .bashrc
   blockinfile:
