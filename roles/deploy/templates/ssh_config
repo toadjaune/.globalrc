@@ -11,8 +11,16 @@ Host github.com gitlab.com
 Host *
   User root
   Port 22
+
   # Automatically add unlocked keys to running ssh-agent
   AddKeysToAgent yes
+
+  {% if ansible_system == "Darwin" %}
+  # Allow using the MacOS keychain as a ssh-agent
+  # NB : This makes the keychain to permanently store the ssh key passphrase
+  # cf : https://apple.stackexchange.com/a/250572/439540
+  UseKeychain yes
+  {% endif %}
 
 # Crypto hardening
 # Based on https://stribika.github.io/2015/01/04/secure-secure-shell.html
