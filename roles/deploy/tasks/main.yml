@@ -80,8 +80,13 @@
       # Load custom configuration
       . {{ remote_directory }}/files/bashrc
 
-- name: Start the components requiring root access
-  import_tasks:  root.yml
+- name: Install packages
+  import_tasks:  packages.yml
+
+- name: Set zsh as default shell
+  user:
+    name:   "{{ ansible_user_id }}"
+    shell:  /bin/zsh
   become:   true
   when:     have_root | bool
 

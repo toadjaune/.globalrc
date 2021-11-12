@@ -1,0 +1,61 @@
+
+- name: Install zsh and usual tools (RedHat)
+  dnf:
+    name:
+      - zsh
+      - git
+      # TODO: If we're on a desktop, install vim with clipboard support (vimx ?)
+      - vim
+      - screen
+      - tmux
+      - most
+      - mosh
+      - curl
+      - exa
+      - prettyping
+  become: true
+  when: have_root and ansible_os_family == "RedHat"
+
+- name: install zsh and usual tools (Archlinux)
+  pacman:
+    name:
+      - zsh
+      - git
+      # TODO: if we're on a desktop, install vim with clipboard support (vimx ?)
+      - vim
+      - screen
+      - tmux
+      - most
+      - mosh
+      - curl
+      - exa
+      - prettyping
+  become: true
+  when: have_root and ansible_os_family == "Archlinux"
+
+- name: Install zsh and usual tools (Debian)
+  apt:
+    update_cache:     true
+    cache_valid_time: 3600
+    name:
+      - zsh
+      - git
+      # TODO: If we're on a desktop, install vim with clipboard support (vim-gui-common)
+      - vim
+      - screen
+      - tmux
+      - most
+      - mosh
+      - curl
+      - exa
+      - prettyping
+  when: have_root and ansible_os_family == 'Debian'
+
+  # TODO : Install brew
+- name: Install usual tools (Darwin)
+  homebrew:
+    name:
+      - md5sha1sum # for command md5sum
+      - exa
+      - prettyping
+    state: present

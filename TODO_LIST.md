@@ -11,11 +11,7 @@ General issues that need solving :
 
 Fixed manually, to automate :
 * install brew
-* install with brew :
-  * qwerty-lafayette
-  * md5sum (for old prompt)
-  * prettyping
-  * exa
+* install qwerty-lafayette
 
 
 Nice stuff :
