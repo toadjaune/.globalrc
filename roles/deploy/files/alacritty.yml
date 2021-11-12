@@ -14,16 +14,10 @@ env:
 
 font:
   normal:
-    family: "UbuntuMono Nerd Font Mono"
-  bold:
-    family: "UbuntuMono Nerd Font Mono"
-    style:  Bold
-  italic:
-    family: "UbuntuMono Nerd Font Mono"
-    style:  Italic
+    family: "MesloLGS NF"
   size: 12
 
-# Disable live relaoading because :
+# Disable live reloading because :
 # - It's not really useful in my config modification workflow
 # - I'm actually happy not to ruin the shell I'm changing the config from while I'm doing it
 live_config_reload: false

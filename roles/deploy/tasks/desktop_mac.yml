@@ -8,7 +8,18 @@
 
 ### Fonts ###
 
-# TODO
+# Recommended fonts for powerlevel10k
+# NB : Those will get downloaded but never updated if the source changes. Fine, I guess ?
+- name: Download MelsoLGS fonts
+  get_url:
+    dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item.filename}}"
+    url: "{{ item.url }}"
+  loop:
+    - { filename: "MesloLGS NF Regular.ttf",      url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"}
+    - { filename: "MesloLGS NF Bold.ttf",         url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"}
+    - { filename: "MesloLGS NF Italic.ttf",       url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"}
+    - { filename: "MesloLGS NF Bold Italic.ttf",  url: "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"}
+
 
 ### Alacritty ###
 
@@ -26,4 +37,3 @@
 ### sway ###
 
 # TODO : find some tiling window manager and set it up
-
