@@ -9,17 +9,16 @@ all:
     valoo:
       expected_hostname: valoo
       ansible_connection: local
-      desktop: true
+      desktop_linux: true
 
     # Manjaro
     smaug:
       expected_hostname: smaug
       ansible_connection: local
-      desktop: true
+      desktop_linux: true
 
     # MacOS
     arnaudventuri:
       expected_hostname: arnaudventuri
       ansible_connection: local
-      # desktop: true
 

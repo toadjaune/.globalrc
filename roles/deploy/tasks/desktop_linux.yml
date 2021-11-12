@@ -1,4 +1,4 @@
-### Package manager
+### Package manager ###
 
 - name: Install graphical packages (RedHat)
   dnf:
@@ -258,7 +258,6 @@
     src:    "sway_config"
     dest:   "{{ ansible_user_dir }}/.config/sway/config"
   notify: Reload sway config
-
 
   # Insert emoji into any text field with rofi
 - name: Install rofimoji

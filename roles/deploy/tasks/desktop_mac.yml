@@ -1,0 +1,29 @@
+### Package manager ###
+
+# Not much to be done here, the distinction between desktop and server doesn't make sense for a mac, and we already install what we need in "packages.yml"
+
+### Keyboard layouts ###
+
+# TODO : install querty-lafayette here
+
+### Fonts ###
+
+# TODO
+
+### Alacritty ###
+
+- name: Load alacritty config via .config/alacritty.yml
+  file:
+    state:  link
+    follow: false
+    src:    "{{ remote_directory }}/files/alacritty.yml"
+    dest:   "{{ ansible_user_dir }}/.config/alacritty.yml"
+
+### Graphical environment Themes ###
+
+# N/A to Mac
+
+### sway ###
+
+# TODO : find some tiling window manager and set it up
+

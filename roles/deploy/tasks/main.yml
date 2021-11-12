@@ -111,9 +111,14 @@
       [core]
         excludesfile = {{ remote_directory }}/files/gitignore
 
-- name: Install various x configurations
-  import_tasks: desktop.yml
-  when: desktop | bool
+- name: Install desktop-specific stuff (linux)
+  import_tasks: desktop_linux.yml
+  when: desktop_linux | bool
+  tags: desktop
+
+- name: Install desktop-specific stuff (Mac)
+  import_tasks: desktop_mac.yml
+  when: ansible_system == "Darwin"
   tags: desktop
 
 - name: Install zsh configuration

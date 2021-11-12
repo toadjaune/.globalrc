@@ -5,7 +5,7 @@ remote_directory:   "{{ ansible_user_dir }}/.globalrc"
 have_root:  false
 
 # Set this to true if the machine has a graphical interface (X server, etc…). It skips useless steps.
-desktop: false
+desktop_linux: false
 
 # add a custom wrapper in /usr/local/bin/ to start electron programs through native wayland
 # NB : There is no check that the corresponding program is actually installed, so we may
