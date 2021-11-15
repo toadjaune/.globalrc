@@ -8,6 +8,25 @@
 
 ### Fonts ###
 
+- name: Create font-related directories
+  file:
+    state:  directory
+    dest:   "{{ item }}"
+  loop:
+    - "{{ remote_directory }}/fonts"
+
+- name: Include custom fonts directory
+  file:
+    state:  link
+    src:    "{{ remote_directory }}/fonts/"
+    dest:   "{{ ansible_user_dir }}/Library/Fonts/globalrc_fonts"
+
+- name: Include custom fonts directory
+  file:
+    state:  link
+    src:    "{{ remote_directory }}/fonts/"
+    dest:   "{{ ansible_user_dir }}/Library/Fonts/globalrc_fonts"
+
 - name: Download MelsoLGS fonts
   get_url:
     dest:     "{{ ansible_user_dir }}/Library/Fonts/{{ item.name }}"
