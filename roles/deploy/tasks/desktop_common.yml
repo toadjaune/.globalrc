@@ -1,0 +1,42 @@
+### Fonts ###
+
+# TODO : remove, eventually
+- name: Cleanup old font directories
+  file:
+    path:   "{{ item }}"
+    state:  absent
+  loop:
+    - "{{ remote_directory }}/font_archives"
+    - "{{ remote_directory }}/fonts"
+
+# NB : We'd prefer this to be a symlink to a directory in .globalrc, but MacOS doesn't follow such symlinks
+- name: Create custom fonts directory
+  file:
+    state:  directory
+    path:   "{{ fonts_install_path }}"
+
+# Recommended fonts for powerlevel10k
+# NB : With this setup, we don't re-download the files unless the hardcoded hashes are changed.
+# This means that if the files change, we'll only notice it on a fresh install (it will error until the hashes are fixed),
+# but once the hashes are fixed, all machines will pick the change at their next deploy.
+# The font files are expected to basically never change, so this should be alright
+- name: Download MelsoLGS fonts
+  get_url:
+    dest:     "{{ fonts_install_path }}/{{ item.name }}"
+    url:      "{{ item.url }}"
+    checksum: "sha1:{{ item.sha1 }}"
+    mode:     "0644"
+  notify: Regenerate font cache
+  loop:
+    - name: "MesloLGS NF Regular.ttf"
+      url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+      sha1: "2cef6d3ee216de1ad9d407bb6e1ed404f4f301a6"
+    - name: "MesloLGS NF Bold.ttf"
+      url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+      sha1: "a5d4ad42d8f98ff77cb4bcc3909c2a8a31332f50"
+    - name: "MesloLGS NF Italic.ttf"
+      url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+      sha1: "1481b36a337606150eaeee05a95d4fe0f28491f8"
+    - name: "MesloLGS NF Bold Italic.ttf"
+      url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+      sha1: "0a27ce454ae58c7f8b8769843a2e286309f3a967"

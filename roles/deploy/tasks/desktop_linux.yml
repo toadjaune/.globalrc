@@ -162,41 +162,6 @@
   register: keyboard_layout_after
   notify: keyboard_config
 
-### Fonts ###
-
-- name: Cleanup old font archives directory
-  file:
-    path:   "{{ remote_directory }}/font_archives"
-    state:  absent
-
-- name: Create font-related directories
-  file:
-    state:  directory
-    dest:   "{{ item }}"
-  loop:
-    - "{{ remote_directory }}/fonts"
-    - "{{ ansible_user_dir }}/.local/share/fonts"
-
-- name: Include custom fonts directory
-  file:
-    state:  link
-    src:    "{{ remote_directory }}/fonts/"
-    dest:   "{{ ansible_user_dir }}/.local/share/fonts/globalrc_fonts"
-
-# Recommended fonts for powerlevel10k
-# NB : With this setup, we don't re-download the files unless the hardcoded hashes are changed.
-# This means that if the files change, we'll only notice it on a fresh install (it will error until the hashes are fixed),
-# but once the hashes are fixed, all machines will pick the change at their next deploy.
-# The font files are expected to basically never change, so this should be alright
-- name: Download MelsoLGS fonts
-  get_url:
-    dest:     "{{ ansible_user_dir }}/Library/Fonts/{{ item.name }}"
-    url:      "{{ item.url }}"
-    checksum: "sha1:{{ item.sha1 }}"
-    mode:     "0644"
-  notify: Regenerate font cache
-  loop: "{{ fonts }}"
-
 ### Alacritty ###
 
 - name: Load alacritty config via .config/alacritty.yml

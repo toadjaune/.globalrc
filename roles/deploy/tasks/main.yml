@@ -111,6 +111,11 @@
       [core]
         excludesfile = {{ remote_directory }}/files/gitignore
 
+- name: Install desktop-specific stuff (common)
+  import_tasks: desktop_common.yml
+  when: (desktop_linux | bool) or ansible_system == "Darwin"
+  tags: desktop
+
 - name: Install desktop-specific stuff (linux)
   import_tasks: desktop_linux.yml
   when: desktop_linux | bool

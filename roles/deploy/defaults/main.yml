@@ -47,16 +47,6 @@ extra_ssh_config: ""
 sway_output_custom_1: "nop 'Mode not defined'"
 sway_output_custom_2: "nop 'Mode not defined'"
 
-fonts:
-  - name: "MesloLGS NF Regular.ttf"
-    url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
-    sha1: "2cef6d3ee216de1ad9d407bb6e1ed404f4f301a6"
-  - name: "MesloLGS NF Bold.ttf"
-    url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
-    sha1: "a5d4ad42d8f98ff77cb4bcc3909c2a8a31332f50"
-  - name: "MesloLGS NF Italic.ttf"
-    url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
-    sha1: "1481b36a337606150eaeee05a95d4fe0f28491f8"
-  - name: "MesloLGS NF Bold Italic.ttf"
-    url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
-    sha1: "0a27ce454ae58c7f8b8769843a2e286309f3a967"
+# On both OS, we can just dump ttf files in a directory, only the path changes
+fonts_install_path: "{{ ansible_user_dir }}/{{ (ansible_system == 'Darwin') | ternary ('Library/Fonts', '.local/share/fonts') }}/globalrc_fonts"
+
