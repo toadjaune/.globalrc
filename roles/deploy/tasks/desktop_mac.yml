@@ -1,6 +1,14 @@
 ### Package manager ###
 
-# Not much to be done here, the distinction between desktop and server doesn't make sense for a mac, and we already install what we need in "packages.yml"
+  # NB : since the desktop/server distinction doesn't make sense for a mac, we install all packages here, and none in packages.yml
+  # TODO : Install brew
+- name: Install usual tools (Darwin)
+  homebrew:
+    name:
+      - md5sha1sum # for command md5sum
+      - exa
+      - prettyping
+    state: present
 
 ### Keyboard layouts ###
 

@@ -51,11 +51,3 @@
       - prettyping
   when: have_root and ansible_os_family == 'Debian'
 
-  # TODO : Install brew
-- name: Install usual tools (Darwin)
-  homebrew:
-    name:
-      - md5sha1sum # for command md5sum
-      - exa
-      - prettyping
-    state: present
