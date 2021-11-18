@@ -23,6 +23,8 @@
       - md5sha1sum # for command md5sum
       - exa
       - prettyping
+
+      - koekeishiya/formulae/yabai # tiling window manager
     state: present
 
 ### Keyboard layouts ###
@@ -42,6 +44,9 @@
 
 # N/A to Mac
 
-### sway ###
+### yabai ###
 
-# TODO : find some tiling window manager and set it up
+# NB : we're not setting up the scripting addition because :
+# * it requires disabling SIP, which is not advisable security-wise
+# * it doesn't support M1 Macs anyway
+
