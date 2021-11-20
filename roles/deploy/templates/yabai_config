@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+# Switch to tiling mode
+yabai -m config layout bsp
+

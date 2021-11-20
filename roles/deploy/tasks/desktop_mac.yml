@@ -50,3 +50,14 @@
 # * it requires disabling SIP, which is not advisable security-wise
 # * it doesn't support M1 Macs anyway
 
+- name: Create yabai config directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/yabai"
+
+- name: Create yabai config file
+  template:
+    src:  "yabai_config"
+    dest: "{{ ansible_user_dir }}/.config/yabai/config"
+    mode: 0755
+
