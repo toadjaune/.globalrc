@@ -2,7 +2,7 @@
 
 # NB : since the desktop/server distinction doesn't make sense for a mac, we install all packages here, and none in packages.yml
 # TODO : Install brew itself
-- name: Install usual tools (Darwin)
+- name: Install desktop packages (Darwin)
   homebrew:
     name:
       # NB : alacritty homebrew install is currently unsigned and x86
@@ -24,7 +24,11 @@
       - exa
       - prettyping
 
-      - koekeishiya/formulae/yabai # tiling window manager
+      # NB : those need to be enabled manually with :
+      # * brew services start yabai
+      # * brew services start skhd
+      - koekeishiya/formulae/yabai  # tiling window manager
+      - koekeishiya/formulae/skhd   # hotkey daemon
     state: present
 
 ### Keyboard layouts ###
@@ -44,7 +48,7 @@
 
 # N/A to Mac
 
-### yabai ###
+### yabai & skhd ###
 
 # NB : we're not setting up the scripting addition because :
 # * it requires disabling SIP, which is not advisable security-wise
@@ -56,8 +60,18 @@
     dest:   "{{ ansible_user_dir }}/.config/yabai"
 
 - name: Create yabairc
-  template:
+  copy:
     src:  "yabairc"
     dest: "{{ ansible_user_dir }}/.config/yabai/yabairc"
     mode: 0755
+
+- name: Create skhd config directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/skhd"
+
+- name: Create skhdrc
+  copy:
+    src:  "skhdrc"
+    dest: "{{ ansible_user_dir }}/.config/skhd/skhdrc"
 
