@@ -55,9 +55,9 @@
     state:  directory
     dest:   "{{ ansible_user_dir }}/.config/yabai"
 
-- name: Create yabai config file
+- name: Create yabairc
   template:
-    src:  "yabai_config"
-    dest: "{{ ansible_user_dir }}/.config/yabai/config"
+    src:  "yabairc"
+    dest: "{{ ansible_user_dir }}/.config/yabai/yabairc"
     mode: 0755
 

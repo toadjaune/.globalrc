@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+# Switch to tiling mode
+yabai -m config layout bsp
+
+# Switch the focus to the window hovered my the mouse
+yabai -m config focus_follows_mouse autofocus
+
