@@ -1,2 +1,3 @@
-#!/bin/bash
 
+# Open a terminal
+cmd - return : open -n -a "Alacritty.app"
