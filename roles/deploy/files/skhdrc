@@ -1,3 +1,7 @@
+# skhd config file
+# used to program keyboard shortcuts
+# list of modifiers and literals : https://github.com/koekeishiya/skhd/issues/1
+# reference config file : https://github.com/koekeishiya/skhd/blob/master/examples/skhdrc
 
 # Open a terminal
 cmd - return : open -n -a "Alacritty.app"

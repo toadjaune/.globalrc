@@ -33,7 +33,18 @@
 
 ### Keyboard layouts ###
 
-# TODO : install querty-lafayette here
+- name: Create custom fonts directory
+  file:
+    state:  directory
+    path:   "{{ ansible_user_dir }}/Library/Keyboard Layouts"
+
+# NB : this makes the layout available, you still have to select it in options
+- name: Download qwerty-lafayette
+  get_url:
+    dest:     "{{ ansible_user_dir }}/Library/Keyboard Layouts/"
+    url:      https://qwerty-lafayette.org/releases/lafayette_macosx_v0.6.keylayout
+    checksum: "sha1:a0492cd50b8118a304a462de067825f40a689c28"
+    mode:     "0644"
 
 ### Alacritty ###
 
