@@ -29,6 +29,10 @@
       # * brew services start skhd
       - koekeishiya/formulae/yabai  # tiling window manager
       - koekeishiya/formulae/skhd   # hotkey daemon
+      # NB : install currently doesn't work
+      # NB : cf https://karabiner-elements.pqrs.org/docs/getting-started/installation/ for initial setup
+      # TODO : skhd and karabiner are redundant. Make a choice
+      # - karabiner-elements          # keyboard customization
     state: present
 
 ### Keyboard layouts ###
@@ -81,8 +85,18 @@
     state:  directory
     dest:   "{{ ansible_user_dir }}/.config/skhd"
 
-- name: Create skhdrc
+- name: Configure skhdrc
   copy:
     src:  "skhdrc"
     dest: "{{ ansible_user_dir }}/.config/skhd/skhdrc"
+
+- name: Create karabiner config directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/karabiner"
+
+- name: Configure karabiner.json
+  copy:
+    src:  "karabiner.json"
+    dest: "{{ ansible_user_dir }}/.config/karabiner/karabiner.json"
 
