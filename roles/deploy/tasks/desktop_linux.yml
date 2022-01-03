@@ -20,8 +20,12 @@
       - wdisplays             # Graphical tool for monitors setup
       - alacritty             # GPU-based terminal emulator
 
+      # Technical tools required for later desktop setup
+      - python3-pip
+
       # graphical theme
-      - adwaita-qt
+      # Looks now already installed
+      # - adwaita-qt
 
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian and arch packages (seems installed by default on Ubuntu and Manjaro)
