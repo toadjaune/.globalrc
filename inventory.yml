@@ -11,9 +11,9 @@ all:
       ansible_connection: local
       desktop_linux: true
 
-    # Manjaro
-    smaug:
-      expected_hostname: smaug
+    # Fedora
+    spacerig:
+      expected_hostname: spacerig
       ansible_connection: local
       desktop_linux: true
 
