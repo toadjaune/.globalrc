@@ -2,6 +2,13 @@
 
 # NB : This version lazy-loads the gcloud completion at first tab press, but only works at the second
 
-# TODO: add existence test ?
-source /usr/share/google-cloud-sdk/completion.zsh.inc
+if [[ -v HOMEBREW_PREFIX ]] ; then
+  # If there is a brew prefix defined, we assume gcloud was installed through brew
+  # echo "globalrc : loading gcloud completion at $HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+  source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+else
+  # Otherwise, we assume we're on linux and gcloud was installed through system packages
+  # echo "globalrc : loading /usr/share/google-cloud-sdk/completion.zsh.inc"
+  source /usr/share/google-cloud-sdk/completion.zsh.inc
+fi
 
