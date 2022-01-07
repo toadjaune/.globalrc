@@ -66,6 +66,7 @@ key_bindings:
   # cf https://github.com/alacritty/alacritty/issues/5755
   # Basically, the Alt layer is fucked up, and alacritty sends Alt+char instead of char
   # We hardcode here the parts of the Alt layer that we use as a workaround
+  # NB : I'm not sure if this is ignored on Linux or if it's interpreted as Alt, but either way, it doesn't seem to break anything, so...
   - { key: 13,  mods: Option, chars: "<" }
   - { key: 14,  mods: Option, chars: ">" }
   - { key: 0,   mods: Option, chars: "{" }
