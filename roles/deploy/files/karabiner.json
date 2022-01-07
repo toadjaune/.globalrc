@@ -16,11 +16,11 @@
                 },
                 "rules": [
                     {
-                        "description": "Ctrl Key → Hyper Key (⌃⌥⇧⌘)",
+                        "description": "Right Alt → Ctrl + Alt",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "left_control",
+                                    "key_code": "left_option",
                                     "modifiers": {
                                         "optional": [
                                             "caps_lock"
@@ -29,11 +29,9 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "left_shift",
+                                        "key_code": "left_option",
                                         "modifiers": [
-                                            "left_command",
-                                            "left_control",
-                                            "left_option"
+                                            "left_control"
                                         ]
                                     }
                                 ],
