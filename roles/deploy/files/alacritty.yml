@@ -62,3 +62,14 @@ key_bindings:
   # NB : This is the actual Ctrl-W character, not an escape sequence
   - { key: Back, mods: Control, chars: "" }
 
+  # This is an ugly workaround for MacOS
+  # cf https://github.com/alacritty/alacritty/issues/5755
+  # Basically, the Alt layer is fucked up, and alacritty sends Alt+char instead of char
+  # We hardcode here the parts of the Alt layer that we use as a workaround
+  - { key: 13,  mods: Option, chars: "<" }
+  - { key: 14,  mods: Option, chars: ">" }
+  - { key: 0,   mods: Option, chars: "{" }
+  - { key: 1,   mods: Option, chars: "[" }
+  - { key: 2,   mods: Option, chars: "]" }
+  - { key: 3,   mods: Option, chars: "}" }
+
