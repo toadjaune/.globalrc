@@ -1,5 +1,11 @@
 #!/bin/zsh
 
+# To get started with your own zshrc, start with the following script :
+# (it is the one run by default by zsh at shell startup if you have no zshrc)
+# `zsh /usr/share/zsh/functions/Newuser/zsh-newuser-install -f`
+#
+# Many options here were extracted from gmrl conf. See https://grml.org/zsh/
+
 ### begin VERY early initialization
 
 # Disable flow control, to free C-S and C-Q
@@ -8,18 +14,12 @@ stty -ixon
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# confirmations, etc.) must go above this block; everything else should go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 ### end VERY early initialization
-
-# To get started with your own zshrc, start with the following script :
-# (it is the one run by default by zsh at shell startup if you have no zshrc)
-# `zsh /usr/share/zsh/functions/Newuser/zsh-newuser-install -f`
-#
-# Many options here were extracted from gmrl conf. See https://grml.org/zsh/
 
 # Places you into current directory
 pushd $(dirname $0) > /dev/null
@@ -95,6 +95,7 @@ setopt pushd_ignore_dups
 
 ### Begin completion pre-configuration ###
 
+# TODO : document the meaning of each of those lines
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -191,7 +192,6 @@ source p10k.zsh
 ### List of plugins ###
 
 # Fish-like history-based suggestions
-# TODO : Use ansible templating instead of this variable
 source "{{ remote_directory }}/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Community packaging of completions for common programs
@@ -248,11 +248,11 @@ ZSH_HIGHLIGHT_STYLES+=(
 )
 
 ### zsh-autosuggestions ###
-ZSH_AUTOSUGGEST_USE_ASYNC=1         # fetch suggestions asynchronously
+ZSH_AUTOSUGGEST_USE_ASYNC=1         # fetch suggestions asynchronously (only required for zsh < 5.0.8, default afterwards)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=200 # Disable suggestions past a certain command length
 
-# We're not savages so we manually bind the wigets once, at initialization, instead of at
-# every single precmd
+# We're not savages so we manually bind the wigets once, at initialization, instead of at every single precmd
+# This MUST be executed after all other zle widget initializations
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 _zsh_autosuggest_bind_widgets
 
@@ -291,8 +291,7 @@ bindkey '^[f' history-incremental-pattern-search-backward
 
 # use generic completion system for programs not yet defined; (_gnu_generic works
 # with commands that provide a --help option with "standard" gnu-like output.)
-for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv \
-               pal stow uname ; do
+for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv pal stow uname ; do
     [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
 done; unset compcom
 

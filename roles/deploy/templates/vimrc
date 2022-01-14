@@ -227,6 +227,8 @@ set noswapfile
 " Make vim use the system clipboard ("+) by default
 " See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 " set clipboard=unnamedplus
+
+" We actually prefer to have specific distinct mappings for interacting with system clipboard
 noremap <leader>y  "+y
 noremap <leader>Y  "+Y
 noremap <leader>p  "+p
@@ -255,7 +257,7 @@ nnoremap <silent> <leader>f :NERDTreeFind<CR>
 " Space alone doesn't do anything
 nnoremap <Space> <nop>
 
-" Movement keys for bépo with Alt (Issues with <A-> and <M-> notations ...)
+" Movement keys with Alt (Issues with <A-> and <M-> notations ...)
 " See :help mapmode-l for lnoremap
 noremap  {{ key_rh_left  }} <left>
 noremap  {{ key_rh_down  }} <down>
