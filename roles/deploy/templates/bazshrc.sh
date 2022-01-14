@@ -64,7 +64,6 @@ alias fgrep='fgrep --color=auto'
 alias rgrep='rgrep --color=auto'
 
 # security aliases
-alias rm='rm --preserve-root'
 alias shred='shred -n 35 -z -u -v'
 
 # Movements to parent directories
