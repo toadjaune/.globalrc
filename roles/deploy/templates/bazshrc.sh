@@ -127,6 +127,8 @@ alias rescue_ssh="\ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=
 
 # Way too long commands
 alias tf="terraform"
+alias tg="terragrunt"
+alias ku="kubectl"
 
 # Docker aliases
 alias stop_docker="docker ps | awk '{ print \$1 }' | grep -v '^CONTAINER' | xargs docker stop"
