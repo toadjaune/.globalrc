@@ -98,7 +98,19 @@ mode $mode_output {
     bindcode $h output '*' enable , mode "default"
 
     # Primary-only, ie laptop screen only
-    bindcode $j output '*' disable , output $output_primary enable , mode "default"
+    # NB :
+    # * we can't just disable * then enable the only screen we want, because then it leaves a phase with no screen
+    # * there's no regexp support in screen selection, so we have no easy way to say "disable everything but this screen"
+    # For this reason. we resort to shelling out ...
+    # bindcode $j output '*' disable , output $output_primary enable , mode "default"
+    bindcode $j \
+      output $output_primary enable , \
+      exec \
+        swaymsg -t get_outputs -r | \
+        jq -r '.[] | "output \(.name) disable ,"' | \
+        grep -v "$output_primary" | \
+        xargs swaymsg , \
+      mode "default"
 
     # Custom modes, depending on the specific setup (multiple screens, disable laptop screen or not, etc...)
     bindcode $k {{ sway_output_custom_1 }} , mode "default"
