@@ -21,8 +21,14 @@ fi
 
 ### Begin definitions ###
 
-# Add scripts to $PATH
-PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:$PATH"
+# Redefine $PATH to the following stuff (in this order) :
+# * $GLOBALRC/local_bin       : custom executables installed manually by the user
+# * $GLOBALRC/files/scripts/  : custom executables installed with ansible
+# * ~/.cargo/bin              : Programs user-installed through `cargo install`
+# * $PATH                     : Default OS search path
+#
+# Please note that this is only applied in a shell environment, not anything started graphically or by the OS
+export PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:{{ ansible_user_dir }}/.cargo/bin:$PATH"
 
 if command -v most >/dev/null 2>&1 ; then
   export PAGER="most"

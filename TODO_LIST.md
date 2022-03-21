@@ -52,6 +52,7 @@ Nice tools :
   * lnav (log navigator)
   * https://github.com/nitefood/asn -> ASN, BGP, réputations IP, etc…
   * gping (https://github.com/orf/gping)
+  * difftastic (https://github.com/wilfred/difftastic)
 
 
 Power management : tlp
