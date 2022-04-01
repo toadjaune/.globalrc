@@ -5,22 +5,9 @@
 - name: Install desktop packages (Darwin)
   homebrew:
     name:
-      # NB : alacritty homebrew install is currently unsigned and x86
-      # The upstream releases should eventually become a universal binary (waiting for rust 1.49)
-      # In the meantime, we install rust with with brew, and then build it ourselves, it gives an arm build
-      # cf https://github.com/alacritty/alacritty/pull/4683
-      #
-      # Build instructions :
-      # * git clone https://github.com/alacritty/alacritty.git
-      # * cd alacritty
-      # * make app
-      # * cp -r target/release/osx/Alacritty.app /Applications/
-      # * start alacritty with the right-click open on Finder and accept to add a security exception
-      #
-      # - alacritty
-      - rust # to manually build alacritty
+      - alacritty   # GPU-powered terminal emulator
 
-      - md5sha1sum # for command md5sum
+      - md5sha1sum  # for command md5sum
       - exa
       - prettyping
 
