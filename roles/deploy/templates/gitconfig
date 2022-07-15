@@ -8,6 +8,9 @@
   # Only push the current branch
   default = upstream
 
+  # Don't need to specify --set-upstream when pushing a new branch
+  autoSetupRemote = true
+
 [pull]
   # Abort pulling if local and remote have diverged
   ff = only
