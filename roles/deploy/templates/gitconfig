@@ -31,6 +31,11 @@
 [rerere]
   enabled = true
 
+[diff]
+  # cf https://difftastic.wilfred.me.uk/git.html
+  # TODO : automatically install difftastic
+  external = difft
+
 [mergetool]
   # Git, please, just stop dropping files in my working directory whenever I run `git mergetool`
   keepbackup = false
