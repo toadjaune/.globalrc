@@ -1,3 +1,41 @@
+# This file is kept for reference, in case I need to work on MacOS again, or just want to refer to it.
+
+# Things that were still TODO when I stopped using a Mac :
+#
+# General issues that need solving :
+# * find a tiling window manager
+# * copy-paste keyboard shortcuts
+# * screenshots with equivalent funtionality
+# * automatic focus of windows when hovering with mouse
+# * ssh-agent
+# * Ctrl-backspace to delete word
+# * The fact that Ctrl and Cmd are basically reversed between MacOS and *, leading to confusion when switching OSes
+#
+# Fixed manually, to automate :
+# * install brew
+# * install qwerty-lafayette
+#
+# Stuff that I found nice on MacOS, and wish I had on Linux
+# * Dead keys representation in (almost all) text fields
+# * Permission management across the system (popup to allow terminal to access downloads directory...)
+# * Per-app notification permissions
+# * maybe move rofi to cmd + space (this shortcut is cool)
+# * Consistent copy-paste shortcut across everything (including terminal)
+
+# Notes and references on tiling wm and input system :
+# * Notes on Apple keyboard layout configuration language (older but still valid, except next point)
+#   * https://developer.apple.com/library/archive/technotes/tn2056/_index.html#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION16
+# * Apple keyboard layout configuration language does not allow for differeciated Alt/AltGr keys
+#   * https://apple.stackexchange.com/questions/431564/keyboard-layout-with-differentiated-option-keys-alt-altgr
+# * Please note that (if I remember correctly) ukulele generates config files for that same language, so, same limitations
+# * Therefore, we need to use a lower-level workaround. Karabiner-elements seems to be the best option at this point.
+#   * I was thinking of adding a Karabiner output format to https://github.com/fabi1cazenave/kalamine. Kazé seems OK with it, but haven't done anything yet.
+# * skhd might be able to do it too. Unsure.
+#
+# * For a tiling wm, https://github.com/koekeishiya/yabai seems to be the best solution. A bit hacky but mostly works so far.
+#   * Maybe https://github.com/ianyh/Amethyst, otherwise
+#   * Manu : https://github.com/Manu-Tran/my-config/blob/mac_os/yabai/yabairc
+
 ### Package manager ###
 
 # NB : since the desktop/server distinction doesn't make sense for a mac, we install all packages here, and none in packages.yml
