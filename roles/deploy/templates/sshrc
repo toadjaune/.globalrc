@@ -19,9 +19,15 @@ fi
 
 # alacritty is usually not installed on the remote system, and therefore not present in the terminfo database
 # We want to override TERM in this case
-# TODO : maybe make an actual terminfo lookup ? And see if we can use xterm-256colors...
-if [ "$TERM" == "alacritty" ]; then
-  export TERM=xterm
+# If so, we try xterm-256color as a substitute
+# Otherwise, xterm should be present no matter what
+# refs : https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
+if ! infocmp $TERM &> /dev/null; then
+  if infocmp xterm-256color &> /dev/null; then
+    export TERM=xterm-256color
+  else
+    export TERM=xterm
+  fi
 fi
 
 # Check if the globalrc is installed, if so, abort everything
