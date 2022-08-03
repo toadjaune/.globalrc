@@ -17,11 +17,32 @@ if [[ $0 =~ 'bash' && -x '/usr/bin/zsh' ]]; then
   exec zsh
 fi
 
-# alacritty is usually not installed on the remote system, and therefore not present in the terminfo database
+# alacritty is usually not installed on the remote system, and therefore not present in the remote terminfo database
 # We want to override TERM in this case
 # If so, we try xterm-256color as a substitute
 # Otherwise, xterm should be present no matter what
 # refs : https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
+# Possible solutions to this problem :
+# * Override TERM in .sshrc (current) :
+#   * - Does not work for situations where ssh is invoked without sshrc (scripts, gcloud compute ssh, etc...)
+# * Copy terminfo file to remote with sshrc :
+#   * - Does not work for situations where ssh is invoked without sshrc (scripts, gcloud compute ssh, etc...)
+#   * - More complex to implement
+#   * + More exact capabilities than falling back to xterm-*
+# * Override TERM in ssh client config with SetEnv
+#   * - May break situations where the local terminal is not actually alacritty (console login ...)
+#   * - Applies the fallback inconditionally on the remote, even if it does indeed support your current terminal
+# * Override TERM in local shell startup files
+#   * - May break situations where the local terminal is not actually alacritty (console login ...) on local AND remote
+#   * - Applies the fallback inconditionally on the local AND remote, even if it does indeed support your current terminal
+# * Install alacritty terminfo on the remote
+#   * - Requires installing packages on the remote
+#   * + Simple
+#   * + Most exact solution
+# * Override TERM in remote shell startup files
+#   * - Requires editing files on the remote, especially problematic on shared servers
+#   * - Simple
+
 if ! infocmp $TERM &> /dev/null; then
   if infocmp xterm-256color &> /dev/null; then
     export TERM=xterm-256color
