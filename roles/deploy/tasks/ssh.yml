@@ -10,7 +10,8 @@
     insertafter: EOF
     block:  |
       # Loading global ssh configuration
-      Include {{ remote_directory }}/templates/ssh_config
+      Host *
+        Include {{ remote_directory }}/templates/ssh_config
 
 - name: Clone sshrc
   git:
