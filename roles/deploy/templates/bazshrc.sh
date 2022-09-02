@@ -45,7 +45,10 @@ export INPUTRC="{{ remote_directory }}/templates/inputrc"
 export SSHHOME="{{ remote_directory }}/files/sshrc"
 
 # SSH-agent setup, cf ssh-agent.service file
+# NB : on MacOS, the OS starts an agent automatically, do not override it with an invalid path
+{% if ansible_system != "Darwin" %}
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+{% endif %}
 
 # Make agent-forwarding work even when reattaching screen/tmux
 # NB : In case of multiple simultaneous connections with ssh agent forwarding
