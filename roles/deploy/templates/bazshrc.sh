@@ -13,6 +13,7 @@
 # Test for 256colors support
 # NB : I'm not certain if `tput colors` can output a value higher than 256, which would break this test
 # run `for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done` to see possible colors
+# tput can generally do a lot of capability testing and cursor movement, cf `man tput` and `man terminfo`
 if [[ $(tput colors) == '256' ]] ; then
   export GLOBALRC_256_COLORS='1'
 fi
