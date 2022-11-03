@@ -51,6 +51,8 @@ set $x 53
 set $c 54
 set $v 55
 set $b 56
+set $n 57
+set $m 58
 
 set $return 36
 set $space 65
@@ -415,6 +417,21 @@ bar {
 # * copies the resulting image to the screenshot directory with tee
 # * sends the image to the wayland clipboard with wl-copy
 bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
+
+# Mode to start most common programs
+set $mode_launch "launch"
+mode $mode_launch {
+    bindcode $f exec firefox,     mode "default"
+    bindcode $t exec thunderbird, mode "default"
+
+    # At the moment, we install spotify manually on fedora via flatpak : https://docs.fedoraproject.org/en-US/quick-docs/installing-spotify/
+    bindcode $s exec flatpak run com.spotify.Client, mode "default"
+
+    # back to normal: Enter or Escape
+    bindcode $return mode "default"
+    bindcode $escape mode "default"
+}
+bindcode $mod+$m mode "launch"
 
 # Mode to insert text directly
 set $mode_type "type"
