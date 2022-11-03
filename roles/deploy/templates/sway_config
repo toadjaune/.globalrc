@@ -93,7 +93,7 @@ mode $mode_output {
 
     # Dynamic dual-screen through rofi
     # TODO : Find a way to do this for wayland ?
-    # bindcode $left exec --no-startup-id ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout, mode "default"
+    # bindcode $left exec ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout, mode "default"
     # cf https://github.com/davatorium/rofi-scripts/blob/master/monitor_layout.sh
 
     # Reset everything. Useful if you have currently no display…
@@ -200,11 +200,11 @@ input "type:keyboard" {
     # set $menu dmenu_path | dmenu | xargs swaymsg exec --
     set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
     # Possible modi that might be interesting besides run and drun : ssh, window, combi
-    bindcode $mod+$d exec --no-startup-id rofi $rofi_common -modi run  -show run
-    bindcode $mod+$g exec --no-startup-id rofi $rofi_common -modi drun -show drun
+    bindcode $mod+$d exec rofi $rofi_common -modi run  -show run
+    bindcode $mod+$g exec rofi $rofi_common -modi drun -show drun
     # Rofimoji is currently broken
     # TODO : fix and rebind somewhere else
-    # bindcode $mod+$z exec --no-startup-id rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
+    # bindcode $mod+$z exec rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
 
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -449,7 +449,7 @@ bindcode $mod+$t mode "type"
 # # /usr/share/dbus-1/services/org.freedesktop.Notifications.service
 # # Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
 # # We currently use the default config
-# exec --no-startup-id dunst
+# exec dunst
 
 # TODO : Find a way to replicate this functionality, since the Wayland protocol prevents this by design
 # Will likely require explicit support from the compositor
@@ -457,5 +457,5 @@ bindcode $mod+$t mode "type"
 # This reduces the amount of blue light emitted by the screen based
 # on the time of the day
 # We currently use the default config
-# exec --no-startup-id redshift
+# exec redshift
 
