@@ -15,7 +15,7 @@
       - playerctl             # Command currently running player from the CLI / sway keybindings
       - playerctl-libs        # used by the mediaplayer.py script, to display currently playing content
       - xeyes                 # xeyes allows to know easily if a program is running through XWayland or not
-      - xdotool               # input text as if typed from the user
+      - wtype                 # input text as if typed from the user, wayland equivalent of xdotool
       - dunst                 # Notification daemon (NB : the version in ubuntu is too old to have wayland support)
       - wdisplays             # Graphical tool for monitors setup
       - alacritty             # GPU-based terminal emulator
@@ -50,7 +50,7 @@
       # - playerctl-libs # TODO
       - xorg-xeyes
       - xorg-xwayland # NB : not installed by default on arch
-      - xdotool
+      - wtype
       - dunst
       - wdisplays
 
@@ -79,7 +79,7 @@
       - playerctl
       - gir1.2-playerctl-2.0  # for mediaplayer.py
       - x11-apps              # Contains xeyes
-      - xdotool               # input text as if typed from the user
+      - wtype
       - dunst                 # NB : the version in ubuntu is too old to have wayland support
       - wdisplays
 

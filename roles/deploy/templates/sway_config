@@ -419,8 +419,7 @@ bar {
 bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
 
 # Mode to start most common programs
-set $mode_launch "launch"
-mode $mode_launch {
+mode "launch" {
     bindcode $f exec firefox,     mode "default"
     bindcode $t exec thunderbird, mode "default"
 
@@ -434,17 +433,15 @@ mode $mode_launch {
 bindcode $mod+$m mode "launch"
 
 # Mode to insert text directly
-set $mode_type "type"
-mode $mode_type {
+mode "type" {
     # type current date in iso 8601 format
-    # TODO : xdotool does work through XWayland, but only for windows going through XWayland themselves...
-    # TODO : replace with wtype (only packaged for ubuntu after 21.04)
-    bindcode $d exec xdotool type "$(date --iso-8601)", mode "default"
+    bindcode $d exec wtype "$(date --iso-8601)", mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
 }
+bindcode $mod+$t mode "type"
 
 # TODO : once we have a recent enough version of dunst everywhere, see how to start it with a systemd user unit ?
 # # Start dunst (notification daemon)
