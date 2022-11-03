@@ -202,9 +202,10 @@ input "type:keyboard" {
     # Possible modi that might be interesting besides run and drun : ssh, window, combi
     bindcode $mod+$d exec rofi $rofi_common -modi run  -show run
     bindcode $mod+$g exec rofi $rofi_common -modi drun -show drun
-    # Rofimoji is currently broken
-    # TODO : fix and rebind somewhere else
-    # bindcode $mod+$z exec rofimoji --insert-with-clipboard --rofi-args="$rofi_common"
+
+    # Type emoji in any text field
+    # NB : This currently does not work on firefox
+    bindcode $mod+$n exec rofimoji --selector-args="$rofi_common"
 
 
     # Drag floating windows by holding down $mod and left mouse button.
