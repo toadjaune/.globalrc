@@ -7,6 +7,7 @@
       - sway                  # Tiling window manager
       - swaylock              # trigger wayland lockscreen
       - rofi                  # Program launcher
+      - rofimoji              # Emoji picker
       - grim                  # Take a screenshot
       - slurp                 # Select a screen area, to pass to grim
       - wl-clipboard          # Interact with wayland clipboard (includes wl-copy)
@@ -41,6 +42,7 @@
       - sway
       - swaylock
       - rofi
+      - rofimoji
       - grim
       - slurp
       - wl-clipboard
@@ -235,13 +237,11 @@
   notify: Reload sway config
   tags: sway-config
 
-  # Insert emoji into any text field with rofi
 - name: Install rofimoji
   pip:
     name: git+https://github.com/fdw/rofimoji
-  become: true # We make a system install to be consistent with arch
-  when: have_root and ( ansible_os_family == "Debian" or ansible_os_family == "RedHat" )
-  # TODO : there is an arch package, add it somewhere
+  become: true
+  when: have_root and ( ansible_os_family == "Debian")
 
 - name: Create systemd user units directory
   file:
