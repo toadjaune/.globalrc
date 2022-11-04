@@ -66,6 +66,14 @@
 #   with_items:
 #     - https://path/to/some/bin
 
+# NB : brew and arch packages do already exist, as well as a snap
+# This re-downloads the archive at each execution. A bit overkill, but simple.
+- name: Download difftastic from github releases
+  unarchive:
+    src:  https://github.com/Wilfred/difftastic/releases/latest/download/difft-x86_64-unknown-linux-gnu.tar.gz
+    dest: "{{ remote_directory }}/local_bin/"
+    remote_src: true
+
 # TODO : cleanup task, remove eventually
 - name: Remove manually-installed prettyping
   file:
