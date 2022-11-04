@@ -184,33 +184,37 @@
 # The solution chosen here for consistent look between Qt and GTK applications is to use a same theme implemented
 # in both native formats
 
-- name: Load GTK2 configuration via .gtkrc-2.0
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.gtkrc-2.0"
-    create: true
-    block:  |
-      # Load GTK2 configuration
-      include "{{ remote_directory }}/files/gtkrc-2.0"
-
-# /!\ This is a destructive operation /!\
-# It does not seem possible to make an include in gtk3 config
-# https://superuser.com/q/1370777/733026
-- name: Load GTK3 configuration via .config/gtk-3.0/settings.ini
-  file:
-    dest:   "{{ ansible_user_dir }}/.config/gtk-3.0/settings.ini"
-    src:    "{{ remote_directory }}/files/gtk-3.0-settings.ini"
-    state:  link
-    force:  true
-
-# NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
-- name: Load Qt4 graphical configuration via .config/Trolltech.conf
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.config/Trolltech.conf"
-    create: true
-    block:  |
-      # Set Qt4 Theme
-      [Qt]
-      style=Adwaita-Dark
+# TODO : Candidates for deletion, I don't think I use any software with such old versions
+# of GTK or Qt. Kept here for now, just in case.
+# Don't forget to delete the corresponding files too
+#
+# - name: Load GTK2 configuration via .gtkrc-2.0
+#   blockinfile:
+#     dest:   "{{ ansible_user_dir }}/.gtkrc-2.0"
+#     create: true
+#     block:  |
+#       # Load GTK2 configuration
+#       include "{{ remote_directory }}/files/gtkrc-2.0"
+# 
+# # /!\ This is a destructive operation /!\
+# # It does not seem possible to make an include in gtk3 config
+# # https://superuser.com/q/1370777/733026
+# - name: Load GTK3 configuration via .config/gtk-3.0/settings.ini
+#   file:
+#     dest:   "{{ ansible_user_dir }}/.config/gtk-3.0/settings.ini"
+#     src:    "{{ remote_directory }}/files/gtk-3.0-settings.ini"
+#     state:  link
+#     force:  true
+# 
+# # NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
+# - name: Load Qt4 graphical configuration via .config/Trolltech.conf
+#   blockinfile:
+#     dest:   "{{ ansible_user_dir }}/.config/Trolltech.conf"
+#     create: true
+#     block:  |
+#       # Set Qt4 Theme
+#       [Qt]
+#       style=Adwaita-Dark
 
 - name: Create ~/.config/environment.d
   file:
