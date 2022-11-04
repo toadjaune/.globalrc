@@ -177,7 +177,7 @@
     src:    "{{ remote_directory }}/files/alacritty.yml"
     dest:   "{{ ansible_user_dir }}/.config/alacritty.yml"
 
-### Graphical environment Themes ###
+### Graphical environment theming and configuration ###
 
 # See : https://www.reddit.com/r/archlinux/comments/2eo3qq/is_it_possible_to_get_qt_to_properly_use_gtk/
 # See : https://wiki.archlinux.org/index.php/Uniform_look_for_Qt_and_GTK_applications#Using_a_GTK.2B_icon_theme_in_Qt_apps
@@ -222,6 +222,17 @@
 
       # Load global .profile
       . {{ remote_directory }}/files/profile
+
+- name: Create ~/.config/environment.d
+  file:
+    path: "{{ ansible_user_dir }}/.config/environment.d"
+    state: directory
+
+- name: Load graphical session environment variables
+  file:
+    dest:   "{{ ansible_user_dir }}/.config/environment.d/globalrc.conf"
+    src:    "{{ remote_directory }}/files/environment"
+    state:  link
 
 ### sway ###
 

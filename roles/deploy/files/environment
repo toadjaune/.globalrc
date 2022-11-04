@@ -1,0 +1,12 @@
+# vi: ft=sh
+
+# This file will be set up in ~/.config/environment.d/
+# It should be sourced at session startup (works from gdm and likely via systemd, doesn't work if invoking sway from a TTY)
+
+# When making changes in this file, make sure to *REBOOT*. Logging out is not enough (at least with GDM)
+
+# References :
+# https://wiki.archlinux.org/title/Environment_variables#Wayland_environment
+# https://wiki.gnome.org/Initiatives/Wayland/SessionStart
+
+TEST=test
