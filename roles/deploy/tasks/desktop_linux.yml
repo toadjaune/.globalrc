@@ -212,17 +212,6 @@
       [Qt]
       style=Adwaita-Dark
 
-- name: Load .profile
-  blockinfile:
-    dest:         "{{ ansible_user_dir }}/.profile"
-    insertbefore: BOF
-    create:       true
-    block:  |
-      # NB : This file must stay sh-compliant
-
-      # Load global .profile
-      . {{ remote_directory }}/files/profile
-
 - name: Create ~/.config/environment.d
   file:
     path: "{{ ansible_user_dir }}/.config/environment.d"
