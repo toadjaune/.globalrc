@@ -9,5 +9,11 @@
 # https://wiki.archlinux.org/title/Environment_variables#Wayland_environment
 # https://wiki.gnome.org/Initiatives/Wayland/SessionStart
 
+# GTK3 & GTK4 theme configuration
+# It seems GTK4 (or at least nautilus) cannot be configured through config files in .config
+# Since this is the only setting we currently need to change, this should be fine for now
+# https://wiki.archlinux.org/title/GTK
+GTK_THEME=Adwaita:dark
+
 # Configure theme for Qt5 applications (such as vlc)
 QT_STYLE_OVERRIDE=Adwaita-Dark
