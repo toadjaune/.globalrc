@@ -9,4 +9,5 @@
 # https://wiki.archlinux.org/title/Environment_variables#Wayland_environment
 # https://wiki.gnome.org/Initiatives/Wayland/SessionStart
 
-TEST=test
+# Configure theme for Qt5 applications (such as vlc)
+QT_STYLE_OVERRIDE=Adwaita-Dark

@@ -8,6 +8,3 @@
 # Use this file for configuration that is either required by graphical programs, or by the window manager itself
 # Do not use it for shell-specific configuration
 
-# Configure theme for Qt5 applications (such as vlc)
-export QT_STYLE_OVERRIDE=Adwaita-Dark
-
