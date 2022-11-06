@@ -8,6 +8,7 @@
 # References :
 # https://wiki.archlinux.org/title/Environment_variables#Wayland_environment
 # https://wiki.gnome.org/Initiatives/Wayland/SessionStart
+# https://github.com/swaywm/sway/wiki#setting-environmental-variables
 
 # GTK3 & GTK4 theme configuration
 # It seems GTK4 (or at least nautilus) cannot be configured through config files in .config

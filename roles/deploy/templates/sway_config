@@ -444,6 +444,17 @@ mode "type" {
 }
 bindcode $mod+$t mode "type"
 
+### Start various daemons
+
+# Polkit agent (allow graphical programs to request permissions with higher granularity than sudo)
+# We need to start a polkit agent manually. Any of them should do.
+# Start gparted as a non-privileged user to test the setup.
+# https://github.com/swaywm/sway/wiki#wayland-wont-let-me-run-apps-as-root
+# https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html
+# https://wiki.archlinux.org/title/Polkit
+# TODO : lxpolkit is kind of ugly, see what agent we can replace it with
+exec lxpolkit
+
 # TODO : once we have a recent enough version of dunst everywhere, see how to start it with a systemd user unit ?
 # # Start dunst (notification daemon)
 # # NB : we could also configure dbus to autostart it in
