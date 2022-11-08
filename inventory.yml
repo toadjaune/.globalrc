@@ -17,8 +17,9 @@ all:
       ansible_connection: local
       desktop_linux: true
 
-    # MacOS
-    arnaudventuri:
-      expected_hostname: arnaudventuri
+    # Fedora
+    launchpad:
+      expected_hostname: launchpad
       ansible_connection: local
+      desktop_linux: true
 
