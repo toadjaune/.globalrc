@@ -97,6 +97,34 @@
   become: true
   when: have_root and ansible_os_family == "Debian"
 
+### Locale ###
+
+# The entire locale standard is quite brittle and can break stuff in unexpected ways.
+# Be careful when changing anything here.
+# https://github.com/mpv-player/mpv/commit/1e70e82baa91
+
+# We want to set a locale with the following properties (by order of priority, I guess) :
+# * English language
+# * UTF-8 encoding
+# * YYYY-MM-DD date format
+# * 24h hour format
+# * Week starts on monday
+#
+# Ideally, without resorting to building a custom locale, or installing any extra locale
+# To this day, en_DK.UTF-8 looks like our best candidate, it only misses the weekday start
+# TODO : See if we can find a better locale ?
+
+# Setting up system locale
+# https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/basic-system-configuration/System_Locale_and_Keyboard_Configuration/
+# https://wiki.debian.org/Locale
+# https://wiki.archlinux.org/title/Locale#Setting_the_locale
+
+
+# On Fedora, this works for Virtual Console, but not graphical session, at this time.
+# It looks like GDM overrides it (TODO : test this and override it somehow ?)
+
+# Thunderbird reads the locale and recognises en_DK.UTF-8, and still displaysd dates in the wrong format. TODO : WTF ? Maybe find another program to test it ?
+
 ### Keyboard layouts ###
 
 - name: Install lxml with pip3

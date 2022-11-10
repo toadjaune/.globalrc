@@ -33,8 +33,7 @@
 echo "WARNING (stdout) : Firefox starting through a custom wrapper at $0"
 echo "WARNING (stderr) : Firefox starting through a custom wrapper at $0" >&2
 
-# Template variables to integrate
-#  MOZ_X11_EGL=1 GTK_USE_PORTAL=1
+# Go to about:support to see the current state of these parameters and where they are configured from
 
 # Enable Wayland support
 # Problems currently identified to be caused by this setting :
