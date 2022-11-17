@@ -356,3 +356,27 @@
   when: have_root | bool
   loop: "{{ electron_wayland_to_wrap }}"
 
+### Firefox ###
+
+- name: Setup firefox user config
+  blockinfile:
+    # TODO : variablilize / detect this path
+    path: "{{ ansible_user_dir }}/.mozilla/firefox/piw5jrzp.default-release/user.js"
+    block: |
+      // Warning : first line might get skipped ?
+
+      // Settings configured here appear in about:config
+      // They can be overriden by user at runtime, but will get reset at next startup
+      // NB : properties configured by user interface are stored in prefs.js in profile directory
+
+      // There are several ways to configure a system-wide config file, but they feel heavy
+      // https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig
+      // https://mike.kaply.com/2012/03/16/customizing-firefox-autoconfig-files/
+      // https://mike.kaply.com/2012/03/15/customizing-firefox-default-preference-files/
+      // https://askubuntu.com/questions/59330/setting-system-wide-preferences-in-firefox
+
+      // Old sharing indicator in a popup window
+      // Not really useful anymore (info present in address bar) and behaves poorly on sway
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1628431
+      user_pref("privacy.webrtc.legacyGlobalIndicator", false);
+
