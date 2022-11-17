@@ -338,14 +338,6 @@
     dest: "{{ remote_directory }}/mediaplayer.py"
     mode: 0700
 
-- name: Create /usr/local/bin/firefox
-  copy:
-    src:    "firefox"
-    dest:   "/usr/local/bin/firefox"
-    mode: 0755
-  become: true
-  when: have_root | bool
-
   # NB : Removing elements from the list won't remove the corresponding scripts
 - name: Install wrapper scripts for electron-based apps
   template:
@@ -358,10 +350,50 @@
 
 ### Firefox ###
 
+- name: Create /usr/local/bin/firefox
+  copy:
+    src:    "firefox"
+    dest:   "/usr/local/bin/firefox"
+    mode: 0755
+  become: true
+  when: have_root | bool
+
+  # So, firefox has this notion of "profiles", which are basically independent config/data storages :
+  # https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data
+  # Profile directory names are made of two elements :
+  # * profile name (user-choosable, human-readable)
+  # * random id
+
+  # This creates a new profile. Might be worth exploring for new installs, but not for existing ones.
+  # Renaming an existing profile directory without losing anything turns out to be surprisingly difficult.
+  # - name: Create a firefox profile named "{{ firefox_profile_name }}"
+  #   command:
+  #     argv:
+  #       - firefox
+  #       - -CreateProfile
+  #       - "{{ firefox_profile_name }}"
+  #   # NB : This command apparently doesn't do anything if the profile already exists
+  #   changed_when: false
+
+  # Here, we find the profile with the given name by globbing
+  # It _could_ break if several such directories existed, for example. It should be fine, though.
+- name: Get firefox profile path
+  find:
+    paths: "{{ ansible_user_dir }}/.mozilla/firefox/"
+    file_type: directory
+    patterns: ".*{{ firefox_profile_name }}$"
+    use_regex: true
+  register: firefox_profile_path
+
+- name: Display determined profile path
+  assert:
+    that: firefox_profile_path['files'][0]['path'] is defined
+    msg:  "Could not find a firefox profile directory for name {{ firefox_profile_name }}"
+
 - name: Setup firefox user config
   blockinfile:
-    # TODO : variablilize / detect this path
-    path: "{{ ansible_user_dir }}/.mozilla/firefox/piw5jrzp.default-release/user.js"
+    path: "{{ firefox_profile_path['files'][0]['path'] }}/user.js"
+    create: true
     block: |
       // Warning : first line might get skipped ?
 
