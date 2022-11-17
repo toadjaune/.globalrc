@@ -111,19 +111,44 @@
 # * Week starts on monday
 #
 # Ideally, without resorting to building a custom locale, or installing any extra locale
-# To this day, en_DK.UTF-8 looks like our best candidate, it only misses the weekday start
+# To this day, en_DK.UTF-8 looks like our best candidate, it only misses the weekday start, which I don't mind that much.
 # TODO : See if we can find a better locale ?
 
-# Setting up system locale
+# Ways to test a given locale :
+# * LANG=en_DK.utf8 locale -k LC_TIME
+# * LANG=en_DK.utf8 date
+
+# Various programs respect the date format with various levels
+# For example, Thunderbird, in its default config, reads the locale, and displays the date in the follwing formats :
+# * en_US.UTF-8 : mm/dd/aa    -> makes sense
+# * fr_FR.UTF-8 : dd/mm/aaaa  -> makes sense
+# * en_DK.UTF-8 : dd/mm/aaaa  -> This format does not appear anywhere in this locale ...
+# bug : https://bugzilla.mozilla.org/show_bug.cgi?id=1707128
+# workaround : https://support.mozilla.org/en-US/kb/customize-date-time-formats-thunderbird
+
+# Ways of setting up system locale
 # https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/basic-system-configuration/System_Locale_and_Keyboard_Configuration/
 # https://wiki.debian.org/Locale
 # https://wiki.archlinux.org/title/Locale#Setting_the_locale
+# We currently don't set it as it is very invasive, and I'm worried about weird side effects, see later if it is required anyway.
+# When launching sway through gdm, $LANG is overridden for the graphical session anyway.
 
-
-# On Fedora, this works for Virtual Console, but not graphical session, at this time.
-# It looks like GDM overrides it (TODO : test this and override it somehow ?)
-
-# Thunderbird reads the locale and recognises en_DK.UTF-8, and still displaysd dates in the wrong format. TODO : WTF ? Maybe find another program to test it ?
+# Setting up locale via Gnome for GDM to load is surprisingly hard too. The following were tried and could not be made to work :
+# * Using ~/.dmrc (apparently only works for GDM 2.x, legacy)
+# * Setting $LANG in ~/.config/environment.d/
+#
+# Using the gnome settings window (gnome-control-center), you can actually configure it. There are 2 parameters in its "Region & Language" section :
+# * Language : sets $LANG.
+#   I have no idea where this is stored, and found no way to set it programmatically.
+#   Gnome propagates this change to the system locale (visible in `localectl status`), but it doesn't work the other way round.
+#   I'm lost here, and honestly, if we really need to configure this, ditching GDM altogether might be worth considering.
+# * Formats : sets various $LC_* variables.
+#   This one corresponds to the org.gnome.system.locale/region gsettings key
+#   But setting a value with `gsettings set org.gnome.system.locale region en_DK.UTF-8` does not work either.
+#
+# I've given up, just change it with gnome-control-center
+#
+# These changes require at least logging out, but you might as well reboot at every step, honestly.
 
 ### Keyboard layouts ###
 
