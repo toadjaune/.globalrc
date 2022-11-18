@@ -42,10 +42,13 @@ keyboard_variant: 'lafayette'
 # Extra host-specific ssh config to be appended to the global config
 extra_ssh_config: ""
 
-# Sway output setup
+# Sway setup
 # sway_output_primary: "" # Mandatory for graphical setup
 sway_output_custom_1: "nop 'Mode not defined'"
 sway_output_custom_2: "nop 'Mode not defined'"
+# Those paths are relative to user home
+sway_wallpaper_path:  ".config/sway/wallpaper.png"
+sway_lockscreen_path: ".config/sway/lockscreen.png"
 
 # On both OS, we can just dump ttf files in a directory, only the path changes
 fonts_install_path: "{{ ansible_user_dir }}/{{ (ansible_system == 'Darwin') | ternary ('Library/Fonts', '.local/share/fonts') }}/globalrc_fonts"

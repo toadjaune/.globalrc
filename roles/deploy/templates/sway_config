@@ -72,9 +72,8 @@ set $0 19
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# TODO : Make this configurable per-host ?
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# The wallpaper path is relative to sway config file
+output * bg "{{ ansible_user_dir }}/{{ sway_wallpaper_path }}" fill
 #
 # Example configuration:
 #
@@ -140,7 +139,7 @@ bindcode $mod+$o mode $mode_output
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 # TODO : setup better lockscreen
-set $lock_command swaylock --color 555555
+set $lock_command swaylock --color 555555 --image "{{ ansible_user_dir }}/{{ sway_lockscreen_path }}"
 
 set $mode_system "system"
 mode $mode_system {
