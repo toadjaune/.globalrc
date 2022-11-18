@@ -8,9 +8,9 @@ env:
   # depending on the terminal emulator
   GLOBALRC_PATCHED_FONT: "1"
 
-# Enable on i3
-#window:
-#  decorations: none
+window:
+  opacity: 0.7
+  decorations: none
 
 font:
   normal:
