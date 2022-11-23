@@ -1,6 +1,7 @@
 # Add host-specific configuration
 # NB : for each, parameter, only the first value fount is used
 # Therefore, overridable defaults need to come at the end
+
 {{ extra_ssh_config }}
 
 # git-hosting services and machines with a specific username
