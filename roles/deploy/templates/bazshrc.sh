@@ -96,9 +96,6 @@ alias h='history'
 # - http://tldp.org/LDP/abs/html/process-sub.html
 alias invim='vim <(fc -e true)'
 
-# On RedHat family systems, use vimx if installed, to have access to clipboard from vim
-if command -v vimx >/dev/null 2>&1 ; then alias vim='vimx'; fi
-
 # Open big files with a minimal vim configuration
 # TODO : see if we can have vim do this automatically based on file size
 # TODO : We should probably use a separate profile for that, with specific options enabled/disabled (swapfiles, etc…)
