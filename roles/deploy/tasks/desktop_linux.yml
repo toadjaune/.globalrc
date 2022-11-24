@@ -22,7 +22,6 @@
       - alacritty             # GPU-based terminal emulator
       - lxpolkit              # polkit daemon
       - blueberry             # basic out-of-the-box bluetooth config (looks more reliable than blueman so far)
-      - vim-X11               # vimx executable, notably with clipboard support
 
       # Technical tools required for later desktop setup
       - python3-pip
