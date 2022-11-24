@@ -25,7 +25,6 @@ let mapleader=" "
 let g:tmux_navigator_no_mappings = 1
     " Do not use the default mappings
 
-
 """""""""""""""
 " Plugin list "
 """""""""""""""
@@ -36,13 +35,13 @@ let g:tmux_navigator_no_mappings = 1
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
 " User interface
-Plug 'vim-scripts/CycleColor'         " cycle through colors via F4
-Plug 'godlygeek/tabular'              " provides :Tab to align text
-Plug 'christoomey/vim-tmux-navigator'
-    " Consistent set of keys to navigate between vim splits and tmux panels
-Plug 'vim-airline/vim-airline'        " OP statusbar
-Plug 'vim-airline/vim-airline-themes' " Associated themes
-Plug 'guns/xterm-color-table.vim'     " :XtermColorTable to display xterm color palette
+Plug 'vim-scripts/CycleColor'           " cycle through colors via F4
+Plug 'godlygeek/tabular'                " provides :Tab to align text
+Plug 'christoomey/vim-tmux-navigator'   " Consistent set of keys to navigate between vim splits and tmux panels
+Plug 'vim-airline/vim-airline'          " OP statusbar
+Plug 'vim-airline/vim-airline-themes'   " Associated themes
+Plug 'guns/xterm-color-table.vim'       " :XtermColorTable to display xterm color palette
+Plug 'kana/vim-fakeclip'                " Workaround integration with wayland native clipboard
 
 " Filesystem access (Tree ...)
 Plug 'scrooloose/nerdtree'    " filesystem tree
@@ -224,16 +223,6 @@ autocmd FileType nerdtree setlocal nolist
 " Disable swapfiles
 set noswapfile
 
-" Make vim use the system clipboard ("+) by default
-" See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
-" set clipboard=unnamedplus
-
-" We actually prefer to have specific distinct mappings for interacting with system clipboard
-noremap <leader>y  "+y
-noremap <leader>Y  "+Y
-noremap <leader>p  "+p
-noremap <leader>P  "+P
-
 set cursorline  " highlight cursor line
     " TODO: Find a way to only change the background color, not the trailing
     " characters or the highlightings of TODO ...
@@ -279,6 +268,31 @@ noremap <silent> <C-{{ key_rh_right }}> :TmuxNavigateRight<cr>
 " see http://vim.wikia.com/wiki/Search_for_visually_selected_text
 vnoremap // y/\V<C-R>"<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Clipboard setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Vim can interact directly with the system clipboard under X if it was compiled with +clipboard (check with vim --version)
+" This is broken if your terminal emulator is not running through XWayland
+" https://github.com/vim/vim/issues/5157
+" https://github.com/swaywm/sway/issues/5352
+" We script around this by with vim-fakeclip (that emulates it with wl-clipboard)
+
+" If vim has +clipboard support, vim-fakeclip does not set its keybindings by default
+" Since +clipboard is broken on wayland, we disable it and force fakeclip to take over
+" https://github.com/kana/vim-fakeclip/blob/master/doc/fakeclip.txt
+set clipboard+=exclude:.*
+let g:fakeclip_provide_clipboard_key_mappings = 1
+
+" Make vim use the system clipboard ("+) by default
+" See http://vim.wikia.com/wiki/Accessing_the_system_clipboard
+" set clipboard=unnamedplus
+
+" We actually prefer to have specific distinct mappings for interacting with system clipboard
+noremap <leader>y  "+y
+noremap <leader>Y  "+Y
+noremap <leader>p  "+p
+noremap <leader>P  "+P
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Search settings
