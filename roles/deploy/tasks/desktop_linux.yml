@@ -10,6 +10,7 @@
       - rofimoji              # Emoji picker
       - grim                  # Take a screenshot
       - slurp                 # Select a screen area, to pass to grim
+      - swappy                # Edit screenshot
       - wl-clipboard          # Interact with wayland clipboard (includes wl-copy)
       - waybar                # Nice-looking bar
       - fontawesome-fonts     # Font for waybar icons

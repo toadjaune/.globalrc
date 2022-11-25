@@ -414,9 +414,11 @@ bar {
 # * creates the screenshots directory with mkdir
 # * asks the user for a screen area to capture with slurp
 # * takes a screenshot of it with grim
+# * optionally, edit the image with swappy
 # * copies the resulting image to the screenshot directory with tee
 # * sends the image to the wayland clipboard with wl-copy
-bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
+bindcode $mod+$p       exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - |                    tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
+bindcode $mod+Shift+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | swappy -f - -o - | tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
 
 # Mode to start most common programs
 mode "launch" {
