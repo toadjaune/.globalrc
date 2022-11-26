@@ -456,13 +456,13 @@ bindcode $mod+$t mode "type"
 # TODO : lxpolkit is kind of ugly, see what agent we can replace it with
 exec lxpolkit
 
-# TODO : once we have a recent enough version of dunst everywhere, see how to start it with a systemd user unit ?
-# # Start dunst (notification daemon)
-# # NB : we could also configure dbus to autostart it in
-# # /usr/share/dbus-1/services/org.freedesktop.Notifications.service
-# # Not sure why it sometimes work out of the box, and sometimes not (systemd ?)
-# # We currently use the default config
-# exec dunst
+# Start mako (notification daemon)
+# The mako package installs a systemd user unit in /usr/lib/systemd/user/
+# (systemctl --user status mako), that autostarts through dbus. This autostart does work, however, the unit is not
+# able to start, because $WAYLAND_DISPLAY is not defined in the environment of the the systemd user daemon
+# https://bugs.archlinux.org/task/63021
+# TODO : Do we want to fix the systemd user unit instead of starting it manually ? Probably.
+exec mako
 
 # TODO : Find a way to replicate this functionality, since the Wayland protocol prevents this by design
 # Will likely require explicit support from the compositor
