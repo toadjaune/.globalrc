@@ -447,6 +447,24 @@ bindcode $mod+$t mode "type"
 
 ### Start various daemons
 
+# Some userspace daemons come packaged with userpace systemd unit configurations (/usr/lib/systemd/user/)
+# This is preferable to manually starting them here, as we can leverage systemd's facilities for :
+# * logging
+# * daemon lifecycle :
+#   * auto-restart
+#   * asynchronous lazy loading (typically via DBus)
+#   * daemon unaffected by sway restart, no orphaned process...
+#
+# Currently identified daemons using this mechanism :
+# * mako (notification daemon, started via DBus, requires $WAYLAND_DISPLAY)
+#
+# Environment in ~/.config/environment.d/ is included in systemd user unit environments, as well as various variables set by sway
+# * `systemctl --user show-environment`
+# * https://bugs.archlinux.org/task/63021
+# This is not the case for $WAYLAND_DISPLAY, which is needed by daemons interacting with wayland, but that we don't want to hardcode
+# The cleanest way I found to do this is to propagate the value set by sway into the systemd config
+exec_always systemctl --user import-environment WAYLAND_DISPLAY
+
 # Polkit agent (allow graphical programs to request permissions with higher granularity than sudo)
 # We need to start a polkit agent manually. Any of them should do.
 # Start gparted as a non-privileged user to test the setup.
@@ -455,14 +473,6 @@ bindcode $mod+$t mode "type"
 # https://wiki.archlinux.org/title/Polkit
 # TODO : lxpolkit is kind of ugly, see what agent we can replace it with
 exec lxpolkit
-
-# Start mako (notification daemon)
-# The mako package installs a systemd user unit in /usr/lib/systemd/user/
-# (systemctl --user status mako), that autostarts through dbus. This autostart does work, however, the unit is not
-# able to start, because $WAYLAND_DISPLAY is not defined in the environment of the the systemd user daemon
-# https://bugs.archlinux.org/task/63021
-# TODO : Do we want to fix the systemd user unit instead of starting it manually ? Probably.
-exec mako
 
 # TODO : Find a way to replicate this functionality, since the Wayland protocol prevents this by design
 # Will likely require explicit support from the compositor
