@@ -1,0 +1,22 @@
+# vi: ft=dosini
+
+default-timeout=5000
+
+
+
+# Based on https://github.com/dracula/mako/blob/master/config
+
+background-color=#282a36
+# text-color=#44475a
+text-color=#e0e0e0
+border-color=#282a36
+
+[urgency=low]
+border-color=#282a36
+
+[urgency=normal]
+# border-color=#f1fa8c
+border-color=#ffff00
+
+[urgency=high]
+border-color=#ff5555

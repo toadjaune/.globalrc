@@ -237,6 +237,22 @@
     src:    "{{ remote_directory }}/files/alacritty.yml"
     dest:   "{{ ansible_user_dir }}/.config/alacritty.yml"
 
+### Mako ###
+
+- name: Create ~/.config/mako
+  file:
+    path: "{{ ansible_user_dir }}/.config/mako"
+    state: directory
+
+  # NB : We don't automatically reload Mako when its config changes
+  # Use `makoctl reload`
+- name: Load Mako config via ~/.config/mako/config
+  file:
+    state:  link
+    follow: false
+    src:    "{{ remote_directory }}/files/mako_config"
+    dest:   "{{ ansible_user_dir }}/.config/mako/config"
+
 ### Graphical environment theming and configuration ###
 
 # See : https://www.reddit.com/r/archlinux/comments/2eo3qq/is_it_possible_to_get_qt_to_properly_use_gtk/
