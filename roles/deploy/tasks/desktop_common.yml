@@ -40,3 +40,4 @@
     - name: "MesloLGS NF Bold Italic.ttf"
       url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
       sha1: "0a27ce454ae58c7f8b8769843a2e286309f3a967"
+  tags: online

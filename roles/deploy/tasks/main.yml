@@ -73,6 +73,7 @@
     src:  https://github.com/Wilfred/difftastic/releases/latest/download/difft-x86_64-unknown-linux-gnu.tar.gz
     dest: "{{ remote_directory }}/local_bin/"
     remote_src: true
+  tags: online
 
 # TODO : cleanup task, remove eventually
 - name: Remove manually-installed prettyping
@@ -165,3 +166,4 @@
     url:  https://raw.githubusercontent.com/thameera/vimv/master/vimv
     dest: "{{ remote_directory }}/"
     mode: 0755
+  tags: online

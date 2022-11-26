@@ -11,6 +11,7 @@
     dest:     "{{ remote_directory }}/zsh_plugins/{{ item.name }}"
     version:  "{{ item.version }}"
     depth:    1
+  tags: online
   with_items:
     - name:     powerlevel10k
       repo:     https://github.com/romkatv/powerlevel10k

@@ -341,6 +341,7 @@
     url:  "https://raw.githubusercontent.com/Alexays/Waybar/master/resources/custom_modules/mediaplayer.py"
     dest: "{{ remote_directory }}/mediaplayer.py"
     mode: 0700
+  tags: online
 
   # NB : Removing elements from the list won't remove the corresponding scripts
 - name: Install wrapper scripts for electron-based apps

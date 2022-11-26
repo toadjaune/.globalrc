@@ -21,4 +21,5 @@
     dest:     "{{ remote_directory }}/sshrc"
     version:  0.6.2
     depth:    1
+  tags: online
 
