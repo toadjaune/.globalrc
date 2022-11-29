@@ -457,6 +457,7 @@ bindcode $mod+$t mode "type"
 #
 # Currently identified daemons using this mechanism :
 # * mako (notification daemon, started via DBus, requires $WAYLAND_DISPLAY)
+# * ssh-agent (custom unit added by this role)
 #
 # Environment in ~/.config/environment.d/ is included in systemd user unit environments, as well as various variables set by sway
 # * `systemctl --user show-environment`

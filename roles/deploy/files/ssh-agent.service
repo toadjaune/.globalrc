@@ -4,6 +4,10 @@
 # (you get logs, status, declarative config, control over restarts, etc)
 # See https://unix.stackexchange.com/questions/90853/how-can-i-run-ssh-add-automatically-without-password-prompt#90869
 #
+# TODO : Make this unit autostart on the first socket connection ?
+# TODO : Restrict perms with systemd unit configs ?
+# https://github.com/elpy1/ssh-agent-systemd
+#
 # Starting this unit won't be enough, you also need :
 # * SSH_AUTH_SOCK env var configured to point to the socket of the daemon started here
 # * ssh_config option AddKeysToAgent, to add unlocked keys automatically
