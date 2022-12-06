@@ -79,23 +79,29 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
+        "format": "{volume}% {icon} | {format_source}",
+        "format-muted": " {icon} | {format_source}",
+        // This logo is semantically better, but it's ugly in the current font
+        //"format-muted": "🔇 {icon} | {format_source}",
+        // The format-bluetooth are meant to split the bluetooth logo display from the type of device.
+        // It does not detect my current BT headphones as such though, only as "headset", so, we cheat below.
+        // This works, but displays " " when muted on normal speakers. Which is awkward but good enough.
+        "format-bluetooth": "{volume}% {icon} | {format_source}",
+        "format-bluetooth-muted": " {icon} | {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
-            "headset": " ",
+            "headset": " ",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": ["", ""]
         },
-        "on-click": "pavucontrol"
+        "scroll-step": 1,
+        "on-click": "pavucontrol",
+        "ignored-sinks": ["Easy Effects Sink"]
     },
     "custom/media": {
         "format": "{icon} {}",
