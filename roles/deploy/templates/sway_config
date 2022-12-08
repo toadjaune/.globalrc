@@ -446,7 +446,7 @@ mode "type" {
 }
 bindcode $mod+$t mode "type"
 
-### Start various daemons
+### Start/configure various daemons
 
 # Some userspace daemons come packaged with userpace systemd unit configurations (/usr/lib/systemd/user/)
 # This is preferable to manually starting them here, as we can leverage systemd's facilities for :
@@ -459,6 +459,8 @@ bindcode $mod+$t mode "type"
 # Currently identified daemons using this mechanism :
 # * mako (notification daemon, started via DBus, requires $WAYLAND_DISPLAY)
 # * ssh-agent (custom unit added by this role)
+# * xdg-desktop-portal (Portal manager, started via DBus, requires $XDG_CURRENT_DESKTOP, see below)
+# * xdg-desktop-portal-wlr (Portal implementation, started via DBus, see below)
 #
 # Environment in ~/.config/environment.d/ is included in systemd user unit environments, as well as various variables set by sway
 # * `systemctl --user show-environment`
@@ -466,6 +468,21 @@ bindcode $mod+$t mode "type"
 # This is not the case for $WAYLAND_DISPLAY, which is needed by daemons interacting with wayland, but that we don't want to hardcode
 # The cleanest way I found to do this is to propagate the value set by sway into the systemd config
 exec_always systemctl --user import-environment WAYLAND_DISPLAY
+
+# The Freedesktop Portal system allows apps to ask for extra permissions, such as screen sharing
+# Works even (especially, even) for sandboxed apps (flatpak...)
+# xdg-desktop-portal is autostarted via dbus, and receives such requests.
+# It then dispatches them to actual implementations, such as xdg-desktop-portal-wlr (wlroots, for sway and co) or xdg-desktop-portal-gnome
+# Without the XDG_CURRENT_DESKTOP set to sway, xdg-desktop-portal gets confused, and falls back to gnome imprementations. Which breaks on sway.
+# Therefore, we configure it here. We can't put it in ~/.config/environment.d/, because then in breaks portals on Gnome.
+# In a sway-only environment, we could also not have xdg-desktop-portal-gnome installed in the first place.
+# Extra info :
+# * `/usr/libexec/xdg-desktop-portal -vr` to start it manually, with extra logs, and see what DBus interfaces are bound to what.
+# * `/usr/libexec/xdg-desktop-portal-wlr -l DEBUG -r`
+# * https://flatpak.github.io/xdg-desktop-portal/ -> List of interfaces
+# * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/Screencast-Compatibility
+exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+
 
 # Polkit agent (allow graphical programs to request permissions with higher granularity than sudo)
 # We need to start a polkit agent manually. Any of them should do.
