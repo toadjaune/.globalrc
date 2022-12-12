@@ -8,8 +8,7 @@
       - swaylock              # trigger wayland lockscreen
       - rofi                  # Program launcher
       - rofimoji              # Emoji picker
-      - grim                  # Take a screenshot
-      - slurp                 # Select a screen area, to pass to grim
+      - flameshot             # Screenshot tool
       - swappy                # Edit screenshot
       - wl-clipboard          # Interact with wayland clipboard (includes wl-copy)
       - waybar                # Nice-looking bar
@@ -46,8 +45,7 @@
       - swaylock
       - rofi
       - rofimoji
-      - grim
-      - slurp
+      - flameshot
       - wl-clipboard
       - waybar
       - otf-font-awesome
@@ -78,8 +76,7 @@
       - sway
       - swaylock
       - rofi
-      - grim
-      - slurp
+      - flameshot
       - wl-clipboard
       - waybar
       - fonts-font-awesome
