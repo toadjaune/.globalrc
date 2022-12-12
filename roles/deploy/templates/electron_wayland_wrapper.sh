@@ -19,5 +19,7 @@ echo "WARNING (stderr) : {{ item }} starting through a custom wrapper at $0" >&2
 # TODO : Maybe replace item templating by sh logic ? Not sure waht behavior we want for symlinks
 actual_binary=$( PATH=$(echo $PATH | sed 's@/usr/local/bin:@@') which {{ item }} )
 
-exec $actual_binary --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+# --enable-features=UseOzonePlatform --ozone-platform=wayland -> Enable native wayland rendering
+# --enable-features=WebRTCPipeWireCapturer -> Enable native wayland screensharing with XDG Portals and PipeWire (added for slack)
+exec $actual_binary --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer "$@"
 
