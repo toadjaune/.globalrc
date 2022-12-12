@@ -20,6 +20,6 @@ echo "WARNING (stderr) : {{ item }} starting through a custom wrapper at $0" >&2
 actual_binary=$( PATH=$(echo $PATH | sed 's@/usr/local/bin:@@') which {{ item }} )
 
 # --enable-features=UseOzonePlatform --ozone-platform=wayland -> Enable native wayland rendering
-# --enable-features=WebRTCPipeWireCapturer -> Enable native wayland screensharing with XDG Portals and PipeWire (added for slack)
+# --enable-features=WebRTCPipeWireCapturer -> Enable native wayland screensharing with XDG Portals and PipeWire (added for slack, even though attempting to screenshare currently crashes it. Even on Gnome.)
 exec $actual_binary --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer "$@"
 
