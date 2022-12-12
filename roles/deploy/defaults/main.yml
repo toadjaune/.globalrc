@@ -10,16 +10,11 @@ desktop_linux: false
 # add a custom wrapper in /usr/local/bin/ to start electron programs through native wayland
 # NB : There is no check that the corresponding program is actually installed, so we may
 # create a script showing up in PATH but doomed to fail
-electron_wayland_to_wrap:
-  # slack works fine with native wayland, with exception of screensharing :
-  # * Using WebRTCPipeWireCapturer, it crashes. I got it working once, but could never get it again.
-  # * As an X app through XWayland, it works fine for other X apps, and gets a black screen for entire screens
-  - slack
+electron_wayland_to_wrap: []
+  # - slack     # switched to flatpak
+  # - spotify   # switched to flatpak
   # Discord looks broken on native wayland (doesn't even open a window)
   # - Discord
-  # spotify has a weird behavior, where it creates a second window via XWayland, empty
-  # plus, we currently install it via flatpak.
-  # - spotify
 
 # Movement keys
 # Right hand
