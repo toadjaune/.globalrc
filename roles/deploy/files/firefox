@@ -40,7 +40,8 @@ echo "WARNING (stderr) : Firefox starting through a custom wrapper at $0" >&2
 # * Bitwarden / Dark Reader extension panels weird flickering (https://github.com/bitwarden/browser/issues/2068 ?)
 # * Cursor sometimes not changing based on what it is hovering (https://bugzilla.mozilla.org/show_bug.cgi?id=1699942)
 # * Firefox issue tracker meta-issue for wayland-specific issues : https://bugzilla.mozilla.org/show_bug.cgi?id=635134
-export MOZ_ENABLE_WAYLAND=1
+# NB : We now set it in environment.d for thunderbird
+# export MOZ_ENABLE_WAYLAND=1
 
 # Enable WebRender support
 # WebRender is Firefox's new rust-based compositor, extracted from servo : https://wiki.mozilla.org/Platform/GFX/Quantum_Render
