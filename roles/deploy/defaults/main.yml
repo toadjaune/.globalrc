@@ -12,7 +12,8 @@ desktop_linux: false
 # create a script showing up in PATH but doomed to fail
 electron_wayland_to_wrap:
   - slack
-  - discord
+  # Discord looks broken on native wayland
+  # - Discord
   # spotify has a weird behavior, where it creates a second window via XWayland, empty
   # - spotify
 
