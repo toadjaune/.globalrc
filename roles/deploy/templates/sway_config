@@ -427,6 +427,7 @@ bar {
 #   * https://github.com/flameshot-org/flameshot/issues/1446
 #   * Possibly due to the fact that it exits directly after finishing ?
 #   * Test again after setting up a clipboard manager
+#   * NB : also, wait until we get flameshot back to native wayland (remove QT_QPA_PLATFORM=xcb) to care about this
 # TODO : flameshot takes a perceptible delay to come up. Maybe the daemon mode could be useful ? (Spoiler : I don't think so)
 #   * https://github.com/flameshot-org/flameshot/issues/2713
 #   * Extend this bug report with my findings (detail them):

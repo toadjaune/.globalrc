@@ -27,6 +27,9 @@ Nice tools :
   * https://github.com/nitefood/asn -> ASN, BGP, réputations IP, etc…
   * gping (https://github.com/orf/gping)
   * certigo (https://github.com/square/certigo)
+  * bpytop https://pypi.org/project/bpytop/
+  * vimium (modern vimperator, https://github.com/philc/vimium)
+  * Maybe give a try to hyprland as a sway replacement ?
 
 
 Power management : tlp
