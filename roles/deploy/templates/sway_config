@@ -497,10 +497,14 @@ exec_always systemctl --user import-environment WAYLAND_DISPLAY
 # Therefore, we configure it here. We can't put it in ~/.config/environment.d/, because then in breaks portals on Gnome.
 # In a sway-only environment, we could also not have xdg-desktop-portal-gnome installed in the first place.
 # Extra info :
+# * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/%22It-doesn't-work%22-Troubleshooting-Checklist
+# * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/Screencast-Compatibility
 # * `/usr/libexec/xdg-desktop-portal -vr` to start it manually, with extra logs, and see what DBus interfaces are bound to what.
 # * `/usr/libexec/xdg-desktop-portal-wlr -l DEBUG -r`
 # * https://flatpak.github.io/xdg-desktop-portal/ -> List of interfaces
-# * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/Screencast-Compatibility
+# It's currently not possible to share individual windows : https://github.com/emersion/xdg-desktop-portal-wlr/issues/107
+# It's possible to configure xdg-desktop-portal-wlr, notably to choose how it will make you choose between outputs to share,
+# see `man 5 xdg-desktop-portal-wlr`. Could for example use wofi instead of slurp... (TODO ?)
 exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 
 
