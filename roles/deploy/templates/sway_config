@@ -423,11 +423,16 @@ bar {
 #
 # Replaced by flameshot, which does the entire job quite nicely
 # Flameshot DOES require XDG_CURRENT_DESKTOP to be set
-# TODO : flameshot takes a perceptible delay to come up. Maybe the daemon mode could be useful ? (Spoiler : I don't think so)
 # TODO : flameshot should be able to output to clipboard too, but I couldn't make it work.
 #   * https://github.com/flameshot-org/flameshot/issues/1446
 #   * Possibly due to the fact that it exits directly after finishing ?
 #   * Test again after setting up a clipboard manager
+# TODO : flameshot takes a perceptible delay to come up. Maybe the daemon mode could be useful ? (Spoiler : I don't think so)
+#   * https://github.com/flameshot-org/flameshot/issues/2713
+#   * Extend this bug report with my findings (detail them):
+#     * On work laptop, similar (high) delay between tray icon and cli startup
+#     * On home desktop, seems that tray icon is instant
+#     * Try on home laptop
 bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && XDG_CURRENT_DESKTOP=sway flameshot gui --path "/tmp/screenshots/flameshot_$(date --iso-8601=seconds).png" --raw | wl-copy'
 
 # Mode to start most common programs
