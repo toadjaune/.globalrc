@@ -316,7 +316,9 @@ assign [class="discord"]      $ws9
 assign [class="quassel"]      $ws9
 assign [class="riot"]         $ws9
 
-assign [class="thunderbird"]  $ws10
+# only works via XWayland
+# assign [class="thunderbird"]  $ws10
+assign [app_id="thunderbird"] $ws10
 
 
 # Assign workspaces to specific outputs (xrandr output names)
