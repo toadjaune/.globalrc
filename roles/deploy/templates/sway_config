@@ -464,6 +464,16 @@ mode "launch" {
     # TODO : Make it run without XWayland
     bindcode $k exec flatpak run com.slack.Slack, mode "default"
 
+    # We switched to installing discord via flatpak, because :
+    # * When discord publishes a package-level update, it is immediately mandatory to connect, but the rpmfusion rpm can take a few days to be updated (whereas the flatpak is instant afaict)
+    # * No need to enable rpmfusion non-free
+    # * I like to have it sandboxed
+    # Runs via XWayland
+    # * No XDP pipewire screensharing, TODO : I don't know how to enable it
+    # * Discord via rpm straight-up crashes if started as a native wayland app
+    # TODO : test https://github.com/SpacingBat3/WebCord ?
+    bindcode $d exec flatpak run com.discordapp.Discord, mode "default"
+
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
@@ -512,6 +522,7 @@ exec_always systemctl --user import-environment WAYLAND_DISPLAY
 # Therefore, we configure it here. We can't put it in ~/.config/environment.d/, because then in breaks portals on Gnome.
 # In a sway-only environment, we could also not have xdg-desktop-portal-gnome installed in the first place.
 # Extra info :
+# * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/systemd-user-services,-pam,-and-environment-variables
 # * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/%22It-doesn't-work%22-Troubleshooting-Checklist
 # * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/Screencast-Compatibility
 # * `/usr/libexec/xdg-desktop-portal -vr` to start it manually, with extra logs, and see what DBus interfaces are bound to what.

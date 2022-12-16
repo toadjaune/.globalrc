@@ -13,8 +13,7 @@ desktop_linux: false
 electron_wayland_to_wrap: []
   # - slack     # switched to flatpak
   # - spotify   # switched to flatpak
-  # Discord looks broken on native wayland (doesn't even open a window)
-  # - Discord
+  # - Discord   # switched to flatpak
 
 # Movement keys
 # Right hand
