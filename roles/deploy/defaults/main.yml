@@ -46,6 +46,10 @@ extra_ssh_config_global: ""
 # sway_output_primary: "" # Mandatory for graphical setup
 sway_output_custom_1: "nop 'Mode not defined'"
 sway_output_custom_2: "nop 'Mode not defined'"
+kanshi_config: |
+  profile "kanshi not configured" {
+    output "invalid output name" enable position 0,0
+  }
 
 # Those paths are relative to user home
 # Those files have to be created locally by hand.

@@ -98,6 +98,9 @@ mode $mode_output {
     # Reset everything. Useful if you have currently no display…
     bindcode $h output '*' enable , mode "default"
 
+    ### Manual screen management
+    # Should rarely be used now, since we have kanshi
+
     # Primary-only, ie laptop screen only
     # NB :
     # * we can't just disable * then enable the only screen we want, because then it leaves a phase with no screen
@@ -117,9 +120,15 @@ mode $mode_output {
     bindcode $k {{ sway_output_custom_1 }} , mode "default"
     bindcode $l {{ sway_output_custom_2 }} , mode "default"
 
+    ### End manual display management
+
+    # Reload (and reapply) kanshi configuration
+    bindcode $o exec kanshictl reload
+
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
+
 }
 bindcode $mod+$o mode $mode_output
 
@@ -533,7 +542,6 @@ exec_always systemctl --user import-environment WAYLAND_DISPLAY
 # see `man 5 xdg-desktop-portal-wlr`. Could for example use wofi instead of slurp... (TODO ?)
 exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 
-
 # Polkit agent (allow graphical programs to request permissions with higher granularity than sudo)
 # We need to start a polkit agent manually. Any of them should do.
 # Start gparted as a non-privileged user to test the setup.
@@ -551,3 +559,6 @@ exec lxpolkit
 # We currently use the default config
 # exec redshift
 
+# kanshi : daemon autoloading monitors layouts based on which ones are plugged
+# TODO : maybe move it to a systemd user unit ?
+exec kanshi

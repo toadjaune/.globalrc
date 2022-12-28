@@ -22,6 +22,7 @@
       - alacritty             # GPU-based terminal emulator
       - lxpolkit              # polkit daemon
       - blueberry             # basic out-of-the-box bluetooth config (looks more reliable than blueman so far)
+      - kanshi                # auto-load correct desktop layout based on which monitors are plugged in
 
       # Technical tools required for later desktop setup
       - python3-pip
@@ -58,6 +59,7 @@
       - wdisplays
       - lxpolkit
       - blueberry
+      - kanshi
 
       # alacritty
       - alacritty
@@ -88,6 +90,7 @@
       - wdisplays
       - lxpolkit
       - blueberry
+      - kanshi
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
@@ -348,6 +351,24 @@
     state:  link
     src:    "{{ remote_directory }}/files/waybar_config"
     dest:   "{{ ansible_user_dir }}/.config/waybar/config"
+
+- name: Create kanshi config directory
+  file:
+    state:  directory
+    dest:   "{{ ansible_user_dir }}/.config/kanshi"
+
+- name: Create kanshi config file
+  copy:
+    content:  "{{ kanshi_config }}"
+    dest:     "{{ remote_directory }}/kanshi_config"
+  notify: Reload kanshi config
+  tags: sway-config
+
+- name: Symlink kanshi config
+  file:
+    state:  link
+    src:    "{{ remote_directory }}/kanshi_config"
+    dest:   "{{ ansible_user_dir }}/.config/kanshi/config"
 
 - name: Download mediaplayer.py script
   get_url:
