@@ -489,9 +489,6 @@ mode "launch" {
     # TODO : Make it run without XWayland. Currently, crashes if started with --enable-features=UseOzonePlatform --ozone-platform=wayland
     bindcode $d exec flatpak run com.discordapp.Discord , mode "default"
 
-    # NB : we are starting vscodium with wayland enabled here, but it might cause issues whith xdg link opening, or any other process trying to start vscodium. We'll see if that's an issue...
-    bindcode $v exec flatpak run com.vscodium.codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
-
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
