@@ -23,6 +23,7 @@
       - lxpolkit              # polkit daemon
       - blueberry             # basic out-of-the-box bluetooth config (looks more reliable than blueman so far)
       - kanshi                # auto-load correct desktop layout based on which monitors are plugged in
+      - neovim                # used in vscodium through an extension
 
       # Technical tools required for later desktop setup
       - python3-pip
@@ -60,6 +61,7 @@
       - lxpolkit
       - blueberry
       - kanshi
+      - neovim
 
       # alacritty
       - alacritty
@@ -91,6 +93,7 @@
       - lxpolkit
       - blueberry
       - kanshi
+      - neovim
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
