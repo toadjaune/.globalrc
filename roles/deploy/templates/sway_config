@@ -459,7 +459,6 @@ mode "launch" {
     bindcode $f exec firefox,     mode "default"
     bindcode $t exec thunderbird, mode "default"
 
-    # At the moment, we install spotify manually on fedora via flatpak : https://docs.fedoraproject.org/en-US/quick-docs/installing-spotify/
     bindcode $s exec flatpak run com.spotify.Client, mode "default"
 
     # We switched to installing slack via flatpak, because :
