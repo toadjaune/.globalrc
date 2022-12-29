@@ -459,7 +459,8 @@ mode "launch" {
     bindcode $f exec firefox,     mode "default"
     bindcode $t exec thunderbird, mode "default"
 
-    bindcode $s exec flatpak run com.spotify.Client, mode "default"
+    # TODO : Make it run without XWayland. Currently, never renders a window if started with --enable-features=UseOzonePlatform --ozone-platform=wayland
+    bindcode $s exec flatpak run com.spotify.Client , mode "default"
 
     # We switched to installing slack via flatpak, because :
     # * Screensharing via XDP works properly there (even though it is still using XWayland)
@@ -469,8 +470,8 @@ mode "launch" {
     # * At least it's "automatically" updated that way (still better than the standalone-with-no-repos rpm)
     # * ... and doesn't pollute my repolist with an extra source, doesn't pollute my system with out-of-date libs, etc...
     # * I like to have it sandboxed
-    # TODO : Make it run without XWayland
-    bindcode $k exec flatpak run com.slack.Slack, mode "default"
+    # TODO : Make it run without XWayland. Currently, crashes if started with --enable-features=UseOzonePlatform --ozone-platform=wayland
+    bindcode $k exec flatpak run com.slack.Slack , mode "default"
 
     # We switched to installing discord via flatpak, because :
     # * When discord publishes a package-level update, it is immediately mandatory to connect, but the rpmfusion rpm can take a few days to be updated (whereas the flatpak is instant afaict)
@@ -480,7 +481,8 @@ mode "launch" {
     # * No XDP pipewire screensharing, TODO : I don't know how to enable it
     # * Discord via rpm straight-up crashes if started as a native wayland app
     # TODO : test https://github.com/SpacingBat3/WebCord ?
-    bindcode $d exec flatpak run com.discordapp.Discord, mode "default"
+    # TODO : Make it run without XWayland. Currently, crashes if started with --enable-features=UseOzonePlatform --ozone-platform=wayland
+    bindcode $d exec flatpak run com.discordapp.Discord , mode "default"
 
     # NB : we are starting vscodium with wayland enabled here, but it might cause issues whith xdg link opening, or any other process trying to start vscodium. We'll see if that's an issue...
     bindcode $v exec flatpak run com.vscodium.codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
