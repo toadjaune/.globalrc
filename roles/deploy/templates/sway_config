@@ -560,4 +560,5 @@ exec lxpolkit
 
 # kanshi : daemon autoloading monitors layouts based on which ones are plugged
 # TODO : maybe move it to a systemd user unit ?
+# TODO : currently, when restarting sway, we need to manually reload kanshi configuration
 exec kanshi
