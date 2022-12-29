@@ -107,6 +107,7 @@
       - com.discordapp.Discord
       - com.slack.Slack
       - com.spotify.Client
+      - com.vscodium.codium
   # NB : We'll probably want to use them on other distros too, but it probably requires setting up flatpak first
   when: ansible_os_family == "RedHat"
 

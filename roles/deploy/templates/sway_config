@@ -482,6 +482,8 @@ mode "launch" {
     # TODO : test https://github.com/SpacingBat3/WebCord ?
     bindcode $d exec flatpak run com.discordapp.Discord, mode "default"
 
+    bindcode $v exec flatpak run com.vscodium.codium, mode "default"
+
     # back to normal: Enter or Escape
     bindcode $return mode "default"
     bindcode $escape mode "default"
