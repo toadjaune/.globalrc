@@ -123,7 +123,7 @@ mode $mode_output {
     ### End manual display management
 
     # Reload (and reapply) kanshi configuration
-    bindcode $o exec kanshictl reload
+    bindcode $o exec kanshictl reload , mode "default"
 
     # back to normal: Enter or Escape
     bindcode $return mode "default"
