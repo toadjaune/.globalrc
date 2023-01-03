@@ -10,6 +10,11 @@
 Host github.com gitlab.com
   User toadjaune
 
+# https://github.com/hashicorp/packer/issues/12181
+Host 127.0.0.1
+  PubkeyAcceptedAlgorithms +ssh-rsa
+  HostKeyAlgorithms +ssh-rsa
+
 # Global defaults
 Host *
   User root
