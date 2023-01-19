@@ -19,7 +19,7 @@
 
     - name:     zsh-autosuggestions
       repo:     https://github.com/zsh-users/zsh-autosuggestions
-      version:  v0.6.4
+      version:  v0.7.0
 
     - name:     zsh-syntax-highlighting
       repo:     https://github.com/zsh-users/zsh-syntax-highlighting
