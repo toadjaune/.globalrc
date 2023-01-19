@@ -303,8 +303,7 @@ noremap <leader>P  <Plug>(fakeclip-P)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set ignorecase    " Ignore case when searching
-set smartcase     " ignore case if search pattern is all lowercase,
-                    "    case-sensitive otherwise
+set smartcase     " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set hlsearch      " Highlight search results
 set incsearch     " show search matches as you type
 nnoremap <silent> <leader>/ :nohlsearch<CR>
@@ -360,8 +359,7 @@ au BufNewFile,BufRead Jenkinsfile setf groovy
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set expandtab     " use spaces instead of tabs
-set smarttab      " insert tabs on the start of a line according to
-                    "    shiftwidth, not tabstop
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
 set shiftwidth=2  " 1 tab == 2 spaces
 set tabstop=2
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
