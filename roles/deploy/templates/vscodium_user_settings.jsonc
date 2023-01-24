@@ -1,0 +1,10 @@
+// ANSIBLE-MANAGED, DO NOT EDIT MANUALLY
+{
+    "window.zoomLevel": 1,
+
+    // cf https://github.com/vscode-neovim/vscode-neovim#installation
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+}
+

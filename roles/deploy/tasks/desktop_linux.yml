@@ -463,3 +463,23 @@
       // https://bugzilla.mozilla.org/show_bug.cgi?id=1628431
       user_pref("privacy.webrtc.legacyGlobalIndicator", false);
 
+### VSCodium ###
+
+# cf https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
+
+- name: Ensure vscodium config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/VSCodium/User/"
+    state: directory
+
+# NB : VSCodium watches and reloads the file automatically, but not when it's a symlink
+- name: Configure vscodium user config file
+  ansible.builtin.template:
+    src:    templates/vscodium_user_settings.jsonc
+    dest:   "{{ ansible_user_dir }}/.config/VSCodium/User/settings.json"
+
+
+
+
+
+
