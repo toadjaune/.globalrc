@@ -2,9 +2,13 @@
 {
     "window.zoomLevel": 1,
 
+    // Run neovim in a separate process
     // cf https://github.com/vscode-neovim/vscode-neovim#installation
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
+
+    // Use a patched font for terminal, notably for powerlevel10k
+    "terminal.integrated.fontFamily": "MesloLGS NF",
 }
 
