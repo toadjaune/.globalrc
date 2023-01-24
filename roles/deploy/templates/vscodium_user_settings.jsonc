@@ -9,6 +9,7 @@
     },
 
     // Use a patched font for terminal, notably for powerlevel10k
+    // https://code.visualstudio.com/docs/terminal/appearance
     "terminal.integrated.fontFamily": "MesloLGS NF",
 }
 
