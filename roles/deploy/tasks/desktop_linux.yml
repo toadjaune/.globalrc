@@ -463,6 +463,9 @@
       // https://bugzilla.mozilla.org/show_bug.cgi?id=1628431
       user_pref("privacy.webrtc.legacyGlobalIndicator", false);
 
+      // Always ask where to save downloaded files
+      user_pref("browser.download.useDownloadDir", false);
+
 ### VSCodium ###
 
 # cf https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
