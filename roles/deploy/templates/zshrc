@@ -286,7 +286,7 @@ keymap_list=('viins' 'vicmd' 'visual')
 # bindkey -s '^[ ' '\e'
 
 # History backwards search (supports globbing)
-bindkey '^[f' history-incremental-pattern-search-backward
+bindkey '^[g' history-incremental-pattern-search-backward
 
 ### End key mappings ###
 
