@@ -28,7 +28,11 @@ pushd $(dirname $0) > /dev/null
 source bazshrc.sh
 
 # Expand fpath to include custom functions
-fpath=({{ remote_directory }}/files/zsh_fpath $fpath)
+fpath=(
+  {{ remote_directory }}/files/zsh_fpath      # custom scripts
+  $fpath                                      # default fpath
+  {{ remote_directory }}/generated_zsh_fpath  # extra generated completions
+)
 # Autoload custom functions defined in zsh_fpath
 autoload bonjour ff mkcd pub
 

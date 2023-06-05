@@ -1,0 +1,47 @@
+# Programs installed through the OS package manager usually come with their completions
+# That can't be said of programs installed more or less manually.
+#
+# Those often come with a subcommand that generates their completion, that you're supposed to setup at install-time
+# Sometimes those synchronously load their completions at shell startup time, which is ugly and slows down shell startup
+#
+# Others make completion generation a one-time setup that leverages the shell's normal lazy completion loading,
+# which is better, but means those completions can become stale.
+#
+# It's possible to lazy-load them with custom functions, but that breaks the completion cache.
+#
+#
+# Here, we're trying to find a compromise : we generate those completions at deploy-time, when deploying globalrc, which :
+# * makes the configuration automatic
+# * updates the configuration from time to time, even though not synchronous with the program updates
+# * is idempotent
+# * only generates the config if the corresponding program is found in $PATH
+# * deletes completion configuration if the corresponding program is not found
+#
+# NB : We generate the completion configuration regardless of how the program is installed, so, we might duplicate it.
+# This _should_ be ok (TODO : validate), as the directory in which we generate configurations is at the lower priority in fpath
+
+
+- name: "Check if {{ item.name }} is present in $PATH"
+  command: "{{ item.existence_check_command }}"
+  changed_when: false
+  failed_when: false
+  register: command_exists
+
+- name: "Get {{ item.name }} completion configuration"
+  command: "{{ item.completion_generation_command }}"
+  changed_when: false
+  register: completion_function
+  when: command_exists.rc == 0
+
+  # NB : We use the template module for idempotency
+- name: "Create {{ item.name }} completion file"
+  template:
+    src:  zsh_completion_function
+    dest: "{{ remote_directory }}/generated_zsh_fpath/_{{ item.name }}_globalrc_completion"
+  when: command_exists.rc == 0
+
+- name: "Remove {{ item.name }} completion file"
+  file:
+    path: "{{ remote_directory }}/generated_zsh_fpath/_{{ item.name }}_globalrc_completion"
+    state: absent
+  when: command_exists.rc != 0
