@@ -321,9 +321,13 @@ bindcode $ctrl+$mod+$right move workspace to output right
 
 assign [app_id="firefox"]      $ws1
 
+# Old spotify workaround, kept for reference
 # https://github.com/i3/i3/issues/2060
-# assign [class="spotify"] $ws8
-for_window [class="Spotify"] move to workspace $ws8
+# for_window [class="Spotify"] move to workspace $ws8
+
+# NB : As of 2023-06-27, spotify does not set an app_id
+# The title should work well enough, though
+assign [title="Spotify"]               $ws8
 
 # only works via native wayland
 assign [app_id="Slack"]                $ws9
