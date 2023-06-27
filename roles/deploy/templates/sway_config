@@ -325,11 +325,14 @@ assign [app_id="firefox"]      $ws1
 # assign [class="spotify"] $ws8
 for_window [class="Spotify"] move to workspace $ws8
 
-# only works via XWayland
-assign [class="Slack"]                 $ws9
 # only works via native wayland
 assign [app_id="Slack"]                $ws9
+assign [app_id="discord"]              $ws9
+
+# only works via XWayland
+assign [class="Slack"]                 $ws9
 assign [class="discord"]               $ws9
+
 assign [class="quassel"]               $ws9
 assign [class="riot"]                  $ws9
 assign [app_id="org.telegram.desktop"] $ws9
