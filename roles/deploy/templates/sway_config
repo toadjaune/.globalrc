@@ -489,7 +489,6 @@ mode "launch" {
     # * When discord publishes a package-level update, it is immediately mandatory to connect, but the rpmfusion rpm can take a few days to be updated (whereas the flatpak is instant afaict)
     # * No need to enable rpmfusion non-free
     # * I like to have it sandboxed
-    # Runs via XWayland
     # * No XDP pipewire screensharing, TODO : I don't know how to enable it
     #   * As of 2023-06-27, we can only share XWayland windows, or black screens (both native wayland and XWayland)
     #   * As of 2023-06-27, adding --enable-features=WebRTCPipeWireCapturer make Discord crash when attempting screenshare (both native wayland and XWayland)
@@ -497,7 +496,7 @@ mode "launch" {
     # * Discord via rpm straight-up crashes if started as a native wayland app
     # TODO : test https://github.com/SpacingBat3/WebCord ?
     # TODO : Make it run without XWayland. Currently, crashes if started with --enable-features=UseOzonePlatform --ozone-platform=wayland
-    bindcode $d exec flatpak run com.discordapp.Discord , mode "default"
+    bindcode $d exec flatpak run --socket=wayland com.discordapp.Discord , mode "default"
 
     # NB : if VSCodium is initially started by any way other than this keybinding, it won't be in native wayland mode
     bindcode $c exec codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
