@@ -108,6 +108,7 @@
   flatpak:
     name:
       - com.discordapp.Discord
+      # NB : the latest slack has broken screensharing, see sway config for details
       - com.slack.Slack
       - com.spotify.Client
   # NB : We'll probably want to use them on other distros too, but it probably requires setting up flatpak first

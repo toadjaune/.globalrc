@@ -477,6 +477,10 @@ mode "launch" {
     # * At least it's "automatically" updated that way (still better than the standalone-with-no-repos rpm)
     # * ... and doesn't pollute my repolist with an extra source, doesn't pollute my system with out-of-date libs, etc...
     # * I like to have it sandboxed
+    #
+    # NB : As of 2023-06-27, screensharing is entirely broken on latest version, no matter how it is installed. See following issue for details/workaround :
+    # https://github.com/flathub/com.slack.Slack/issues/196
+    #
     # TODO : Make it run without XWayland. Currently, crashes if started with --enable-features=UseOzonePlatform --ozone-platform=wayland
     bindcode $k exec flatpak run com.slack.Slack , mode "default"
 
