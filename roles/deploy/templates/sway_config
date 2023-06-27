@@ -491,6 +491,9 @@ mode "launch" {
     # * I like to have it sandboxed
     # Runs via XWayland
     # * No XDP pipewire screensharing, TODO : I don't know how to enable it
+    #   * As of 2023-06-27, we can only share XWayland windows, or black screens (both native wayland and XWayland)
+    #   * As of 2023-06-27, adding --enable-features=WebRTCPipeWireCapturer make Discord crash when attempting screenshare (both native wayland and XWayland)
+    #   * Seems unsupported upstream at the moment, even on Gnome (untested) : https://github.com/flathub/com.discordapp.Discord/issues/89
     # * Discord via rpm straight-up crashes if started as a native wayland app
     # TODO : test https://github.com/SpacingBat3/WebCord ?
     # TODO : Make it run without XWayland. Currently, crashes if started with --enable-features=UseOzonePlatform --ozone-platform=wayland
