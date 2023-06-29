@@ -489,7 +489,7 @@ mode "launch" {
     #
     # NB : last time screensharing worked was through XWayland. When trying to fix it up, if it crashes under native wayland, give a try to XWayland
     # bindcode $k exec flatpak run com.slack.Slack , mode "default"
-    bindcode $k exec flatpak run --socket=wayland com.slack.Slack --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
+    bindcode $k exec flatpak run --socket=wayland com.slack.Slack --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer , mode "default"
 
     # We switched to installing discord via flatpak, because :
     # * When discord publishes a package-level update, it is immediately mandatory to connect, but the rpmfusion rpm can take a few days to be updated (whereas the flatpak is instant afaict)
