@@ -497,6 +497,7 @@
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/VSCodium/User/"
     state: directory
+  tags: vscodium
 
 # This command is perfectly idempotent, and doesn't update already installed extensions
 # It's possible to force updates, or pin versions, we don't currently do it
@@ -511,12 +512,14 @@
   loop:
     - asvetliakov.vscode-neovim # neovim install
     - oderwat.indent-rainbow    # more readable indent
+  tags: vscodium
 
 # NB : VSCodium watches and reloads the file automatically, but not when it's a symlink
 - name: Configure vscodium user config file
   ansible.builtin.template:
     src:    templates/vscodium_user_settings.jsonc
     dest:   "{{ ansible_user_dir }}/.config/VSCodium/User/settings.json"
+  tags: vscodium
 
 
 
