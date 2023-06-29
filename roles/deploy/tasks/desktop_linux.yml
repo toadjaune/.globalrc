@@ -168,6 +168,27 @@
 #
 # These changes require at least logging out, but you might as well reboot at every step, honestly.
 
+### Enable bluetooth experimental features ###
+
+# Based on : https://askubuntu.com/a/1420501/627836
+# As of 2023-06-29, bluez supports querying battery status of bluetooth devices, but it's considered experimental and disabled by default
+# We therefore enable experimental features
+# NB : waybar bluetooth module picks it up automatically. You can also check it with `bluetoothctl info` or `upower --dump`
+- name: Enable bluez experimental features
+  blockinfile:
+    dest: /etc/bluetooth/main.conf
+    create: false
+    insertbefore: BOF
+    block:  |
+      # Globalrc-managed configuration
+
+      # Enable experimental features for bluetooth headphones battery status retrieval
+      [General]
+      Experimental = true
+  become: true
+  when: have_root | bool
+  notify: Restart bluez
+
 ### Keyboard layouts ###
 
 - name: Install lxml with pip3

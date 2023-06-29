@@ -30,3 +30,11 @@
   command: "fc-cache -fv"
   changed_when: true
   when: ansible_system != 'Darwin'
+
+  # NB : Only tested on Fedora
+- name: Restart bluez
+  systemd:
+    name: bluetooth
+    state: restarted
+  become: true
+
