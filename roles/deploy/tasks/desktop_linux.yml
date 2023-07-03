@@ -513,6 +513,8 @@
     - asvetliakov.vscode-neovim # neovim install
     - oderwat.indent-rainbow    # more readable indent
     - editorconfig.editorconfig # read repo-local .editorconfig
+    # python
+    - ms-python.python
   tags: vscodium
 
 # NB : VSCodium watches and reloads the file automatically, but not when it's a symlink
