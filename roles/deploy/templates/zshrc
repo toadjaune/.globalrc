@@ -227,6 +227,21 @@ fi
 # TODO: For a fix approach, see : https://github.com/zsh-users/zsh-syntax-highlighting/issues/361
 source "{{ remote_directory }}/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+### Inline atuin widget initialization ###
+
+# Inline the contents of the atuin initialization command
+# NB : We explicitly ask atuin NOT to setup keybindings, so that we can define them ourselves as we want to (although current config is default)
+# NB : atuin init is so fast to run that doing this is probably not much of a performance gain. It still improves debuggability though, and might
+#      play nicer with the zsh config loading cache ?
+
+# TODO : Create an atuin config file to explicitly disable update check and history sync
+
+# Begin generated content
+{{ atuin_init_zsh.stdout }}
+# End generated content
+
+### End inline atuin widget initialization ###
+
 ###############################################################################
 # Plugins post-configuration                                                  #
 ###############################################################################
@@ -290,7 +305,13 @@ keymap_list=('viins' 'vicmd' 'visual')
 # bindkey -s '^[ ' '\e'
 
 # History backwards search (supports globbing)
+# TODO : probably made obsolete by atuin
 bindkey '^[g' history-incremental-pattern-search-backward
+
+# Explicit atuin key bindings
+bindkey '^r' _atuin_search_widget
+bindkey '^[[A' _atuin_up_search_widget
+bindkey '^[OA' _atuin_up_search_widget
 
 ### End key mappings ###
 
