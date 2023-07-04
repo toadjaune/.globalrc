@@ -63,3 +63,11 @@
 
   when: have_root and ansible_os_family == 'Debian'
 
+- name: Install (compile) rust programs with cargo
+  community.general.cargo:
+    name:
+      # There's a deb package downloadable from the github releases
+      # There is no RPM yet (https://github.com/ellie/atuin/issues/990)
+      - atuin
+    state: latest
+
