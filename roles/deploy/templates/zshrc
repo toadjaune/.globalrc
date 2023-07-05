@@ -276,8 +276,13 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=200 # Disable suggestions past a certain command
 
 # We're not savages so we manually bind the wigets once, at initialization, instead of at every single precmd
 # This MUST be executed after all other zle widget initializations
+# zsh-autosuggest creates a precmd (_zsh_autosuggest_start) that, which, by default, will re-wrap every zle widget (_zsh_autosuggest_bind_widgets)
+# at EVERY precmd. We're not savages, so we disable this. Instead, it will only run it at the very first precmd, then unregister itself.
+# There is therefore no need to manually call _zsh_autosuggest_bind_widgets at init time, only if we were to define new widgets later on.
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-_zsh_autosuggest_bind_widgets
+
+# NB : It's quite likely possible to replace this system (wrapping all zle widgets) with a zle-line-pre-redraw hook, just like zsh-syntax highlighting.
+# TODO : open an issue ? Maybe even submit a PR ?
 
 ###############################################################################
 
