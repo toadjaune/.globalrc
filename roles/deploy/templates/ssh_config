@@ -10,10 +10,9 @@
 Host github.com gitlab.com
   User toadjaune
 
-# https://github.com/hashicorp/packer/issues/12181
+# https://github.com/hashicorp/packer/issues/12181 is fixed, but the crypto hardening below still requires an explicit config override
 Host 127.0.0.1
-  PubkeyAcceptedAlgorithms +ssh-rsa
-  HostKeyAlgorithms +ssh-rsa
+  HostKeyAlgorithms +ecdsa-sha2-nistp384
 
 # Global defaults
 Host *
