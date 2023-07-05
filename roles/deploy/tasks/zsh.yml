@@ -17,13 +17,16 @@
       repo:     https://github.com/romkatv/powerlevel10k
       version:  v1.17.0
 
+      # TODO : There are packages, see if they're updated enough, and how to use them
     - name:     zsh-autosuggestions
       repo:     https://github.com/zsh-users/zsh-autosuggestions
       version:  v0.7.0
 
+      # TODO : There are packages, see if they're updated enough, and how to use them
     - name:     zsh-syntax-highlighting
       repo:     https://github.com/zsh-users/zsh-syntax-highlighting
-      version:  0.7.1
+      # NB : releases are really unfrequent, and meant to be used by package managers
+      version:  "1386f12" # master as of 2023-07-05
 
     - name:     zsh-completions
       repo:     https://github.com/zsh-users/zsh-completions
