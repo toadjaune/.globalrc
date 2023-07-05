@@ -5,3 +5,6 @@ update_check = false
 
 # We don't ever want history sync
 auto_sync = false
+
+# When using the up arrow, don't mix history between shells
+filter_mode_shell_up_key_binding = "session"
