@@ -236,6 +236,8 @@ source "{{ remote_directory }}/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-hi
 
 # TODO : Create an atuin config file to explicitly disable update check and history sync
 
+# Generated with : {{ atuin_init_zsh.cmd | join(" ") }}
+
 # Begin generated content
 {{ atuin_init_zsh.stdout }}
 # End generated content
