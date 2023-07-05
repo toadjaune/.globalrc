@@ -43,9 +43,16 @@
 
 - name: Retrieve atuin widget definitions
   command:
-    cmd: "atuin init zsh --disable-up-arrow --disable-ctrl-r"
+    argv:
+      - "{{ userspace_bin_path_cargo }}/atuin"
+      - init
+      - zsh
+      - --disable-up-arrow
+      - --disable-ctrl-r
   changed_when: false
   register: atuin_init_zsh
+
+- debug: var=atuin_init_zsh
 
 # Some specific tasks need to be done before loading .zshrc
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout#71258
