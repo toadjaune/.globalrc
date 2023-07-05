@@ -19,8 +19,11 @@
 
       # TODO : There are packages, see if they're updated enough, and how to use them
     - name:     zsh-autosuggestions
-      repo:     https://github.com/zsh-users/zsh-autosuggestions
-      version:  v0.7.0
+      # repo:     https://github.com/zsh-users/zsh-autosuggestions
+      # version:  v0.7.0
+      # Switch to my fork for now : https://github.com/zsh-users/zsh-autosuggestions/pull/749
+      repo:     https://github.com/toadjaune/zsh-autosuggestions
+      version:  wrap-underscore-widgets
 
       # TODO : There are packages, see if they're updated enough, and how to use them
     - name:     zsh-syntax-highlighting
