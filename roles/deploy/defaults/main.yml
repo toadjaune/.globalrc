@@ -1,5 +1,8 @@
 # Location of the main directory on the remote machine
 remote_directory:   "{{ ansible_user_dir }}/.globalrc"
+# Userspace language-specific install paths
+userspace_bin_path_cargo: "{{ ansible_user_dir }}/.cargo/bin"
+userspace_bin_path_go:    "{{ ansible_user_dir }}/go/bin"
 
 # Set this to true if you want to perform the operations requiring root, for a first-time install
 have_root:  false
@@ -62,3 +65,4 @@ fonts_install_path: "{{ ansible_user_dir }}/{{ (ansible_system == 'Darwin') | te
 
 # Firefox default profile
 firefox_profile_name: default-release
+

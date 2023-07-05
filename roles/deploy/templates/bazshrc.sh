@@ -31,7 +31,7 @@ fi
 # * $PATH                     : Default OS search path
 #
 # Please note that this is only applied in a shell environment, not anything started graphically or by the OS
-export PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:{{ ansible_user_dir }}/.cargo/bin:{{ ansible_user_dir }}/go/bin:{{ ansible_user_dir }}/.local/bin:$PATH"
+export PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:{{ userspace_bin_path_cargo }}:{{ userspace_bin_path_go }}:{{ ansible_user_dir }}/.local/bin:$PATH"
 
 if command -v most >/dev/null 2>&1 ; then
   export PAGER="most"
