@@ -234,7 +234,8 @@ source "{{ remote_directory }}/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-hi
 # NB : atuin init is so fast to run that doing this is probably not much of a performance gain. It still improves debuggability though, and might
 #      play nicer with the zsh config loading cache ?
 
-# TODO : Create an atuin config file to explicitly disable update check and history sync
+# Use globalrc-managed config file
+export ATUIN_CONFIG_DIR="{{ remote_directory }}/files/atuin"
 
 # Generated with : {{ atuin_init_zsh.cmd | join(" ") }}
 

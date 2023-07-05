@@ -1,0 +1,7 @@
+# documentation : https://atuin.sh/docs/config
+
+# Updates are managed via cargo
+update_check = false
+
+# We don't ever want history sync
+auto_sync = false
