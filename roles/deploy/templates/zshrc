@@ -188,6 +188,13 @@ alias -g G='| grep'
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 ### powerlevel10k ###
+
+# https://starship.rs/ might be an alternative later on, it does have some pretty nice features :
+# * Simpler configuration
+# * Possibly crazy fast
+# But for now, it is entirely synchronous, and at least git status may be pretty slow :
+# https://github.com/starship/starship/issues/301
+
 # file generated with `p10k configure`
 source p10k.zsh
 
