@@ -501,6 +501,11 @@
 
 # This command is perfectly idempotent, and doesn't update already installed extensions
 # It's possible to force updates, or pin versions, we don't currently do it
+# NB : for vscodium, extensions are downloaded from https://open-vsx.org/, not the Microsoft store
+# This means some extensions may be absent, or not the exact same version
+# Details : https://github.com/VSCodium/vscodium/issues/448
+# Procedure to make an extension available on open-vsx : https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions-marketplace
+# Manually install an extension from the marketplace : https://milicendev.netlify.app/article/install-vs-codium-and-integrate-vs-code-extensions/
 - name: Install VSCodium managed extensions
   ansible.builtin.command:
     argv:
@@ -510,10 +515,12 @@
   register: local_output
   changed_when: "'is already installed' not in local_output.stdout"
   loop:
-    - asvetliakov.vscode-neovim # neovim install
-    - oderwat.indent-rainbow    # more readable indent
-    - editorconfig.editorconfig # read repo-local .editorconfig
-    - eamodio.gitlens           # nice git blame integration
+    - asvetliakov.vscode-neovim           # neovim install
+    - oderwat.indent-rainbow              # more readable indent
+    - editorconfig.editorconfig           # read repo-local .editorconfig
+    - eamodio.gitlens                     # nice git blame integration
+    # Not present on open-vsx, install manually
+    # - mangano-ito.git-branch-wise-session # Save/restore open tabs per git branch
     # python
     - ms-python.python
   tags: vscodium
