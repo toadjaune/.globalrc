@@ -15,5 +15,34 @@
     // Sync open tabs with currently checked-out branch
     "git-branch-wise-session.shouldAutoRestoreOnBranchSwitches": true,
     "git-branch-wise-session.autoSaveBranchOnSwitch": true,
+
+    // When saving files, automatically reformat them with configured formatter
+    "editor.formatOnSave": true,
+
+    // Lanquage-specific configurations
+    //"[terraform]": {
+    //  "editor.defaultFormatter": "hashicorp.terraform",
+    //  "editor.formatOnSave": false,
+    //  "editor.codeActionsOnSave": {
+    //    "source.formatAll.terraform": true
+    //  },
+    //},
+    //"[terraform-vars]": {
+    //  "editor.defaultFormatter": "hashicorp.terraform",
+    //  "editor.formatOnSave": false,
+    //  "editor.codeActionsOnSave": {
+    //    "source.formatAll.terraform": true
+    //  },
+    //},
+    "[terraform]": {
+      "editor.defaultFormatter": "hashicorp.terraform",
+      "editor.formatOnSave": true,
+      "editor.formatOnSaveMode": "file",
+    },
+    "[terraform-vars]": {
+      "editor.defaultFormatter": "hashicorp.terraform",
+      "editor.formatOnSave": true,
+      "editor.formatOnSaveMode": "file",
+    },
 }
 

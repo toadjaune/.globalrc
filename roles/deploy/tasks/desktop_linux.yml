@@ -521,6 +521,7 @@
     - eamodio.gitlens                     # nice git blame integration
     # Not present on open-vsx, install manually
     # - mangano-ito.git-branch-wise-session # Save/restore open tabs per git branch
+    - hashicorp.terraform   # terraform formatting/auto-completion
     # python
     - ms-python.python
   tags: vscodium
