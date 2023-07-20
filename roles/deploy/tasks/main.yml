@@ -19,6 +19,34 @@
   changed_when: false
   when: have_root | bool
 
+# Tombstones, TODO :remove at some point
+- name: "TOMBSTONE : clear old blockinfiles"
+  blockinfile:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - "{{ ansible_user_dir }}/.zshenv"
+    - "{{ ansible_user_dir }}/.zshrc"
+    - "{{ ansible_user_dir }}/.ssh/config"
+    - "{{ ansible_user_dir }}/.tmux.conf"
+    - "{{ ansible_user_dir }}/.bashrc"
+    - "{{ ansible_user_dir }}/.irbrc"
+    - "{{ ansible_user_dir }}/.gitconfig"
+    - "{{ ansible_user_dir }}/.screenrc"
+    # - "{{ ansible_user_dir }}/.gtkrc-2.0"
+    # - "{{ ansible_user_dir }}/.config/Trolltech.conf"
+- name: "TOMBSTONE : clear vim old blockinfile"
+  blockinfile:
+    state: absent
+    path:   "{{ ansible_user_dir }}/.vimrc"
+    marker: "\" {mark} ANSIBLE MANAGED BLOCK"
+- name: "TOMBSTONE : clear bluez old blockinfile"
+  blockinfile:
+    state: absent
+    dest: /etc/bluetooth/main.conf
+  become: true
+  when: have_root | bool
+
 - name: Create main directory
   file:
     path:   "{{ remote_directory }}"
@@ -84,6 +112,7 @@
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.bashrc"
     create: true
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       # Load custom configuration
       . {{ remote_directory }}/files/bashrc
@@ -103,6 +132,7 @@
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.irbrc"
     create: true
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       IRB.conf[:SAVE_HISTORY] = 200
       IRB.conf[:HISTORY_FILE] = '~/.irb-history'
@@ -111,6 +141,7 @@
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.gitconfig"
     create: true
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       # Loading global git configuration
       [include]
@@ -155,6 +186,7 @@
     dest:         "{{ ansible_user_dir }}/.screenrc"
     insertbefore: BOF
     create:       true
+    marker:       "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       # Loading global screen configuration
       source {{ remote_directory }}/files/screenrc

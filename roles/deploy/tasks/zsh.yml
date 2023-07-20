@@ -66,6 +66,7 @@
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.zshenv"
     create: true
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       # Disable compinit call in /etc/zsh/zshrc on ubuntu
       skip_global_compinit=1
@@ -79,6 +80,7 @@
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.zshrc"
     create: true
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       # Load custom configuration
       . {{ remote_directory }}/files/zshrc

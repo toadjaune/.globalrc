@@ -177,8 +177,9 @@
 - name: Enable bluez experimental features
   blockinfile:
     dest: /etc/bluetooth/main.conf
-    create: false
     insertbefore: BOF
+    create: false
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       # Globalrc-managed configuration
 
@@ -303,6 +304,7 @@
 #   blockinfile:
 #     dest:   "{{ ansible_user_dir }}/.gtkrc-2.0"
 #     create: true
+#     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
 #     block:  |
 #       # Load GTK2 configuration
 #       include "{{ remote_directory }}/files/gtkrc-2.0"
@@ -322,6 +324,7 @@
 #   blockinfile:
 #     dest:   "{{ ansible_user_dir }}/.config/Trolltech.conf"
 #     create: true
+#     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
 #     block:  |
 #       # Set Qt4 Theme
 #       [Qt]
@@ -464,9 +467,16 @@
     that: firefox_profile_path['files'][0]['path'] is defined
     msg:  "Could not find a firefox profile directory for name {{ firefox_profile_name }}"
 
+  # TODO : remove after some time
+- name: "TOMBSTONE : clear vim old blockinfile"
+  blockinfile:
+    state: absent
+    path: "{{ firefox_profile_path['files'][0]['path'] }}/user.js"
+
 - name: Setup firefox user config
   blockinfile:
     path: "{{ firefox_profile_path['files'][0]['path'] }}/user.js"
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     create: true
     block: |
       // Warning : first line might get skipped ?

@@ -4,6 +4,7 @@
     dest:         "{{ ansible_user_dir }}/.tmux.conf"
     insertbefore: BOF
     create:       true
+    marker:       "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       # Loading global tmux configuration
       source-file {{ remote_directory }}/templates/tmux.conf

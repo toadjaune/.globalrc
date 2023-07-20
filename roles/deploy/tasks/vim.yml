@@ -12,7 +12,7 @@
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.vimrc"
     create: true
-    marker: "\" {mark} ANSIBLE MANAGED BLOCK"
+    marker: "\" {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     block:  |
       " Loading global vim configuration
       source {{ remote_directory }}/vim/vimrc
