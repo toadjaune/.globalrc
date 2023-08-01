@@ -589,3 +589,34 @@ exec kanshi
 # When reloading sway config, reload kanshi configuration
 exec_always kanshictl reload
 
+
+### Notes on light/dark theme runtime switching
+
+# Those are currently general notes, as this part is currently far from working
+# I put it here because it's (at least vaguely) related to xdg portals
+#
+# So, for the basic idea :
+# There is a freedesktop property (org.freedesktop.appearance color-scheme) that describes the user preferences,
+# with 3 possible values : no-preference, prefer-dark, prefer-light
+# https://blogs.gnome.org/alicem/2021/10/04/dark-style-preference/
+#
+# I don't know yet how exactly I can set it. This probably requires a portal implementing it ?
+# Anyway, currently, the property currently does not exist (`xdg-settings --list` doesn't see it)
+#
+# Gnome maps it to the org.gnome.desktop.interface color-scheme setting, which means we can set it with :
+# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+# This of course requires the gsettings daemon. Which I currently have, so it's OK for now, I guess.
+#
+# At least _some_ programs honor it that way. Namely, firefox propagates it to the webpages that honor it (but not to its own chrome so far)
+#
+# Possible next steps :
+# * https://gitlab.com/WhyNotHugo/darkman might be an implementation
+# * If I can find a way to have it in xdg settings, see if gnome gets in the way
+# * Make firefox's chrome honor the preference
+# * Make various other desktop apps honor the preference
+# * See if Dark Reader can read and honor it too ? And be smart about it ?
+#
+# Looks like we can query the value via d-bus with :
+# dbus-send --session --print-reply=literal --reply-timeout=1000 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
+# Currently, the value read there is the one set in gsettings. We probably need to set darkman to a higher priority in xdg-desktop portal, so that it queries this value from darkman instead ?
+#
