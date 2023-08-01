@@ -538,7 +538,8 @@ bindcode $mod+$t mode "type"
 # * mako (notification daemon, started via DBus, requires $WAYLAND_DISPLAY)
 # * ssh-agent (custom unit added by this role)
 # * xdg-desktop-portal (Portal manager, started via DBus, requires $XDG_CURRENT_DESKTOP, see below)
-# * xdg-desktop-portal-wlr (Portal implementation, started via DBus, see below)
+# * xdg-desktop-portal-wlr (wayland-related portals implementation, started via DBus, see below)
+# * darkman (light/dark theme manager and portal implementation, started by systemd, see below)
 #
 # Environment in ~/.config/environment.d/ is included in systemd user unit environments, as well as various variables set by sway
 # * `systemctl --user show-environment`
@@ -566,6 +567,36 @@ exec_always systemctl --user import-environment WAYLAND_DISPLAY
 # see `man 5 xdg-desktop-portal-wlr`. Could for example use wofi instead of slurp... (TODO ?)
 exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 
+# darkman (light/dark theme runtime switching)
+#
+# So, for the basic idea :
+# There is a freedesktop property (org.freedesktop.appearance color-scheme) that describes the user preference,
+# with 3 possible values : no-preference (0), prefer-dark (1), prefer-light(2)
+# https://blogs.gnome.org/alicem/2021/10/04/dark-style-preference/
+# https://github.com/flatpak/xdg-desktop-portal/blob/d7a304a00697d7d608821253cd013f3b97ac0fb6/data/org.freedesktop.impl.portal.Settings.xml#L33-L45
+#
+# We use https://gitlab.com/WhyNotHugo/darkman, which provides a simple cli to choose the preference, and exposes it through its portal implementation
+#
+# Gnome of course implements it too.
+# It maps it to the org.gnome.desktop.interface color-scheme setting, which means we can set it with :
+# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+#
+# With no specific setup, darkman should auto-start as a user systemd unit
+# (NB : might need a reboot if it was just installed)
+#
+# If you have any doubt about which portal implementation has precedence, directly query dbus for the current value with :
+# dbus-send --session --print-reply=literal --reply-timeout=1000 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
+#
+# At least _some_ programs honor it that way. Namely, firefox propagates it to the webpages that honor it (but not to its own chrome so far)
+#
+# TODO : Possible next steps :
+# * keybindings to toggle darkman preference, and a startup default
+# * Make firefox's chrome honor the preference
+# * Make various other desktop apps honor the preference
+# * See if Dark Reader can read and honor it too ? And be smart about it ?
+# * Terminal/shell theme ?
+# * Auto background change ?
+
 # Polkit agent (allow graphical programs to request permissions with higher granularity than sudo)
 # We need to start a polkit agent manually. Any of them should do.
 # Start gparted as a non-privileged user to test the setup.
@@ -589,34 +620,3 @@ exec kanshi
 # When reloading sway config, reload kanshi configuration
 exec_always kanshictl reload
 
-
-### Notes on light/dark theme runtime switching
-
-# Those are currently general notes, as this part is currently far from working
-# I put it here because it's (at least vaguely) related to xdg portals
-#
-# So, for the basic idea :
-# There is a freedesktop property (org.freedesktop.appearance color-scheme) that describes the user preferences,
-# with 3 possible values : no-preference, prefer-dark, prefer-light
-# https://blogs.gnome.org/alicem/2021/10/04/dark-style-preference/
-#
-# I don't know yet how exactly I can set it. This probably requires a portal implementing it ?
-# Anyway, currently, the property currently does not exist (`xdg-settings --list` doesn't see it)
-#
-# Gnome maps it to the org.gnome.desktop.interface color-scheme setting, which means we can set it with :
-# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-# This of course requires the gsettings daemon. Which I currently have, so it's OK for now, I guess.
-#
-# At least _some_ programs honor it that way. Namely, firefox propagates it to the webpages that honor it (but not to its own chrome so far)
-#
-# Possible next steps :
-# * https://gitlab.com/WhyNotHugo/darkman might be an implementation
-# * If I can find a way to have it in xdg settings, see if gnome gets in the way
-# * Make firefox's chrome honor the preference
-# * Make various other desktop apps honor the preference
-# * See if Dark Reader can read and honor it too ? And be smart about it ?
-#
-# Looks like we can query the value via d-bus with :
-# dbus-send --session --print-reply=literal --reply-timeout=1000 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
-# Currently, the value read there is the one set in gsettings. We probably need to set darkman to a higher priority in xdg-desktop portal, so that it queries this value from darkman instead ?
-#
