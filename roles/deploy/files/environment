@@ -3,7 +3,7 @@
 # This file will be set up in ~/.config/environment.d/
 # It should be sourced at session startup (works from gdm and likely via systemd, doesn't work if invoking sway from a TTY)
 
-# When making changes in this file, make sure to *REBOOT*. Logging out is not enough (at least with GDM)
+# When making changes in this file, make sure to *REBOOT*. Logging out is not always enough (at least with GDM)
 
 # References :
 # https://wiki.archlinux.org/title/Environment_variables#Wayland_environment
@@ -14,7 +14,13 @@
 # It seems GTK4 (or at least nautilus) cannot be configured through config files in .config
 # Since this is the only setting we currently need to change, this should be fine for now
 # https://wiki.archlinux.org/title/GTK
-GTK_THEME=Adwaita:dark
+# NB : I haven't found yet a way to explicitly configure a theme family, while still
+# honoring runtime dark theme switching with org.freedesktop.appearance.color-scheme
+# for that reason we remove this for now, and let GTK apps use the default theme.
+# TODO : drawback : without this setting, some apps display an ugly white top bar
+#   It's possible to add this envvar to their specific invocation, though
+# GTK_THEME=Adwaita:dark
+# GTK_THEME=Adwaita
 
 # Configure theme for Qt5 applications (such as vlc)
 QT_STYLE_OVERRIDE=Adwaita-Dark

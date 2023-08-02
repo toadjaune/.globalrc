@@ -587,12 +587,18 @@ exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 # If you have any doubt about which portal implementation has precedence, directly query dbus for the current value with :
 # dbus-send --session --print-reply=literal --reply-timeout=1000 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
 #
-# At least _some_ programs honor it that way. Namely, firefox propagates it to the webpages that honor it (but not to its own chrome so far)
+# Most GTK programs honor it unless GTK_THEME envvar is defined
+# A few examples to test for when changing those :
+# * firefox's own chrome (interface) follows GTK_THEME first, then this
+# * nautilus, same
+# * firefox web pages follow this regardless of GTK_THEME
+# * thunderbird follows it regardless of GTK_THEME
 #
 # TODO : Possible next steps :
 # * keybindings to toggle darkman preference, and a startup default
-# * Make firefox's chrome honor the preference
 # * Make various other desktop apps honor the preference
+#   * slack
+#   * vscodium
 # * See if Dark Reader can read and honor it too ? And be smart about it ?
 # * Terminal/shell theme ?
 # * Auto background change ?
