@@ -232,9 +232,6 @@ input "type:keyboard" {
 # Media keys
 # TODO : Do we want to complement these with normal keybindings for "normal" keyboards ?
 # Not configured yet keys that we might want to add
-# * XF86AudioMicMute
-# * XF86MonBrightnessDown
-# * XF86MonBrightnessUp
 # * XF86Display (Normally to choose the display mode, do we want it ?)
 # * XF86WLAN (Turn on/off WiFi, seems alredy done on my computers ?)
 # * XF86Tools (???)
@@ -253,6 +250,10 @@ bindsym --locked XF86AudioPlay  exec playerctl play-pause
 bindsym --locked XF86AudioPause exec playerctl play-pause
 bindsym --locked XF86AudioNext  exec playerctl next
 bindsym --locked XF86AudioPrev  exec playerctl previous
+
+# Screen brightness
+bindsym --locked XF86MonBrightnessUp    exec brightnessctl s 5%+
+bindsym --locked XF86MonBrightnessDown  exec brightnessctl s 5%-
 
 #
 # Moving around:

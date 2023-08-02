@@ -25,6 +25,7 @@
       - kanshi                # auto-load correct desktop layout based on which monitors are plugged in
       - neovim                # used in vscodium through an extension
       - darkman               # light/dark theme runtime switching
+      - brightnessctl         # control screen brightness
 
       # Language-specific package managers and tooling
       - python3-pip   # python deps with pip
@@ -64,6 +65,7 @@
       - kanshi
       - neovim
       - darkman
+      - brightnessctl
 
       # alacritty
       - alacritty
@@ -97,6 +99,7 @@
       - kanshi
       - neovim
       - darkman
+      - brightnessctl
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
