@@ -12,6 +12,15 @@
     // https://code.visualstudio.com/docs/terminal/appearance
     "terminal.integrated.fontFamily": "MesloLGS NF",
 
+    // Follow system light/dark theme (org.freedesktop.appearance.color-scheme)
+    // https://code.visualstudio.com/docs/getstarted/themes#_auto-switch-based-on-os-color-scheme
+    // NB : It's still possible to customize separately light and dark theme
+    // Does not currently work :
+    // https://github.com/microsoft/vscode/issues/179431
+    // https://github.com/electron/electron/issues/25925
+    // https://github.com/electron/electron/issues/33635
+    // "window.autoDetectColorScheme": true,
+
     // Sync open tabs with currently checked-out branch
     "git-branch-wise-session.shouldAutoRestoreOnBranchSwitches": true,
     "git-branch-wise-session.autoSaveBranchOnSwitch": true,

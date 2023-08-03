@@ -595,6 +595,9 @@ exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 # * firefox web pages follow this regardless of GTK_THEME
 # * thunderbird follows it regardless of GTK_THEME
 #
+# Electron's detection logic is currently (2023-08-03) broken :
+# https://github.com/electron/electron/issues/33635
+#
 # TODO : Possible next steps :
 # * keybindings to toggle darkman preference, and a startup default
 # * Make various other desktop apps honor the preference
