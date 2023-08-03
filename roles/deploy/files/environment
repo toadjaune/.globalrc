@@ -23,6 +23,9 @@
 # GTK_THEME=Adwaita
 
 # Configure theme for Qt5 applications (such as vlc)
+# NB : There does not seem to be any kind of support for auto-switch in VLC 3.x
+# Maybe the 4.0 will implement it ?
+# NB : I can't think of any other Qt app I'm using.
 QT_STYLE_OVERRIDE=Adwaita-Dark
 
 # Enable native Wayland support for firefox and thunderbird
