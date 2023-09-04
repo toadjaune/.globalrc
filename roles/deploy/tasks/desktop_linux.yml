@@ -550,7 +550,23 @@
   tags: vscodium
 
 
+### darkman ###
 
+- name: Create ~/.config/darkman
+  file:
+    path: "{{ ansible_user_dir }}/.config/darkman"
+    state: directory
 
+- name: Setup darkman config
+  blockinfile:
+    path: "{{ ansible_user_dir }}/.config/darkman/config.yaml"
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
+    create: true
+    block: |
+      # cf https://gitlab.com/WhyNotHugo/darkman/-/issues/52
+      usegeoclue: false
 
+      # Paris
+      lat: 48.8
+      lng: 2.3
 
