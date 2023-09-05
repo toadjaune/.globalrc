@@ -557,16 +557,16 @@
     path: "{{ ansible_user_dir }}/.config/darkman"
     state: directory
 
+  # NB : we currently don't bother reloading darkman on config change
 - name: Setup darkman config
   blockinfile:
     path: "{{ ansible_user_dir }}/.config/darkman/config.yaml"
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     create: true
     block: |
+      # By default, darkman will attempt to look up coordinates, and crash without geoclue
+      # v2.0 should change this default behavior.
+      # The way to entirely disable automatic transitions is to disable geoclue without explicitly setting
+      # coordinates (which is what we want here)
       # cf https://gitlab.com/WhyNotHugo/darkman/-/issues/52
       usegeoclue: false
-
-      # Paris
-      lat: 48.8
-      lng: 2.3
-
