@@ -30,7 +30,6 @@
   with_items:
     - https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim
     - https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim
-    - https://vim.sourceforge.io/scripts/download_script.php?src_id=817
 
 - name: Install vim-plug for Vim plugin management
   git:
