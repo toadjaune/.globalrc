@@ -486,7 +486,10 @@ mode "launch" {
     # * ... and doesn't pollute my repolist with an extra source, doesn't pollute my system with out-of-date libs, etc...
     # * I like to have it sandboxed
     #
-    # NB : last time screensharing worked was through XWayland. When trying to fix it up, if it crashes under native wayland, give a try to XWayland
+    # NB : Screensharing without XWayland currently broken with latest versions :
+    # * https://forums.slackcommunity.com/s/question/0D53a00009BSEGACA5/when-will-slack-support-wayland-screen-sharing-does-anyone-have-workarounds-or-hacks-to-make-it-work
+    # * https://github.com/flathub/com.slack.Slack/issues/101#issuecomment-1590891983
+    # * https://github.com/flathub/com.slack.Slack/issues/196
     # bindcode $k exec flatpak run com.slack.Slack , mode "default"
     bindcode $k exec flatpak run --socket=wayland com.slack.Slack --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer , mode "default"
 
