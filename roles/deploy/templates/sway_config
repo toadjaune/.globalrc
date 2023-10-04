@@ -23,7 +23,7 @@ set $w 25
 set $e 26
 set $r 27
 set $t 28
-
+set $y 29
 set $u 30
 set $i 31
 set $o 32
@@ -526,6 +526,7 @@ mode "type" {
 }
 bindcode $mod+$t mode "type"
 
+
 ### Start/configure various daemons
 
 # Some userspace daemons come packaged with userpace systemd unit configurations (/usr/lib/systemd/user/)
@@ -600,12 +601,16 @@ exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 # https://github.com/electron/electron/issues/33635
 #
 # TODO : Possible next steps :
-# * keybindings to toggle darkman preference, and a startup default
 # * Make various other desktop apps honor the preference
 #   * slack
 #   * vscodium
 # * Terminal/shell theme ?
 # * Auto background change ?
+
+# Manual toggle between light and dark theme
+bindcode $mod+$y exec darkman toggle && notify-send --urgency=low "Switched to $(darkman get) mode"
+# At startup, use dark mode
+exec darkman set dark
 
 # Polkit agent (allow graphical programs to request permissions with higher granularity than sudo)
 # We need to start a polkit agent manually. Any of them should do.
