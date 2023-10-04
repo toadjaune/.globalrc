@@ -592,6 +592,7 @@ exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 # * firefox's own chrome (interface) follows GTK_THEME first, then this
 # * nautilus, same
 # * firefox web pages follow this regardless of GTK_THEME
+# * Dark Reader extension can be configured to follow it (independently of its per-site global exclude list)
 # * thunderbird follows it regardless of GTK_THEME
 #
 # Electron's detection logic is currently (2023-08-03) broken :
