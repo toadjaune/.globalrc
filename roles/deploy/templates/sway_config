@@ -188,9 +188,6 @@ bindcode $mod+Shift+$e exec swaynag -t warning -m 'You pressed the exit shortcut
 
 # Using non-specific input mappings make firefox and thunderbird crash on sway reload.
 # It is fixed upstream, should be backported to sway 1.8
-# TODO : I'm planning to endure this bug until 1.8 gets shipped to fedora packages. Then remove those comments after confirming everything is fine.
-# https://github.com/swaywm/sway/issues/6637
-# https://github.com/swaywm/sway/pull/7309
 input "type:keyboard" {
   xkb_layout  "fr"
   xkb_variant "lafayette"
