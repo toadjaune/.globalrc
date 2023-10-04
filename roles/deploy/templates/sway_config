@@ -604,7 +604,6 @@ exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 # * Make various other desktop apps honor the preference
 #   * slack
 #   * vscodium
-# * See if Dark Reader can read and honor it too ? And be smart about it ?
 # * Terminal/shell theme ?
 # * Auto background change ?
 
