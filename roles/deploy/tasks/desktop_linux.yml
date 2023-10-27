@@ -540,6 +540,7 @@
     - hashicorp.terraform   # terraform formatting/auto-completion
     # python
     - ms-python.python
+    # - ms-python.black
   tags: vscodium
 
 # NB : VSCodium watches and reloads the file automatically, but not when it's a symlink
