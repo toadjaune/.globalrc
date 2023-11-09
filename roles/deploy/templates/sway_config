@@ -562,10 +562,41 @@ exec_always systemctl --user import-environment WAYLAND_DISPLAY
 # * `/usr/libexec/xdg-desktop-portal -vr` to start it manually, with extra logs, and see what DBus interfaces are bound to what.
 # * `/usr/libexec/xdg-desktop-portal-wlr -l DEBUG -r`
 # * https://flatpak.github.io/xdg-desktop-portal/ -> List of interfaces
-# It's currently not possible to share individual windows : https://github.com/emersion/xdg-desktop-portal-wlr/issues/107
 # It's possible to configure xdg-desktop-portal-wlr, notably to choose how it will make you choose between outputs to share,
 # see `man 5 xdg-desktop-portal-wlr`. Could for example use wofi instead of slurp... (TODO ?)
 exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+
+# Wayland screen sharing notes
+#
+# Screen sharing of native Wayland windows uses PipeWire and XDG Portals (see above)
+#
+# On sway (or any wlroots-based compositor), we only get to stream entire screens at once, no way to stream a specific window :
+# * https://github.com/emersion/xdg-desktop-portal-wlr/issues/107
+# * https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/issues/93
+#
+# As of 2023-11-09, it works seamlessly for streaming clients implementing it properly (e.g. firefox, chromium...), but some shitty clients
+# (slack, Discord...) fail to make it work properly (cf above at their launch keybinding definitions)
+# Those programs however tend to retain the ability to stream windows through the X protocol, meaning we can still share Xwayland windows through those broken programs.
+# xwaylandvideobridge is a ~hack~ compatibility layer that captures a wayland window, and exposes it as its X window content.
+# It works, but far from seamlessly (you get multiple desktop choice steps, it's sensible to window aspect ratio, etc)
+# Here's how we currently use it :
+# * it's installed through dnf. Nothing autostarts it.
+# * whenever you want to use it, start it manually (typically through rofi)
+# * ensure its window occupies an entire desktop
+# * ensure its desktop is on the screen you're about to share
+# * go back to your streaming program, and share a window through it (the window is named "Wayland to X11 Video Bridge")
+# * enjoy
+#
+# Potential future improvements to consider, depending on how it ends up working :
+# * removing it entirely once those programs fix their shit. This would be ideal, and since all programs affected here are electron, it just might happen eventually
+# * autostarting it ? There's a kde flatpak that could help with that
+# * autostarting it manually from sway ?
+# * configuring sway to hide the window ?
+#
+# References :
+# * https://github.com/KDE/xwaylandvideobridge
+# * https://github.com/JerrySM64/Xwayland-Video-Bridge-Quick-Setup/blob/main/XWayland-Video-Bridge-Setup.sh
+# * https://blog.davidedmundson.co.uk/blog/xwaylandvideobridge/
 
 # darkman (light/dark theme runtime switching)
 #

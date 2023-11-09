@@ -26,6 +26,7 @@
       - neovim                # used in vscodium through an extension
       - darkman               # light/dark theme runtime switching
       - brightnessctl         # control screen brightness
+      - xwaylandvideobridge   # work around broken screensharing on low-quality apps (see sway config file)
 
       # Language-specific package managers and tooling
       - python3-pip   # python deps with pip
