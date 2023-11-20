@@ -617,6 +617,7 @@ exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 #
 # If you have any doubt about which portal implementation has precedence, directly query dbus for the current value with :
 # dbus-send --session --print-reply=literal --reply-timeout=1000 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
+# NB : ansible explicitly configures darkman precedence in ~/.config/xdg-desktop-portal/sway-portals.conf
 #
 # Most GTK programs honor it unless GTK_THEME envvar is defined
 # A few examples to test for when changing those :

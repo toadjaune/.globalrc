@@ -432,6 +432,26 @@
   when: have_root | bool
   loop: "{{ electron_wayland_to_wrap }}"
 
+# Explicitly configure sway-specific concrete portal implementations
+# NB : We're only specifying those for sway, this should not affect any other DE
+- name: Create ~/.config/xdg-desktop-portal
+  file:
+    path: "{{ ansible_user_dir }}/.config/xdg-desktop-portal"
+    state: directory
+- name: Configure xdg-desktop-portal to use darkman
+  blockinfile:
+    path: "{{ ansible_user_dir }}/.config/xdg-desktop-portal/sway-portals.conf"
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
+    create: true
+    block: |
+      [preferred]
+      # Use darkman for light/dark theme toggle
+      # cf :
+      # * https://gitlab.com/WhyNotHugo/darkman/-/issues/60
+      # * man portals.conf
+      org.freedesktop.impl.portal.Settings=darkman
+  notify: Restart xdg-desktop-portal
+
 ### Firefox ###
 
 - name: Create /usr/local/bin/firefox

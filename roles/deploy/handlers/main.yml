@@ -25,6 +25,12 @@
   command: "kanshictl reload"
   changed_when: true
 
+- name: Restart xdg-desktop-portal
+  systemd_service:
+    name: xdg-desktop-portal
+    state: restarted
+    scope: user
+
   # NB : There's no need to do anything after adding fonts on MacOS
 - name: Regenerate font cache
   command: "fc-cache -fv"
@@ -33,7 +39,7 @@
 
   # NB : Only tested on Fedora
 - name: Restart bluez
-  systemd:
+  systemd_service:
     name: bluetooth
     state: restarted
   become: true
