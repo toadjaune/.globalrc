@@ -450,6 +450,10 @@
       # * https://gitlab.com/WhyNotHugo/darkman/-/issues/60
       # * man portals.conf
       org.freedesktop.impl.portal.Settings=darkman
+
+      # If no explicit support is configured anywhere, try wlr first, then gtk
+      # https://github.com/emersion/xdg-desktop-portal-wlr/issues/42#issuecomment-1802357796
+      default=wlr;gtk
   notify: Restart xdg-desktop-portal
 
 ### Firefox ###
