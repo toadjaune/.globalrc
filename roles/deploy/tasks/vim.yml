@@ -29,7 +29,7 @@
   tags: online
   with_items:
     - https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim
-    - https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim
+    # - https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim # broken as of 2023-12-03
 
 - name: Install vim-plug for Vim plugin management
   git:
