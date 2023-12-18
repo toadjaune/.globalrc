@@ -118,6 +118,7 @@
       # NB : the latest slack has broken screensharing, see sway config for details
       - com.slack.Slack
       - com.spotify.Client
+      - com.github.dynobo.normcap # OCR screen capture
   # NB : We'll probably want to use them on other distros too, but it probably requires setting up flatpak first
   when: ansible_os_family == "RedHat"
 

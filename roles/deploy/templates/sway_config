@@ -467,6 +467,14 @@ bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && XDG_CURRENT_DESKTOP=sway fla
 #   * Working workaround below, based on https://github.com/flameshot-org/flameshot/issues/2364#issuecomment-1693693063
 for_window [app_id="flameshot"] fullscreen enable global
 
+# OCR-powered screenshot
+# Because people often send images
+# Many possible improvements in this setup :
+# * slow start. There's a daemon mode that might help with this.
+# * maybe more language support
+# * no idea what raw/parse modes do
+bindcode $mod+Ctrl+$p exec 'flatpak run --socket=wayland com.github.dynobo.normcap --tray False --update False --show-introduction False'
+
 # Mode to start most common programs
 mode "launch" {
     bindcode $f exec firefox,     mode "default"
