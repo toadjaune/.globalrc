@@ -119,8 +119,7 @@
       - com.slack.Slack
       - com.spotify.Client
   # NB : We'll probably want to use them on other distros too, but it probably requires setting up flatpak first
-  become: true
-  when: have_root and ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat"
 
 ### Locale ###
 
