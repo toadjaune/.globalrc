@@ -29,10 +29,10 @@
         "categories": ["modifier"]
       },
       {
-        "code": 4114,
-        "label": {"hint": {"full": "Super+", "1u": "Su+"}, "base": "o"},
+        "code": 4125,
+        "label": {"hint": {"full": "Super+", "1u": "Su+"}, "base": "z"},
         "categories": ["with-modifiers", "gui"],
-        "baseCode": 18
+        "baseCode": 29
       },
       {"code": 35, "label": {"base": "6", "shifted": "^"}},
       {"code": 36, "label": {"base": "7", "shifted": "&"}},
