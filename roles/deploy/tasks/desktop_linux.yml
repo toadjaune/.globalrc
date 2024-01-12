@@ -275,12 +275,17 @@
 
 ### Alacritty ###
 
-- name: Load alacritty config via .config/alacritty.yml
+- name: TOMBSTONE - Remove old alacritty yaml config file
+  file:
+    path:   "{{ ansible_user_dir }}/.config/alacritty.yml"
+    state:  absent
+
+- name: Load alacritty config via .config/alacritty.toml
   file:
     state:  link
     follow: false
-    src:    "{{ remote_directory }}/files/alacritty.yml"
-    dest:   "{{ ansible_user_dir }}/.config/alacritty.yml"
+    src:    "{{ remote_directory }}/files/alacritty.toml"
+    dest:   "{{ ansible_user_dir }}/.config/alacritty.toml"
 
 ### Mako ###
 
