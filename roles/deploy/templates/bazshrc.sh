@@ -109,11 +109,11 @@ fi
 # tree from current directory
 alias tree="find . | sed 's/[^/]*\//|   /g;s/| *\([^| ]\)/+--- \1/'"
 
-# Use sshrc and exa by default
+# Use sshrc and eza by default
 # We use an alias so that it doesn't get called when not directly typed by the user
 alias ssh="sshrc"
-alias ls="exa --git"
-alias ll="exa --git -al"
+alias ls="eza --git"
+alias ll="eza --git -al"
 if command -v mosh >/dev/null 2>&1 ; then
   alias mosh="moshrc"
 fi

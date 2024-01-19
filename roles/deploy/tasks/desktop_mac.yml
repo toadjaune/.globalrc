@@ -46,7 +46,7 @@
       - alacritty   # GPU-powered terminal emulator
 
       - md5sha1sum  # for command md5sum
-      - exa
+      - eza
       - prettyping
 
       # NB : those need to be enabled manually with :

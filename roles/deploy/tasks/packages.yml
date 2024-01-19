@@ -11,7 +11,7 @@
       - most
       - mosh
       - curl
-      - exa
+      - eza
       - prettyping
 
       # Language-specific package managers and tooling
@@ -32,7 +32,7 @@
       - most
       - mosh
       - curl
-      - exa
+      - eza
       - prettyping
 
       # Language-specific package managers and tooling
@@ -55,7 +55,7 @@
       - most
       - mosh
       - curl
-      - exa
+      - eza
       - prettyping
 
       # Language-specific package managers and tooling
