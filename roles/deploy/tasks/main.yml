@@ -24,28 +24,9 @@
   blockinfile:
     state: absent
     path: "{{ item }}"
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
   loop:
-    - "{{ ansible_user_dir }}/.zshenv"
-    - "{{ ansible_user_dir }}/.zshrc"
-    - "{{ ansible_user_dir }}/.ssh/config"
-    - "{{ ansible_user_dir }}/.tmux.conf"
-    - "{{ ansible_user_dir }}/.bashrc"
-    - "{{ ansible_user_dir }}/.irbrc"
     - "{{ ansible_user_dir }}/.gitconfig"
-    - "{{ ansible_user_dir }}/.screenrc"
-    # - "{{ ansible_user_dir }}/.gtkrc-2.0"
-    # - "{{ ansible_user_dir }}/.config/Trolltech.conf"
-- name: "TOMBSTONE : clear vim old blockinfile"
-  blockinfile:
-    state: absent
-    path:   "{{ ansible_user_dir }}/.vimrc"
-    marker: "\" {mark} ANSIBLE MANAGED BLOCK"
-- name: "TOMBSTONE : clear bluez old blockinfile"
-  blockinfile:
-    state: absent
-    dest: /etc/bluetooth/main.conf
-  become: true
-  when: have_root | bool
 
 - name: Create main directory
   file:
@@ -73,7 +54,6 @@
   tags: always
   with_items:
     - bazshrc.sh
-    - gitconfig
     - inputrc
     - ssh_config
     - sshrc
@@ -136,19 +116,6 @@
     block:  |
       IRB.conf[:SAVE_HISTORY] = 200
       IRB.conf[:HISTORY_FILE] = '~/.irb-history'
-
-- name: Load git configuration
-  blockinfile:
-    dest:   "{{ ansible_user_dir }}/.gitconfig"
-    create: true
-    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
-      # Loading global git configuration
-      [include]
-        path = {{ remote_directory }}/templates/gitconfig
-      # Global .gitignore
-      [core]
-        excludesfile = {{ remote_directory }}/files/gitignore
 
 - name: Install desktop-specific stuff (common)
   import_tasks: desktop_common.yml
