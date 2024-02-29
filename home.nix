@@ -96,7 +96,6 @@ in
       fullog = "log --graph --all --date-order --pretty=tformat:'%C(auto)%h%d %s %Cgreen(%cr) %Cblue<%an>'";
     };
     extraConfig = {
-
       # Global git config file
 
       # Good reference for "classic" options :
@@ -120,11 +119,6 @@ in
       merge.conflictstyle = "zdiff3";
 
       rerere.enabled = true;
-
-      # cf https://difftastic.wilfred.me.uk/git.html
-      # TODO : automatically install difftastic
-      # TODO : switch to native home-manager difftastic setup ?
-      diff.external = "difft";
 
       # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
       # NB : This is likely useless when using difftastic
@@ -173,5 +167,12 @@ in
       include.path = "gitconfig.private";
     };
 
+    # cf https://difftastic.wilfred.me.uk/git.html
+    difftastic = {
+      enable = true;
+      background = "dark";
+    };
+
   };
+
 }
