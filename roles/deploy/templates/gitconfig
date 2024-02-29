@@ -1,5 +1,8 @@
 # Global git config file
 
+# Good reference for "classic" options :
+# https://jvns.ca/blog/2024/02/16/popular-git-config-options/
+
 [user]
   name = {{ git_user_name }}
   email = {{ git_user_email }}
@@ -28,6 +31,9 @@
 [merge]
   tool = vimdiff
 
+  # https://ductile.systems/zdiff3/
+  conflictstyle = zdiff3
+
 [rerere]
   enabled = true
 
@@ -36,10 +42,52 @@
   # TODO : automatically install difftastic
   external = difft
 
+  # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
+  algorithm = histogram
+
 [mergetool]
   # Git, please, just stop dropping files in my working directory whenever I run `git mergetool`
   keepbackup = false
   # Thank you
+
+[commit]
+  verbose = true
+
+[rebase]
+  # https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/
+  # For now, I'll experiment with explicit --update-refs on the cli, to decide whether I want it to be enabled by default or not
+  # updateRefs = true
+
+# Detect corruption eagerly, this should not be needed but if it ever is, detecting the corruption eagerly may be essential
+[transfer]
+  fsckobjects = true
+[fetch]
+  fsckobjects = true
+[receive]
+  fsckObjects = true
+
+# More sensible submodule-related behavior
+[status]
+  submoduleSummary = true
+[diff]
+  submodule = log
+[submodule]
+  recurse = true
+
+# Sort branches and tags by latest activity instead of alphabetically
+[branch]
+  sort = -committerdate
+[tag]
+  sort = taggerdate
+
+# automatically clean up obsolete remote-tracking branches and tags
+[fetch]
+  prune = true
+  prunetags = true
+
+# Format dates in git log as iso
+[log]
+  date = iso
 
 # Include private configuration
 [include]
