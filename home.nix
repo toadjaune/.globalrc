@@ -1,4 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+
+let
+  # TODO : This is a very ugly way to make variable configuration across hosts
+  hostname = lib.strings.removeSuffix "\n" (builtins.readFile /etc/hostname);
+  git_user_email = (
+    if hostname == "launchpad"  then "arnaud.venturi@vroomly.com" else
+    if hostname == "spacerig"   then "git@toadjaune.eu" else
+    if hostname == "valoo"      then "git@toadjaune.eu" else
+    abort "invalid_hostname"
+  );
+in
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -76,6 +87,8 @@
 
   programs.git = {
     enable = true;
+    userName = "Arnaud Venturi";
+    userEmail = git_user_email;
     aliases = {
       # This pretty format is equivalent to --oneline --decorate, with the addition of commiter name and date
       # See https://stackoverflow.com/questions/5889878/color-in-git-log#16844346
@@ -88,10 +101,6 @@
 
       # Good reference for "classic" options :
       # https://jvns.ca/blog/2024/02/16/popular-git-config-options/
-
-      # [user]
-      #   name = {{ git_user_name }}
-      #   email = {{ git_user_email }}
 
       # Only push the current branch
       push.default = "upstream";
