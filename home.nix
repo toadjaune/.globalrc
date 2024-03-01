@@ -162,9 +162,6 @@ in
 
       # Format dates in git log as iso
       log.date = "iso";
-
-      # Include private configuration
-      include.path = "gitconfig.private";
     };
 
     # cf https://difftastic.wilfred.me.uk/git.html
