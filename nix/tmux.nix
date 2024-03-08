@@ -24,6 +24,8 @@ lib: {
 
   extraConfig = lib.strings.concatLines [
 
+    # ENVIRONMENT COMPATIBILITY AND FEATURE ACTIVATION
+
     # Propagate the $TERM variable to child shells, for color and special glyphs
     # This is way cleaner than setting it from the shell startup files
     ''set -g default-terminal "$TERM"''
@@ -32,6 +34,17 @@ lib: {
     # TODO : maybe we should only override this if $TERM contains "256color"
     # TODO : check if this is still required
     ''set -ga terminal-overrides ",xterm-256color:Tc"''
+
+    # tmux is natively capable of sending data into the wayland clipboard
+    # (as far as I understand, through an escape sequence, so, this works also because alacritty supports it on its end.
+    # Still, it's good not to have to use wl-copy or anything, this feels way cleaner)
+    # NB : tmux can write to the system clipboard, but not read from it. It does write anything you yank BOTH into the system clipboard
+    # and into its own internal paste buffer, so it can still paste stuff you yanked internally.
+    # All of this is the default behaviour, there's nothing to configure.
+    # However, setting set-clipboard to "on" instead of "external" (the default) makes tmux _also_ accept clipboard write requests from the program inside it
+    # (again, via escape sequences), and propagate it both into its own buffer and into the system clipboard.
+    # We want that, for behavior consitency between when a program is run with and without tmux.
+    ''set-option -g set-clipboard on''
 
     # Emulate scrolling by sending up and down keys if specific commands are running in the pane
     # https://superuser.com/questions/989505/pass-mouse-events-through-tmux
