@@ -86,5 +86,6 @@ in
 
 
   programs.git = (import ./nix/git.nix) git_user_email;
+  programs.tmux = import ./nix/tmux.nix;
 
 }
