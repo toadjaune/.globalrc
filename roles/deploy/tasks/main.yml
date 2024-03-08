@@ -27,6 +27,7 @@
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
   loop:
     - "{{ ansible_user_dir }}/.gitconfig"
+    - "{{ ansible_user_dir }}/.tmux.conf"
 
 - name: Create main directory
   file:
@@ -139,10 +140,6 @@
 - name: Install ssh configuration
   import_tasks: ssh.yml
   tags: ssh
-
-- name: Install tmux configuration
-  import_tasks: tmux.yml
-  tags: tmux
 
 - name: Load screen configuration
   blockinfile:
