@@ -107,6 +107,14 @@ lib: {
     bind-key -T copy-mode-vi C-l select-pane -R
     ''
 
+    # Copy-paste bindings consistent with vim
+    ''
+    bind-key P paste-buffer
+    bind-key -T copy-mode-vi v    send-keys -X begin-selection
+    bind-key -T copy-mode-vi C-v  send-keys -X rectangle-toggle
+    bind-key -T copy-mode-vi y    send-keys -X copy-pipe-and-cancel
+    ''
+
     ### STYLING ###
 
     # Change the default status bar color, to immediately know whether our configuration is loaded or not
