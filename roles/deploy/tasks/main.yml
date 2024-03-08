@@ -58,7 +58,6 @@
     - inputrc
     - ssh_config
     - sshrc
-    - tmux.conf
 
 - name: Create the local_bin directory
   file:
