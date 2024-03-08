@@ -87,6 +87,6 @@ in
 
   # NB : there's probably a cleaner way to do this with top-level `imports`, but I couldn't get it to work
   programs.git = (import ./nix/git.nix) git_user_email;
-  programs.tmux = import ./nix/tmux.nix;
+  programs.tmux = (import ./nix/tmux.nix) lib;
 
 }
