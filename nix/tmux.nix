@@ -20,6 +20,8 @@ lib: {
   mouse = true;
   clock24 = true;
 
+  keyMode = "vi";
+
   extraConfig = lib.strings.concatLines [
 
     # Propagate the $TERM variable to child shells, for color and special glyphs
