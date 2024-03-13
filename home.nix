@@ -1,17 +1,11 @@
 { config, pkgs, lib, ... }:
 
-let
-  # TODO : This is a very ugly way to make variable configuration across hosts
-  hostname = lib.strings.removeSuffix "\n" (builtins.readFile /etc/hostname);
-  git_user_email = (
-    if hostname == "launchpad"  then "arnaud.venturi@vroomly.com" else
-    if hostname == "spacerig"   then "git@toadjaune.eu" else
-    if hostname == "valoo"      then "git@toadjaune.eu" else
-    abort "invalid_hostname"
-  );
-in
-
 {
+  imports = [
+    ./nix/git.nix
+    ./nix/tmux.nix
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "toadjaune";
@@ -83,10 +77,5 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-
-  # NB : there's probably a cleaner way to do this with top-level `imports`, but I couldn't get it to work
-  programs.git = (import ./nix/git.nix) git_user_email;
-  programs.tmux = (import ./nix/tmux.nix) lib;
 
 }
