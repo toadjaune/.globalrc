@@ -22,8 +22,7 @@
     // "window.autoDetectColorScheme": true,
 
     // Sync open tabs with currently checked-out branch
-    "git-branch-wise-session.shouldAutoRestoreOnBranchSwitches": true,
-    "git-branch-wise-session.autoSaveBranchOnSwitch": true,
+    "scm.workingSets.enabled": true,
 
     // When saving files, automatically reformat them with configured formatter
     "editor.formatOnSave": true,
