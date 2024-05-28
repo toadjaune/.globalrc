@@ -27,6 +27,9 @@
     // When saving files, automatically reformat them with configured formatter
     "editor.formatOnSave": true,
 
+    // Replace text on the minimap with rectangles of the same shape. More legible.
+    "editor.minimap.renderCharacters": false,
+
     // Lanquage-specific configurations
     //"[terraform]": {
     //  "editor.defaultFormatter": "hashicorp.terraform",
