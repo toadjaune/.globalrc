@@ -6,6 +6,10 @@ It evolved organically frow various sources, and many elements here are unreason
 
 Still, feel free to have a look around !
 
+## git-crypt
+
+This repo contains files encrypted with git-crypt. If you're me, follow [instructions](https://blog.toadjaune.eu/posts/2024/06-11_git_crypt_without_gpg/) to unlock git-crypt and access those files
+
 ## Supported operating systems
 
 Currently supported :
