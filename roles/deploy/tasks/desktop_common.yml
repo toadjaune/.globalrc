@@ -30,14 +30,14 @@
   loop:
     - name: "MesloLGS NF Regular.ttf"
       url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
-      sha1: "2cef6d3ee216de1ad9d407bb6e1ed404f4f301a6"
+      sha1: "7c66a6d9a3a8d45a5b1fd9438899e4bdb3fbcc4d"
     - name: "MesloLGS NF Bold.ttf"
       url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
-      sha1: "a5d4ad42d8f98ff77cb4bcc3909c2a8a31332f50"
+      sha1: "fc5c6b09bbee77414cff0382f0942ec8bd0dec7e"
     - name: "MesloLGS NF Italic.ttf"
       url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
-      sha1: "1481b36a337606150eaeee05a95d4fe0f28491f8"
+      sha1: "1c60952c33e795a554e78f4099e9fcff29c8f14e"
     - name: "MesloLGS NF Bold Italic.ttf"
       url:  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
-      sha1: "0a27ce454ae58c7f8b8769843a2e286309f3a967"
+      sha1: "c471873a8f31c67fa652a6c4bd58b3b045ce57a1"
   tags: online
