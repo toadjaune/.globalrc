@@ -71,6 +71,9 @@
     name:
       # There's a deb package downloadable from the github releases
       # There is no RPM yet (https://github.com/ellie/atuin/issues/990)
+      # As of 2024-06-12, v18.3 does not compile, pin it for now.
+      # TODO : switch to installing with home-manager
       - atuin
-    state: latest
+    state: present
+    version: "18.2.0"
 
