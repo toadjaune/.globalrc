@@ -533,6 +533,29 @@
 
 ### VSCodium ###
 
+# https://vscodium.com/#install-on-fedora-rhel-centos-rockylinux-opensuse-rpm-package
+- name: Add vscodium rpm repo
+  ansible.builtin.yum_repository:
+    name: gitlab.com_paulcarroty_vscodium_repo
+    file: vscodium
+    description: download.vscodium.com
+    baseurl: "https://download.vscodium.com/rpms/"
+    enabled: yes
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg"
+    metadata_expire: 1h
+  become: true
+  when: have_root and ansible_os_family == "RedHat"
+
+- name: Install vscodium
+  dnf:
+    name: codium
+    state: present
+  become: true
+  when: have_root and ansible_os_family == "RedHat"
+
+
 # cf https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
 
 - name: Ensure vscodium config directory exists
