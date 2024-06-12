@@ -505,12 +505,6 @@
     that: firefox_profile_path['files'][0]['path'] is defined
     msg:  "Could not find a firefox profile directory for name {{ firefox_profile_name }}"
 
-  # TODO : remove after some time
-- name: "TOMBSTONE : clear vim old blockinfile"
-  blockinfile:
-    state: absent
-    path: "{{ firefox_profile_path['files'][0]['path'] }}/user.js"
-
 - name: Setup firefox user config
   blockinfile:
     path: "{{ firefox_profile_path['files'][0]['path'] }}/user.js"

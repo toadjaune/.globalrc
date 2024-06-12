@@ -19,16 +19,6 @@
   changed_when: false
   when: have_root | bool
 
-# Tombstones, TODO :remove at some point
-- name: "TOMBSTONE : clear old blockinfiles"
-  blockinfile:
-    state: absent
-    path: "{{ item }}"
-    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-  loop:
-    - "{{ ansible_user_dir }}/.gitconfig"
-    - "{{ ansible_user_dir }}/.tmux.conf"
-
 - name: Create main directory
   file:
     path:   "{{ remote_directory }}"
