@@ -21,7 +21,7 @@
       - wdisplays             # Graphical tool for monitors setup
       - alacritty             # GPU-based terminal emulator
       - lxpolkit              # polkit daemon
-      - blueberry             # basic out-of-the-box bluetooth config (looks more reliable than blueman so far)
+      - blueman               # basic out-of-the-box bluetooth config
       - kanshi                # auto-load correct desktop layout based on which monitors are plugged in
       - neovim                # used in vscodium through an extension
       - darkman               # light/dark theme runtime switching
@@ -64,7 +64,7 @@
       - mako
       - wdisplays
       - lxpolkit
-      - blueberry
+      - blueman
       - kanshi
       - neovim
       - darkman
@@ -98,7 +98,7 @@
       - mako
       - wdisplays
       - lxpolkit
-      - blueberry
+      - blueman
       - kanshi
       - neovim
       - darkman
