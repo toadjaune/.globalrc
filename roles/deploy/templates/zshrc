@@ -332,11 +332,22 @@ bindkey '^[OA' _atuin_up_search_widget
 
 ### End key mappings ###
 
+### Begin extra manual completions
+
 # use generic completion system for programs not yet defined; (_gnu_generic works
 # with commands that provide a --help option with "standard" gnu-like output.)
 for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv pal stow uname ; do
     [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
 done; unset compcom
+
+# bash compatibility
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+complete -o nospace -C /usr/bin/packer packer
+# AWS cli packaging is shit
+complete -C '/usr/local/bin/aws_completer' aws
+
+### End extra manual completions
 
 ### Begin lazy loaded modules and completions ###
 
