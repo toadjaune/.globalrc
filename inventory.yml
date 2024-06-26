@@ -23,3 +23,9 @@ all:
       ansible_connection: local
       desktop_linux: true
 
+    # Fedora
+    houston:
+      expected_hostname: houston
+      ansible_connection: local
+      desktop_linux: true
+

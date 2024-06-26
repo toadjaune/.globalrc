@@ -6,6 +6,7 @@ let
   hostname = lib.strings.removeSuffix "\n" (builtins.readFile /etc/hostname);
   git_user_email = (
     if hostname == "launchpad"  then "arnaud.venturi@vroomly.com" else
+    if hostname == "houston"    then "arnaud.venturi@vroomly.com" else
     if hostname == "spacerig"   then "git@toadjaune.eu" else
     if hostname == "valoo"      then "git@toadjaune.eu" else
     abort "invalid_hostname"
