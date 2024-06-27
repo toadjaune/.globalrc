@@ -27,6 +27,7 @@
       - darkman               # light/dark theme runtime switching
       - brightnessctl         # control screen brightness
       - xwaylandvideobridge   # work around broken screensharing on low-quality apps (see sway config file)
+      - pavucontrol           # gui for pulseaudio configuration
 
       # Language-specific package managers and tooling
       - python3-pip       # python deps with pip
@@ -69,6 +70,7 @@
       - neovim
       - darkman
       - brightnessctl
+      - pavucontrol
 
       # alacritty
       - alacritty
@@ -103,6 +105,7 @@
       - neovim
       - darkman
       - brightnessctl
+      - pavucontrol
 
       # alacritty
       # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
