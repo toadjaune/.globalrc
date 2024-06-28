@@ -526,6 +526,8 @@
       // https://mike.kaply.com/2012/03/15/customizing-firefox-default-preference-files/
       // https://askubuntu.com/questions/59330/setting-system-wide-preferences-in-firefox
 
+      // Docs (unofficial) about any specific setting : https://kb.mozillazine.org/
+
       // Old sharing indicator in a popup window
       // Not really useful anymore (info present in address bar) and behaves poorly on sway
       // https://bugzilla.mozilla.org/show_bug.cgi?id=1628431
@@ -550,7 +552,11 @@
       user_pref("privacy.globalprivacycontrol.was_ever_enabled", true);
 
       // At startup, reopen tabs that were open when firefox was closed
-      user_pref("browser.startup.page", 3);
+
+      // NEVER open anything in a new window, use a new tab instead
+      user_pref("browser.link.open_newwindow", 3);              // Use tabs instead of windows for normal navigation
+      user_pref("browser.link.open_newwindow.restriction", 0);  // ... and even for windows meant to be pop-ups
+
 
 ### VSCodium ###
 
