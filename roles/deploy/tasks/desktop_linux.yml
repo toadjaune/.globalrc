@@ -611,6 +611,7 @@
     - oderwat.indent-rainbow      # more readable indent
     - editorconfig.editorconfig   # read repo-local .editorconfig
     - eamodio.gitlens             # nice git blame integration
+    - redhat.vscode-yaml          # yaml
     - hashicorp.terraform         # terraform formatting/auto-completion
     # python
     - ms-python.python
