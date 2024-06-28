@@ -549,6 +549,8 @@
       user_pref("privacy.globalprivacycontrol.enabled", true);
       user_pref("privacy.globalprivacycontrol.was_ever_enabled", true);
 
+      // At startup, reopen tabs that were open when firefox was closed
+      user_pref("browser.startup.page", 3);
 
 ### VSCodium ###
 
