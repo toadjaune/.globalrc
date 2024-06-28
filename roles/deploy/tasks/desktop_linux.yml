@@ -534,6 +534,9 @@
       // Always ask where to save downloaded files
       user_pref("browser.download.useDownloadDir", false);
 
+      // Only show the bookmarks toolbar on a new tab, not all the time
+      user_pref("browser.toolbars.bookmarks.visibility", "newtab");
+
 ### VSCodium ###
 
 # https://vscodium.com/#install-on-fedora-rhel-centos-rockylinux-opensuse-rpm-package
