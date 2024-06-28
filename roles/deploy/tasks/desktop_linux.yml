@@ -537,6 +537,13 @@
       // Only show the bookmarks toolbar on a new tab, not all the time
       user_pref("browser.toolbars.bookmarks.visibility", "newtab");
 
+      // Disable built-in password manager
+      user_pref("signon.rememberSignons", false);                       // Offer to save user-provided passwords
+      user_pref("signon.autofillForms", false);                         // Auto-fill already saved passwords
+      user_pref("signon.generation.enabled", false);                    // Auto-generate passwords
+      user_pref("signon.firefoxRelay.feature", "disabled");             // Generate per-site email aliases
+      user_pref("extensions.formautofill.creditCards.enabled", false);  // Credit card autofilling
+
       // Ask nicely to websites not to track me
       user_pref("privacy.donottrackheader.enabled", true);
       user_pref("privacy.globalprivacycontrol.enabled", true);
