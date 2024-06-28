@@ -537,6 +537,12 @@
       // Only show the bookmarks toolbar on a new tab, not all the time
       user_pref("browser.toolbars.bookmarks.visibility", "newtab");
 
+      // Ask nicely to websites not to track me
+      user_pref("privacy.donottrackheader.enabled", true);
+      user_pref("privacy.globalprivacycontrol.enabled", true);
+      user_pref("privacy.globalprivacycontrol.was_ever_enabled", true);
+
+
 ### VSCodium ###
 
 # https://vscodium.com/#install-on-fedora-rhel-centos-rockylinux-opensuse-rpm-package
