@@ -49,3 +49,13 @@
     - { src: sshrc,           dest: .sshrc                  }
     - { src: inputrc,         dest: .sshrc.d/inputrc        }
 
+- name: Create sshrc symlinks to home-manager-generated files
+  file:
+    src:  "{{ ansible_user_dir }}/{{ item['src'] }}"
+    dest: "{{ remote_directory }}/sshhome/{{ item['dest'] }}"
+    state: link
+  loop:
+    # NB : This file itself sources a separate file at runtime, from the "sensible" plugin, which is not included by this symlinking
+    # So far, everything seems to work fine without it, though.
+    - { src: .config/tmux/tmux.conf,  dest: .sshrc.d/tmux-home-manager.conf }
+
