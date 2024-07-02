@@ -45,7 +45,7 @@ fi
 export INPUTRC="{{ remote_directory }}/templates/inputrc"
 
 # Use custom sshrc location
-export SSHHOME="{{ remote_directory }}/files/sshrc"
+export SSHHOME="{{ remote_directory }}/sshhome"
 
 # SSH-agent setup, cf ssh-agent.service file
 # NB : on MacOS, the OS starts an agent automatically, do not override it with an invalid path

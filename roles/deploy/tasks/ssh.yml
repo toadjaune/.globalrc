@@ -24,3 +24,28 @@
     depth:    1
   tags: online
 
+- name: Create sshhome (and sshhome/.sshrc.d) dir for sshrc files
+  file:
+    path: "{{ remote_directory }}/sshhome/.sshrc.d"
+    state: directory
+
+- name: Create static sshrc config files
+  copy:
+    src:  "{{ item['src'] }}"
+    dest: "{{ remote_directory }}/sshhome/{{ item['dest'] }}"
+  loop:
+    - { src: sshrc/tmux.conf, dest: .sshrc.d/.tmux.conf     }
+    - { src: sshrc/zlogin,    dest: .sshrc.d/.zlogin        }
+    - { src: sshrc/zprofile,  dest: .sshrc.d/.zprofile      }
+    - { src: sshrc/zshenv,    dest: .sshrc.d/.zshenv        }
+    - { src: sshrc/zshrc,     dest: .sshrc.d/.zshrc         }
+    - { src: zsh_prompt.zsh,  dest: .sshrc.d/zsh_prompt.zsh }
+
+- name: Create template-based sshrc config files
+  template:
+    src:  "{{ item['src'] }}"
+    dest: "{{ remote_directory }}/sshhome/{{ item['dest'] }}"
+  loop:
+    - { src: sshrc,           dest: .sshrc                  }
+    - { src: inputrc,         dest: .sshrc.d/inputrc        }
+
