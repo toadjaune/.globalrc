@@ -186,21 +186,28 @@
 ### Enable bluetooth experimental features ###
 
 # Based on : https://askubuntu.com/a/1420501/627836
-# As of 2023-06-29, bluez supports querying battery status of bluetooth devices, but it's considered experimental and disabled by default
-# We therefore enable experimental features
-# NB : waybar bluetooth module picks it up automatically. You can also check it with `bluetoothctl info` or `upower --dump`
-- name: Enable bluez experimental features
+# We used to need to enable bluez experimental features for headphones battery charge level retriveal, it's not needed anymore as of 2024-07-09
+# We keep the configuration as reference, it could still be useful.
+# - name: Enable bluez experimental features
+#   blockinfile:
+#     dest: /etc/bluetooth/main.conf
+#     insertbefore: BOF
+#     create: false
+#     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
+#     block:  |
+#       # Globalrc-managed configuration
+# 
+#       [General]
+#       Experimental = true
+#   become: true
+#   when: have_root | bool
+#   notify: Restart bluez
+
+- name: TOMBSTONE - Don't enable bluez experimental features anymore
   blockinfile:
     dest: /etc/bluetooth/main.conf
-    insertbefore: BOF
-    create: false
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
-      # Globalrc-managed configuration
-
-      # Enable experimental features for bluetooth headphones battery status retrieval
-      [General]
-      Experimental = true
+    state: absent
   become: true
   when: have_root | bool
   notify: Restart bluez
