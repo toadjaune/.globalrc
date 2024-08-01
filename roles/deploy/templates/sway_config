@@ -675,3 +675,11 @@ exec kanshi
 # When reloading sway config, reload kanshi configuration
 exec_always kanshictl reload
 
+
+### fingerprint reader stuff
+
+# on Fedora, fprintd is pre-installed and running with no specific setup
+
+# Swaylock does not explicitly support fingerprint, pressing Enter with no password then putting your finger on the reader works (just not a great UX)
+# https://github.com/swaywm/swaylock/issues/61
+
