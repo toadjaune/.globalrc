@@ -56,6 +56,10 @@ in
       mergetool.keepbackup = false;
       # Thank you
 
+      # It's apparently not the default everywhere just yet, we configure it ourselves in the meantime
+      # (Only used when initializing a new local repo)
+      init.defaultBranch = "main";
+
       # Use https://github.com/dandavison/delta as pager
       # I'm not sure whether this is redundant with difftastic or not
       # TODO : switch to native home-manager delta setup ?
