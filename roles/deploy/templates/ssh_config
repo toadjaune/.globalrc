@@ -29,6 +29,10 @@ Host *
   UseKeychain yes
   {% endif %}
 
+  # Send heartbeats over the ssh connection
+  ServerAliveInterval 15 # every 15 seconds
+  ServerAliveCountMax 20 # kill an unresponsive connection after 5 minutes
+
 # Crypto hardening
 # Based on https://stribika.github.io/2015/01/04/secure-secure-shell.html
 # Updated on 2021-11-01 by talking with crypto-savvy friends
