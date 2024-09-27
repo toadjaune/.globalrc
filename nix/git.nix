@@ -16,7 +16,9 @@ in
   programs.git = {
     enable = true;
     userName = "Arnaud Venturi";
-    userEmail = git_user_email;
+    # TODO : Make this configurable again by leveraging flakes setup
+    # userEmail = git_user_email;
+    userEmail = "git@toadjaune.eu";
     aliases = {
       # This pretty format is equivalent to --oneline --decorate, with the addition of commiter name and date
       # See https://stackoverflow.com/questions/5889878/color-in-git-log#16844346
