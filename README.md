@@ -39,5 +39,6 @@ There's currently a mix of ansible-managed stuff, and home-manager-managed stuff
 
 * [Install nix](https://nixos.org/download/)
   * NB : As of 2024-05-01, it's not possible to install nix as multi-user on SELinux-enabled distros, so, we settle with a single-user install for now
+* Enable flakes by adding `experimental-features = nix-command flakes` to `~/.config/nix/nix.conf`
 * Install home-manager as a standalone program : https://nix-community.github.io/home-manager/#sec-install-standalone
 * Symlink the home-manager configuration file : `ln -s $PWD/home.nix $HOME/.config/home-manager/home.nix`
