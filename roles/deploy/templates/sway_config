@@ -682,4 +682,5 @@ exec_always kanshictl reload
 
 # Swaylock does not explicitly support fingerprint, pressing Enter with no password then putting your finger on the reader works (just not a great UX)
 # https://github.com/swaywm/swaylock/issues/61
+# NB : hyprlock has added support in 0.5.0, we may want to switch to it : https://github.com/hyprwm/hyprlock/issues/258
 
