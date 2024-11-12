@@ -4,6 +4,7 @@
 # xclip for copy-paste shortcuts (optional)
 
 
+[general]
 # Disable live reloading because :
 # - It's not really useful in my config modification workflow
 # - I'm actually happy not to ruin the shell I'm changing the config from while I'm doing it
