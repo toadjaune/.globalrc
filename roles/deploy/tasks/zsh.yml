@@ -43,9 +43,15 @@
 
 - include_tasks: zsh-setup-completion.yml
   with_items:
+
     - name: poetry
       existence_check_command: poetry --version
       completion_generation_command: poetry completions zsh
+
+      # TODO : For some reason, the first completion call of a shell session requires a double-tab.
+    - name: volta
+      existence_check_command: volta --version
+      completion_generation_command: volta completions zsh
 
 - name: Retrieve atuin widget definitions
   command:
