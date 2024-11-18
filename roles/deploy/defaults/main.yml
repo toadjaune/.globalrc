@@ -1,8 +1,10 @@
 # Location of the main directory on the remote machine
 remote_directory:   "{{ ansible_user_dir }}/.globalrc"
+# Userspace programming language version managers
+volta_home:               "{{ ansible_user_dir }}/.volta"     # default value
 # Userspace language-specific install paths
-userspace_bin_path_cargo: "{{ ansible_user_dir }}/.cargo/bin"
-userspace_bin_path_go:    "{{ ansible_user_dir }}/go/bin"
+userspace_bin_path_cargo: "{{ ansible_user_dir }}/.cargo/bin" # default value
+userspace_bin_path_go:    "{{ ansible_user_dir }}/go/bin"     # default value
 
 # Set this to true if you want to perform the operations requiring root, for a first-time install
 have_root:  false

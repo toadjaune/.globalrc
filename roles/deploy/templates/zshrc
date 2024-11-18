@@ -354,20 +354,22 @@ complete -C '/usr/local/bin/aws_completer' aws
 # We lazy-load these because they take WAY too long to load otherwise.
 # See https://blog.jonlu.ca/posts/speeding-up-zsh and all the links at the bottom of the post
 
-# Lazily load nvm and its completion if installed
-# NB : This unloads nvm when re-sourcing .zshrc. Don't care.
-# It is possible to load it even on commands such as npm, grunt, etc...
-# with https://github.com/robbyrussell/oh-my-zsh/issues/5327#issuecomment-386480914
-# TODO : switch to a zsh_fpath file ?
-export NVM_DIR="$HOME/.nvm"
-if [[ -d $NVM_DIR ]]; then
-  nvm() {
-    echo "GLOBALRC : Loading nvm..."
-    source "$NVM_DIR/nvm.sh"  # This loads nvm
-    source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    nvm $@ # Execute the newly defined nvm
-  }
-fi
+# NB : We migrated from nvm to Volta, which uses a shim approach, and therefore doesn't need any setup at shell startup time (besides modifying $PATH)
+#
+# # Lazily load nvm and its completion if installed
+# # NB : This unloads nvm when re-sourcing .zshrc. Don't care.
+# # It is possible to load it even on commands such as npm, grunt, etc...
+# # with https://github.com/robbyrussell/oh-my-zsh/issues/5327#issuecomment-386480914
+# # TODO : switch to a zsh_fpath file ?
+# export NVM_DIR="$HOME/.nvm"
+# if [[ -d $NVM_DIR ]]; then
+#   nvm() {
+#     echo "GLOBALRC : Loading nvm..."
+#     source "$NVM_DIR/nvm.sh"  # This loads nvm
+#     source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#     nvm $@ # Execute the newly defined nvm
+#   }
+# fi
 
 ### End lazy loaded modules and completions ###
 

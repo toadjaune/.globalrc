@@ -22,16 +22,30 @@ fi
 
 ### Begin definitions ###
 
+# Use Volta (https://github.com/volta-cli/volta) as node version manager (instead of NVM)
+# Reasons include :
+# * NVM is a big ball of shell scripts that need sourcing at shell startup, which takes a lot of time
+#   * We previously worked around this by setting up lazy-loading
+#   * The shim-based architecture of Volta is much cleanly isolated
+# * NVM behaves very pooly when dealing with multiple Node versions. Even if you have a `.nvmrc` in each repo, you either have to
+#   run `nvm use` whenever changing directory, or set a global default (that won't honor .nvmrc in all directories)
+#
+# NB : Volta is not currently installed automatically, install it with https://docs.volta.sh/advanced/installers#skipping-volta-setup
+# TODO : Automatically install Volta. Maybe with home-manager ?
+# TODO : Add completions for Volta
+export VOLTA_HOME="{{ volta_home }}"
+
 # Redefine $PATH to the following stuff (in this order) :
 # * $GLOBALRC/local_bin       : custom executables installed manually by the user
 # * $GLOBALRC/files/scripts/  : custom executables installed with ansible
+# * ~/.volta/bin              : node versions and associated programs, managed via volta
 # * ~/.cargo/bin              : Programs user-installed through `cargo install`
 # * ~/go/bin                  : Programs user-installed through `go install`
 # * ~/.local/bin              : Programs user-installed through pipx
 # * $PATH                     : Default OS search path
 #
 # Please note that this is only applied in a shell environment, not anything started graphically or by the OS
-export PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:{{ userspace_bin_path_cargo }}:{{ userspace_bin_path_go }}:{{ ansible_user_dir }}/.local/bin:$PATH"
+export PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:{{ volta_home }}/bin:{{ userspace_bin_path_cargo }}:{{ userspace_bin_path_go }}:{{ ansible_user_dir }}/.local/bin:$PATH"
 
 if command -v most >/dev/null 2>&1 ; then
   export PAGER="most"
