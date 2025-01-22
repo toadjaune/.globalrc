@@ -123,6 +123,8 @@
   flatpak:
     name:
       - com.discordapp.Discord
+      # The telegram rpm packages is the one thing that breaks my fedora upgrades every single time. Sandbox that shit and stop bothering me.
+      - org.telegram.desktop
       # NB : the latest slack has broken screensharing, see sway config for details
       - com.slack.Slack
       - com.spotify.Client
