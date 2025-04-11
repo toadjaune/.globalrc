@@ -33,17 +33,23 @@ Host *
   ServerAliveInterval 15 # every 15 seconds
   ServerAliveCountMax 20 # kill an unresponsive connection after 5 minutes
 
-# Crypto hardening
-# Based on https://stribika.github.io/2015/01/04/secure-secure-shell.html
-# Updated on 2021-11-01 by talking with crypto-savvy friends
 Host *
-  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
   # We unfortunately sometimes need it
   # PasswordAuthentication no
   ChallengeResponseAuthentication no
   PubkeyAuthentication yes
+  UseRoaming no
+
+  ### Crypto hardening
+  # You can list supported values by your version with `ssh -Q <type>` (see manpage for valid types)
+  # Explanation about the @openssh.com ciphers : https://security.stackexchange.com/questions/231092/openssh-meaning-of-cipher-with-email-address-openssh-com#231117
+  #
+  # Originally based on https://stribika.github.io/2015/01/04/secure-secure-shell.html
+  # Updated on 2021-11-01 by talking with crypto-savvy friends
+  # Updated on 2025-04-11 to add quantum-resistants kex
+  # TODO : further update, and probably switch to a denylist, to benefit from upstream/distro configs
+  KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
   HostKeyAlgorithms sk-ssh-ed25519-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,ssh-ed25519,ssh-rsa
   Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
   MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
-  UseRoaming no
 
