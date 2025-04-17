@@ -624,6 +624,7 @@
     - editorconfig.editorconfig   # read repo-local .editorconfig
     - eamodio.gitlens             # nice git blame integration
     - redhat.vscode-yaml          # yaml
+    - tamasfe.even-better-toml    # toml
     - hashicorp.terraform         # terraform formatting/auto-completion
     # python
     - ms-python.python
