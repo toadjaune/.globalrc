@@ -30,6 +30,7 @@ Nice tools :
   * bpytop https://pypi.org/project/bpytop/
   * vimium (modern vimperator, https://github.com/philc/vimium)
   * Maybe give a try to hyprland as a sway replacement ?
+  * https://github.com/hanshuaikang/Nping (2025-04-17 installed by hand with cargo, isn't even yet on crates.io)
 
 
 Power management : tlp
