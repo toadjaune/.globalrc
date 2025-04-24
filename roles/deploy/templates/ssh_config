@@ -41,15 +41,39 @@ Host *
   UseRoaming no
 
   ### Crypto hardening
-  # You can list supported values by your version with `ssh -Q <type>` (see manpage for valid types)
+  # You can list supported values by your version with `ssh -Q <type>` (see manpage or `ssh -Q help` for valid types)
   # Explanation about the @openssh.com ciphers : https://security.stackexchange.com/questions/231092/openssh-meaning-of-cipher-with-email-address-openssh-com#231117
+  #
+  # We use exclusively denylists, so that we benefit from upstream/distro default config improvements even without paying attention (broken crypto gets disabled, new crypto gets added)
   #
   # Originally based on https://stribika.github.io/2015/01/04/secure-secure-shell.html
   # Updated on 2021-11-01 by talking with crypto-savvy friends
   # Updated on 2025-04-11 to add quantum-resistants kex
-  # TODO : further update, and probably switch to a denylist, to benefit from upstream/distro configs
-  KexAlgorithms mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-  HostKeyAlgorithms sk-ssh-ed25519-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,ssh-ed25519,ssh-rsa
-  Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+  # Updated on 2025-04-24 to switch to a denylist and further cleanup
+
+  # KexAlgorithms (ssh -Q kex)
+  KexAlgorithms -diffie-hellman-*,ecdh-*
+  # hybrid post-quantum kex (desired) : mlkem768x25519-sha256 (kyber, preferred), sntrup761x25519-sha512@openssh.com,sntrup761x25519-sha512 (NTRU, better than no post-quantum handshake)
+  # classic crypto kex (desired) : curve25519-sha256,curve25519-sha256@libssh.org
+
+  # HostKeyAlgorithms (ssh -Q HostKeyAlgorithms)
+  # Desired values : sk-ssh-ed25519-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,ssh-ed25519
+  # RSA host keys : some services with limited support might still need RSA host keys, but the default ssh-rsa config is disabled by default on client
+  # cf https://github.com/hashicorp/packer-plugin-ansible/issues/140
+  HostKeyAlgorithms -ssh-rsa,ssh-rsa-cert-v01@openssh.com,rsa-sha2-256,ssh-rsa-cert-v01@openssh.com # desired : rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-512
+  # ECDSA host keys : Anything modern enough to have them also has ed25519, don't bother.
+  HostKeyAlgorithms -ecdsa*,sk-ecdsa*
+  # Security keys : could be useful some day, but I'm not currently relying on them
+  HostKeyAlgorithms -sk-*,webauthn-sk-*
+  # ed25519 host keys : preferred algorithm
+  # desired : ssh-ed25519-cert-v01@openssh.com,ssh-ed25519
+
+
+  # Ciphers (`ssh -Q cipher` and `ssh -Q cipher-auth` for those with implicit MAC)
+  Ciphers -3des-cbc,aes*-cbc,aes*-ctr # desired : chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com
+
+  # MACs (`ssh -Q mac`)
+  # NB : Only AEAD ciphers are allowed above, so this directive is actually unnecessary, because the MAC is implicit with such ciphers. Still, it doesn't hurt to explicitly disable some.
+  # NB : Only -etm (Encrypt then Mac) should be allowed
+  MACs hmac-sha2-512-etm@openssh.com # This is the simplest way to ensure no old broken MAC is enabled. It should be ignored anyway because of selected Ciphers.
 
