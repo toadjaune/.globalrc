@@ -15,9 +15,10 @@ echo "WARNING (stderr) : {{ item }} starting through a custom wrapper at $0" >&2
 
 # Find the "real" binary path, to execute it with extra arguments / envvars
 # NB : We don't want to persistently change the PATH variable, so that the final program is exec'd with the normal PATH (less intrusive)
+# NB : On Fedora >= 42, /usr/local/sbin is a symlink to /usr/local/bin, so, exclude both
 # TODO : Maybe autodetect the directory to be excluded in the script (suprisingly hard) or set it with the jinja template ?
 # TODO : Maybe replace item templating by sh logic ? Not sure waht behavior we want for symlinks
-actual_binary=$( PATH=$(echo $PATH | sed 's@/usr/local/bin:@@') which {{ item }} )
+actual_binary=$( PATH=$(echo $PATH | sed -r 's@/usr/local/s?bin:@@g') which {{ item }})
 
 # --enable-features=UseOzonePlatform --ozone-platform=wayland -> Enable native wayland rendering
 # --enable-features=WebRTCPipeWireCapturer -> Enable native wayland screensharing with XDG Portals and PipeWire (added for slack, even though attempting to screenshare currently crashes it. Even on Gnome.)
