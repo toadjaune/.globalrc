@@ -44,3 +44,4 @@ There's currently a mix of ansible-managed stuff, and home-manager-managed stuff
 
 Recurrent usage :
 * Install/update configuration : `home-manager switch --flake ./#houston`
+* Update lockfile : `nix flake update --flake .`
