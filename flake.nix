@@ -16,9 +16,18 @@
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
 
     homeConfigurations = {
-      "toadjaune" = home-manager.lib.homeManagerConfiguration {
+      "houston" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
-        modules = [ ./home.nix ];
+        modules = [
+          ./home.nix
+          ./nix/houston.nix
+        ];
+      };
+      "spacerig" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        modules = [
+          ./home.nix
+        ];
       };
     };
   };

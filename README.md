@@ -43,4 +43,4 @@ There's currently a mix of ansible-managed stuff, and home-manager-managed stuff
 * Install home-manager as a standalone program : https://nix-community.github.io/home-manager/#sec-install-standalone
 
 Recurrent usage :
-* Install/update configuration : `home-manager switch --flake .`
+* Install/update configuration : `home-manager switch --flake ./#houston`
