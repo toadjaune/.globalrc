@@ -1,24 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, hostSpecificVars, lib, ... }:
 
-let
-  # TODO : This is a very ugly way to make variable configuration across hosts
-  # I also haven't understood yet how to share values between modules
-  hostname = lib.strings.removeSuffix "\n" (builtins.readFile /etc/hostname);
-  git_user_email = (
-    if hostname == "launchpad"  then "arnaud.venturi@vroomly.com" else
-    if hostname == "houston"    then "arnaud.venturi@vroomly.com" else
-    if hostname == "spacerig"   then "git@toadjaune.eu" else
-    if hostname == "valoo"      then "git@toadjaune.eu" else
-    abort "invalid_hostname"
-  );
-in
 {
   programs.git = {
     enable = true;
     userName = "Arnaud Venturi";
-    # TODO : Make this configurable again by leveraging flakes setup
-    # userEmail = git_user_email;
-    userEmail = "git@toadjaune.eu";
+    # NB : We use a variable here to have an example of how to do it.
+    # Directly defining programs.git.userEmail in the host-specific module would work just as well
+    userEmail = "${hostSpecificVars.gitEmail}";
     aliases = {
       # This pretty format is equivalent to --oneline --decorate, with the addition of commiter name and date
       # See https://stackoverflow.com/questions/5889878/color-in-git-log#16844346

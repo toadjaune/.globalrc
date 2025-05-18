@@ -1,0 +1,3 @@
+{
+  gitEmail = "git@toadjaune.eu";
+}
