@@ -545,6 +545,9 @@
       // https://bugzilla.mozilla.org/show_bug.cgi?id=1628431
       user_pref("privacy.webrtc.legacyGlobalIndicator", false);
 
+      // Don't hide the leading "https://" in the address bar
+      user_pref("browser.urlbar.trimURLs", false);
+
       // Always ask where to save downloaded files
       user_pref("browser.download.useDownloadDir", false);
 
