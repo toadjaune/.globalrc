@@ -550,6 +550,8 @@
 
       // Always ask where to save downloaded files
       user_pref("browser.download.useDownloadDir", false);
+      // When opening a file without explicitly asking to download it, download it to a temp dir
+      user_pref("browser.download.start_downloads_in_tmp_dir", true);
 
       // Only show the bookmarks toolbar on a new tab, not all the time
       user_pref("browser.toolbars.bookmarks.visibility", "newtab");
