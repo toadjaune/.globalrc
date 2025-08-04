@@ -99,19 +99,33 @@ setopt pushd_ignore_dups
 
 ### Begin completion pre-configuration ###
 
-# TODO : document the meaning of each of those lines
+# See https://linux.die.net/man/1/zshcompsys for explanation
+
+# compinstall-generated : Default description when 1 argument and not specified by completion function
 zstyle ':completion:*' auto-description 'specify: %d'
+# compinstall-generated : Configures the completion functions to call (unclear)
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
+# Used by _correct and _approximate above to find completions, uses levenshtein distance to count a maximum of typing errors allowed
+zstyle ':completion:*' max-errors 2 numeric
+# compinstall-generated : Used in completion lists
 zstyle ':completion:*' format 'Completing %d'
+# compinstall-generated : Used to merge some completion groups
 zstyle ':completion:*' group-name ''
+# compinstall-generated : If there's only one valid completion, insert it directly without menu
 zstyle ':completion:*' insert-unambiguous true
+# compinstall-generated : Use LS_COLORS to colors completions (TODO : Somehow enable this, it sounds nice)
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# compinstall-generated : If the completion list doesn't fit on screen, allow scrolling through it and define corresponding prompt (TODO : probably disable ?)
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*'
-zstyle ':completion:*' max-errors 2
-zstyle ':completion:*' menu select=5
-zstyle ':completion:*' original false
+# compinstall-generated : Similar to list-prompt, but for menu. (TODO : clarify and/or disable)
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+# compinstall-generated : Define patterns used for matching completions (unclear)
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*'
+# enable menu completion if there are at least this many options (TODO : see with list-prompt to solve too-big git output
+zstyle ':completion:*' menu select=5
+# compinstall-generated : Only display the original string if there's more than one possible match
+zstyle ':completion:*' original false
+# compinstall-generated : Do not allow completion definitions from the legacy compctl system
 zstyle ':completion:*' use-compctl false
 
 # Provide more processes in completion of programs like killall:
