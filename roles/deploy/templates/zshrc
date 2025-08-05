@@ -122,17 +122,30 @@ zstyle ':completion:*' insert-unambiguous true
 # compinstall-generated : Used in completion lists
 zstyle ':completion:*' format 'Completing %d'
 
+
 # Menu and related options
+
+# The setting below (menu-completion disabled) in case of too many options will, on each Tab press :
+# 1 - display a single line indicating the number of options, and asking whether we want to print them all
+# 2 - print all options at once, then print back the normal shell prompt
+# 3 - enter menu mode
+#
+# TODO :
+# * Find a way so that, whenever there are too many options, the initial list printing (steps 1 and 2) is skipped, and we directly go to menu
+
+# Defining this would allow, in case the completion list is too long to fit on screen, to scroll through it and define corresponding prompt
+# We don't want that, as in this case, we'll rely on the menu, and we'd rather have a consistent (and smaller) number of tab-presses required to reach the menu
+# zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle -d ':completion:*' list-prompt
 
 # Used by _correct and _approximate above to find completions, uses levenshtein distance to count a maximum of typing errors allowed
 zstyle ':completion:*' max-errors 2 numeric
-# compinstall-generated : If the completion list doesn't fit on screen, allow scrolling through it and define corresponding prompt (TODO : probably disable ?)
-zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 # compinstall-generated : Similar to list-prompt, but for menu. (TODO : clarify and/or disable)
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 # enable menu completion if there are at least 5 options, or they don't fit on screen, and allow searching through options if you type stuff before any extra tab or arrow key presses
 # interactive instead of search would be nicer (it filters the options on screen) but it completely disables tab-selection, which is a nogo (TODO : is there a way around this limitation ?)
 zstyle ':completion:*' menu select=5 select=long-list search
+
 
 # Provide more processes in completion of programs like killall:
 zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
@@ -145,7 +158,6 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
                                            /sbin           \
                                            /bin            \
                                            /usr/X11R6/bin
-
 
 # host completion
 [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
