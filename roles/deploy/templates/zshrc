@@ -119,8 +119,6 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # compinstall-generated : If there's only one valid completion, insert it directly without menu
 zstyle ':completion:*' insert-unambiguous true
-# compinstall-generated : Used in completion lists
-zstyle ':completion:*' format 'Completing %d'
 
 
 # Menu and related options
@@ -138,13 +136,17 @@ zstyle ':completion:*' format 'Completing %d'
 # zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 zstyle -d ':completion:*' list-prompt
 
+# enable menu completion if there are at least 5 options, or they don't fit on screen, and allow searching through options if you type stuff before any extra tab or arrow key presses
+# interactive instead of search would be nicer (it filters the options on screen) but it completely disables tab-selection, which is a nogo (TODO : is there a way around this limitation ?)
+zstyle ':completion:*' menu select=5 select=long-list search
+
+# Title of different completion categories, used both in initial and menu listing (e.g. see with `git switch` completion to get an example of sections, with local and remote branch names)
+zstyle ':completion:*' format '### completing %d ###'
+
 # Used by _correct and _approximate above to find completions, uses levenshtein distance to count a maximum of typing errors allowed
 zstyle ':completion:*' max-errors 2 numeric
 # compinstall-generated : Similar to list-prompt, but for menu. (TODO : clarify and/or disable)
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-# enable menu completion if there are at least 5 options, or they don't fit on screen, and allow searching through options if you type stuff before any extra tab or arrow key presses
-# interactive instead of search would be nicer (it filters the options on screen) but it completely disables tab-selection, which is a nogo (TODO : is there a way around this limitation ?)
-zstyle ':completion:*' menu select=5 select=long-list search
 
 
 # Provide more processes in completion of programs like killall:
