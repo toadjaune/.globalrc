@@ -387,6 +387,9 @@ workspace $ws10 output $output_right
     # Toggle the current focus between tiling and floating mode
     bindcode $mod+Shift+$space floating toggle
 
+    # Make a floating window "sticky", ie make it stick to the screen and follow you across workspace
+    bindcode $mod+Ctrl+$space sticky toggle
+
     # Swap focus between the tiling area and the floating area
     bindcode $mod+$space focus mode_toggle
 
