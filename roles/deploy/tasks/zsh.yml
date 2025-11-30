@@ -56,7 +56,7 @@
 - name: Retrieve atuin widget definitions
   command:
     argv:
-      - "{{ userspace_bin_path_cargo }}/atuin"
+      - atuin
       - init
       - zsh
       - --disable-up-arrow

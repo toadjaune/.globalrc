@@ -66,14 +66,14 @@
 
   when: have_root and ansible_os_family == 'Debian'
 
-- name: Install (compile) rust programs with cargo
-  community.general.cargo:
-    name:
-      # There's a deb package downloadable from the github releases
-      # There is no RPM yet (https://github.com/ellie/atuin/issues/990)
-      # As of 2024-06-12, v18.3 does not compile, pin it for now.
-      # TODO : switch to installing with home-manager
-      - atuin
-    state: present
-    version: "18.2.0"
+# We don't currently have any rust program installed with cargo, but we keep the setup for now
+# - name: Install (compile) rust programs with cargo
+#   community.general.cargo:
+#     name: atuin
+#     state: present
+#     version: "18.2.0"
 
+- name: Tombstone - Remove cargo atuin binary
+  file:
+    path: "{{ userspace_bin_path_cargo }}/atuin"
+    state: absent

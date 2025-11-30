@@ -78,4 +78,29 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.atuin = {
+    enable = true;
+    enableBashIntegration = false; # don't use atuin with bash
+    enableZshIntegration  = false; # use atuin with zsh, but manually manage the widget
+    settings = {
+      # documentation : https://docs.atuin.sh/configuration/config/
+
+      # Updates are managed via home-manager
+      update_check = false;
+
+      # We don't ever want history sync
+      auto_sync = false;
+
+      # Don't require an extra enter press for running the command
+      # This will probably become the default at some point in the future
+      enter_accept = true;
+
+      # When using the up arrow, don't mix history between shells
+      filter_mode_shell_up_key_binding = "session";
+
+      style = "full"; # looks better
+      # keymap_mode = "vim-insert"; # TODO : test some more
+    };
+  };
+
 }

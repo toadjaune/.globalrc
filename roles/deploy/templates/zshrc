@@ -277,9 +277,6 @@ source "{{ remote_directory }}/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-hi
 # NB : atuin has an integration with zsh-autosuggestions, enabled by default ONLY if this conf is loaded after zsh-autosuggestions
 # TODO : we can probably disable native zsh history altogether, now that we have this
 
-# Use globalrc-managed config file
-export ATUIN_CONFIG_DIR="{{ remote_directory }}/files/atuin"
-
 # Generated with : {{ atuin_init_zsh.cmd | join(" ") }}
 
 # Begin generated content
