@@ -3,17 +3,18 @@
 {
   programs.git = {
     enable = true;
-    userName = "Arnaud Venturi";
-    # NB : We use a variable here to have an example of how to do it.
-    # Directly defining programs.git.userEmail in the host-specific module would work just as well
-    userEmail = "${hostSpecificVars.gitEmail}";
-    aliases = {
-      # This pretty format is equivalent to --oneline --decorate, with the addition of commiter name and date
-      # See https://stackoverflow.com/questions/5889878/color-in-git-log#16844346
-      # and https://git-scm.com/docs/pretty-formats
-      fullog = "log --graph --all --date-order --pretty=tformat:'%C(auto)%h%d %s %Cgreen(%cr) %Cblue<%an>'";
-    };
-    extraConfig = {
+    settings = {
+      user.name = "Arnaud Venturi";
+      # NB : We use a variable here to have an example of how to do it.
+      # Directly defining programs.git.userEmail in the host-specific module would work just as well
+      user.email = "${hostSpecificVars.gitEmail}";
+      alias = {
+        # This pretty format is equivalent to --oneline --decorate, with the addition of commiter name and date
+        # See https://stackoverflow.com/questions/5889878/color-in-git-log#16844346
+        # and https://git-scm.com/docs/pretty-formats
+        fullog = "log --graph --all --date-order --pretty=tformat:'%C(auto)%h%d %s %Cgreen(%cr) %Cblue<%an>'";
+      };
+
       # Global git config file
 
       # Good reference for "classic" options :
@@ -85,12 +86,15 @@
       # Format dates in git log as iso
       log.date = "iso";
     };
-
-    # cf https://difftastic.wilfred.me.uk/git.html
-    difftastic = {
-      enable = true;
-      background = "dark";
-    };
   };
 
+  # cf https://difftastic.wilfred.me.uk/git.html
+  programs.difftastic = {
+    enable = true;
+    options = {
+      background = "dark";
+    };
+    # TODO : unclear whether we want this or not
+    git.enable = true;
+  };
 }
