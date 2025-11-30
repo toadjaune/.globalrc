@@ -92,10 +92,10 @@
   };
 
   # Use https://github.com/dandavison/delta as pager
-  # TODO : switch to native home-manager delta setup ?
   # delta.navigate = true;    # use n and N to move between diff sections # TODO : is this by default ? Do I want it ?
   programs.delta = {
     enable = true;
     enableGitIntegration = true;
   };
+
 }

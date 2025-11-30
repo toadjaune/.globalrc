@@ -13,7 +13,6 @@
       - curl
       - eza
       - prettyping
-      - git-delta
 
       # Language-specific package managers and tooling
       - cargo         # rust deps with cargo
@@ -35,7 +34,6 @@
       - curl
       - eza
       - prettyping
-      - git-delta
 
       # Language-specific package managers and tooling
       - cargo         # rust deps with cargo
@@ -59,7 +57,6 @@
       - curl
       - eza
       - prettyping
-      - git-delta
 
       # Language-specific package managers and tooling
       - cargo         # rust deps with cargo
