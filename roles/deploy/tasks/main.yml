@@ -85,6 +85,7 @@
 
 - name: Install packages
   import_tasks:  packages.yml
+  tags: packages
 
 - name: Set zsh as default shell
   user:
