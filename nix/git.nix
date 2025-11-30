@@ -42,6 +42,7 @@
       # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
       # NB : This is likely useless when using difftastic/delta
       diff.algorithm = "histogram";
+      diff.colorMoved = "default";
 
       # Git, please, just stop dropping files in my working directory whenever I run `git mergetool`
       mergetool.keepbackup = false;
@@ -50,14 +51,6 @@
       # It's apparently not the default everywhere just yet, we configure it ourselves in the meantime
       # (Only used when initializing a new local repo)
       init.defaultBranch = "main";
-
-      # Use https://github.com/dandavison/delta as pager
-      # I'm not sure whether this is redundant with difftastic or not
-      # TODO : switch to native home-manager delta setup ?
-      core.pager = "delta";
-      interactive.diffFilter = "delta --color-only";
-      delta.navigate = true;    # use n and N to move between diff sections
-      diff.colorMoved = "default";
 
       commit.verbose = true;
 
@@ -96,5 +89,13 @@
     };
     # 2025-11-30 : Conflicts with delta, disable for now to try delta
     # git.enable = true;
+  };
+
+  # Use https://github.com/dandavison/delta as pager
+  # TODO : switch to native home-manager delta setup ?
+  # delta.navigate = true;    # use n and N to move between diff sections # TODO : is this by default ? Do I want it ?
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
   };
 }
