@@ -40,7 +40,7 @@
       rerere.enabled = true;
 
       # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
-      # NB : This is likely useless when using difftastic
+      # NB : This is likely useless when using difftastic/delta
       diff.algorithm = "histogram";
 
       # Git, please, just stop dropping files in my working directory whenever I run `git mergetool`
@@ -94,7 +94,7 @@
     options = {
       background = "dark";
     };
-    # TODO : unclear whether we want this or not
-    git.enable = true;
+    # 2025-11-30 : Conflicts with delta, disable for now to try delta
+    # git.enable = true;
   };
 }
