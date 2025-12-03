@@ -101,6 +101,10 @@
       style = "full"; # looks better
       # keymap_mode = "vim-insert"; # TODO : test some more
     };
+
   };
+
+  programs.eza.enable = true;
+  # TODO : see if programs.eza.enableZshIntegration is equivalent / better than our manual alias
 
 }
