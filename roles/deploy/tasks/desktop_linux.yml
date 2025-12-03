@@ -119,6 +119,13 @@
   become: true
   when: have_root and ansible_os_family == "Debian"
 
+- name: Add the flathub flatpak repository remote
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+  when: ansible_os_family == "RedHat"
+
 - name: Install flatpak packages
   flatpak:
     name:
