@@ -683,6 +683,7 @@ exec_always kanshictl reload
 ### fingerprint reader stuff
 
 # on Fedora, fprintd is pre-installed and running with no specific setup
+# enroll fingerprint with `fprintd-enroll`
 
 # Swaylock does not explicitly support fingerprint, pressing Enter with no password then putting your finger on the reader works (just not a great UX)
 # https://github.com/swaywm/swaylock/issues/61
