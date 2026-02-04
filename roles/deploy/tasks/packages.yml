@@ -4,8 +4,7 @@
     name:
       - zsh
       - git
-      # TODO: If we're on a desktop, install vim with clipboard support (vimx ?)
-      - vim
+      - vim # NB: kept just in case, vim is also installed via home-manager
       - screen
       - tmux
       - most
@@ -24,8 +23,7 @@
     name:
       - zsh
       - git
-      # TODO: if we're on a desktop, install vim with clipboard support (vimx ?)
-      - vim
+      - vim # NB: kept just in case, vim is also installed via home-manager
       - screen
       - tmux
       - most
@@ -46,8 +44,7 @@
     name:
       - zsh
       - git
-      # TODO: If we're on a desktop, install vim with clipboard support (vim-gui-common)
-      - vim
+      - vim # NB: kept just in case, vim is also installed via home-manager
       - screen
       - tmux
       - most

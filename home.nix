@@ -104,7 +104,10 @@
 
   };
 
-  programs.eza.enable = true;
   # TODO : see if programs.eza.enableZshIntegration is equivalent / better than our manual alias
+  programs.eza.enable = true;
+
+  # This defaults to installing vim-full, which we need for the wayland_clipboard option
+  programs.vim.enable = true;
 
 }
