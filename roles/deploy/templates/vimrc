@@ -35,7 +35,6 @@ let g:tmux_navigator_no_mappings = 1
 " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
 " User interface
-Plug 'vim-scripts/CycleColor'           " cycle through colors via F4
 Plug 'godlygeek/tabular'                " provides :Tab to align text
 Plug 'christoomey/vim-tmux-navigator'   " Consistent set of keys to navigate between vim splits and tmux panels
 Plug 'vim-airline/vim-airline'          " OP statusbar
