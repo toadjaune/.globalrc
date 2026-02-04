@@ -8,14 +8,12 @@
     src:  vimrc
     dest: '{{ remote_directory }}/vim/'
 
-- name: Setup Vim configuration loading
+- name: TOMBSTONE - Cleanup vim configuration loading via .vimrc
   blockinfile:
     dest:   "{{ ansible_user_dir }}/.vimrc"
-    create: true
     marker: "\" {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
-      " Loading global vim configuration
-      source {{ remote_directory }}/vim/vimrc
+    state: absent
+  failed_when: false # Don't fail if the file doesn't exist
 
 - name: Create colorschemes-manual directory
   file:
@@ -31,6 +29,7 @@
     - https://raw.githubusercontent.com/garybernhardt/dotfiles/master/.vim/colors/grb256.vim
     # - https://github.com/ryanb/dotfiles/raw/master/vim/colors/railscasts.vim # broken as of 2023-12-03
 
+# TODO: Switch to installing plugins via home-manager
 - name: Install vim-plug for Vim plugin management
   git:
     repo:   https://github.com/junegunn/vim-plug
