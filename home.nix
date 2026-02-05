@@ -4,6 +4,7 @@
   imports = [
     ./nix/git.nix
     ./nix/tmux.nix
+    ./nix/vim.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -106,16 +107,5 @@
 
   # TODO : see if programs.eza.enableZshIntegration is equivalent / better than our manual alias
   programs.eza.enable = true;
-
-  # This defaults to installing vim-full, which we need for the wayland_clipboard option
-  programs.vim = {
-    enable = true;
-    # TODO: We should eventually move the rest of the configuration here, especially plugin install
-    # TODO: Variabilize path
-    extraConfig = ''
-      " Loading global vim configuration
-      source /home/toadjaune/.globalrc/vim/vimrc
-    '';
-  };
 
 }
