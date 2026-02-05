@@ -10,7 +10,12 @@
     # TODO: We may want to switch to this, instead of setting $EDITOR ourselves
     # defaultEditor = false
 
-    # TODO: We should eventually move the rest of the configuration here, especially plugin install
+    # TODO: Migrate the rest of the plugins here
+    plugins = [
+      # Default value of home-manager, and also shipped by default on debian, etc
+      pkgs.vimPlugins.vim-sensible
+    ];
+
     # TODO: Variabilize path
     extraConfig = ''
       " Loading global vim configuration
