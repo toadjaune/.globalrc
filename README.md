@@ -37,9 +37,10 @@ There's currently a mix of ansible-managed stuff, and home-manager-managed stuff
 
 ### home-manager
 
-* [Install lix](https://nixos.org/download/) (as a nix implementation)
+* [Install lix](https://lix.systems/install/) (as a nix implementation)
   * enable flakes during the interactive install process
 * Install home-manager as a standalone program : https://nix-community.github.io/home-manager/#sec-install-standalone
+  * use the unstable channel
 
 Recurrent usage :
 * Install/update configuration : `home-manager switch --flake ./#houston`
