@@ -723,6 +723,12 @@
     systemd.enable = true;
     systemd.dbusImplementation = "broker"; # more modern dbus implementation, it's the one used by fedora (and most distros, honestly)
 
+    xwayland = true; # We're still far from the day where we can turn this off :/
+
+    # TODO: I'm unsure what exactly I might need those wrappers for, see why they exist ?
+    wrapperFeatures.base = false;
+    wrapperFeatures.gtk = false;
+
   };
 
 }
