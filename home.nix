@@ -3,6 +3,7 @@
 {
   imports = [
     ./nix/git.nix
+    ./nix/hyprland.nix
     ./nix/sway.nix
     ./nix/tmux.nix
     ./nix/vim.nix

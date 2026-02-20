@@ -1,5 +1,12 @@
 ### Package manager ###
 
+- name: Enable hyprland copr repo
+  community.general.copr:
+    name: solopasha/hyprland
+    state: enabled
+  become: true
+  when: have_root and ansible_os_family == "RedHat"
+
 - name: Install graphical packages (RedHat)
   dnf:
     name:
@@ -30,6 +37,9 @@
       - pavucontrol           # gui for pulseaudio configuration
       - pulseaudio-utils      # provides pactl cli
       - thunderbird           # email client
+
+      # hyprland
+      - hyprland
 
       # Language-specific package managers and tooling
       - python3-pip       # python deps with pip
