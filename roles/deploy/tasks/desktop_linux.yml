@@ -382,16 +382,17 @@
 
 ### sway ###
 
-- name: Create sway config directory
-  file:
-    state:  directory
-    dest:   "{{ ansible_user_dir }}/.config/sway"
+- name: TOMBSTONE - stat sway config file
+  ansible.builtin.stat:
+    path:   "{{ ansible_user_dir }}/.config/sway/config"
+  register: sway_config_file
+  tags: sway-config
 
-- name: Create sway config file
-  template:
-    src:    "sway_config"
-    dest:   "{{ ansible_user_dir }}/.config/sway/config"
-  notify: Reload sway config
+- name: TOMBSTONE - Remove sway config file
+  file:
+    path:   "{{ ansible_user_dir }}/.config/sway/config"
+    state: absent
+  when: not sway_config_file.stat.islnk
   tags: sway-config
 
 - name: Install rofimoji

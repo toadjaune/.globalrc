@@ -1,0 +1,717 @@
+{ config, pkgs, hostSpecificVars, lib, ... }:
+
+{
+  wayland.windowManager.sway = {
+    enable = true;
+
+    # TODO : we probably want to switch to a more recent commit sha, waiting on 1.12
+    # https://github.com/emersion/xdg-desktop-portal-wlr/issues/107
+    # https://github.com/swaywm/sway/issues/8754
+    # package = 
+
+    # Currently needed because :
+    # * Font validation is not working from the nix sandbox
+    # * Wallpaper/screensaver are not readable from the nix sandbox
+    # TODO: Solve those issues so that we can re-enable this check
+    checkConfig = false;
+
+    # TODO : Switch most of this to config.* options
+    extraConfig = ''
+      # Read `man 5 sway` for a complete reference.
+
+      # Notes on usage :
+      # For NetworkManager configuration, use :
+      # - nmtui for most config
+      # - "Network Connections" (launch from rofi) for WPA2 Enterprise
+
+      ### Variables
+      #
+      # Logo key
+      set $mod Mod4
+
+      # Define variables corresponding to keyboard letters
+      # We use keyboard to have a configuration independent from the keyboard layout
+      # Use `xev` to get the keycode of a key
+      # TODO : maybe replace xev by a wayland-native equivalent ?
+      # All variable names correspond to the qwerty lafayette position
+
+      set $minus 20
+
+      set $q 24
+      set $w 25
+      set $e 26
+      set $r 27
+      set $t 28
+      set $y 29
+      set $u 30
+      set $i 31
+      set $o 32
+      set $p 33
+
+      set $a 38
+      set $s 39
+      set $d 40
+      set $f 41
+      set $g 42
+      set $h 43
+      set $j 44
+      set $k 45
+      set $l 46
+      set $left   43
+      set $down   44
+      set $up     45
+      set $right  46
+      # TODO : rename those when needed
+      # set $★ 47
+      # set $' 48
+
+      set $z 52
+      set $x 53
+      set $c 54
+      set $v 55
+      set $b 56
+      set $n 57
+      set $m 58
+
+      set $return 36
+      set $space 65
+      set $escape 9
+      set $ctrl CTRL
+
+      set $1 10
+      set $2 11
+      set $3 12
+      set $4 13
+      set $5 14
+      set $6 15
+      set $7 16
+      set $8 17
+      set $9 18
+      set $0 19
+
+      ### Output configuration
+
+
+      # TODO : setup better lockscreen (those files need to be manually added on each host)
+      # The globbing is here to tolerate for various file extensions, unsure what happens if several files match.
+      output * bg "${ config.home.homeDirectory }/.config/sway/wallpaper.*" fill
+      set $lock_command swaylock --color 555555 --image "${ config.home.homeDirectory }/.config/sway/lockscreen.*"
+
+      # Example configuration:
+      #
+      #   output HDMI-A-1 resolution 1920x1080 position 1920,0
+      #
+      # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+      # For a laptop, this is the integrated screen
+      # It should definitely be variabilized per host, but it's fine for now (only one laptop and only one screen on my desktop)
+      set $output_primary "eDP-1"
+
+      set $mode_output "output"
+      mode $mode_output {
+          # Use `wdisplays` for manual setups
+          # You can also use it as a base for pixels offsets and such
+          # NB : Be careful when crafting those commands, most programs crash if there is a state with no enabled output at all
+
+          # Dynamic dual-screen through rofi
+          # TODO : Find a way to do this for wayland ?
+          # bindcode $left exec ROFI_ARGS="$rofi_common" .globalrc/files/scripts/i3-monitor-layout, mode "default"
+          # cf https://github.com/davatorium/rofi-scripts/blob/master/monitor_layout.sh
+
+          # Reset everything. Useful if you have currently no display…
+          bindcode $h output '*' enable , mode "default"
+
+          ### Manual screen management
+          # Should rarely be used now, since we have kanshi
+
+          # Primary-only, ie laptop screen only
+          # NB :
+          # * we can't just disable * then enable the only screen we want, because then it leaves a phase with no screen
+          # * there's no regexp support in screen selection, so we have no easy way to say "disable everything but this screen"
+          # For this reason. we resort to shelling out ...
+          # bindcode $j output '*' disable , output $output_primary enable , mode "default"
+          bindcode $j \
+            output $output_primary enable , \
+            exec \
+              swaymsg -t get_outputs -r | \
+              jq -r '.[] | "output \(.name) disable ,"' | \
+              grep -v "$output_primary" | \
+              xargs swaymsg , \
+            mode "default"
+
+          # Custom modes, depending on the specific setup (multiple screens, disable laptop screen or not, etc...)
+          # Now unused, since kanshi works fine
+          # Examples kept for reference :
+          bindcode $k output 'Goldstar Company Ltd LG HDR 4K 0x00008772'   enable pos 0 0 , output eDP-1 enable pos 3840 1080 , mode "default" # Office
+          bindcode $l output 'Samsung Electric Company U32J59x H4ZMB00786' enable pos 0 0 , output eDP-1 enable pos 960 2160 , mode "default" # Home
+
+          ### End manual display management
+
+          # Reload (and reapply) kanshi configuration
+          bindcode $o exec kanshictl reload , mode "default"
+
+          # back to normal: Enter or Escape
+          bindcode $return mode "default"
+          bindcode $escape mode "default"
+
+      }
+      bindcode $mod+$o mode $mode_output
+
+
+      ### Idle configuration
+      #
+      # Example configuration:
+      #
+      # exec swayidle -w \
+      #          timeout 300 'swaylock -f -c 000000' \
+      #          timeout 600 'swaymsg "output * dpms off"' \
+      #               resume 'swaymsg "output * dpms on"' \
+      #          before-sleep 'swaylock -f -c 000000'
+      #
+      # This will lock your screen after 300 seconds of inactivity, then turn off
+      # your displays after another 300 seconds, and turn your screens back on when
+      # resumed. It will also lock your screen before your computer goes to sleep.
+
+      set $mode_system "system"
+      mode $mode_system {
+          bindcode $j exec "systemctl poweroff"
+          bindcode $k exec "systemctl reboot"
+          # Reload the configuration file
+          bindcode $l reload
+          # TODO : suspend and hibernate ?
+          # NB : See https://wiki.archlinux.org/title/Sway#Idle for automatic locking ?
+
+          # back to normal: Enter or Escape
+          bindcode $return mode "default"
+          bindcode $escape mode "default"
+      }
+      bindcode $mod+$u mode $mode_system
+
+      # manually lock screen with a direct shortcut
+      bindcode $mod+$z exec $lock_command
+
+      # Exit sway (logs you out of your Wayland session) (We keep the default shortcut)
+      bindcode $mod+Shift+$e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+
+      ### Input configuration
+      #
+      # Example configuration:
+      #
+      #   input "2:14:SynPS/2_Synaptics_TouchPad" {
+      #       dwt enabled
+      #       tap enabled
+      #       natural_scroll enabled
+      #       middle_emulation enabled
+      #   }
+      #
+      # You can get the names of your inputs by running: swaymsg -t get_inputs
+      # Read `man 5 sway-input` for more information about this section.
+
+      # Using non-specific input mappings make firefox and thunderbird crash on sway reload.
+      # It is fixed upstream, should be backported to sway 1.8
+      input "type:keyboard" {
+        xkb_layout  "fr"
+        xkb_variant "lafayette"
+        xkb_numlock "enabled"
+      }
+
+      ### Key bindings
+      #
+      # Basics:
+      #
+          # Start a terminal
+          bindcode $mod+$return exec alacritty
+
+          # Kill focused window
+          bindcode $mod+Shift+$q kill
+
+          # Start your launcher
+          # Note: pass the final command to swaymsg so that the resulting window can be opened
+          # on the original workspace that the command was run on.
+          # set $menu dmenu_path | dmenu | xargs swaymsg exec --
+          set $rofi_common -theme /usr/share/rofi/themes/glue_pro_blue.rasi
+          # Possible modi that might be interesting besides run and drun : ssh, window, combi
+          bindcode $mod+$d exec rofi $rofi_common -modi run  -show run
+          bindcode $mod+$g exec rofi $rofi_common -modi drun -show drun
+
+          # Type emoji in any text field
+          # NB : This currently does not work on firefox
+          bindcode $mod+$n exec rofimoji --selector-args="$rofi_common"
+
+
+          # Drag floating windows by holding down $mod and left mouse button.
+          # Resize them with right mouse button + $mod.
+          # Despite the name, also works for non-floating windows.
+          # Change normal to inverse to use left mouse button for resizing and right
+          # mouse button for dragging.
+          floating_modifier $mod normal
+
+
+      # Media keys
+      # TODO : Do we want to complement these with normal keybindings for "normal" keyboards ?
+      # Not configured yet keys that we might want to add
+      # * XF86Display (Normally to choose the display mode, do we want it ?)
+      # * XF86WLAN (Turn on/off WiFi, seems alredy done on my computers ?)
+      # * XF86Tools (???)
+      # * XF86Bluetooth
+      # * XF86Favorites (???)
+
+      # Pulseaudio
+      # NB : Maybe we're gonna need to refine this logic for it to work with headphones
+      bindsym --locked XF86AudioMute        exec pactl set-sink-mute    @DEFAULT_SINK@    toggle
+      bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume  @DEFAULT_SINK@    -5%
+      bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume  @DEFAULT_SINK@    +5%
+      bindsym --locked XF86AudioMicMute     exec pactl set-source-mute  @DEFAULT_SOURCE@  toggle
+
+      # Media player
+      bindsym --locked XF86AudioPlay  exec playerctl play-pause
+      bindsym --locked XF86AudioPause exec playerctl play-pause
+      bindsym --locked XF86AudioNext  exec playerctl next
+      bindsym --locked XF86AudioPrev  exec playerctl previous
+
+      # Screen brightness
+      bindsym --locked XF86MonBrightnessUp    exec brightnessctl s 5%+
+      bindsym --locked XF86MonBrightnessDown  exec brightnessctl s 5%-
+
+      #
+      # Moving around:
+      #
+          # Move your focus around
+          bindcode $mod+$left focus left
+          bindcode $mod+$down focus down
+          bindcode $mod+$up focus up
+          bindcode $mod+$right focus right
+
+          # Move the focused window with the same, but add Shift
+          bindcode $mod+Shift+$left move left
+          bindcode $mod+Shift+$down move down
+          bindcode $mod+Shift+$up move up
+          bindcode $mod+Shift+$right move right
+      #
+      # Workspaces:
+      #
+
+      # Define names for default workspaces for which we configure key bindings later on.
+      # We use variables to avoid repeating the names in multiple places.
+      set $ws1  "1:web"
+      set $ws2  "2"
+      set $ws3  "3"
+      set $ws4  "4"
+      set $ws5  "5"
+      set $ws6  "6"
+      set $ws7  "7"
+      set $ws8  "8:music"
+      set $ws9  "9:chat"
+      set $ws10 "10:mail"
+
+      # switch to workspace
+      bindcode $mod+$1 workspace $ws1
+      bindcode $mod+$2 workspace $ws2
+      bindcode $mod+$3 workspace $ws3
+      bindcode $mod+$4 workspace $ws4
+      bindcode $mod+$5 workspace $ws5
+      bindcode $mod+$6 workspace $ws6
+      bindcode $mod+$7 workspace $ws7
+      bindcode $mod+$8 workspace $ws8
+      bindcode $mod+$9 workspace $ws9
+      bindcode $mod+$0 workspace $ws10
+
+      # move focused container to workspace
+      bindcode $mod+Shift+$1 move container to workspace $ws1
+      bindcode $mod+Shift+$2 move container to workspace $ws2
+      bindcode $mod+Shift+$3 move container to workspace $ws3
+      bindcode $mod+Shift+$4 move container to workspace $ws4
+      bindcode $mod+Shift+$5 move container to workspace $ws5
+      bindcode $mod+Shift+$6 move container to workspace $ws6
+      bindcode $mod+Shift+$7 move container to workspace $ws7
+      bindcode $mod+Shift+$8 move container to workspace $ws8
+      bindcode $mod+Shift+$9 move container to workspace $ws9
+      bindcode $mod+Shift+$0 move container to workspace $ws10
+
+      # Move workspace to another screen
+      bindcode $ctrl+$mod+$left move workspace to output left
+      bindcode $ctrl+$mod+$down move workspace to output up
+      bindcode $ctrl+$mod+$up move workspace to output down
+      bindcode $ctrl+$mod+$right move workspace to output right
+
+      ### Assign windows to specific workspaces
+      # To find attributes of windows, use `swaymsg -t get_tree`
+      # cf https://wiki.archlinux.org/title/Sway, section "Floating Windows"
+
+      assign [app_id="firefox"]      $ws1
+
+      # Old spotify workaround, kept for reference
+      # https://github.com/i3/i3/issues/2060
+      # for_window [class="Spotify"] move to workspace $ws8
+
+      # NB : As of 2023-06-27, spotify does not set an app_id
+      # The title should work well enough, though
+      assign [title="Spotify"]               $ws8
+
+      # only works via native wayland
+      assign [app_id="Slack"]                $ws9
+      assign [app_id="discord"]              $ws9
+
+      # only works via XWayland
+      assign [class="Slack"]                 $ws9
+      assign [class="discord"]               $ws9
+
+      assign [class="quassel"]               $ws9
+      assign [class="riot"]                  $ws9
+      assign [app_id="org.telegram.desktop"] $ws9
+
+      # only works via XWayland
+      # assign [class="thunderbird"]  $ws10
+      assign [app_id="thunderbird"] $ws10
+
+
+      # Assign workspaces to specific outputs (xrandr output names)
+
+      # This is for a layout with 2 horizontal screens.
+      # It is absolutely not portable in the current state
+      # maybe we can improve it by using marks
+
+      # mapping to the actual screen names
+      # TODO : Make this configurable
+      set $output_left  "DP-2"
+      set $output_right "HDMI-1"
+
+      # assigning each workspace to a screen
+      workspace $ws1  output $output_left
+      workspace $ws2  output $output_right
+      workspace $ws3  output $output_right
+      workspace $ws4  output $output_right
+      workspace $ws5  output $output_right
+      workspace $ws6  output $output_right
+      workspace $ws7  output $output_right
+      workspace $ws8  output $output_right
+      workspace $ws9  output $output_right
+      workspace $ws10 output $output_right
+
+      #
+      # Layout stuff:
+      #
+          # You can "split" the current object of your focus with
+          # $mod+b or $mod+v, for horizontal and vertical splits
+          # respectively.
+          bindcode $mod+$b splith
+          bindcode $mod+$v splitv
+
+          # Switch the current container between different layout styles
+          bindcode $mod+$s layout stacking
+          bindcode $mod+$w layout tabbed
+          bindcode $mod+$e layout toggle split
+
+          # Make the current focus fullscreen
+          bindcode $mod+$f fullscreen
+
+          # Toggle the current focus between tiling and floating mode
+          bindcode $mod+Shift+$space floating toggle
+
+          # Make a floating window "sticky", ie make it stick to the screen and follow you across workspace
+          bindcode $mod+Ctrl+$space sticky toggle
+
+          # Swap focus between the tiling area and the floating area
+          bindcode $mod+$space focus mode_toggle
+
+          # Move focus to the parent container
+          bindcode $mod+$a focus parent
+      #
+      # Scratchpad:
+      #
+          # Sway has a "scratchpad", which is a bag of holding for windows.
+          # You can send windows there and get them back later.
+
+          # Move the currently focused window to the scratchpad
+          bindcode $mod+Shift+$minus move scratchpad
+
+          # Show the next scratchpad window or hide the focused scratchpad window.
+          # If there are multiple scratchpad windows, this command cycles through them.
+          bindcode $mod+$minus scratchpad show
+      #
+      # Resizing containers:
+      #
+      # resize window (you can also use the mouse for that)
+      mode "resize" {
+          # left will shrink the containers width
+          # right will grow the containers width
+          # up will shrink the containers height
+          # down will grow the containers height
+          bindcode $left resize shrink width 10px
+          bindcode $down resize grow height 10px
+          bindcode $up resize shrink height 10px
+          bindcode $right resize grow width 10px
+
+          # Return to default mode
+          bindcode $return mode "default"
+          bindcode $escape mode "default"
+      }
+      bindcode $mod+$r mode "resize"
+
+      #
+      # Status Bar:
+      #
+      # Replace the defaut swaybar with waybar
+      # TODO : Maybe switch it to a systemd user unit (there's already one installed by the package)
+      bar {
+          swaybar_command waybar
+      }
+
+      ### Misc keybindings
+
+      # Take a screenshot
+      # This command :
+      # * creates the screenshots directory with mkdir
+      # * asks the user for a screen area to capture with slurp
+      # * takes a screenshot of it with grim
+      # * optionally, edit the image with swappy
+      # * copies the resulting image to the screenshot directory with tee
+      # * sends the image to the wayland clipboard with wl-copy
+      # bindcode $mod+$p       exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - |                    tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
+      # bindcode $mod+Shift+$p exec 'mkdir -p /tmp/screenshots && grim -g "$(slurp)" - | swappy -f - -o - | tee "/tmp/screenshots/grim_$(date --iso-8601=seconds).png" | wl-copy'
+
+      # Replaced by flameshot, which does the entire job quite nicely
+      # Flameshot DOES require XDG_CURRENT_DESKTOP to be set
+      # TODO : flameshot should be able to output to clipboard too, but I couldn't make it work.
+      #   * https://github.com/flameshot-org/flameshot/issues/1446
+      #   * Possibly due to the fact that it exits directly after finishing ?
+      #   * Test again after setting up a clipboard manager
+      #   * NB : also, wait until we get flameshot back to native wayland (remove QT_QPA_PLATFORM=xcb) to care about this
+      # TODO : flameshot takes a perceptible delay to come up. Maybe the daemon mode could be useful ? (Spoiler : I don't think so)
+      #   * https://github.com/flameshot-org/flameshot/issues/2713
+      #   * Extend this bug report with my findings (detail them):
+      #     * On work laptop, similar (high) delay between tray icon and cli startup
+      #     * On home desktop, seems that tray icon is instant
+      #     * Try on home laptop
+      bindcode $mod+$p exec 'mkdir -p /tmp/screenshots && XDG_CURRENT_DESKTOP=sway flameshot gui --path "/tmp/screenshots/flameshot_$(date --iso-8601=seconds).png" --raw | wl-copy'
+
+      # NB : flameshot in native wayland doesn't work with multiple screens (can only interact with a single screen) :
+      #   * https://github.com/flameshot-org/flameshot/issues/2364
+      #   * Setting QT_QPA_PLATFORM=xcb to go through XWayland fixes it, but breaks keyboard shortcuts, including "Escape" to cancel screenshot
+      #   * Working workaround below, based on https://github.com/flameshot-org/flameshot/issues/2364#issuecomment-1693693063
+      for_window [app_id="flameshot"] fullscreen enable global
+
+      # OCR-powered screenshot
+      # Because people often send images
+      # Many possible improvements in this setup :
+      # * slow start. There's a daemon mode that might help with this.
+      # * maybe more language support
+      # * no idea what raw/parse modes do
+      bindcode $mod+Ctrl+$p exec 'flatpak run --socket=wayland com.github.dynobo.normcap --tray False --update False --show-introduction False'
+
+      # Mode to start most common programs
+      mode "launch" {
+          bindcode $f exec firefox,     mode "default"
+          bindcode $t exec thunderbird, mode "default"
+
+          # bindcode $s exec flatpak run --socket=wayland com.spotify.Client --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
+          bindcode $s exec flatpak run --socket=wayland com.spotify.Client , mode "default"
+
+          # We switched to installing slack via flatpak, because :
+          # * Screensharing via XDP works properly there (even though it is still using XWayland)
+          #   * via deb packages, it would either:
+          #     * crash at sharing start if started with --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer
+          #     * show a black screen if started via XWayland
+          # * At least it's "automatically" updated that way (still better than the standalone-with-no-repos rpm)
+          # * ... and doesn't pollute my repolist with an extra source, doesn't pollute my system with out-of-date libs, etc...
+          # * I like to have it sandboxed
+          #
+          # NB : As of 2024-01-25, screensharing is broken in upstream package, but the flatpak includes a workaround that makes it work.
+          # --socket=wayland is still required to make it not use XWayland
+          # * https://forums.slackcommunity.com/s/question/0D53a00009BSEGACA5/when-will-slack-support-wayland-screen-sharing-does-anyone-have-workarounds-or-hacks-to-make-it-work
+          # * https://github.com/flathub/com.slack.Slack/issues/101#issuecomment-1590891983
+          # * https://github.com/flathub/com.slack.Slack/issues/196
+          # bindcode $k exec flatpak run --socket=wayland com.slack.Slack --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer , mode "default"
+          # bindcode $k exec flatpak run --socket=wayland com.slack.Slack , mode "default"
+          bindcode $k exec flatpak run com.slack.Slack , mode "default"
+
+          # We switched to installing discord via flatpak, because :
+          # * When discord publishes a package-level update, it is immediately mandatory to connect, but the rpmfusion rpm can take a few days to be updated (whereas the flatpak is instant afaict)
+          # * No need to enable rpmfusion non-free
+          # * I like to have it sandboxed
+          # * No XDP pipewire screensharing, TODO : I don't know how to enable it
+          #   * As of 2023-06-27, we can only share XWayland windows, or black screens (both native wayland and XWayland)
+          #   * As of 2023-06-27, adding --enable-features=WebRTCPipeWireCapturer make Discord crash when attempting screenshare (both native wayland and XWayland)
+          #   * Seems unsupported upstream at the moment, even on Gnome (untested) : https://github.com/flathub/com.discordapp.Discord/issues/89
+          #   * No progress on screensharing as of 2025-01-22, although the command with --socket=wayland does successfully start it as a native wayland app
+          # * Discord via rpm straight-up crashes if started as a native wayland app
+          # TODO : test https://github.com/SpacingBat3/WebCord ?
+          bindcode $d exec flatpak run --socket=wayland com.discordapp.Discord , mode "default"
+
+          # NB : if VSCodium is initially started by any way other than this keybinding, it won't be in native wayland mode
+          bindcode $c exec codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
+
+          # back to normal: Enter or Escape
+          bindcode $return mode "default"
+          bindcode $escape mode "default"
+      }
+      bindcode $mod+$m mode "launch"
+
+      # Mode to insert text directly
+      mode "type" {
+          # type current date in iso 8601 format
+          bindcode $d exec wtype "$(date --iso-8601)", mode "default"
+
+          # back to normal: Enter or Escape
+          bindcode $return mode "default"
+          bindcode $escape mode "default"
+      }
+      bindcode $mod+$t mode "type"
+
+
+      ### Start/configure various daemons
+
+      # Some userspace daemons come packaged with userpace systemd unit configurations (/usr/lib/systemd/user/)
+      # This is preferable to manually starting them here, as we can leverage systemd's facilities for :
+      # * logging
+      # * daemon lifecycle :
+      #   * auto-restart
+      #   * asynchronous lazy loading (typically via DBus)
+      #   * daemon unaffected by sway restart, no orphaned process...
+      #
+      # Currently identified daemons using this mechanism :
+      # * mako (notification daemon, started via DBus, requires $WAYLAND_DISPLAY)
+      # * ssh-agent (custom unit added by this role)
+      # * xdg-desktop-portal (Portal manager, started via DBus, requires $XDG_CURRENT_DESKTOP, see below)
+      # * xdg-desktop-portal-wlr (wayland-related portals implementation, started via DBus, see below)
+      # * darkman (light/dark theme manager and portal implementation, started by systemd, see below)
+      #
+      # Environment in ~/.config/environment.d/ is included in systemd user unit environments, as well as various variables set by sway
+      # * `systemctl --user show-environment`
+      # * https://bugs.archlinux.org/task/63021
+      # This is not the case for $WAYLAND_DISPLAY, which is needed by daemons interacting with wayland, but that we don't want to hardcode
+      # The cleanest way I found to do this is to propagate the value set by sway into the systemd config
+      exec_always systemctl --user import-environment WAYLAND_DISPLAY
+
+      # The Freedesktop Portal system allows apps to ask for extra permissions, such as screen sharing
+      # Works even (especially, even) for sandboxed apps (flatpak...)
+      # xdg-desktop-portal is autostarted via dbus, and receives such requests.
+      # It then dispatches them to actual implementations, such as xdg-desktop-portal-wlr (wlroots, for sway and co) or xdg-desktop-portal-gnome
+      # Without the XDG_CURRENT_DESKTOP set to sway, xdg-desktop-portal gets confused, and falls back to gnome imprementations. Which breaks on sway.
+      # Therefore, we configure it here. We can't put it in ~/.config/environment.d/, because then in breaks portals on Gnome.
+      # In a sway-only environment, we could also not have xdg-desktop-portal-gnome installed in the first place.
+      # Extra info :
+      # * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/systemd-user-services,-pam,-and-environment-variables
+      # * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/%22It-doesn't-work%22-Troubleshooting-Checklist
+      # * https://github.com/emersion/xdg-desktop-portal-wlr/wiki/Screencast-Compatibility
+      # * `/usr/libexec/xdg-desktop-portal -vr` to start it manually, with extra logs, and see what DBus interfaces are bound to what.
+      # * `/usr/libexec/xdg-desktop-portal-wlr -l DEBUG -r`
+      # * https://flatpak.github.io/xdg-desktop-portal/ -> List of interfaces
+      # It's possible to configure xdg-desktop-portal-wlr, notably to choose how it will make you choose between outputs to share,
+      # see `man 5 xdg-desktop-portal-wlr`. Could for example use wofi instead of slurp... (TODO ?)
+      exec_always systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+
+      # Wayland screen sharing notes
+      #
+      # Screen sharing of native Wayland windows uses PipeWire and XDG Portals (see above)
+      #
+      # On sway (or any wlroots-based compositor), we only get to stream entire screens at once, no way to stream a specific window :
+      # * https://github.com/emersion/xdg-desktop-portal-wlr/issues/107
+      # * https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/issues/93
+      #
+      # As of 2023-11-09, it works seamlessly for streaming clients implementing it properly (e.g. firefox, chromium...), but some shitty clients
+      # (slack, Discord...) fail to make it work properly (cf above at their launch keybinding definitions)
+      # Those programs however tend to retain the ability to stream windows through the X protocol, meaning we can still share Xwayland windows through those broken programs.
+      # xwaylandvideobridge is a ~hack~ compatibility layer that captures a wayland window, and exposes it as its X window content.
+      # It works, but far from seamlessly (you get multiple desktop choice steps, it's sensible to window aspect ratio, etc)
+      # Here's how we currently use it :
+      # * it's installed through dnf. Nothing autostarts it.
+      # * whenever you want to use it, start it manually (typically through rofi)
+      # * ensure its window occupies an entire desktop
+      # * ensure its desktop is on the screen you're about to share
+      # * go back to your streaming program, and share a window through it (the window is named "Wayland to X11 Video Bridge")
+      # * enjoy
+      #
+      # Potential future improvements to consider, depending on how it ends up working :
+      # * removing it entirely once those programs fix their shit. This would be ideal, and since all programs affected here are electron, it just might happen eventually
+      # * autostarting it ? There's a kde flatpak that could help with that
+      # * autostarting it manually from sway ?
+      # * configuring sway to hide the window ?
+      #
+      # References :
+      # * https://github.com/KDE/xwaylandvideobridge
+      # * https://github.com/JerrySM64/Xwayland-Video-Bridge-Quick-Setup/blob/main/XWayland-Video-Bridge-Setup.sh
+      # * https://blog.davidedmundson.co.uk/blog/xwaylandvideobridge/
+
+      # darkman (light/dark theme runtime switching)
+      #
+      # So, for the basic idea :
+      # There is a freedesktop property (org.freedesktop.appearance color-scheme) that describes the user preference,
+      # with 3 possible values : no-preference (0), prefer-dark (1), prefer-light(2)
+      # https://blogs.gnome.org/alicem/2021/10/04/dark-style-preference/
+      # https://github.com/flatpak/xdg-desktop-portal/blob/d7a304a00697d7d608821253cd013f3b97ac0fb6/data/org.freedesktop.impl.portal.Settings.xml#L33-L45
+      #
+      # We use https://gitlab.com/WhyNotHugo/darkman, which provides a simple cli to choose the preference, and exposes it through its portal implementation
+      #
+      # Gnome of course implements it too.
+      # It maps it to the org.gnome.desktop.interface color-scheme setting, which means we can set it with :
+      # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+      #
+      # With no specific setup, darkman should auto-start as a user systemd unit
+      # (NB : might need a reboot if it was just installed)
+      #
+      # If you have any doubt about which portal implementation has precedence, directly query dbus for the current value with :
+      # dbus-send --session --print-reply=literal --reply-timeout=1000 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
+      # NB : ansible explicitly configures darkman precedence in ~/.config/xdg-desktop-portal/sway-portals.conf
+      #
+      # Most GTK programs honor it unless GTK_THEME envvar is defined
+      # A few examples to test for when changing those :
+      # * firefox's own chrome (interface) follows GTK_THEME first, then this
+      # * nautilus, same
+      # * firefox web pages follow this regardless of GTK_THEME
+      # * Dark Reader extension can be configured to follow it (independently of its per-site global exclude list)
+      # * thunderbird follows it regardless of GTK_THEME
+      #
+      # Electron's detection logic is currently (2023-08-03) broken :
+      # https://github.com/electron/electron/issues/33635
+      #
+      # TODO : Possible next steps :
+      # * Make various other desktop apps honor the preference
+      #   * slack
+      #   * vscodium
+      # * Terminal/shell theme ?
+      # * Auto background change ?
+
+      # Manual toggle between light and dark theme
+      bindcode $mod+$y exec darkman toggle && notify-send --urgency=low "Switched to $(darkman get) mode"
+      # At startup, use dark mode
+      exec darkman set dark
+
+      # Polkit agent (allow graphical programs to request permissions with higher granularity than sudo)
+      # We need to start a polkit agent manually. Any of them should do.
+      # Start gparted as a non-privileged user to test the setup.
+      # https://github.com/swaywm/sway/wiki#wayland-wont-let-me-run-apps-as-root
+      # https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html
+      # https://wiki.archlinux.org/title/Polkit
+      # TODO : lxpolkit is kind of ugly, see what agent we can replace it with
+      exec lxpolkit
+
+      # TODO : Find a way to replicate this functionality, since the Wayland protocol prevents this by design
+      # Will likely require explicit support from the compositor
+      # Start redshift
+      # This reduces the amount of blue light emitted by the screen based
+      # on the time of the day
+      # We currently use the default config
+      # exec redshift
+
+      # kanshi : daemon autoloading monitors layouts based on which ones are plugged
+      # TODO : maybe move it to a systemd user unit ?
+      exec kanshi
+      # When reloading sway config, reload kanshi configuration
+      exec_always kanshictl reload
+
+
+      ### fingerprint reader stuff
+
+      # on Fedora, fprintd is pre-installed and running with no specific setup
+      # enroll fingerprint with `fprintd-enroll`
+
+      # Swaylock does not explicitly support fingerprint, pressing Enter with no password then putting your finger on the reader works (just not a great UX)
+      # https://github.com/swaywm/swaylock/issues/61
+      # NB : hyprlock has added support in 0.5.0, we may want to switch to it : https://github.com/hyprwm/hyprlock/issues/258
+    '';
+
+  };
+
+}

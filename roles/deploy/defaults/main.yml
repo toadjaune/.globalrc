@@ -43,19 +43,10 @@ extra_ssh_config_host: ""
 extra_ssh_config_global: ""
 
 # Sway setup
-# sway_output_primary: "" # Mandatory for graphical setup
-sway_output_custom_1: "nop 'Mode not defined'"
-sway_output_custom_2: "nop 'Mode not defined'"
 kanshi_config: |
   profile "kanshi not configured" {
     output "invalid output name" enable position 0,0
   }
-
-# Those paths are relative to user home
-# Those files have to be created locally by hand.
-# The globbing is here to tolerate for various file extensions, unsure what happens if several files match.
-sway_wallpaper_path:  ".config/sway/wallpaper.*"
-sway_lockscreen_path: ".config/sway/lockscreen.*"
 
 # On both OS, we can just dump ttf files in a directory, only the path changes
 fonts_install_path: "{{ ansible_user_dir }}/{{ (ansible_system == 'Darwin') | ternary ('Library/Fonts', '.local/share/fonts') }}/globalrc_fonts"
