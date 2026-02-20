@@ -280,6 +280,9 @@
       bindsym --locked XF86MonBrightnessUp    exec brightnessctl s 5%+
       bindsym --locked XF86MonBrightnessDown  exec brightnessctl s 5%-
 
+      # Lid closed/opened
+      bindswitch lid:on exec $lock_command
+
       #
       # Moving around:
       #
