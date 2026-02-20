@@ -15,7 +15,14 @@
     # TODO: Solve those issues so that we can re-enable this check
     checkConfig = false;
 
-    # TODO : Switch most of this to config.* options
+    # NB: home-manager sets defaults for a lot of parameters (apparently mostly following sway defaults.
+    #     We currently inhibit those entirely and declare manually the entirety of our sway config below
+    #     We may want to migrate to generating more of the config from home-manager, but I don't really see any benefit to it for now.
+    config = null;
+
+    # TODO: We probably want this, it has been disabled for consistency with pre-import behavior.
+    systemd.enable = false;
+
     extraConfig = ''
       # Read `man 5 sway` for a complete reference.
 
@@ -25,8 +32,8 @@
       # - "Network Connections" (launch from rofi) for WPA2 Enterprise
 
       ### Variables
-      #
-      # Logo key
+
+      # "super" key
       set $mod Mod4
 
       # Define variables corresponding to keyboard letters
@@ -142,8 +149,9 @@
           # Custom modes, depending on the specific setup (multiple screens, disable laptop screen or not, etc...)
           # Now unused, since kanshi works fine
           # Examples kept for reference :
-          bindcode $k output 'Goldstar Company Ltd LG HDR 4K 0x00008772'   enable pos 0 0 , output eDP-1 enable pos 3840 1080 , mode "default" # Office
-          bindcode $l output 'Samsung Electric Company U32J59x H4ZMB00786' enable pos 0 0 , output eDP-1 enable pos 960 2160 , mode "default" # Home
+          # bindcode $k output 'Goldstar Company Ltd LG HDR 4K 0x00008772'   enable pos 0 0 , output eDP-1 enable pos 3840 1080 , mode "default" # Office
+          # bindcode $l output 'Samsung Electric Company U32J59x H4ZMB00786' enable pos 0 0 , output eDP-1 enable pos 960 2160 , mode "default" # Home
+          # bindcode $k nop 'Mode not defined' , mode "default"
 
           ### End manual display management
 

@@ -4,8 +4,8 @@
   dnf:
     name:
       # sway/wayland related
-      - sway                  # Tiling window manager
-      - swaylock              # trigger wayland lockscreen
+      - sway                  # Tiling window manager       (TODO: now installed via home-manager, should be removable)
+      - swaylock              # trigger wayland lockscreen  (TODO: now installed via home-manager, should be removable)
       - rofi                  # Program launcher
       - rofimoji              # Emoji picker
       - flameshot             # Screenshot tool
