@@ -20,9 +20,6 @@
     #     We may want to migrate to generating more of the config from home-manager, but I don't really see any benefit to it for now.
     config = null;
 
-    # TODO: We probably want this, it has been disabled for consistency with pre-import behavior.
-    systemd.enable = false;
-
     extraConfig = ''
       # Read `man 5 sway` for a complete reference.
 
@@ -589,8 +586,7 @@
       # * `systemctl --user show-environment`
       # * https://bugs.archlinux.org/task/63021
       # This is not the case for $WAYLAND_DISPLAY, which is needed by daemons interacting with wayland, but that we don't want to hardcode
-      # The cleanest way I found to do this is to propagate the value set by sway into the systemd config
-      exec_always systemctl --user import-environment WAYLAND_DISPLAY
+      # See systemd.enable config below for details on how we deal with it.
 
       # The Freedesktop Portal system allows apps to ask for extra permissions, such as screen sharing
       # Works even (especially, even) for sandboxed apps (flatpak...)
@@ -719,6 +715,14 @@
       # https://github.com/swaywm/swaylock/issues/61
       # NB : hyprlock has added support in 0.5.0, we may want to switch to it : https://github.com/hyprwm/hyprlock/issues/258
     '';
+
+    # Some environment variables should be exported to systemd for some user services to work as expected
+    # https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments
+    # (Namely : WAYLAND_DISPLAY, DISPLAY (if XWayland is used), XDG_CURRENT_DESKTOP, plus Sway's: SWAYSOCK, I3SOCK, XCURSOR_SIZE, XCURSOR_THEME)
+    # This configuration does exactly that, plus it sets enables sway-session.target on startup, which allows us to more finely configure dependent systemd user units
+    systemd.enable = true;
+    systemd.dbusImplementation = "broker"; # more modern dbus implementation, it's the one used by fedora (and most distros, honestly)
+
 
   };
 
