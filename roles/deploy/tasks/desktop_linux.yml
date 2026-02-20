@@ -4,8 +4,8 @@
   dnf:
     name:
       # sway/wayland related
-      - sway                  # Tiling window manager       (TODO: now installed via home-manager, should be removable)
-      - swaylock              # trigger wayland lockscreen  (TODO: now installed via home-manager, should be removable)
+      - sway                  # Tiling window manager
+      - swaylock              # trigger wayland lockscreen
       - rofi                  # Program launcher
       - rofimoji              # Emoji picker
       - flameshot             # Screenshot tool
@@ -208,7 +208,7 @@
 #     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
 #     block:  |
 #       # Globalrc-managed configuration
-# 
+#
 #       [General]
 #       Experimental = true
 #   become: true
@@ -347,7 +347,7 @@
 #     block:  |
 #       # Load GTK2 configuration
 #       include "{{ remote_directory }}/files/gtkrc-2.0"
-# 
+#
 # # /!\ This is a destructive operation /!\
 # # It does not seem possible to make an include in gtk3 config
 # # https://superuser.com/q/1370777/733026
@@ -357,7 +357,7 @@
 #     src:    "{{ remote_directory }}/files/gtk-3.0-settings.ini"
 #     state:  link
 #     force:  true
-# 
+#
 # # NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
 # - name: Load Qt4 graphical configuration via .config/Trolltech.conf
 #   blockinfile:

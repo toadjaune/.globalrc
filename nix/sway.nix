@@ -7,7 +7,8 @@
     # TODO : we probably want to switch to a more recent commit sha, waiting on 1.12
     # https://github.com/emersion/xdg-desktop-portal-wlr/issues/107
     # https://github.com/swaywm/sway/issues/8754
-    # package = 
+    # TODO : Even though home-manager installs sway, gdm actually starts the system binary. This could cause issues.
+    # package =
 
     # Currently needed because :
     # * Font validation is not working from the nix sandbox
@@ -15,7 +16,7 @@
     # TODO: Solve those issues so that we can re-enable this check
     checkConfig = false;
 
-    # NB: home-manager sets defaults for a lot of parameters (apparently mostly following sway defaults.
+    # NB: home-manager sets defaults for a lot of parameters (apparently mostly following sway defaults)
     #     We currently inhibit those entirely and declare manually the entirety of our sway config below
     #     We may want to migrate to generating more of the config from home-manager, but I don't really see any benefit to it for now.
     config = null;
@@ -581,12 +582,6 @@
       # * xdg-desktop-portal (Portal manager, started via DBus, requires $XDG_CURRENT_DESKTOP, see below)
       # * xdg-desktop-portal-wlr (wayland-related portals implementation, started via DBus, see below)
       # * darkman (light/dark theme manager and portal implementation, started by systemd, see below)
-      #
-      # Environment in ~/.config/environment.d/ is included in systemd user unit environments, as well as various variables set by sway
-      # * `systemctl --user show-environment`
-      # * https://bugs.archlinux.org/task/63021
-      # This is not the case for $WAYLAND_DISPLAY, which is needed by daemons interacting with wayland, but that we don't want to hardcode
-      # See systemd.enable config below for details on how we deal with it.
 
       # The Freedesktop Portal system allows apps to ask for extra permissions, such as screen sharing
       # Works even (especially, even) for sandboxed apps (flatpak...)
@@ -717,12 +712,16 @@
     '';
 
     # Some environment variables should be exported to systemd for some user services to work as expected
-    # https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments
-    # (Namely : WAYLAND_DISPLAY, DISPLAY (if XWayland is used), XDG_CURRENT_DESKTOP, plus Sway's: SWAYSOCK, I3SOCK, XCURSOR_SIZE, XCURSOR_THEME)
+    # * https://github.com/swaywm/sway/wiki#systemd-and-dbus-activation-environments
+    #   * (Namely : WAYLAND_DISPLAY, DISPLAY (if XWayland is used), XDG_CURRENT_DESKTOP, plus Sway's: SWAYSOCK, I3SOCK, XCURSOR_SIZE, XCURSOR_THEME)
+    # * `systemctl --user show-environment`
     # This configuration does exactly that, plus it sets enables sway-session.target on startup, which allows us to more finely configure dependent systemd user units
+    #
+    # Also, environment in ~/.config/environment.d/ is included in systemd user unit environments, as well as various variables set by sway
+    # This is not the case for $WAYLAND_DISPLAY, which is needed by daemons interacting with wayland, but that we don't want to hardcode
+    # See systemd.enable config below for details on how we deal with it.
     systemd.enable = true;
     systemd.dbusImplementation = "broker"; # more modern dbus implementation, it's the one used by fedora (and most distros, honestly)
-
 
   };
 
