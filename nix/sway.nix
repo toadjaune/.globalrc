@@ -514,7 +514,6 @@
           bindcode $f exec firefox,     mode "default"
           bindcode $t exec thunderbird, mode "default"
 
-          # bindcode $s exec flatpak run --socket=wayland com.spotify.Client --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
           bindcode $s exec flatpak run --socket=wayland com.spotify.Client , mode "default"
 
           # We switched to installing slack via flatpak, because :
@@ -551,8 +550,7 @@
           # NB : if VSCodium is initially started by any way other than this keybinding, it won't be in native wayland mode
           bindcode $c exec codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
 
-          # back to normal: Enter or Escape
-          bindcode $return mode "default"
+          # back to normal: Escape
           bindcode $escape mode "default"
       }
       bindcode $mod+$m mode "launch"

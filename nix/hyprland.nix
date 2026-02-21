@@ -94,18 +94,6 @@
       monitor=,preferred,auto,auto
 
 
-      #################
-      ### AUTOSTART ###
-      #################
-
-      # Autostart necessary processes (like notifications daemons, status bars, etc.)
-      # Or execute your favorite apps at launch like this:
-
-      # exec-once = $terminal
-      # exec-once = nm-applet &
-      # exec-once = waybar & hyprpaper & firefox
-
-
       #############################
       ### ENVIRONMENT VARIABLES ###
       #############################
@@ -330,8 +318,6 @@
       # bind = $mod, P, pseudo, # dwindle
       # bind = $mod, J, togglesplit, # dwindle
 
-      bind = $mod, F, exec, firefox
-
       # Move focus with mod + arrow keys
       bind = $mod, left, movefocus, l
       bind = $mod, right, movefocus, r
@@ -388,6 +374,50 @@
       bindl = , XF86AudioPlay, exec, playerctl play-pause
       bindl = , XF86AudioPrev, exec, playerctl previous
 
+      bind = $mod, $m, submap, launch
+      submap = launch
+
+        bind = , $f, exec, firefox
+        bind = , $f, submap, reset
+
+        bind = , $t, exec, thunderbird
+        bind = , $t, submap, reset
+
+        bind = , $s, exec, flatpak run --socket=wayland com.spotify.Client
+        bind = , $s, submap, reset
+
+        # NB: reference comment in sway config
+        bind = , $k, exec, flatpak run com.slack.Slack
+        bind = , $k, submap, reset
+
+        # NB: reference comment in sway config
+        bind = , $d, exec, flatpak run --socket=wayland com.discordapp.Discord
+        bind = , $d, submap, reset
+
+        # NB: reference comment in sway config
+        bind = , $c, exec, codium --enable-features=UseOzonePlatform --ozone-platform=wayland
+        bind = , $c, submap, reset
+
+        # back to normal: Escape
+        bind = , $escape, submap, reset
+
+      submap = reset
+
+
+      # Mode to insert text directly
+      bind = $mod, $t, submap, type
+      submap = type
+
+        # type current date in iso 8601 format
+        bind = , $d, exec, wtype "$(date --iso-8601)"
+        bind = , $d, submap, reset
+
+        # back to normal: Escape
+        bind = , $escape, submap, reset
+
+      submap = reset
+
+
       ##############################
       ### WINDOWS AND WORKSPACES ###
       ##############################
@@ -427,6 +457,19 @@
       #     move = 20 monitor_h-120
       #     float = yes
       # }
+
+      #################
+      ### AUTOSTART ###
+      #################
+
+      # Autostart necessary processes (like notifications daemons, status bars, etc.)
+      # Or execute your favorite apps at launch like this:
+
+      # exec-once = $terminal
+      # exec-once = nm-applet &
+      # exec-once = waybar & hyprpaper & firefox
+
+
     '';
 
     # TODO: see extra options
