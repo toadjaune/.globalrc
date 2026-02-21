@@ -223,9 +223,9 @@
       }
 
       ### Key bindings
-      #
+
       # Basics:
-      #
+
           # Start a terminal
           bindcode $mod+$return exec alacritty
 

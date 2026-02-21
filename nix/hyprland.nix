@@ -24,7 +24,7 @@
       ### Variables
 
       # "super" key
-      $mod=Mod4
+      $mod=SUPER
 
       # Define variables corresponding to keyboard letters
       # We use keyboard to have a configuration independent from the keyboard layout
@@ -92,18 +92,6 @@
 
       # See https://wiki.hypr.land/Configuring/Monitors/
       monitor=,preferred,auto,auto
-
-
-      ###################
-      ### MY PROGRAMS ###
-      ###################
-
-      # See https://wiki.hypr.land/Configuring/Keywords/
-
-      # Set programs that you use
-      $terminal = kitty
-      $fileManager = dolphin
-      $menu = hyprlauncher
 
 
       #################
@@ -238,8 +226,8 @@
       # Ref https://wiki.hypr.land/Configuring/Workspace-Rules/
       # "Smart gaps" / "No gaps when only"
       # uncomment all if you wish to use that.
-      # workspace = w[tv1], gapsout:0, gapsin:0
-      # workspace = f[1], gapsout:0, gapsin:0
+      workspace = w[tv1], gapsout:0, gapsin:0
+      workspace = f[1], gapsout:0, gapsin:0
       # windowrule {
       #     name = no-gaps-wtv1
       #     match:float = false
@@ -260,7 +248,7 @@
 
       # See https://wiki.hypr.land/Configuring/Dwindle-Layout/ for more
       dwindle {
-          pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+          pseudotile = true # Master switch for pseudotiling. Enabling is bound to mod + P in the keybinds section below
           preserve_split = true # You probably want this
       }
 
@@ -316,61 +304,75 @@
       # TODO : this entire section, of course
 
       # See https://wiki.hypr.land/Configuring/Keywords/
-      $mainMod = SUPER # Sets "Windows" key as main modifier
 
       # Example binds, see https://wiki.hypr.land/Configuring/Binds/ for more
-      bind = $mainMod, Q, exec, $terminal
-      bind = $mainMod, C, killactive,
-      bind = $mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
-      bind = $mainMod, E, exec, $fileManager
-      bind = $mainMod, V, togglefloating,
-      bind = $mainMod, R, exec, $menu
-      bind = $mainMod, P, pseudo, # dwindle
-      bind = $mainMod, J, togglesplit, # dwindle
 
-      bind = $mainMod, F, exec, firefox
+      # Start a terminal
+      bind = $mod, $return, exec, alacritty
 
-      # Move focus with mainMod + arrow keys
-      bind = $mainMod, left, movefocus, l
-      bind = $mainMod, right, movefocus, r
-      bind = $mainMod, up, movefocus, u
-      bind = $mainMod, down, movefocus, d
+      # Kill focused window
+      bind = $mod SHIFT, $q, killactive,
 
-      # Switch workspaces with mainMod + [0-9]
-      bind = $mainMod, 1, workspace, 1
-      bind = $mainMod, 2, workspace, 2
-      bind = $mainMod, 3, workspace, 3
-      bind = $mainMod, 4, workspace, 4
-      bind = $mainMod, 5, workspace, 5
-      bind = $mainMod, 6, workspace, 6
-      bind = $mainMod, 7, workspace, 7
-      bind = $mainMod, 8, workspace, 8
-      bind = $mainMod, 9, workspace, 9
-      bind = $mainMod, 0, workspace, 10
+      # Program launcher
+      # TODO: Try hyprlauncher
+      $rofi_common = -theme /usr/share/rofi/themes/glue_pro_blue.rasi
+      # Possible modi that might be interesting besides run and drun : ssh, window, combi
+      bind = $mod, $d, exec, rofi $rofi_common -modi run  -show run
+      bind = $mod, $g, exec, rofi $rofi_common -modi drun -show drun
 
-      # Move active window to a workspace with mainMod + SHIFT + [0-9]
-      bind = $mainMod SHIFT, 1, movetoworkspace, 1
-      bind = $mainMod SHIFT, 2, movetoworkspace, 2
-      bind = $mainMod SHIFT, 3, movetoworkspace, 3
-      bind = $mainMod SHIFT, 4, movetoworkspace, 4
-      bind = $mainMod SHIFT, 5, movetoworkspace, 5
-      bind = $mainMod SHIFT, 6, movetoworkspace, 6
-      bind = $mainMod SHIFT, 7, movetoworkspace, 7
-      bind = $mainMod SHIFT, 8, movetoworkspace, 8
-      bind = $mainMod SHIFT, 9, movetoworkspace, 9
-      bind = $mainMod SHIFT, 0, movetoworkspace, 10
+      # Type emoji in any text field
+      # NB : This currently does not work on firefox
+      bind = $mod, $n, exec, rofimoji --selector-args="$rofi_common"
+
+      # TODO
+      # bind = $mod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
+      # bind = $mod, V, togglefloating,
+      # bind = $mod, P, pseudo, # dwindle
+      # bind = $mod, J, togglesplit, # dwindle
+
+      bind = $mod, F, exec, firefox
+
+      # Move focus with mod + arrow keys
+      bind = $mod, left, movefocus, l
+      bind = $mod, right, movefocus, r
+      bind = $mod, up, movefocus, u
+      bind = $mod, down, movefocus, d
+
+      # Switch workspaces with mod + [0-9]
+      bind = $mod, 1, workspace, 1
+      bind = $mod, 2, workspace, 2
+      bind = $mod, 3, workspace, 3
+      bind = $mod, 4, workspace, 4
+      bind = $mod, 5, workspace, 5
+      bind = $mod, 6, workspace, 6
+      bind = $mod, 7, workspace, 7
+      bind = $mod, 8, workspace, 8
+      bind = $mod, 9, workspace, 9
+      bind = $mod, 0, workspace, 10
+
+      # Move active window to a workspace with mod + SHIFT + [0-9]
+      bind = $mod SHIFT, 1, movetoworkspace, 1
+      bind = $mod SHIFT, 2, movetoworkspace, 2
+      bind = $mod SHIFT, 3, movetoworkspace, 3
+      bind = $mod SHIFT, 4, movetoworkspace, 4
+      bind = $mod SHIFT, 5, movetoworkspace, 5
+      bind = $mod SHIFT, 6, movetoworkspace, 6
+      bind = $mod SHIFT, 7, movetoworkspace, 7
+      bind = $mod SHIFT, 8, movetoworkspace, 8
+      bind = $mod SHIFT, 9, movetoworkspace, 9
+      bind = $mod SHIFT, 0, movetoworkspace, 10
 
       # Example special workspace (scratchpad)
-      bind = $mainMod, S, togglespecialworkspace, magic
-      bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+      bind = $mod, S, togglespecialworkspace, magic
+      bind = $mod SHIFT, S, movetoworkspace, special:magic
 
-      # Scroll through existing workspaces with mainMod + scroll
-      bind = $mainMod, mouse_down, workspace, e+1
-      bind = $mainMod, mouse_up, workspace, e-1
+      # Scroll through existing workspaces with mod + scroll
+      bind = $mod, mouse_down, workspace, e+1
+      bind = $mod, mouse_up, workspace, e-1
 
-      # Move/resize windows with mainMod + LMB/RMB and dragging
-      bindm = $mainMod, mouse:272, movewindow
-      bindm = $mainMod, mouse:273, resizewindow
+      # Move/resize windows with mod + LMB/RMB and dragging
+      bindm = $mod, mouse:272, movewindow
+      bindm = $mod, mouse:273, resizewindow
 
       # Laptop multimedia keys for volume and LCD brightness
       bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
