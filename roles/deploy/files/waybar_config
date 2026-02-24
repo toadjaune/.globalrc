@@ -4,7 +4,7 @@
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-left": ["sway/workspaces", "sway/mode", "hyprland/workspaces", "hyprland/submap"],
     "modules-center": [],
     "modules-right": ["tray", "custom/media", "bluetooth", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "clock"],
 
@@ -27,6 +27,9 @@
     // },
 
     "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "hyprland/submap": {
         "format": "<span style=\"italic\">{}</span>"
     },
 

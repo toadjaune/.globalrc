@@ -503,6 +503,10 @@
       # exec-once = nm-applet &
       # exec-once = waybar & hyprpaper & firefox
 
+      # cf comment in sway config
+      # TODO: This doesn't get reloaded whenever waybar config changes, this will probably be relatively easy to fix once its config is migrated to home-manager though.
+      exec-once = waybar
+
 
     '';
 
