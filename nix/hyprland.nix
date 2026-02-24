@@ -91,7 +91,41 @@
       ################
 
       # See https://wiki.hypr.land/Configuring/Monitors/
-      monitor=,preferred,auto,auto
+      # NB: This seems way less powerful than kanshi, but also, so far it looks sufficient for my needs, so...
+
+      # TODO : See if some non-default settings are better for my specific setup (resolution, refresh rate, etc)
+
+      # laptop primary screen
+      monitorv2 {
+        output = eDP-1
+        mode = preferred
+        position = auto
+        scale = 1
+      }
+
+      # Home desktop monitor
+      monitorv2 {
+        output = Samsung Electric Company U32J59x H4ZMB00786
+        mode = preferred
+        position = auto-left
+        scale = 1
+      }
+
+      # Office desktop monitor
+      monitorv2 {
+        output = desc:LG Electronics LG HDR 4K 0x00038472
+        mode = preferred
+        position = auto-center-left
+        scale = 1
+      }
+
+      # Still use any temporary random monitor
+      monitorv2 {
+        output =
+        mode = preferred
+        position = auto-center-up
+        scale = auto
+      }
 
 
       #############################
