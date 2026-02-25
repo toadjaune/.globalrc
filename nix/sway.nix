@@ -287,16 +287,16 @@
       # Moving around:
       #
           # Move your focus around
-          bindcode $mod+$left focus left
-          bindcode $mod+$down focus down
-          bindcode $mod+$up focus up
-          bindcode $mod+$right focus right
+          bindcode $mod+$left   focus left
+          bindcode $mod+$down   focus down
+          bindcode $mod+$up     focus up
+          bindcode $mod+$right  focus right
 
           # Move the focused window with the same, but add Shift
-          bindcode $mod+Shift+$left move left
-          bindcode $mod+Shift+$down move down
-          bindcode $mod+Shift+$up move up
-          bindcode $mod+Shift+$right move right
+          bindcode $mod+Shift+$left   move left
+          bindcode $mod+Shift+$down   move down
+          bindcode $mod+Shift+$up     move up
+          bindcode $mod+Shift+$right  move right
       #
       # Workspaces:
       #

@@ -349,14 +349,21 @@
       # TODO
       # bind = $mod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
       # bind = $mod, V, togglefloating,
-      # bind = $mod, P, pseudo, # dwindle
-      # bind = $mod, J, togglesplit, # dwindle
+      # bind = $mod, P, pseudo,       # dwindle
+      # bind = $mod, J, togglesplit,  # dwindle
 
       # Move focus with mod + arrow keys
-      bind = $mod, left, movefocus, l
-      bind = $mod, right, movefocus, r
-      bind = $mod, up, movefocus, u
-      bind = $mod, down, movefocus, d
+      bind = $mod, $left,  movefocus, l
+      bind = $mod, $right, movefocus, r
+      bind = $mod, $up,    movefocus, u
+      bind = $mod, $down,  movefocus, d
+
+      # # Move current workspace to another screen
+      # TODO
+      # bind = $mod CTRL, $left,  movefocus, l
+      # bind = $mod CTRL, $right, movefocus, r
+      # bind = $mod CTRL, $up,    movefocus, u
+      # bind = $mod CTRL, $down,  movefocus, d
 
       # Switch workspaces with mod + [0-9]
       bind = $mod, 1, workspace, 1
@@ -383,31 +390,33 @@
       bind = $mod SHIFT, 0, movetoworkspace, 10
 
       # Example special workspace (scratchpad)
-      bind = $mod, S, togglespecialworkspace, magic
-      bind = $mod SHIFT, S, movetoworkspace, special:magic
+      bind = $mod,        S, togglespecialworkspace,  magic
+      bind = $mod SHIFT,  S, movetoworkspace,         special:magic
 
       # Scroll through existing workspaces with mod + scroll
-      bind = $mod, mouse_down, workspace, e+1
-      bind = $mod, mouse_up, workspace, e-1
+      bind = $mod, mouse_down,  workspace, e+1
+      bind = $mod, mouse_up,    workspace, e-1
 
       # Move/resize windows with mod + LMB/RMB and dragging
       bindm = $mod, mouse:272, movewindow
       bindm = $mod, mouse:273, resizewindow
 
       # Laptop multimedia keys for volume and LCD brightness
-      bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
-      bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-      bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
-      bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
+      bindel = ,XF86AudioRaiseVolume,   exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+      bindel = ,XF86AudioLowerVolume,   exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+      bindel = ,XF86AudioMute,          exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      bindel = ,XF86AudioMicMute,       exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+      bindel = ,XF86MonBrightnessUp,    exec, brightnessctl -e4 -n2 set 5%+
+      bindel = ,XF86MonBrightnessDown,  exec, brightnessctl -e4 -n2 set 5%-
 
       # Requires playerctl
-      bindl = , XF86AudioNext, exec, playerctl next
+      bindl = , XF86AudioNext,  exec, playerctl next
       bindl = , XF86AudioPause, exec, playerctl play-pause
-      bindl = , XF86AudioPlay, exec, playerctl play-pause
-      bindl = , XF86AudioPrev, exec, playerctl previous
+      bindl = , XF86AudioPlay,  exec, playerctl play-pause
+      bindl = , XF86AudioPrev,  exec, playerctl previous
 
+
+      # submap to launch frequently-used programs
       bind = $mod, $m, submap, launch
       submap = launch
 
@@ -438,7 +447,7 @@
       submap = reset
 
 
-      # Mode to insert text directly
+      # submap to insert text directly
       bind = $mod, $t, submap, type
       submap = type
 
