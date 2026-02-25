@@ -358,12 +358,11 @@
       bind = $mod, $up,    movefocus, u
       bind = $mod, $down,  movefocus, d
 
-      # # Move current workspace to another screen
-      # TODO
-      # bind = $mod CTRL, $left,  movefocus, l
-      # bind = $mod CTRL, $right, movefocus, r
-      # bind = $mod CTRL, $up,    movefocus, u
-      # bind = $mod CTRL, $down,  movefocus, d
+      # Move current workspace to another screen
+      bind = $mod CTRL, $left,  movecurrentworkspacetomonitor, l
+      bind = $mod CTRL, $right, movecurrentworkspacetomonitor, r
+      bind = $mod CTRL, $up,    movecurrentworkspacetomonitor, u
+      bind = $mod CTRL, $down,  movecurrentworkspacetomonitor, d
 
       # Switch workspaces with mod + [0-9]
       bind = $mod, 1, workspace, 1
