@@ -92,6 +92,7 @@
 
       # See https://wiki.hypr.land/Configuring/Monitors/
       # NB: This seems way less powerful than kanshi, but also, so far it looks sufficient for my needs, so...
+      # Show currently plugged in monitors with `hyprctl monitors all`
 
       # TODO : See if some non-default settings are better for my specific setup (resolution, refresh rate, etc)
 
@@ -105,7 +106,7 @@
 
       # Home desktop monitor
       monitorv2 {
-        output = Samsung Electric Company U32J59x H4ZMB00786
+        output = desc:Samsung Electric Company U32J59x H4ZMB00786
         mode = preferred
         position = auto-left
         scale = 1
