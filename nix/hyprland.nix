@@ -460,6 +460,10 @@
 
       submap = reset
 
+      # take a screenshot
+      # NB: detailed comment in sway config
+      # TODO: see if this needs adapting
+      bind = $mod, $p, exec, mkdir -p /tmp/screenshots && XDG_CURRENT_DESKTOP=Hyprland flameshot gui --path "/tmp/screenshots/flameshot_$(date --iso-8601=seconds).png" --raw | wl-copy
 
       ##############################
       ### WINDOWS AND WORKSPACES ###
