@@ -465,6 +465,12 @@
       # TODO: see if this needs adapting
       bind = $mod, $p, exec, mkdir -p /tmp/screenshots && XDG_CURRENT_DESKTOP=Hyprland flameshot gui --path "/tmp/screenshots/flameshot_$(date --iso-8601=seconds).png" --raw | wl-copy
 
+      # lockscreen
+      # TODO: test hyprlock
+      # NB: Full comment in sway config
+      $lock_command = swaylock --color 555555 --image "${ config.home.homeDirectory }/.config/sway/lockscreen.*"
+      bind = $mod, $z, exec, $lock_command
+
       ##############################
       ### WINDOWS AND WORKSPACES ###
       ##############################
