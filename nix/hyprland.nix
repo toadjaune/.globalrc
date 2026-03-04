@@ -470,6 +470,8 @@
       # NB: Full comment in sway config
       $lock_command = swaylock --color 555555 --image "${ config.home.homeDirectory }/.config/sway/lockscreen.*"
       bind = $mod, $z, exec, $lock_command
+      # TODO: Should probably consider hypridle ?
+      bind = ,switch:Lid Switch, exec, $lock_command
 
       ##############################
       ### WINDOWS AND WORKSPACES ###

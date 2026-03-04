@@ -281,7 +281,6 @@
       bindsym --locked XF86MonBrightnessDown  exec brightnessctl s 5%-
 
       # Lid closed/opened
-      # TODO: Doesn't yet seem to work
       bindswitch lid:on exec $lock_command
 
       #
