@@ -471,7 +471,8 @@
       $lock_command = swaylock --color 555555 --image "${ config.home.homeDirectory }/.config/sway/lockscreen.*"
       bind = $mod, $z, exec, $lock_command
       # TODO: Should probably consider hypridle ?
-      bind = ,switch:Lid Switch, exec, $lock_command
+      # NB: I expected the l flag to be unnecessary, but without it, you can briefly see the unlocked screen when re-opening the lid
+      bindl = ,switch:Lid Switch, exec, $lock_command
 
       ##############################
       ### WINDOWS AND WORKSPACES ###
