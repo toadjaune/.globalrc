@@ -460,6 +460,28 @@
 
       submap = reset
 
+      # submap for general system restart, etc
+      bind = $mod, $u, submap, system
+      submap = system
+
+        bind = , $j, exec, systemctl poweroff
+        bind = , $j, submap, reset
+
+        bind = , $k, exec, systemctl reboot
+        bind = , $k, submap, reset
+
+        # Force reloading hyprland config (NB: Should be unnecessary, especially with home-manager setup)
+        bind = , $l, exec, hyprctl reload
+        bind = , $l, submap, reset
+
+        # TODO: suspend and hibernate ? (cf sway comment)
+
+        # back to normal: Escape
+        bind = , $escape, submap, reset
+
+      submap = reset
+
+
       # take a screenshot
       # NB: detailed comment in sway config
       # TODO: see if this needs adapting
