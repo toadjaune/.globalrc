@@ -110,4 +110,18 @@
   # TODO : see if programs.eza.enableZshIntegration is equivalent / better than our manual alias
   programs.eza.enable = true;
 
+  programs.zed-editor = {
+    enable = true;
+    # The binary installed by home-manager is `zeditor`, whereas the one installed with the official install command is `zed`
+    # As of 2026-03-20, the version installed by home-manager doesn't even open a window. It's not a zed version issue, I tried installing the exact same version with :
+    # curl -f https://zed.dev/install.sh | ZED_VERSION=<same version as home-manager> sh
+    # There's not much point in doing that anyway, it auto-updates anyway.
+    # For now, let's test it that way and we'll see if we can fix it later.
+    # Also, even though we're invoking the "wrong" binary, the configuration below (extensions, etc) is still effective.
+    # package =
+
+    extensions = [
+      "terraform"
+    ];
+  };
 }
