@@ -139,6 +139,7 @@
     # You need to restart zed for external changes to the file to be taken into account (there's no auto-reload, and no action to reload configuration from file)
     # https://zed.dev/docs/reference/all-settings
     userSettings = {
+      disable_ai = true; # Globally disable all AI features
       vim_mode = true;
       theme = {
         mode = "system"; # rely on the global system theme, probably via XDG portal
