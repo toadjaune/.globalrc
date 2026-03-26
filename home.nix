@@ -125,12 +125,12 @@
     ];
 
     # Those settings end up in ~/.config/zed/settings.json
-    # This file is currently mutable at runtime by zed.
-    # Not only is this mutability useful for testing new configurations, but we want to leave some settings be mutable (e.g. : Font size)
-    # It however means we need to be very rigorous backporting manual configurations here, otherwise there could be significant divergence.
-    # TODO: See if changing this to false still allows zed configuration to be modified from the UI, just not persisted ?
-    mutableUserSettings = true;
-    # home-manager is very good at dealing with this situation, notably :
+    # This file is normally mutable at runtime by zed, through UI.
+    # Setting this to false does not prevent making configuration changes through the zed UI, they just won't be persisted.
+    # You may want to temporarily switch this to true for experimenting with new settings that are easy to set from the UI, but whose config syntax is hard to understand.
+    # The list of options below looks pretty well-documented though, so, this should be fine.
+    mutableUserSettings = false;
+    # home-manager is very good at dealing with the config file being mutable, notably :
     # * home-manager will properly merge existing settings present in the file with the ones specified here
     #   * including recursively, for configurations with deep structures
     # * it will overwrite any parameter with a value different from what is configured here
