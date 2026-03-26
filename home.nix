@@ -123,5 +123,29 @@
     extensions = [
       "terraform"
     ];
+
+    # Those settings end up in ~/.config/zed/settings.json
+    # This file is currently mutable at runtime by zed.
+    # Not only is this mutability useful for testing new configurations, but we want to leave some settings be mutable (e.g. : Font size)
+    # It however means we need to be very rigorous backporting manual configurations here, otherwise there could be significant divergence.
+    # TODO: See if changing this to false still allows zed configuration to be modified from the UI, just not persisted ?
+    mutableUserSettings = true;
+    # home-manager is very good at dealing with this situation, notably :
+    # * home-manager will properly merge existing settings present in the file with the ones specified here
+    #   * including recursively, for configurations with deep structures
+    # * it will overwrite any parameter with a value different from what is configured here
+    # * ... but not touch any unmanaged config option (probably set through the zed UI)
+    #
+    # You need to restart zed for external changes to the file to be taken into account (there's no auto-reload, and no action to reload configuration from file)
+    # https://zed.dev/docs/reference/all-settings
+    userSettings = {
+      vim_mode = true;
+      theme = {
+        mode = "system"; # rely on the global system theme, probably via XDG portal
+        light = "Ayu Light";
+        dark = "Ayu Dark";
+      };
+    };
+
   };
 }
