@@ -11,6 +11,14 @@
     # Also, even though we're invoking the "wrong" binary, the configuration below (extensions, etc) is still effective.
     # package =
 
+    # NB: It looks like the way the extensions management works is that :
+    # * home-manager injects the extension list in the user configuration
+    # * zed installs it at its next startup
+    # Which implies that :
+    # * extension versions are not pinned, and cannot be rolled back
+    # * configuration mistakes cannot be detected at home-manager apply time
+    # * we cannot remove an extension with home-manager
+    # https://zed.dev/docs/extensions/installing-extensions
     extensions = [
       "terraform"
     ];
@@ -30,13 +38,29 @@
     # You need to restart zed for external changes to the file to be taken into account (there's no auto-reload, and no action to reload configuration from file)
     # https://zed.dev/docs/reference/all-settings
     userSettings = {
-      disable_ai = true; # Globally disable all AI features
+
+      # Globally disable all AI features. They can still be re-enabled individually if desired.
+      disable_ai = true;
+
+      # Global vim mode, that attempts to map zed interface semantics to vim-compatible, or at least vim-like keybindings
       vim_mode = true;
+
       theme = {
         mode = "system"; # rely on the global system theme, probably via XDG portal
         light = "Ayu Light";
         dark = "Ayu Dark";
       };
+
+      # Missing features as of 2026-03-31:
+      # * Minimap : https://github.com/zed-industries/zed/discussions/23957
+
+      # Things that I need to investigate:
+      # * Equivalent of vscode scm.workingSets.enabled (synchronize open tabs with currently checked-out branch
+      #   * Doesn't seem supported by zed, and I haven't even found an issue
+      #     * TODO: Open an issue
+      #       * https://code.visualstudio.com/updates/v1_89#_saverestore-open-editors-when-switching-branches
+      #       * https://github.com/microsoft/vscode/issues/35307
+
     };
   };
 
