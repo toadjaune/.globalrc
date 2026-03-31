@@ -2,7 +2,7 @@
 
 {
   # Configure portal priority order
-  # https://man.archlinux.org/man/portals.conf.5 details the entire mechanism pretty well
+  # https://man.archlinux.org/man/portals.conf.5 / `man portals.conf` details the entire mechanism pretty well
   # Since we're currently installing all 3 desktop environments from fedora packages, they come with their default portal files in /usr/share/xdg-desktop-portal/,
   # which are fine, and we want to use and not override. (NB: they would be a good starting point, should we want to change some behavior and see example configurations)
   # The configuration here ends up in ~/.config/xdg-desktop-portal/<DESKTOP>-portals.com
@@ -10,7 +10,20 @@
     # "common" generates the ~/.config/xdg-desktop-portal/portals.com file, which is used as a fallback if no desktop-specific file is found.
     # We do NOT want it to be generated AT ALL, otherwise, it will take precedence over ALL distro-level defaults in /usr/share/xdg-desktop-portal/
     common = {}; # NB: This line is a no-op, and would not actually prevent us from setting anything in there elsewhere, but it helps my brain understand what's happening.
-    # TODO: the sway portal is actually overriden by ansible, bring it back here.
+    # TODO: refacto based on the system default ?
+    sway = {
+      # Use darkman for light/dark theme toggle
+      # cf :
+      # * https://gitlab.com/WhyNotHugo/darkman/-/issues/60
+      # * man portals.conf
+      "org.freedesktop.impl.portal.Settings" = ["darkman"];
+      default = [
+        # If no explicit support is configured anywhere, try wlr first, then gtk
+        # https://github.com/emersion/xdg-desktop-portal-wlr/issues/42#issuecomment-1802357796
+        "wlr"
+        "gtk"
+      ];
+    };
   };
 
   wayland.windowManager.sway = {
