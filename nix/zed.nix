@@ -1,4 +1,4 @@
-{ config, pkgs, hostSpecificVars, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.zed-editor = {
