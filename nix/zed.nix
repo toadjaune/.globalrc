@@ -7,9 +7,9 @@
     # As of 2026-03-20, the version installed by home-manager doesn't even open a window. It's not a zed version issue, I tried installing the exact same version with :
     # curl -f https://zed.dev/install.sh | ZED_VERSION=<same version as home-manager> sh
     # There's not much point in doing that anyway, it auto-updates anyway.
-    # For now, let's test it that way and we'll see if we can fix it later.
     # Also, even though we're invoking the "wrong" binary, the configuration below (extensions, etc) is still effective.
-    # package =
+    # For now, let's disable the binary install from home-manager, and rely on manual install
+    package = null;
 
     # NB: It looks like the way the extensions management works is that :
     # * home-manager injects the extension list in the user configuration
