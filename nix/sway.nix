@@ -1,6 +1,20 @@
 { config, pkgs, hostSpecificVars, lib, ... }:
 
 {
+  xdg.portal.config = {
+    common.default = "*"; # Legacy lexicographic portal order
+    # common = {
+    #   default = [
+    #     "wlr"
+    #   ];
+    # };
+    # hyprland = {
+    #   default = [
+    #     "wlr"
+    #   ];
+    # };
+  };
+
   wayland.windowManager.sway = {
     enable = true;
 
