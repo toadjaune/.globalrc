@@ -1,6 +1,16 @@
 { config, pkgs, hostSpecificVars, lib, ... }:
 
 {
+  # NB: the portals config is currently the default system once
+  # NB: detailed comment in sway config
+  xdg.portal.config = {
+    # hyprland = {
+    #   default = [
+    #     "wlr"
+    #   ];
+    # };
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
 
