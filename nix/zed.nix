@@ -20,6 +20,8 @@
     # * we cannot remove an extension with home-manager
     # https://zed.dev/docs/extensions/installing-extensions
     extensions = [
+      # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
+      "nix"
       "terraform"
     ];
 
