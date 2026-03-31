@@ -18,6 +18,11 @@
     # * extension versions are not pinned, and cannot be rolled back
     # * configuration mistakes cannot be detected at home-manager apply time
     # * we cannot remove an extension with home-manager
+    #   * This should in principle be doable by manually configuring https://zed.dev/docs/reference/all-settings#auto-install-extensions instead of generating it with programs.zed-editor.extensions,
+    #     but as of 2026-03-31, even explicitly setting an already-installed extension to false with this configuration directive doesn't actually uninstall anything.
+    #   * If we ever need to uninstall an existing extension, ideas to explore :
+    #     * See if the config then provides a native way to do it
+    #     * "Manually" remove the extension dir from ~/.local/share/zed/extensions, either with ansible or home-manager
     # https://zed.dev/docs/extensions/installing-extensions
     extensions = [
       # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
