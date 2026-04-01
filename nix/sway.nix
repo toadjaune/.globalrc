@@ -10,19 +10,25 @@
     # "common" generates the ~/.config/xdg-desktop-portal/portals.com file, which is used as a fallback if no desktop-specific file is found.
     # We do NOT want it to be generated AT ALL, otherwise, it will take precedence over ALL distro-level defaults in /usr/share/xdg-desktop-portal/
     common = {}; # NB: This line is a no-op, and would not actually prevent us from setting anything in there elsewhere, but it helps my brain understand what's happening.
-    # TODO: refacto based on the system default ?
     sway = {
       # Use darkman for light/dark theme toggle
       # cf :
       # * https://gitlab.com/WhyNotHugo/darkman/-/issues/60
       # * man portals.conf
       "org.freedesktop.impl.portal.Settings" = ["darkman"];
-      default = [
-        # If no explicit support is configured anywhere, try wlr first, then gtk
-        # https://github.com/emersion/xdg-desktop-portal-wlr/issues/42#issuecomment-1802357796
-        "wlr"
-        "gtk"
-      ];
+
+      # We can also do this, it worked fine for a long time
+      # https://github.com/emersion/xdg-desktop-portal-wlr/issues/42#issuecomment-1802357796
+
+      ### All of this is based on the fedora-provided /usr/share/xdg-desktop-portal/sway-portals.conf
+      # Use xdg-desktop-portal-gtk for every portal interface...
+      default = ["gtk"];
+      # ... except for the ScreenCast, Screenshot and Secret
+      "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+      "org.freedesktop.impl.portal.Screenshot" = "wlr";
+      "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+      # https://github.com/flatpak/xdg-desktop-portal-gtk/issues/465
+      "org.freedesktop.impl.portal.Inhibit" = "none";
     };
   };
 
