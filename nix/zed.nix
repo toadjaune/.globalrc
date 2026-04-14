@@ -64,6 +64,7 @@
         # * disagnostics in minimap https://github.com/zed-industries/zed/pull/51514
         # * probably git status as well
       };
+      scrollbar = {}; # Currently left to its default value since it seems sensible so far, but if we want to configure it, it should probably be done alongside minimap config.
 
       # Missing features as of 2026-04-14:
       # *
