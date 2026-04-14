@@ -67,14 +67,10 @@
       scrollbar = {}; # Currently left to its default value since it seems sensible so far, but if we want to configure it, it should probably be done alongside minimap config.
 
       # Missing features as of 2026-04-14:
-      # *
+      # * Equivalent of vscode scm.workingSets.enabled (synchronize open tabs with currently checked-out branch (https://github.com/zed-industries/zed/discussions/53885)
 
       # Things that I need to investigate:
-      # * Equivalent of vscode scm.workingSets.enabled (synchronize open tabs with currently checked-out branch
-      #   * Doesn't seem supported by zed, and I haven't even found an issue
-      #     * TODO: Open an issue
-      #       * https://code.visualstudio.com/updates/v1_89#_saverestore-open-editors-when-switching-branches
-      #       * https://github.com/microsoft/vscode/issues/35307
+      # *
 
     };
   };
