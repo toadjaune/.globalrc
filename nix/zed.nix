@@ -58,8 +58,15 @@
         dark = "Ayu Dark";
       };
 
-      # Missing features as of 2026-03-31:
-      # * Minimap : https://github.com/zed-industries/zed/discussions/23957
+      minimap = {
+        show = "auto"; # Only show the minimap if the scrollbars are visible (which seems to be all the time by default, even when the file fits on screen ?)
+        # Eventually, we'd like :
+        # * disagnostics in minimap https://github.com/zed-industries/zed/pull/51514
+        # * probably git status as well
+      };
+
+      # Missing features as of 2026-04-14:
+      # *
 
       # Things that I need to investigate:
       # * Equivalent of vscode scm.workingSets.enabled (synchronize open tabs with currently checked-out branch
