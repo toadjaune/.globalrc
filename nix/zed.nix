@@ -58,6 +58,10 @@
         dark = "Ayu Dark";
       };
 
+      project_panel = {
+        dock = "left"; # This is the default, but I accidentally changed it once, so, explicitly specify it
+      };
+
       minimap = {
         show = "auto"; # Only show the minimap if the scrollbars are visible (which seems to be all the time by default, even when the file fits on screen ?)
         # Eventually, we'd like :
