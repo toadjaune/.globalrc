@@ -39,7 +39,8 @@
       - thunderbird           # email client
 
       # hyprland
-      - hyprland
+      # 2026-05-04: Temporarily disabled because not packaged for fedora 44 yet
+      # - hyprland
 
       # Language-specific package managers and tooling
       - python3-pip       # python deps with pip
