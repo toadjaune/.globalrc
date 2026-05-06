@@ -51,6 +51,9 @@
 
       # Global vim mode, that attempts to map zed interface semantics to vim-compatible, or at least vim-like keybindings
       vim_mode = true;
+      vim = {
+        use_system_clipboard = "never"; # Closer to the original vim behavior; only interact with the system clipboard if I explicitly ask for it with "+
+      };
 
       theme = {
         mode = "system"; # rely on the global system theme, probably via XDG portal
