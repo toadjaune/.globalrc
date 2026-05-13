@@ -393,19 +393,6 @@
 
 ### sway ###
 
-- name: TOMBSTONE - stat sway config file
-  ansible.builtin.stat:
-    path:   "{{ ansible_user_dir }}/.config/sway/config"
-  register: sway_config_file
-  tags: sway-config
-
-- name: TOMBSTONE - Remove sway config file
-  file:
-    path:   "{{ ansible_user_dir }}/.config/sway/config"
-    state: absent
-  when: not sway_config_file.stat.islnk
-  tags: sway-config
-
 - name: Install rofimoji
   pip:
     name: git+https://github.com/fdw/rofimoji
@@ -475,18 +462,6 @@
   become: true
   when: have_root | bool
   loop: "{{ electron_wayland_to_wrap }}"
-
-- name: TOMBSTONE - stat sway portal file
-  ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.config/xdg-desktop-portal/sway-portals.conf"
-  register: sway_portal_file
-  tags: sway-config
-- name: TOMBSTONE - Remove sway portal file
-  file:
-    path: "{{ ansible_user_dir }}/.config/xdg-desktop-portal/sway-portals.conf"
-    state: absent
-  when: not sway_portal_file.stat.islnk
-  tags: sway-config
 
 ### Firefox ###
 
