@@ -45,7 +45,7 @@ export VOLTA_HOME="{{ volta_home }}"
 # * $PATH                     : Default OS search path
 #
 # Please note that this is only applied in a shell environment, not anything started graphically or by the OS
-export PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:{{ volta_home }}/bin:{{ userspace_bin_path_cargo }}:{{ userspace_bin_path_go }}:{{ ansible_user_dir }}/.local/bin:$PATH"
+export PATH="{{ remote_directory }}/local_bin/:{{ remote_directory }}/files/scripts/:{{ volta_home }}/bin:{{ userspace_bin_path_cargo }}:{{ userspace_bin_path_go }}:{{ ansible_facts['user_dir'] }}/.local/bin:$PATH"
 
 if command -v most >/dev/null 2>&1 ; then
   export PAGER="most"
@@ -63,7 +63,7 @@ export SSHHOME="{{ remote_directory }}/sshhome"
 
 # SSH-agent setup, cf ssh-agent.service file
 # NB : on MacOS, the OS starts an agent automatically, do not override it with an invalid path
-{% if ansible_system != "Darwin" %}
+{% if ansible_facts['system'] != "Darwin" %}
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 {% endif %}
 

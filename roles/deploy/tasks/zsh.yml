@@ -2,48 +2,47 @@
 
 - name: Create zsh_plugins directory
   file:
-    path:   "{{ remote_directory }}/zsh_plugins"
-    state:  directory
+    path: "{{ remote_directory }}/zsh_plugins"
+    state: directory
 
 - name: Clone zsh plugins
   git:
-    repo:     "{{ item.repo }}"
-    dest:     "{{ remote_directory }}/zsh_plugins/{{ item.name }}"
-    version:  "{{ item.version }}"
-    depth:    1
+    repo: "{{ item.repo }}"
+    dest: "{{ remote_directory }}/zsh_plugins/{{ item.name }}"
+    version: "{{ item.version }}"
+    depth: 1
   tags: online
   with_items:
-    - name:     powerlevel10k
-      repo:     https://github.com/romkatv/powerlevel10k
-      version:  v1.17.0
+    - name: powerlevel10k
+      repo: https://github.com/romkatv/powerlevel10k
+      version: v1.17.0
 
       # TODO : There are packages, see if they're updated enough, and how to use them
-    - name:     zsh-autosuggestions
+    - name: zsh-autosuggestions
       # repo:     https://github.com/zsh-users/zsh-autosuggestions
       # version:  v0.7.0
       # Switch to my fork for now : https://github.com/zsh-users/zsh-autosuggestions/pull/749
-      repo:     https://github.com/toadjaune/zsh-autosuggestions
-      version:  wrap-underscore-widgets
+      repo: https://github.com/toadjaune/zsh-autosuggestions
+      version: wrap-underscore-widgets
 
       # TODO : There are packages, see if they're updated enough, and how to use them
-    - name:     zsh-syntax-highlighting
-      repo:     https://github.com/zsh-users/zsh-syntax-highlighting
+    - name: zsh-syntax-highlighting
+      repo: https://github.com/zsh-users/zsh-syntax-highlighting
       # NB : releases are really unfrequent, and meant to be used by package managers
-      version:  "1386f12" # master as of 2023-07-05
+      version: "1386f12" # master as of 2023-07-05
 
-    - name:     zsh-completions
-      repo:     https://github.com/zsh-users/zsh-completions
-      version:  master
+    - name: zsh-completions
+      repo: https://github.com/zsh-users/zsh-completions
+      version: master
 
 # Generate completions for manually-installed tools
 - name: Create generated_zsh_fpath directory
   file:
-    path:   "{{ remote_directory }}/generated_zsh_fpath"
-    state:  directory
+    path: "{{ remote_directory }}/generated_zsh_fpath"
+    state: directory
 
 - include_tasks: zsh-setup-completion.yml
   with_items:
-
     - name: poetry
       existence_check_command: poetry --version
       completion_generation_command: poetry completions zsh
@@ -70,23 +69,23 @@
 # Currently, we need it only to run code before loading /etc/zsh/zshrc
 - name: Setup early configuration via .zshenv
   blockinfile:
-    dest:   "{{ ansible_user_dir }}/.zshenv"
+    dest: "{{ ansible_facts['user_dir'] }}/.zshenv"
     create: true
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
+    block: |
       # Disable compinit call in /etc/zsh/zshrc on ubuntu
       skip_global_compinit=1
 
 - name: Setup main zshrc
   template:
-    src:  "zshrc"
+    src: "zshrc"
     dest: "{{ remote_directory }}/templates/zshrc"
 
 - name: Setup the loading via .zshrc
   blockinfile:
-    dest:   "{{ ansible_user_dir }}/.zshrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     create: true
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
+    block: |
       # Load custom configuration
       . {{ remote_directory }}/files/zshrc

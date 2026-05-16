@@ -1,4 +1,3 @@
-
 - name: Install zsh and usual tools (RedHat)
   dnf:
     name:
@@ -13,10 +12,10 @@
       - prettyping
 
       # Language-specific package managers and tooling
-      - cargo         # rust deps with cargo
+      - cargo # rust deps with cargo
 
   become: true
-  when: have_root and ansible_os_family == "RedHat"
+  when: have_root and ansible_facts['os_family'] == "RedHat"
 
 - name: install zsh and usual tools (Archlinux)
   pacman:
@@ -32,14 +31,14 @@
       - prettyping
 
       # Language-specific package managers and tooling
-      - cargo         # rust deps with cargo
+      - cargo # rust deps with cargo
 
   become: true
-  when: have_root and ansible_os_family == "Archlinux"
+  when: have_root and ansible_facts['os_family'] == "Archlinux"
 
 - name: Install zsh and usual tools (Debian)
   apt:
-    update_cache:     true
+    update_cache: true
     cache_valid_time: 3600
     name:
       - zsh
@@ -53,9 +52,9 @@
       - prettyping
 
       # Language-specific package managers and tooling
-      - cargo         # rust deps with cargo
+      - cargo # rust deps with cargo
 
-  when: have_root and ansible_os_family == 'Debian'
+  when: have_root and ansible_facts['os_family'] == 'Debian'
 
 # We don't currently have any rust program installed with cargo, but we keep the setup for now
 # - name: Install (compile) rust programs with cargo

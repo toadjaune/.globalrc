@@ -20,7 +20,7 @@ set editing-mode vi
 # "{{ key_rh_right }}": forward-char
 # # Map Alt-space to exit insert mode
 # " ":                  vi-movement-mode
-# 
+#
 # # Command mode
 # set keymap vi-command
 # "{{ key_rh_left  }}": backward-char
@@ -29,4 +29,4 @@ set editing-mode vi
 # "{{ key_rh_right }}": forward-char
 
 # Let the user override with local settings
-$include {{ ansible_user_dir }}/.inputrc
+$include {{ ansible_facts['user_dir'] }}/.inputrc

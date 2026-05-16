@@ -22,7 +22,7 @@ Host *
   # Automatically add unlocked keys to running ssh-agent
   AddKeysToAgent yes
 
-  {% if ansible_system == "Darwin" %}
+  {% if ansible_facts['system'] == "Darwin" %}
   # Allow using the MacOS keychain as a ssh-agent
   # NB : This makes the keychain to permanently store the ssh key passphrase
   # cf : https://apple.stackexchange.com/a/250572/439540
@@ -76,4 +76,3 @@ Host *
   # NB : Only AEAD ciphers are allowed above, so this directive is actually unnecessary, because the MAC is implicit with such ciphers. Still, it doesn't hurt to explicitly disable some.
   # NB : Only -etm (Encrypt then Mac) should be allowed
   MACs hmac-sha2-512-etm@openssh.com # This is the simplest way to ensure no old broken MAC is enabled. It should be ignored anyway because of selected Ciphers.
-

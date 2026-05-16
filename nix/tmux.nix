@@ -67,7 +67,7 @@
 
       # reload tmux conf with C-b r
       # TODO : fix
-      # bind-key r source-file "{{ ansible_user_dir }}/.tmux.conf"
+      # bind-key r source-file "{{ ansible_facts['user_dir'] }}/.tmux.conf"
 
       # Smart pane switching with awareness of Vim splits.
       # See: https://github.com/christoomey/vim-tmux-navigator
@@ -123,4 +123,3 @@
     ];
   };
 }
-

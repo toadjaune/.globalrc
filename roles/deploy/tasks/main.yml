@@ -1,12 +1,12 @@
-  # This is a bit of a hack
-  #
-  # We have several machines in the inventory on which we're supposed to only
-  # ever deploy locally. Instead of always having to use --limit, or make some
-  # complicated setup with groups, or use different inventories (etc), we start
-  # with all of them, and fail it if the hostname doesn't match.
-  #
-  # It's a bit ugly, but far less error-prone and more convenient than relying on some
-  # manual/local configuration
+# This is a bit of a hack
+#
+# We have several machines in the inventory on which we're supposed to only
+# ever deploy locally. Instead of always having to use --limit, or make some
+# complicated setup with groups, or use different inventories (etc), we start
+# with all of them, and fail it if the hostname doesn't match.
+#
+# It's a bit ugly, but far less error-prone and more convenient than relying on some
+# manual/local configuration
 - name: Check ansible_hostname
   debug: "var=ansible_hostname"
   failed_when: true
@@ -21,26 +21,26 @@
 
 - name: Create main directory
   file:
-    path:   "{{ remote_directory }}"
-    state:  directory
+    path: "{{ remote_directory }}"
+    state: directory
 
 - name: Synchronize static files
   synchronize:
-    src:        .
-    dest:       "{{ remote_directory }}/files"
-    recursive:  true
-    delete:     true
-    perms:      true
+    src: .
+    dest: "{{ remote_directory }}/files"
+    recursive: true
+    delete: true
+    perms: true
   tags: always
 
 - name: Create templates directory
   file:
-    state:  directory
-    dest:   "{{ remote_directory }}/templates"
+    state: directory
+    dest: "{{ remote_directory }}/templates"
 
 - name: Process templates going into "templates" directory
   template:
-    src:  "{{ item }}"
+    src: "{{ item }}"
     dest: "{{ remote_directory }}/templates/{{ item }}"
   tags: always
   with_items:
@@ -76,37 +76,37 @@
 
 - name: Setup the loading via .bashrc
   blockinfile:
-    dest:   "{{ ansible_user_dir }}/.bashrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.bashrc"
     create: true
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
+    block: |
       # Load custom configuration
       . {{ remote_directory }}/files/bashrc
 
 - name: Install packages
-  import_tasks:  packages.yml
+  import_tasks: packages.yml
   tags: packages
 
 - name: Set zsh as default shell
   user:
-    name:   "{{ ansible_user_id }}"
-    shell:  /bin/zsh
-  become:   true
-  when:     have_root | bool
+    name: "{{ ansible_facts['user_id'] }}"
+    shell: /bin/zsh
+  become: true
+  when: have_root | bool
 
   # TODO : Do this with an include
 - name: Load IRB configuration
   blockinfile:
-    dest:   "{{ ansible_user_dir }}/.irbrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.irbrc"
     create: true
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
+    block: |
       IRB.conf[:SAVE_HISTORY] = 200
       IRB.conf[:HISTORY_FILE] = '~/.irb-history'
 
 - name: Install desktop-specific stuff (common)
   import_tasks: desktop_common.yml
-  when: (desktop_linux | bool) or ansible_system == "Darwin"
+  when: (desktop_linux | bool) or ansible_facts['system'] == "Darwin"
   tags: desktop
 
 - name: Install desktop-specific stuff (linux)
@@ -116,7 +116,7 @@
 
 - name: Install desktop-specific stuff (Mac)
   import_tasks: desktop_mac.yml
-  when: ansible_system == "Darwin"
+  when: ansible_facts['system'] == "Darwin"
   tags: desktop
 
 - name: Install zsh configuration
@@ -133,18 +133,18 @@
 
 - name: Load screen configuration
   blockinfile:
-    dest:         "{{ ansible_user_dir }}/.screenrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.screenrc"
     insertbefore: BOF
-    create:       true
-    marker:       "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block:  |
+    create: true
+    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
+    block: |
       # Loading global screen configuration
       source {{ remote_directory }}/files/screenrc
 
 # Mass-renaming tool with vim
 - name: Download vimv
   get_url:
-    url:  https://raw.githubusercontent.com/thameera/vimv/master/vimv
+    url: https://raw.githubusercontent.com/thameera/vimv/master/vimv
     dest: "{{ remote_directory }}/"
     mode: 0755
   tags: online

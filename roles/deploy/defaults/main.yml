@@ -1,13 +1,13 @@
 # Location of the main directory on the remote machine
-remote_directory:   "{{ ansible_user_dir }}/.globalrc"
+remote_directory: "{{ ansible_facts['user_dir'] }}/.globalrc"
 # Userspace programming language version managers
-volta_home:               "{{ ansible_user_dir }}/.volta"     # default value
+volta_home: "{{ ansible_facts['user_dir'] }}/.volta" # default value
 # Userspace language-specific install paths
-userspace_bin_path_cargo: "{{ ansible_user_dir }}/.cargo/bin" # default value
-userspace_bin_path_go:    "{{ ansible_user_dir }}/go/bin"     # default value
+userspace_bin_path_cargo: "{{ ansible_facts['user_dir'] }}/.cargo/bin" # default value
+userspace_bin_path_go: "{{ ansible_facts['user_dir'] }}/go/bin" # default value
 
 # Set this to true if you want to perform the operations requiring root, for a first-time install
-have_root:  false
+have_root: false
 
 # Set this to true if the machine has a graphical interface (X server, etc…). It skips useless steps.
 desktop_linux: false
@@ -22,21 +22,21 @@ electron_wayland_to_wrap: []
 
 # Movement keys
 # Right hand
-key_rh_left:  'h'
-key_rh_down:  'j'
-key_rh_up:    'k'
-key_rh_right: 'l'
+key_rh_left: "h"
+key_rh_down: "j"
+key_rh_up: "k"
+key_rh_right: "l"
 
 # Tmux configuration
-tmux_status_bar_colour: 'colour2'
-tmux_status_bar_inactive_colour: 'colour25'
+tmux_status_bar_colour: "colour2"
+tmux_status_bar_inactive_colour: "colour25"
 
 # SSH Agent
-ssh_agent_symlink_path: '/tmp/ssh-auth-sock-$UID'
+ssh_agent_symlink_path: "/tmp/ssh-auth-sock-$UID"
 
 # keyboard layout
-keyboard_layout: 'fr'
-keyboard_variant: 'lafayette'
+keyboard_layout: "fr"
+keyboard_variant: "lafayette"
 
 # Extra ssh config to be prepended to the global config
 extra_ssh_config_host: ""
@@ -49,8 +49,7 @@ kanshi_config: |
   }
 
 # On both OS, we can just dump ttf files in a directory, only the path changes
-fonts_install_path: "{{ ansible_user_dir }}/{{ (ansible_system == 'Darwin') | ternary ('Library/Fonts', '.local/share/fonts') }}/globalrc_fonts"
+fonts_install_path: "{{ ansible_facts['user_dir'] }}/{{ (ansible_facts['system'] == 'Darwin') | ternary ('Library/Fonts', '.local/share/fonts') }}/globalrc_fonts"
 
 # Firefox default profile
 firefox_profile_name: default-release
-

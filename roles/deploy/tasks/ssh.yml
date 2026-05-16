@@ -1,15 +1,15 @@
 - name: Create .ssh directory
   file:
-    path:   "{{ ansible_user_dir }}/.ssh"
-    state:  directory
+    path: "{{ ansible_facts['user_dir'] }}/.ssh"
+    state: directory
 
 - name: Load ssh configuration
   blockinfile:
-    dest:   "{{ ansible_user_dir }}/.ssh/config"
+    dest: "{{ ansible_facts['user_dir'] }}/.ssh/config"
     create: yes
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     insertafter: EOF
-    block:  |
+    block: |
       # Loading global ssh configuration
       Host *
         Include {{ remote_directory }}/templates/ssh_config
@@ -18,10 +18,10 @@
   git:
     # The original repo (and user) are gone :/
     # repo:     https://github.com/Russell91/sshrc
-    repo:     https://github.com/toadjaune/sshrc
-    dest:     "{{ remote_directory }}/sshrc"
-    version:  0.6.2
-    depth:    1
+    repo: https://github.com/toadjaune/sshrc
+    dest: "{{ remote_directory }}/sshrc"
+    version: 0.6.2
+    depth: 1
   tags: online
 
 - name: Create sshhome (and sshhome/.sshrc.d) dir for sshrc files
@@ -31,31 +31,30 @@
 
 - name: Create static sshrc config files
   copy:
-    src:  "{{ item['src'] }}"
+    src: "{{ item['src'] }}"
     dest: "{{ remote_directory }}/sshhome/{{ item['dest'] }}"
   loop:
-    - { src: sshrc/tmux.conf, dest: .sshrc.d/.tmux.conf     }
-    - { src: sshrc/zlogin,    dest: .sshrc.d/.zlogin        }
-    - { src: sshrc/zprofile,  dest: .sshrc.d/.zprofile      }
-    - { src: sshrc/zshenv,    dest: .sshrc.d/.zshenv        }
-    - { src: sshrc/zshrc,     dest: .sshrc.d/.zshrc         }
-    - { src: zsh_prompt.zsh,  dest: .sshrc.d/zsh_prompt.zsh }
+    - { src: sshrc/tmux.conf, dest: .sshrc.d/.tmux.conf }
+    - { src: sshrc/zlogin, dest: .sshrc.d/.zlogin }
+    - { src: sshrc/zprofile, dest: .sshrc.d/.zprofile }
+    - { src: sshrc/zshenv, dest: .sshrc.d/.zshenv }
+    - { src: sshrc/zshrc, dest: .sshrc.d/.zshrc }
+    - { src: zsh_prompt.zsh, dest: .sshrc.d/zsh_prompt.zsh }
 
 - name: Create template-based sshrc config files
   template:
-    src:  "{{ item['src'] }}"
+    src: "{{ item['src'] }}"
     dest: "{{ remote_directory }}/sshhome/{{ item['dest'] }}"
   loop:
-    - { src: sshrc,           dest: .sshrc                  }
-    - { src: inputrc,         dest: .sshrc.d/inputrc        }
+    - { src: sshrc, dest: .sshrc }
+    - { src: inputrc, dest: .sshrc.d/inputrc }
 
 - name: Create sshrc symlinks to home-manager-generated files
   file:
-    src:  "{{ ansible_user_dir }}/{{ item['src'] }}"
+    src: "{{ ansible_facts['user_dir'] }}/{{ item['src'] }}"
     dest: "{{ remote_directory }}/sshhome/{{ item['dest'] }}"
     state: link
   loop:
     # NB : This file itself sources a separate file at runtime, from the "sensible" plugin, which is not included by this symlinking
     # So far, everything seems to work fine without it, though.
-    - { src: .config/tmux/tmux.conf,  dest: .sshrc.d/tmux-home-manager.conf }
-
+    - { src: .config/tmux/tmux.conf, dest: .sshrc.d/tmux-home-manager.conf }

@@ -5,47 +5,47 @@
     name: solopasha/hyprland
     state: enabled
   become: true
-  when: have_root and ansible_os_family == "RedHat"
+  when: have_root and ansible_facts['os_family'] == "RedHat"
 
 - name: Install graphical packages (RedHat)
   dnf:
     name:
       # sway/wayland related
-      - sway                  # Tiling window manager
-      - swaylock              # trigger wayland lockscreen
-      - rofi                  # Program launcher
-      - rofimoji              # Emoji picker
-      - flameshot             # Screenshot tool
-      - swappy                # Edit screenshot
-      - wl-clipboard          # Interact with wayland clipboard (includes wl-copy)
-      - waybar                # Nice-looking bar
-      - fontawesome-fonts     # Font for waybar icons
-      - playerctl             # Command currently running player from the CLI / sway keybindings
-      - playerctl-libs        # used by the mediaplayer.py script, to display currently playing content
-      - xeyes                 # xeyes allows to know easily if a program is running through XWayland or not
-      - wtype                 # input text as if typed from the user, wayland equivalent of xdotool
-      - mako                  # Notification daemon
-      - wdisplays             # Graphical tool for monitors setup
-      - alacritty             # GPU-based terminal emulator
-      - lxpolkit              # polkit daemon
-      - blueman               # basic out-of-the-box bluetooth config
-      - kanshi                # auto-load correct desktop layout based on which monitors are plugged in
-      - neovim                # used in vscodium through an extension
-      - darkman               # light/dark theme runtime switching
-      - brightnessctl         # control screen brightness
-      - xwaylandvideobridge   # work around broken screensharing on low-quality apps (see sway config file)
-      - pavucontrol           # gui for pulseaudio configuration
-      - pulseaudio-utils      # provides pactl cli
-      - thunderbird           # email client
+      - sway # Tiling window manager
+      - swaylock # trigger wayland lockscreen
+      - rofi # Program launcher
+      - rofimoji # Emoji picker
+      - flameshot # Screenshot tool
+      - swappy # Edit screenshot
+      - wl-clipboard # Interact with wayland clipboard (includes wl-copy)
+      - waybar # Nice-looking bar
+      - fontawesome-fonts # Font for waybar icons
+      - playerctl # Command currently running player from the CLI / sway keybindings
+      - playerctl-libs # used by the mediaplayer.py script, to display currently playing content
+      - xeyes # xeyes allows to know easily if a program is running through XWayland or not
+      - wtype # input text as if typed from the user, wayland equivalent of xdotool
+      - mako # Notification daemon
+      - wdisplays # Graphical tool for monitors setup
+      - alacritty # GPU-based terminal emulator
+      - lxpolkit # polkit daemon
+      - blueman # basic out-of-the-box bluetooth config
+      - kanshi # auto-load correct desktop layout based on which monitors are plugged in
+      - neovim # used in vscodium through an extension
+      - darkman # light/dark theme runtime switching
+      - brightnessctl # control screen brightness
+      - xwaylandvideobridge # work around broken screensharing on low-quality apps (see sway config file)
+      - pavucontrol # gui for pulseaudio configuration
+      - pulseaudio-utils # provides pactl cli
+      - thunderbird # email client
 
       # hyprland
       # 2026-05-04: Temporarily disabled because not packaged for fedora 44 yet
       # - hyprland
 
       # Language-specific package managers and tooling
-      - python3-pip       # python deps with pip
-      - rbenv             # ruby development environment
-      - ruby-build-rbenv  # allows rbenv to build ruby if required
+      - python3-pip # python deps with pip
+      - rbenv # ruby development environment
+      - ruby-build-rbenv # allows rbenv to build ruby if required
 
       # graphical theme
       # Looks now already installed
@@ -56,7 +56,7 @@
       - NetworkManager-tui
 
   become: true
-  when: have_root and ansible_os_family == "RedHat"
+  when: have_root and ansible_facts['os_family'] == "RedHat"
 
 - name: Install graphical packages (Archlinux)
   pacman:
@@ -94,7 +94,7 @@
       # - adwaita-qt #TODO
 
   become: true
-  when: have_root and ansible_os_family == "Archlinux"
+  when: have_root and ansible_facts['os_family'] == "Archlinux"
 
 - name: Install graphical packages (Debian)
   apt:
@@ -109,8 +109,8 @@
       - waybar
       - fonts-font-awesome
       - playerctl
-      - gir1.2-playerctl-2.0  # for mediaplayer.py
-      - x11-apps              # Contains xeyes
+      - gir1.2-playerctl-2.0 # for mediaplayer.py
+      - x11-apps # Contains xeyes
       - wtype
       - mako
       - wdisplays
@@ -131,14 +131,14 @@
       - adwaita-qt
 
   become: true
-  when: have_root and ansible_os_family == "Debian"
+  when: have_root and ansible_facts['os_family'] == "Debian"
 
 - name: Add the flathub flatpak repository remote
   community.general.flatpak_remote:
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install flatpak packages
   flatpak:
@@ -151,7 +151,7 @@
       - com.spotify.Client
       - com.github.dynobo.normcap # OCR screen capture
   # NB : We'll probably want to use them on other distros too, but it probably requires setting up flatpak first
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts['os_family'] == "RedHat"
 
 ### Locale ###
 
@@ -266,7 +266,7 @@
 #     line: 'XKBLAYOUT="{{ keyboard_layout }}"'
 #     regexp: 'XKBLAYOUT=".*"'
 #   become: true
-#   when: (have_root | bool) and ansible_os_family == "Debian"
+#   when: (have_root | bool) and ansible_facts['os_family'] == "Debian"
 #   notify: keyboard_config
 #
 # - name: Configure XKBVARIANT in /etc/default/keyboard (Debian)
@@ -275,7 +275,7 @@
 #     line: 'XKBVARIANT="{{ keyboard_variant }}"'
 #     regexp: 'XKBVARIANT=".*"'
 #   become: true
-#   when: (have_root | bool) and ansible_os_family == "Debian"
+#   when: (have_root | bool) and ansible_facts['os_family'] == "Debian"
 #   notify: keyboard_config
 
 # generic systemd configuration
@@ -313,31 +313,30 @@
 
 - name: TOMBSTONE - Remove old alacritty yaml config file
   file:
-    path:   "{{ ansible_user_dir }}/.config/alacritty.yml"
-    state:  absent
+    path: "{{ ansible_facts['user_dir'] }}/.config/alacritty.yml"
+    state: absent
 
 - name: Load alacritty config via .config/alacritty.toml
   file:
-    state:  link
+    state: link
     follow: false
-    src:    "{{ remote_directory }}/files/alacritty.toml"
-    dest:   "{{ ansible_user_dir }}/.config/alacritty.toml"
+    src: "{{ remote_directory }}/files/alacritty.toml"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/alacritty.toml"
 
 ### Mako ###
-
 - name: Create ~/.config/mako
   file:
-    path: "{{ ansible_user_dir }}/.config/mako"
+    path: "{{ ansible_facts['user_dir'] }}/.config/mako"
     state: directory
 
   # NB : We don't automatically reload Mako when its config changes
   # Use `makoctl reload`
 - name: Load Mako config via ~/.config/mako/config
   file:
-    state:  link
+    state: link
     follow: false
-    src:    "{{ remote_directory }}/files/mako_config"
-    dest:   "{{ ansible_user_dir }}/.config/mako/config"
+    src: "{{ remote_directory }}/files/mako_config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/mako/config"
 
 ### Graphical environment theming and configuration ###
 
@@ -352,7 +351,7 @@
 #
 # - name: Load GTK2 configuration via .gtkrc-2.0
 #   blockinfile:
-#     dest:   "{{ ansible_user_dir }}/.gtkrc-2.0"
+#     dest:   "{{ ansible_facts['user_dir'] }}/.gtkrc-2.0"
 #     create: true
 #     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
 #     block:  |
@@ -364,7 +363,7 @@
 # # https://superuser.com/q/1370777/733026
 # - name: Load GTK3 configuration via .config/gtk-3.0/settings.ini
 #   file:
-#     dest:   "{{ ansible_user_dir }}/.config/gtk-3.0/settings.ini"
+#     dest:   "{{ ansible_facts['user_dir'] }}/.config/gtk-3.0/settings.ini"
 #     src:    "{{ remote_directory }}/files/gtk-3.0-settings.ini"
 #     state:  link
 #     force:  true
@@ -372,7 +371,7 @@
 # # NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
 # - name: Load Qt4 graphical configuration via .config/Trolltech.conf
 #   blockinfile:
-#     dest:   "{{ ansible_user_dir }}/.config/Trolltech.conf"
+#     dest:   "{{ ansible_facts['user_dir'] }}/.config/Trolltech.conf"
 #     create: true
 #     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
 #     block:  |
@@ -382,14 +381,14 @@
 
 - name: Create ~/.config/environment.d
   file:
-    path: "{{ ansible_user_dir }}/.config/environment.d"
+    path: "{{ ansible_facts['user_dir'] }}/.config/environment.d"
     state: directory
 
 - name: Load graphical session environment variables
   file:
-    dest:   "{{ ansible_user_dir }}/.config/environment.d/globalrc.conf"
-    src:    "{{ remote_directory }}/files/environment"
-    state:  link
+    dest: "{{ ansible_facts['user_dir'] }}/.config/environment.d/globalrc.conf"
+    src: "{{ remote_directory }}/files/environment"
+    state: link
 
 ### sway ###
 
@@ -397,58 +396,58 @@
   pip:
     name: git+https://github.com/fdw/rofimoji
   become: true
-  when: have_root and ( ansible_os_family == "Debian")
+  when: have_root and ( ansible_facts['os_family'] == "Debian")
 
 - name: Create systemd user units directory
   file:
-    state:  directory
-    dest:   "{{ ansible_user_dir }}/.config/systemd/user"
+    state: directory
+    dest: "{{ ansible_facts['user_dir'] }}/.config/systemd/user"
 
 - name: Create ssh-agent unit file
   copy:
-    src:    "ssh-agent.service"
-    dest:   "{{ ansible_user_dir }}/.config/systemd/user/"
+    src: "ssh-agent.service"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/systemd/user/"
 
 - name: Enable ssh-agent user unit
   systemd:
     name: ssh-agent.service
-    enabled:  true
-    state:    started
-    scope:    user
+    enabled: true
+    state: started
+    scope: user
     daemon_reload: true
 
 - name: Create waybar config directory
   file:
-    state:  directory
-    dest:   "{{ ansible_user_dir }}/.config/waybar"
+    state: directory
+    dest: "{{ ansible_facts['user_dir'] }}/.config/waybar"
 
 - name: Symlink waybar config
   file:
-    state:  link
-    src:    "{{ remote_directory }}/files/waybar_config"
-    dest:   "{{ ansible_user_dir }}/.config/waybar/config"
+    state: link
+    src: "{{ remote_directory }}/files/waybar_config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/waybar/config"
 
 - name: Create kanshi config directory
   file:
-    state:  directory
-    dest:   "{{ ansible_user_dir }}/.config/kanshi"
+    state: directory
+    dest: "{{ ansible_facts['user_dir'] }}/.config/kanshi"
 
 - name: Create kanshi config file
   copy:
-    content:  "{{ kanshi_config }}"
-    dest:     "{{ remote_directory }}/kanshi_config"
+    content: "{{ kanshi_config }}"
+    dest: "{{ remote_directory }}/kanshi_config"
   notify: Reload kanshi config
   tags: sway-config
 
 - name: Symlink kanshi config
   file:
-    state:  link
-    src:    "{{ remote_directory }}/kanshi_config"
-    dest:   "{{ ansible_user_dir }}/.config/kanshi/config"
+    state: link
+    src: "{{ remote_directory }}/kanshi_config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/kanshi/config"
 
 - name: Download mediaplayer.py script
   get_url:
-    url:  "https://raw.githubusercontent.com/Alexays/Waybar/master/resources/custom_modules/mediaplayer.py"
+    url: "https://raw.githubusercontent.com/Alexays/Waybar/master/resources/custom_modules/mediaplayer.py"
     dest: "{{ remote_directory }}/mediaplayer.py"
     mode: 0700
   tags: online
@@ -456,7 +455,7 @@
   # NB : Removing elements from the list won't remove the corresponding scripts
 - name: Install wrapper scripts for electron-based apps
   template:
-    src:  "electron_wayland_wrapper.sh"
+    src: "electron_wayland_wrapper.sh"
     dest: "/usr/local/bin/{{ item }}"
     mode: 0755
   become: true
@@ -464,11 +463,10 @@
   loop: "{{ electron_wayland_to_wrap }}"
 
 ### Firefox ###
-
 - name: Create /usr/local/bin/firefox
   copy:
-    src:    "firefox"
-    dest:   "/usr/local/bin/firefox"
+    src: "firefox"
+    dest: "/usr/local/bin/firefox"
     mode: 0755
   become: true
   when: have_root | bool
@@ -494,7 +492,7 @@
   # It _could_ break if several such directories existed, for example. It should be fine, though.
 - name: Get firefox profile path
   find:
-    paths: "{{ ansible_user_dir }}/.mozilla/firefox/"
+    paths: "{{ ansible_facts['user_dir'] }}/.mozilla/firefox/"
     file_type: directory
     patterns: ".*{{ firefox_profile_name }}$"
     use_regex: true
@@ -503,7 +501,7 @@
 - name: Display determined profile path
   assert:
     that: firefox_profile_path['files'][0]['path'] is defined
-    msg:  "Could not find a firefox profile directory for name {{ firefox_profile_name }}"
+    msg: "Could not find a firefox profile directory for name {{ firefox_profile_name }}"
 
 - name: Setup firefox user config
   blockinfile:
@@ -572,7 +570,6 @@
       user_pref("pdfjs.enableAltTextModelDownload", false);
       user_pref("pdfjs.enableGuessAltText", false);
 
-
 ### VSCodium ###
 
 # https://vscodium.com/#install-on-fedora-rhel-centos-rockylinux-opensuse-rpm-package
@@ -588,21 +585,20 @@
     gpgkey: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg"
     metadata_expire: 1h
   become: true
-  when: have_root and ansible_os_family == "RedHat"
+  when: have_root and ansible_facts['os_family'] == "RedHat"
 
 - name: Install vscodium
   dnf:
     name: codium
     state: present
   become: true
-  when: have_root and ansible_os_family == "RedHat"
-
+  when: have_root and ansible_facts['os_family'] == "RedHat"
 
 # cf https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
 
 - name: Ensure vscodium config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/VSCodium/User/"
+    path: "{{ ansible_facts['user_dir'] }}/.config/VSCodium/User/"
     state: directory
   tags: vscodium
 
@@ -622,13 +618,13 @@
   register: local_output
   changed_when: "'is already installed' not in local_output.stdout"
   loop:
-    - asvetliakov.vscode-neovim   # neovim install
-    - oderwat.indent-rainbow      # more readable indent
-    - editorconfig.editorconfig   # read repo-local .editorconfig
-    - eamodio.gitlens             # nice git blame integration
-    - redhat.vscode-yaml          # yaml
-    - tamasfe.even-better-toml    # toml
-    - hashicorp.terraform         # terraform formatting/auto-completion
+    - asvetliakov.vscode-neovim # neovim install
+    - oderwat.indent-rainbow # more readable indent
+    - editorconfig.editorconfig # read repo-local .editorconfig
+    - eamodio.gitlens # nice git blame integration
+    - redhat.vscode-yaml # yaml
+    - tamasfe.even-better-toml # toml
+    - hashicorp.terraform # terraform formatting/auto-completion
     # python
     - ms-python.python
     # - ms-python.black
@@ -637,22 +633,20 @@
 # NB : VSCodium watches and reloads the file automatically, but not when it's a symlink
 - name: Configure vscodium user config file
   ansible.builtin.template:
-    src:    templates/vscodium_user_settings.jsonc
-    dest:   "{{ ansible_user_dir }}/.config/VSCodium/User/settings.json"
+    src: templates/vscodium_user_settings.jsonc
+    dest: "{{ ansible_facts['user_dir'] }}/.config/VSCodium/User/settings.json"
   tags: vscodium
 
-
 ### darkman ###
-
 - name: Create ~/.config/darkman
   file:
-    path: "{{ ansible_user_dir }}/.config/darkman"
+    path: "{{ ansible_facts['user_dir'] }}/.config/darkman"
     state: directory
 
   # NB : we currently don't bother reloading darkman on config change
 - name: Setup darkman config
   blockinfile:
-    path: "{{ ansible_user_dir }}/.config/darkman/config.yaml"
+    path: "{{ ansible_facts['user_dir'] }}/.config/darkman/config.yaml"
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
     create: true
     block: |
