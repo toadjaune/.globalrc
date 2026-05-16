@@ -18,6 +18,10 @@
     package = null;
 
 
+    # TODO: Migrate to lua configuration
+    # https://hypr.land/news/26_lua/
+    configType = "hyprlang";
+
     # TODO : This is the example config from the wiki, as a starting point
     extraConfig = ''
       # This is an example Hyprland config file.
