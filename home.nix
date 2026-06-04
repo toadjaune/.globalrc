@@ -43,6 +43,9 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    pkgs.yt-dlp
+    pkgs.deno   # yt-dlp requires it for js challenges and so
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
