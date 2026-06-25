@@ -638,6 +638,7 @@
       # Screen sharing of native Wayland windows uses PipeWire and XDG Portals (see above)
       #
       # On sway (or any wlroots-based compositor), we only get to stream entire screens at once, no way to stream a specific window :
+      # As of 2026-06-25, sway 1.12 supports it, and is available on Fedora. It doesn't seem to work just yet though, maybe a portal configuration ?
       # * https://github.com/emersion/xdg-desktop-portal-wlr/issues/107
       # * https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/issues/93
       #
