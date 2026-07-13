@@ -52,6 +52,11 @@
       existence_check_command: volta --version
       completion_generation_command: volta completions zsh
 
+      # TODO : For some reason, the first completion call of a shell session requires a double-tab.
+    - name: uv
+      existence_check_command: uv --version
+      completion_generation_command: uv generate-shell-completion zsh
+
 - name: Retrieve atuin widget definitions
   command:
     argv:

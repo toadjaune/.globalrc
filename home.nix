@@ -45,7 +45,6 @@
     # '')
 
     pkgs.deno   # yt-dlp requires it for js challenges and so
-    pkgs.uv     # python version/deps manager for dev envs (TODO: Add shell completion)
     pkgs.yt-dlp
   ];
 
@@ -114,5 +113,9 @@
 
   # TODO : see if programs.eza.enableZshIntegration is equivalent / better than our manual alias
   programs.eza.enable = true;
+
+  # Python version/package manager
+  # NB: home-manager/nixos does not seem to offer a way to install shell completions itself, we do it with ansible
+  programs.uv.enable = true;
 
 }
