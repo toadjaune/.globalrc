@@ -153,6 +153,21 @@
   # NB : We'll probably want to use them on other distros too, but it probably requires setting up flatpak first
   when: ansible_facts['os_family'] == "RedHat"
 
+### SysRq ###
+
+# NB: This is only applied after a reboot, but we're not going to trigger one just for that
+- name: Enable SysRq
+  copy:
+    dest: /etc/sysctl.d/90-sysrq-globalrc.conf
+    content: |
+      # ANSIBLE-MANAGED FILE, DO NOT EDIT MANUALLY
+      # cf https://fedoraproject.org/wiki/QA/Sysrq
+      kernel.sysrq = 1
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+
 ### Locale ###
 
 # The entire locale standard is quite brittle and can break stuff in unexpected ways.
