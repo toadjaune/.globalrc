@@ -44,8 +44,9 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
-    pkgs.yt-dlp
     pkgs.deno   # yt-dlp requires it for js challenges and so
+    pkgs.uv     # python version/deps manager for dev envs (TODO: Add shell completion)
+    pkgs.yt-dlp
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
