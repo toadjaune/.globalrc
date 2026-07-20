@@ -32,6 +32,10 @@
     };
   };
 
+  # Enable kanshi, which runs with a systemd unit by default
+  # Profiles configuration is to be made for each host in host_configs
+  services.kanshi.enable = true;
+
   wayland.windowManager.sway = {
     enable = true;
 
@@ -726,12 +730,6 @@
       # on the time of the day
       # We currently use the default config
       # exec redshift
-
-      # kanshi : daemon autoloading monitors layouts based on which ones are plugged
-      # TODO : maybe move it to a systemd user unit ?
-      exec kanshi
-      # When reloading sway config, reload kanshi configuration
-      exec_always kanshictl reload
 
 
       ### fingerprint reader stuff

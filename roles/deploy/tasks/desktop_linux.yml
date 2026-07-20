@@ -29,7 +29,6 @@
       - alacritty # GPU-based terminal emulator
       - lxpolkit # polkit daemon
       - blueman # basic out-of-the-box bluetooth config
-      - kanshi # auto-load correct desktop layout based on which monitors are plugged in
       - neovim # used in vscodium through an extension
       - darkman # light/dark theme runtime switching
       - brightnessctl # control screen brightness
@@ -79,7 +78,6 @@
       - wdisplays
       - lxpolkit
       - blueman
-      - kanshi
       - neovim
       - darkman
       - brightnessctl
@@ -116,7 +114,6 @@
       - wdisplays
       - lxpolkit
       - blueman
-      - kanshi
       - neovim
       - darkman
       - brightnessctl
@@ -443,23 +440,18 @@
     src: "{{ remote_directory }}/files/waybar_config"
     dest: "{{ ansible_facts['user_dir'] }}/.config/waybar/config"
 
-- name: Create kanshi config directory
+- name: TOMBSTONE - Remove old kanshi config file
   file:
-    state: directory
-    dest: "{{ ansible_facts['user_dir'] }}/.config/kanshi"
-
-- name: Create kanshi config file
-  copy:
-    content: "{{ kanshi_config }}"
-    dest: "{{ remote_directory }}/kanshi_config"
-  notify: Reload kanshi config
+    path: "{{ remote_directory }}/kanshi_config"
+    state: absent
   tags: sway-config
+  register: kanshi_config
 
-- name: Symlink kanshi config
+- name: TOMBSTONE - remove kanshi config files and directory
   file:
-    state: link
-    src: "{{ remote_directory }}/kanshi_config"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/kanshi/config"
+    state: absent
+    dest: "{{ ansible_facts['user_dir'] }}/.config/kanshi"
+  when: kanshi_config.changed
 
 - name: Download mediaplayer.py script
   get_url:
