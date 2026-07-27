@@ -164,7 +164,7 @@
     group: root
     mode: "0644"
   become: true
-  when: have_root
+  when: have_root is truthy
 
 ### Locale ###
 
