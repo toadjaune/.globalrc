@@ -130,6 +130,14 @@
   become: true
   when: have_root and ansible_facts['os_family'] == "Debian"
 
+- name: TOMBSTONE - remove packages
+  dnf:
+    state: absent
+    name:
+      - kanshi # migrated to home-manager
+  become: true
+  when: have_root and ansible_facts['os_family'] == "RedHat"
+
 - name: Add the flathub flatpak repository remote
   community.general.flatpak_remote:
     name: flathub
