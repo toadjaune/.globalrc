@@ -7,6 +7,7 @@
     ./nix/sway.nix
     ./nix/tmux.nix
     ./nix/vim.nix
+    ./nix/waybar.nix
     ./nix/zed.nix
   ];
 

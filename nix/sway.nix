@@ -497,10 +497,8 @@
       # Status Bar:
       #
       # Replace the defaut swaybar with waybar
-      # TODO : Maybe switch it to a systemd user unit (there's already one installed by the package)
-      bar {
-          swaybar_command waybar
-      }
+      # NB: waybar is started by a home-manager systemd user unit
+      # bar {}
 
       ### Misc keybindings
 
