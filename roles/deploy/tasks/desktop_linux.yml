@@ -435,15 +435,9 @@
     scope: user
     daemon_reload: true
 
-- name: Create waybar config directory
+- name: TOMBSTONE - remove waybar config file (UNCLEAN TOMBSTONE)
   file:
-    state: directory
-    dest: "{{ ansible_facts['user_dir'] }}/.config/waybar"
-
-- name: Symlink waybar config
-  file:
-    state: link
-    src: "{{ remote_directory }}/files/waybar_config"
+    state: absent
     dest: "{{ ansible_facts['user_dir'] }}/.config/waybar/config"
 
 - name: TOMBSTONE - Remove old kanshi config file

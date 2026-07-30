@@ -5,12 +5,164 @@
     enable = true;
     systemd.enable = true;
 
+    settings = {
+      main_bar = {
+
+        # "layer"= "top"; # Waybar at top layer
+        "position"= "bottom"; # Waybar position (top|bottom|left|right)
+        "height"= 30; # Waybar height (to be removed for auto height)
+        # "width"= 1280; # Waybar width
+        # Choose the order of the modules
+        "modules-left"= ["sway/workspaces" "sway/mode" "hyprland/workspaces" "hyprland/submap"];
+        "modules-center"= [];
+        "modules-right"= ["tray" "custom/media" "bluetooth" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock"];
+
+        # Modules configuration
+
+        # "sway/workspaces"= {
+        #     "disable-scroll"= true;
+        #     "all-outputs"= true;
+        #     "format"= "{name}: {icon}";
+        #     "format-icons"= {
+        #         "1"= "";
+        #         "2"= "";
+        #         "3"= "";
+        #         "4"= "";
+        #         "5"= "";
+        #         "urgent"= "";
+        #         "focused"= "";
+        #         "default"= ""
+        #     }
+        # };
+
+        "sway/mode"= {
+          "format"= "<span style=\"italic\">{}</span>";
+        };
+        "hyprland/submap"= {
+          "format"= "<span style=\"italic\">{}</span>";
+        };
+
+        "tray"= {
+          # "icon-size"= 21;
+          "spacing"= 10;
+        };
+
+        "clock"= {
+          # "timezone"= "America/New_York";
+          "tooltip-format"= "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          "format"= "{:%Y-%m-%d - %H:%M}";
+          # "format-alt"= "{:%Y-%m-%d}";
+        };
+
+        "cpu"= {
+          "format"= "{usage}% ";
+          "tooltip"= false;
+        };
+
+        "memory"= {
+          "format"= "{}% ";
+        };
+
+        "temperature"= {
+          # "thermal-zone"= 2;
+          # "hwmon-path"= "/sys/class/hwmon/hwmon2/temp1_input";
+          "critical-threshold"= 80;
+          # "format-critical"= "{temperatureC}°C {icon}";
+          "format"= "{temperatureC}°C {icon}";
+          "format-icons"= ["" "" ""];
+        };
+
+        "backlight"= {
+          # "device"= "acpi_video1";
+          "format"= "{percent}% {icon}";
+          "format-icons"= ["" ""];
+        };
+
+        "battery"= {
+          "states"= {
+            # "good"= 95;
+            "warning"= 30;
+            "critical"= 15;
+          };
+          "format"= "{capacity}% {icon}";
+          "format-charging"= "{capacity}% ";
+          "format-plugged"= "{capacity}% ";
+          "format-alt"= "{time} {icon}";
+          # "format-good"= ""; # An empty format will hide the module
+          # "format-full"= "";
+          "format-icons"= ["" "" "" "" ""];
+        };
+
+        "network"= {
+          # "interface"= "wlp2*"; # (Optional) To force the use of this interface
+          "format-wifi"= "{essid} ({signalStrength}%) ";
+          "format-ethernet"= "{ipaddr}/{cidr} 🖧";
+          "tooltip-format"= "{ifname} via {gwaddr} 🖧";
+          "format-linked"= "{ifname} (No IP) 🖧";
+          "format-disconnected"= "Disconnected ⚠";
+          "format-alt"= "{ifname}: {ipaddr}/{cidr}";
+          "on-click-right"= "nm-connection-editor";
+        };
+
+        "pulseaudio"= {
+          "format"= "{volume}% {icon} | {format_source}";
+          "format-muted"= " | {format_source}";
+          # This logo is semantically better; but it's ugly in the current font
+          #"format-muted"= "🔇 | {format_source}";
+          "format-bluetooth"= "{volume}% {icon}  | {format_source}";
+          "format-bluetooth-muted"= " {icon}  | {format_source}";
+          "format-source"= "{volume}% ";
+          "format-source-muted"= "";
+          "format-icons"= {
+            "headphone"= "";
+            "hands-free"= "";
+            "headset"= "";
+            "phone"= "";
+            "portable"= "";
+            "car"= "";
+            "default"= ["" ""];
+          };
+          "scroll-step"= 1;
+          "on-click"= "pavucontrol";
+          "ignored-sinks"= ["Easy Effects Sink"];
+        };
+
+        "bluetooth"= {
+          "format"= " {status}";
+          "format-connected"= " {device_alias}";
+          "format-connected-battery"= " {device_alias} {device_battery_percentage}%";
+          # "format-device-preference"= [ "device1"; "device2" ]; # preference list deciding the displayed device
+          "tooltip-format"= "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
+          "tooltip-format-connected"= "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+          "tooltip-format-enumerate-connected"= "{device_alias}\t{device_address}";
+          "tooltip-format-enumerate-connected-battery"= "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+          "on-click"= "blueman-manager";
+        };
+
+        "custom/media"= {
+          "format"= "{icon} {}";
+          "return-type"= "json";
+          "max-length"= 40;
+          "format-icons"= {
+            "spotify"= "";
+            "default"= "🎜";
+          };
+          "escape"= true;
+          "exec"= "$HOME/.globalrc/mediaplayer.py 2> /dev/null"; # Script in resources folder
+          # "exec"= "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" # Filter player based on name
+        };
+      };
+    };
+
+
+
+
     # This is the default system-installed fedora config as of 2026-07-30
     # It only differs from the default home-manager-installed config by the font settings (which uses a non-monospace font, which I don't like)
     # Unfortunately, it does not seem possible to declare _extra_ css on top of the default one with home-manager, setting any style declarations yields a stylesheet with only your declarations.
     # (funnily enough, if you do this, waybar obeys your gtk theme)
     # To work around this, we vendor the entire config. It's not like it's going to change very often
-    # upstream template : https://github.com/Alexays/Waybar/blob/master/resources/style.css
+    # upstream template : https:#github.com/Alexays/Waybar/blob/master/resources/style.css
     style = ''
       * {
           font-family: 'Noto Sans Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
@@ -339,10 +491,6 @@
           background-color: #0069d4;
       }
     '';
-
-
-
-  # TODO: waybar is still configured by ansible
 
   };
 }
