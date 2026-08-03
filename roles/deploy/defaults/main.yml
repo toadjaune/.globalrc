@@ -42,8 +42,5 @@ keyboard_variant: "lafayette"
 extra_ssh_config_host: ""
 extra_ssh_config_global: ""
 
-# On both OS, we can just dump ttf files in a directory, only the path changes
-fonts_install_path: "{{ ansible_facts['user_dir'] }}/{{ (ansible_facts['system'] == 'Darwin') | ternary ('Library/Fonts', '.local/share/fonts') }}/globalrc_fonts"
-
 # Firefox default profile
 firefox_profile_name: default-release

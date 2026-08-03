@@ -1,3 +1,8 @@
+- name: TOMBSTONE - Cleanup old font directory
+  file:
+    path:   "{{ ansible_facts['user_dir'] }}/.local/share/fonts/globalrc_fonts"
+    state:  absent
+
 ### Package manager ###
 
 - name: Enable hyprland copr repo

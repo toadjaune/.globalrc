@@ -104,11 +104,6 @@
       IRB.conf[:SAVE_HISTORY] = 200
       IRB.conf[:HISTORY_FILE] = '~/.irb-history'
 
-- name: Install desktop-specific stuff (common)
-  import_tasks: desktop_common.yml
-  when: (desktop_linux | bool) or ansible_facts['system'] == "Darwin"
-  tags: desktop
-
 - name: Install desktop-specific stuff (linux)
   import_tasks: desktop_linux.yml
   when: desktop_linux | bool

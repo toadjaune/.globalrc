@@ -20,12 +20,6 @@
   command: "swaymsg reload"
   changed_when: true
 
-  # NB : There's no need to do anything after adding fonts on MacOS
-- name: Regenerate font cache
-  command: "fc-cache -fv"
-  changed_when: true
-  when: ansible_facts['system'] != 'Darwin'
-
   # NB : Only tested on Fedora
 - name: Restart bluez
   systemd_service:
