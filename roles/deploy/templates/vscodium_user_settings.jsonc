@@ -10,7 +10,7 @@
 
     // Use a patched font for terminal, notably for powerlevel10k
     // https://code.visualstudio.com/docs/terminal/appearance
-    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font",
 
     // Follow system light/dark theme (org.freedesktop.appearance.color-scheme)
     // https://code.visualstudio.com/docs/getstarted/themes#_auto-switch-based-on-os-color-scheme
@@ -52,4 +52,3 @@
       "editor.formatOnSaveMode": "file",
     },
 }
-

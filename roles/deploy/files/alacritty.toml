@@ -56,7 +56,7 @@ GLOBALRC_PATCHED_FONT = "1"
 [font]
 size = 12
 [font.normal]
-family = "MesloLGS NF"
+family = "FiraCode Nerd Font"
 
 # Consistently delete last word with Ctrl-Backspace
 # This is a standard across graphical apps, but terminal apps usually do it with Ctrl-W (Emacs bindings)
@@ -96,4 +96,3 @@ mods = "Option"
 chars = "}"
 key = 3
 mods = "Option"
-

@@ -46,8 +46,17 @@
     # '')
 
     pkgs.deno   # yt-dlp requires it for js challenges and so
-    pkgs.yt-dlp
+    pkgs.yt-dlp # download videos from youtube
+
+    # fonts
+    pkgs.nerd-fonts.fira-code
   ];
+
+  # Whether this is required or not is unclear. According to `fc-list` :
+  # * fonts installed by home-manager are installed in ~/.nix-profile/share/fonts/, and are detected there
+  # * enabling the config below also makes them visible, directly from their nix store path
+  # We leave it disabled for now, as it looks like the fonts are available anyway without it
+  # fonts.fontconfig.enable = true;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
