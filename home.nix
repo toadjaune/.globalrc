@@ -49,7 +49,9 @@
     pkgs.yt-dlp # download videos from youtube
 
     # fonts
-    pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.fira-code # nerd-fonts patched FiraCode font, for terminals. Basic reliable font, made by Mozilla.
+    pkgs.monaspace            # very cool monospace fonts with texture healing, and several styles. To try out. https://monaspace.githubnext.com/
+    pkgs.nerd-fonts.monaspace # Same, with nerdfonts glyph patch
   ];
 
   # NB: This is actually required ; without it, fonts are only exposed in ~/.nix-profile/share/fonts/, which is
