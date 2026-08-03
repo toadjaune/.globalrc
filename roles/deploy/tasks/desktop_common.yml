@@ -1,7 +1,6 @@
 ### Fonts ###
 
-# TODO : remove, eventually
-- name: Cleanup old font directories
+- name: TOMBSTONE - Cleanup old font directories
   file:
     path:   "{{ item }}"
     state:  absent
