@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./nix/alacritty.nix
     ./nix/git.nix
     ./nix/hyprland.nix
     ./nix/sway.nix
@@ -52,6 +53,12 @@
     pkgs.nerd-fonts.fira-code # nerd-fonts patched FiraCode font, for terminals. Basic reliable font, made by Mozilla.
     pkgs.monaspace            # very cool monospace fonts with texture healing, and several styles. To try out. https://monaspace.githubnext.com/
     pkgs.nerd-fonts.monaspace # Same, with nerdfonts glyph patch
+
+    # OpenGL programs tend to be broken when installed through home-manager, and need nixGL as a wrapper:
+    # * https://github.com/alacritty/alacritty/issues/7631
+    # * https://github.com/nix-community/home-manager/issues/2251
+    # * https://github.com/nix-community/nixGL
+    pkgs.nixgl.nixGLIntel # TODO: see if we can replace with the "generic" nixGL wrapper
   ];
 
   # NB: This is actually required ; without it, fonts are only exposed in ~/.nix-profile/share/fonts/, which is

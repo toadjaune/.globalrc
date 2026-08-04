@@ -10,14 +10,26 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl = {
+      url = "github:nix-community/nixGL";
+    };
   };
 
-  outputs = {nixpkgs, home-manager, ...}: {
+  outputs = {nixpkgs, home-manager, nixgl, ...}: {
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
 
     homeConfigurations = {
       "houston" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        # TODO (ideas):
+        # * move this declaration above the per-host declaration ? (to avoid duplication)
+        # * declare the overlayed pkg store in a separate variable ? (to avoid "polluting" the "main" pkg namespace)
+        # * directly overlay/wrap the few binaries that actually require it (alacritty)
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          # It's a bit unclear to me what exactly this does.
+          # I don't think it means each package gets overlayed, only the package index object itself, which only means that extra packages are added to it
+          overlays = [ nixgl.overlay ];
+        };
         modules = [
           ./home.nix
           ./nix/host_configs/houston.nix
@@ -29,7 +41,10 @@
         };
       };
       "spacerig" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = [ nixgl.overlay ];
+        };
         modules = [
           ./home.nix
           ./nix/host_configs/spacerig.nix

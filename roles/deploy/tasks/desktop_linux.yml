@@ -30,7 +30,6 @@
       - wtype # input text as if typed from the user, wayland equivalent of xdotool
       - mako # Notification daemon
       - wdisplays # Graphical tool for monitors setup
-      - alacritty # GPU-based terminal emulator
       - lxpolkit # polkit daemon
       - blueman # basic out-of-the-box bluetooth config
       - neovim # used in vscodium through an extension
@@ -88,9 +87,6 @@
       - pulseaudio-utils
       - thunderbird
 
-      # alacritty
-      - alacritty
-
       # graphical theme
       # - adwaita-qt #TODO
 
@@ -123,9 +119,6 @@
       - pulseaudio-utils
       - thunderbird
 
-      # alacritty
-      # TODO : there isn't an official deb package for now, only a ppa. See what we can do.
-
       # graphical theme
       - adwaita-qt
 
@@ -138,6 +131,7 @@
     name:
       - kanshi # migrated to home-manager
       - waybar # migrated to home-manager
+      - alacritty # migrated to home-manager
   become: true
   when: have_root and ansible_facts['os_family'] == "RedHat"
 
