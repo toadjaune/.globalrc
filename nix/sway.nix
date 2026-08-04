@@ -262,7 +262,7 @@
       # Basics:
 
           # Start a terminal
-          bindcode $mod+$return exec ${ config.home.homeDirectory }/.nix-profile/bin/nixGLIntel ${ config.home.homeDirectory }/.nix-profile/bin/alacritty
+          bindcode $mod+$return exec ${ config.home.homeDirectory }/.nix-profile/bin/alacritty
 
           # Kill focused window
           bindcode $mod+Shift+$q kill

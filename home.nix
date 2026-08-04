@@ -58,6 +58,7 @@
     # * https://github.com/alacritty/alacritty/issues/7631
     # * https://github.com/nix-community/home-manager/issues/2251
     # * https://github.com/nix-community/nixGL
+    # Although we prefer to wrap the corresponding directly directly in the home-manager config, having the wrapper binary available can be useful.
     pkgs.nixgl.nixGLIntel # mesa-based OpenGL Wrapper
   ];
 
