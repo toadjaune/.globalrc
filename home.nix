@@ -58,7 +58,7 @@
     # * https://github.com/alacritty/alacritty/issues/7631
     # * https://github.com/nix-community/home-manager/issues/2251
     # * https://github.com/nix-community/nixGL
-    pkgs.nixgl.nixGLIntel # TODO: see if we can replace with the "generic" nixGL wrapper
+    pkgs.nixgl.nixGLIntel # mesa-based OpenGL Wrapper
   ];
 
   # NB: This is actually required ; without it, fonts are only exposed in ~/.nix-profile/share/fonts/, which is
