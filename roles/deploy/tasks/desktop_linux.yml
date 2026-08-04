@@ -334,12 +334,10 @@
     path: "{{ ansible_facts['user_dir'] }}/.config/alacritty.yml"
     state: absent
 
-- name: Load alacritty config via .config/alacritty.toml
+- name: TOMBSTONE - Remove old alacritty toml config file
   file:
-    state: link
-    follow: false
-    src: "{{ remote_directory }}/files/alacritty.toml"
-    dest: "{{ ansible_facts['user_dir'] }}/.config/alacritty.toml"
+    state: absent
+    path: "{{ ansible_facts['user_dir'] }}/.config/alacritty.toml"
 
 ### Mako ###
 - name: Create ~/.config/mako
