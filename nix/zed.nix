@@ -1,6 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
+  home.packages = [
+    # nix language servers
+    pkgs.nil
+    pkgs.nixd
+  ];
+
   programs.zed-editor = {
     enable = true;
     # zed uses an OpenGL backend, so, it needs wrapping with nixGL, or it will fail to start (with very little error info)
