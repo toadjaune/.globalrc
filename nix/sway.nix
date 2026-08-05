@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, hostSpecificVars, ... }:
 
 {
   # Configure portal priority order
@@ -46,8 +46,7 @@
     # package =
 
     # Currently needed because :
-    # * Font validation is not working from the nix sandbox
-    # * Wallpaper/screensaver are not readable from the nix sandbox
+    # * Keyboard layout validation is not working from the nix sandbox
     # TODO: Solve those issues so that we can re-enable this check
     checkConfig = false;
 
@@ -132,10 +131,8 @@
       ### Output configuration
 
 
-      # TODO : setup better lockscreen (those files need to be manually added on each host)
-      # The globbing is here to tolerate for various file extensions, unsure what happens if several files match.
-      output * bg "${ config.home.homeDirectory }/.config/sway/wallpaper.*" fill
-      set $lock_command swaylock --color 555555 --image "${ config.home.homeDirectory }/.config/sway/lockscreen.*"
+      output * bg "${ ./assets/${hostSpecificVars.sway_wallpaper} }" fill
+      set $lock_command swaylock --color 555555 --image "${ ./assets/${hostSpecificVars.sway_lockscreen} }"
 
       # Example configuration:
       #
