@@ -9,9 +9,8 @@
     # OpenGL programs tend to be broken when installed through home-manager, and need nixGL as a wrapper:
     # We directly wrap the alacritty binary, so that we don't need to prefix it at call-time
     # https://github.com/alacritty/alacritty/issues/7631
-    package = pkgs.writeScriptBin "alacritty" ''
-      ${lib.getExe pkgs.nixgl.nixGLIntel} ${lib.getExe pkgs.alacritty}
-    '';
+    # NB: It looks like this slightly (but perceptibly) slows its startup down
+    package = pkgs.writeScriptBin "alacritty" "${lib.getExe pkgs.nixgl.nixGLIntel} ${lib.getExe pkgs.alacritty}";
 
     # File rendered to ~/.config/alacritty/alacritty.toml
     # Config documentation : https://alacritty.org/config-alacritty.html
