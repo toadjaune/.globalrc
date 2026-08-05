@@ -3,13 +3,10 @@
 {
   programs.zed-editor = {
     enable = true;
-    # The binary installed by home-manager is `zeditor`, whereas the one installed with the official install command is `zed`
-    # As of 2026-03-20, the version installed by home-manager doesn't even open a window. It's not a zed version issue, I tried installing the exact same version with :
-    # curl -f https://zed.dev/install.sh | ZED_VERSION=<same version as home-manager> sh
-    # There's not much point in doing that anyway, it auto-updates anyway.
-    # Also, even though we're invoking the "wrong" binary, the configuration below (extensions, etc) is still effective.
-    # For now, let's disable the binary install from home-manager, and rely on manual install
-    package = null;
+    # zed uses an OpenGL backend, so, it needs wrapping with nixGL, or it will fail to start (with very little error info)
+    # NB: by default, the binary installed is `zed-editor`, whereas the one installed by the official install script is `zed`
+    # TODO: It looks like this doesn't install it as a "desktop" application
+    package = pkgs.writeScriptBin "zed" "${lib.getExe pkgs.nixgl.nixGLIntel} ${lib.getExe pkgs.zed-editor}";
 
     # NB: It looks like the way the extensions management works is that :
     # * home-manager injects the extension list in the user configuration
