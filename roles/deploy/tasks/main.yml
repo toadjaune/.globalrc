@@ -118,9 +118,11 @@
   import_tasks: zsh.yml
   tags: zsh
 
-- name: Install vim configuration
-  import_tasks: vim.yml
-  tags: vim
+- name: TOMBSTONE - remove vim directory
+  file:
+    state: absent
+    dest: "{{ remote_directory }}/vim"
+
 
 - name: Install ssh configuration
   import_tasks: ssh.yml
