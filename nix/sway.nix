@@ -1,4 +1,4 @@
-{ config, pkgs, hostSpecificVars, lib, ... }:
+{ config, ... }:
 
 {
   # Configure portal priority order

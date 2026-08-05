@@ -1,4 +1,4 @@
-{ config, pkgs, hostSpecificVars, lib, ... }:
+{ ... }:
 
 {
   xdg.configFile."waybar/config".force = true; # TOMBSTONE for migration from ansible - remove in the future

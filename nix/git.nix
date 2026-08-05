@@ -1,4 +1,4 @@
-{ config, pkgs, hostSpecificVars, lib, ... }:
+{ hostSpecificVars, ... }:
 
 {
   programs.git = {

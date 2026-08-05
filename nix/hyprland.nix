@@ -1,4 +1,4 @@
-{ config, pkgs, hostSpecificVars, lib, ... }:
+{ config, ... }:
 
 {
   # NB: the portals config is currently the default system once
