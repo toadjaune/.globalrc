@@ -11,31 +11,55 @@
     # defaultEditor = false
 
     # TODO: Migrate the rest of the plugins here
+    # Get the list of existing plugins with `nix-env -f '<nixpkgs>' -qaP -A vimPlugins`
     plugins = [
       # Default value of home-manager, and also shipped by default on debian, etc
       pkgs.vimPlugins.vim-sensible
+
+      # User interface
+      pkgs.vimPlugins.tabular             # provides :Tab to align text
+      pkgs.vimPlugins.vim-tmux-navigator  # Consistent set of keys to navigate between vim splits and tmux panels
+      pkgs.vimPlugins.vim-airline         # OP statusbar
+      pkgs.vimPlugins.vim-airline-themes  # Associated themes
+
+      # Filesystem access (Tree ...)
+      pkgs.vimPlugins.nerdtree
+      pkgs.vimPlugins.ctrlp-vim
+
+      # Git
+      pkgs.vimPlugins.vim-fugitive  # Access to git commands from Vim
+      pkgs.vimPlugins.vim-gitgutter # Displays signs for git modifications
+      # pkgs.vimPlugins.vim-git       # Git syntax highlighting -> disabled for now because unfree license
+
+      # Development tools
+      pkgs.vimPlugins.indentLine      # Vertical bars to display indentation with conceal feature
+        # TODO : Try to find a way to keep trailing characters displayed instead of concealing them too (?)
+        # TODO: I'm not actually sure what this even does anymore
+      pkgs.vimPlugins.vim-commentary  # Add a comment operator (gc)
+
+      # Better json highlighting ? I don't see a difference.
+      # pkgs.vimPlugins.vim-json
+
+      # Nice icons (must be loaded after the plugins it affects)
+      pkgs.vimPlugins.vim-devicons
+      pkgs.vimPlugins.vim-nerdtree-syntax-highlight
+
     ];
 
     # this configuration is rendered directly to a file in the nix store, that does not get symlinked anywhere in the home directory
     # Instead, it is loaded via a wrapper script around the actual vim executable. To get the path of the resulting vimrc, run `cat ~/.nix-profile/bin/vim` and look at the -u argument on the exec line
     # TODO: We can probably get the corresponding path with a nix command too
-    # TODO: Plugins are temporarily disabled, migrate their install to home-manager and remove vim-plug
     extraConfig = ''
       " Nice resources to get started :
       " http://nvie.com/posts/how-i-boosted-my-vim/
       " http://learnvimscriptthehardway.stevelosh.com/
+      " http://vim.wikia.com/wiki/Use_Vim_like_an_IDE
+      " https://github.com/VundleVim/Vundle.vim/wiki/Examples
 
-      """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-      " => Load Plugins via vim-plug
-      """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-      set nocompatible              " be iMproved, required
-      filetype off                  " required
+      set nocompatible          " don't try to be compatible with legacy vi, we can use """modern""" vim-only features
+      filetype off              " TODO: was required by vim-plug, not sure what it does
+      filetype plugin indent on " TODO: was required by vim-plug, not sure what it does
 
-      " Manually load vim-plug, to avoid installing it ouside the vim directory
-      " set rtp+={{ remote_directory }}/vim/bundle/vim-plug
-      " source {{ remote_directory }}/vim/bundle/vim-plug/plug.vim
-      " Start vim-plug with a path for installing plugins
-      " call plug#begin('{{ remote_directory }}/vim/bundle')
 
       """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
       " => Plugin-specific pre-configuration
@@ -48,56 +72,7 @@
       let g:tmux_navigator_no_mappings = 1
           " Do not use the default mappings
 
-      """""""""""""""
-      " Plugin list "
-      """""""""""""""
-      " See https://github.com/junegunn/vim-plug for supported syntaxes
-
-      " Nice examples here :
-      " http://vim.wikia.com/wiki/Use_Vim_like_an_IDE
-      " https://github.com/VundleVim/Vundle.vim/wiki/Examples
-
-      " User interface
-      " Plug 'godlygeek/tabular'                " provides :Tab to align text
-      " Plug 'christoomey/vim-tmux-navigator'   " Consistent set of keys to navigate between vim splits and tmux panels
-      " Plug 'vim-airline/vim-airline'          " OP statusbar
-      " Plug 'vim-airline/vim-airline-themes'   " Associated themes
-
-      " Filesystem access (Tree ...)
-      " Plug 'scrooloose/nerdtree'    " filesystem tree
-      " Plug 'ctrlpvim/ctrlp.vim'     " fuzzy search through filesystem/buffers
-
-      " Git
-      " Plug 'tpope/vim-fugitive'     " Access to git commands from Vim
-      " Plug 'tpope/vim-git'          " Git syntax highlighting
-      " Plug 'airblade/vim-gitgutter' " Displays signs for git modifications
-
-      " Development tools
-      " Plug 'Yggdroot/indentLine'      " Vertical bars to display indentation with conceal feature
-          " TODO : Try to find a way to keep trailing characters displayed instead
-          " of concealing them too
-      " Plug 'tpope/vim-commentary'     " Add a comment operator (gc)
-
-      " JSON highlighting, concealing, folding
-      " Plug 'elzr/vim-json'
-
-      " Colorschemes
-      " Plug 'agude/vim-eldar'
-      " Plug 'Lokaltog/vim-distinguished'
-      " Plug 'tpope/vim-vividchalk'
-      " The following directory contains badly packaged colorschemes, downloaded by Ansible
-      " Plug '{{ remote_directory }}/vim/bundle/colorschemes-manual'
-
-      " Nice icons (must be loaded after the plugins it affects)
-      " Plug 'ryanoasis/vim-devicons'
-      " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-      """""""""""""""
-
-      " All of your Plugins must be added before the following line
-      " call plug#end()              " required
-      filetype plugin indent on    " required
-
+      " TODO: There's no point in keeping pre/post configuration separate anymore
 
       """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
       " => Plugin-specific post-configuration
