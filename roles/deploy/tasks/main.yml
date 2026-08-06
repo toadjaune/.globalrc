@@ -138,10 +138,7 @@
       # Loading global screen configuration
       source {{ remote_directory }}/files/screenrc
 
-# Mass-renaming tool with vim
-- name: Download vimv
-  get_url:
-    url: https://raw.githubusercontent.com/thameera/vimv/master/vimv
-    dest: "{{ remote_directory }}/"
-    mode: 0755
-  tags: online
+- name: TOMBSTONE - remove vimv
+  file:
+    dest: "{{ remote_directory }}/vimv"
+    state: absent

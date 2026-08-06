@@ -49,6 +49,8 @@
     pkgs.deno   # yt-dlp requires it for js challenges and so
     pkgs.yt-dlp # download videos from youtube
 
+    pkgs.vimv   # mass-renaming tool
+
     # fonts
     pkgs.nerd-fonts.fira-code # nerd-fonts patched FiraCode font, for terminals. Basic reliable font, made by Mozilla.
     pkgs.monaspace            # very cool monospace fonts with texture healing, and several styles. Not great for terminal, as the icons are smaller, but may be good for IDE ? https://monaspace.githubnext.com/
