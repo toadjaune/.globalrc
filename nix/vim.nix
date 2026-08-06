@@ -10,7 +10,6 @@
     # TODO: We may want to switch to this, instead of setting $EDITOR ourselves
     # defaultEditor = false
 
-    # TODO: Migrate the rest of the plugins here
     # Get the list of existing plugins with `nix-env -f '<nixpkgs>' -qaP -A vimPlugins`
     plugins = [
       # Default value of home-manager, and also shipped by default on debian, etc
@@ -33,7 +32,7 @@
 
       # Development tools
       pkgs.vimPlugins.indentLine      # Vertical bars to display indentation with conceal feature
-        # TODO : Try to find a way to keep trailing characters displayed instead of concealing them too (?)
+        # TODO: Try to find a way to keep trailing characters displayed instead of concealing them too (?)
         # TODO: I'm not actually sure what this even does anymore
       pkgs.vimPlugins.vim-commentary  # Add a comment operator (gc)
 
@@ -62,21 +61,15 @@
 
 
       """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-      " => Plugin-specific pre-configuration
+      " => Plugin-specific configuration
       """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
       " change the mapleader from \ to Space
       " this command must be before anything using <leader>
       let mapleader=" "
 
-      """ vim-tmux-navigator
+      """ vim-tmux-navigator """
       let g:tmux_navigator_no_mappings = 1
           " Do not use the default mappings
-
-      " TODO: There's no point in keeping pre/post configuration separate anymore
-
-      """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-      " => Plugin-specific post-configuration
-      """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
       """ nerdtree """
       " start nerdtree automatically if vim is started without argument
