@@ -1,4 +1,14 @@
-{ config, hostSpecificVars, ... }:
+{ config, pkgs, hostSpecificVars, ... }:
+
+let xkb_lafayette = pkgs.fetchurl {
+  # https://qwerty-lafayette.org/
+  # TODO:
+  # * Despite what the docs say, it seems sway can't just load this file, find how to fix it
+  # * Installing keyboard layouts is a mess anyway. Heavily document it if we can make it work
+  url = "https://qwerty-lafayette.org/releases/lafayette_linux_v0.9.xkb_custom";
+  name = "lafayette.xkb";
+  hash = "sha256-kRnx85oOZfsXPg0zGn7YGTeLsSHOtZJM27gvgEIaFEY=";
+}; in
 
 {
   # Configure portal priority order
@@ -233,22 +243,12 @@
 
 
       ### Input configuration
-      #
-      # Example configuration:
-      #
-      #   input "2:14:SynPS/2_Synaptics_TouchPad" {
-      #       dwt enabled
-      #       tap enabled
-      #       natural_scroll enabled
-      #       middle_emulation enabled
-      #   }
-      #
+
       # You can get the names of your inputs by running: swaymsg -t get_inputs
       # Read `man 5 sway-input` for more information about this section.
 
-      # Using non-specific input mappings make firefox and thunderbird crash on sway reload.
-      # It is fixed upstream, should be backported to sway 1.8
       input "type:keyboard" {
+        # xkb_file ${xkb_lafayette}
         xkb_layout  "fr"
         xkb_variant "lafayette"
         xkb_numlock "enabled"
