@@ -1,7 +1,14 @@
-{ ... }:
+{ lib, ... }:
 
 {
   home.packages = [];
+
+  programs.zsh.initContent = lib.mkAfter ''
+    # By default, poetry will attempt to use the system keyring, even though it's not required
+    # https://github.com/python-poetry/poetry/issues/8761
+    export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+  '';
+
 
   services.kanshi.settings = [
 

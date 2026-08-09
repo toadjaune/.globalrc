@@ -68,29 +68,19 @@
   changed_when: false
   register: atuin_init_zsh
 
-# Some specific tasks need to be done before loading .zshrc
-# https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout#71258
-# http://zsh.sourceforge.net/Intro/intro_3.html
-# Currently, we need it only to run code before loading /etc/zsh/zshrc
-- name: Setup early configuration via .zshenv
+- name: TOMBSTONE - remove .zshenv block
   blockinfile:
     dest: "{{ ansible_facts['user_dir'] }}/.zshenv"
-    create: true
+    state: absent
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block: |
-      # Disable compinit call in /etc/zsh/zshrc on ubuntu
-      skip_global_compinit=1
 
 - name: Setup main zshrc
   template:
     src: "zshrc"
     dest: "{{ remote_directory }}/templates/zshrc"
 
-- name: Setup the loading via .zshrc
+- name: TOMBSTONE - remove .zshenv block
   blockinfile:
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
-    create: true
+    state: absent
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-    block: |
-      # Load custom configuration
-      . {{ remote_directory }}/files/zshrc

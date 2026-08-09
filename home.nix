@@ -10,6 +10,7 @@
     ./nix/vim.nix
     ./nix/waybar.nix
     ./nix/zed.nix
+    ./nix/zsh.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -131,9 +132,6 @@
     };
 
   };
-
-  # TODO : see if programs.eza.enableZshIntegration is equivalent / better than our manual alias
-  programs.eza.enable = true;
 
   # Python version/package manager
   # NB: home-manager/nixos does not seem to offer a way to install shell completions itself, we do it with ansible
