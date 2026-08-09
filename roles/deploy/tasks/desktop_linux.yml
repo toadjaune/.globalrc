@@ -5,12 +5,13 @@
 
 ### Package manager ###
 
-- name: Enable hyprland copr repo
-  community.general.copr:
-    name: solopasha/hyprland
-    state: enabled
-  become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
+# 2026-08-09: Temporarily disabled because not packaged for fedora 44 yet
+# - name: Enable hyprland copr repo
+#   community.general.copr:
+#     name: solopasha/hyprland
+#     state: enabled
+#   become: true
+#   when: have_root and ansible_facts['os_family'] == "RedHat"
 
 - name: Install graphical packages (RedHat)
   dnf:

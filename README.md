@@ -46,10 +46,3 @@ Recurrent usage :
 * Install/update configuration : `home-manager switch --flake ./#houston`
 * Update lockfile : `nix flake update --flake .`
 
-
-
-TODO backlog spacerig :
-* zed --uninstall
-* rm -rf ~/.local/share/zed/
-* copy lockscreen/wallpaper images from ~/.config/sway/ to nix/assets
-* remove them from ~/.config/sway
