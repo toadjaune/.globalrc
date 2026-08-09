@@ -6,26 +6,20 @@ all:
   hosts:
 
     # Fedora
-    valoo:
-      expected_hostname: valoo
-      ansible_connection: local
-      desktop_linux: true
-
-    # Fedora
     spacerig:
       expected_hostname: spacerig
       ansible_connection: local
       desktop_linux: true
 
     # Fedora
-    launchpad:
-      expected_hostname: launchpad
+    houston:
+      expected_hostname: houston
       ansible_connection: local
       desktop_linux: true
 
     # Fedora
-    houston:
-      expected_hostname: houston
+    aurora:
+      expected_hostname: aurora
       ansible_connection: local
       desktop_linux: true
 
