@@ -36,7 +36,7 @@
         {
           criteria = "eDP-1";
           status = "enable";
-          position = "3840,1080";
+          position = "3840,280";
         }
       ];
     }
