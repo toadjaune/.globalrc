@@ -36,8 +36,9 @@
         # TODO: I'm not actually sure what this even does anymore
       pkgs.vimPlugins.vim-commentary  # Add a comment operator (gc)
 
-      # Better json highlighting ? I don't see a difference.
-      # pkgs.vimPlugins.vim-json
+      # Better json highlighting ?
+      # The only difference I see with native json syntax highlighting is that I can use vim_json_syntax_conceal below
+      pkgs.vimPlugins.vim-json
 
       # Nice icons (must be loaded after the plugins it affects)
       pkgs.vimPlugins.vim-devicons
