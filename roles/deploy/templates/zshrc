@@ -51,13 +51,6 @@ autoload zmv
 # Add commands to history file directly at execution time
 setopt inc_append_history_time
 
-# Never ever store duplicates in history
-setopt hist_ignore_all_dups
-
-# remove command lines from the history list when the first character on the
-# line is a space
-setopt hist_ignore_space
-
 # Store commands in history without extraneous spaces
 setopt hist_reduce_blanks
 
