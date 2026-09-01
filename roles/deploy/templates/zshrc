@@ -48,16 +48,6 @@ autoload run-help-git
 # zmv is a mass-rename tool
 autoload zmv
 
-# Path of file containing command history
-# NB: This path is in user's home even in case of sshrc
-HISTFILE=~/.zsh_history
-
-# Number of history commands to read at shell startup, and to keep per session
-HISTSIZE=1000
-
-# Number of history commands to write at shell exit
-SAVEHIST=1000
-
 # Add commands to history file directly at execution time
 setopt inc_append_history_time
 
