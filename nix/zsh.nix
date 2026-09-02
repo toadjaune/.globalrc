@@ -63,6 +63,20 @@
       skip_global_compinit=1
     '';
 
+    # Example syntax
+    # plugins =
+    #   {
+    #     # will source zsh-autosuggestions.plugin.zsh
+    #     name = "zsh-autosuggestions";
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "zsh-users";
+    #       repo = "zsh-autosuggestions";
+    #       rev = "v0.4.0";
+    #       sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
+    #     };
+    #   }
+    # ];
+
     initContent = lib.mkBefore ''
       # Load legacy ansible-managed template as a transition mechanism
       . ${ config.home.homeDirectory }/.globalrc/files/zshrc
