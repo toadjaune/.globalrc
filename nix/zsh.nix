@@ -79,11 +79,14 @@
 
     # initContent is the primary way to control the contents of .zshrc, the configuration below will get interleaved with generated configuration from nix options
     initContent = let
+
+    # We rely on a separate template file because :
+    # * This allows proper syntax highlighting when editing it
+    # * It eliminates any escaping collision hell between complex zsh syntax and home-manager string templating
     zshConfigEarlyInit = lib.mkBefore ''
       ### begin home-manager early config (lib.mkBefore / 500) ###
 
-      # Load legacy ansible-managed template as a transition mechanism
-      . ${ config.home.homeDirectory }/.globalrc/files/zshrc
+      ${lib.fileContents ./zshrc}
 
       ### end home-manager early config (lib.mkBefore / 500) ###
     '';

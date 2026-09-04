@@ -1,0 +1,393 @@
+# To get started with your own zshrc, start with the following script :
+# (it is the one run by default by zsh at shell startup if you have no zshrc)
+# `zsh /usr/share/zsh/functions/Newuser/zsh-newuser-install -f`
+#
+# Many options here were extracted from gmrl conf. See https://grml.org/zsh/
+
+### begin VERY early initialization
+
+# Disable flow control, to free C-S and C-Q
+# cf https://unix.stackexchange.com/questions/12107/how-to-unfreeze-after-accidentally-pressing-ctrl-s-in-a-terminal
+stty -ixon
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else should go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+### end VERY early initialization
+
+# Loading common components
+# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+source $HOME/.globalrc/files/bazshrc.sh
+
+# Expand fpath to include custom functions
+fpath=(
+  "$HOME/.globalrc/files/zsh_fpath"     # custom scripts
+  $fpath                                # default fpath
+  "$HOME/.globalrc/generated_zsh_fpath" # extra generated completions
+)
+# Autoload custom functions defined in zsh_fpath
+autoload bonjour ff mkcd pub
+
+### Begin various configuration ###
+
+# For `setopt` possible values and documentation, see : http://zsh.sourceforge.net/Doc/Release/Options.html
+# For history variables, see : http://zsh.sourceforge.net/Guide/zshguide02.html#l17
+
+# Allow help
+autoload -U run-help
+autoload run-help-git
+
+# zmv is a mass-rename tool
+autoload zmv
+
+# Add commands to history file directly at execution time
+setopt inc_append_history_time
+
+# Store commands in history without extraneous spaces
+setopt hist_reduce_blanks
+
+# Report about cpu-/system-/user-time of command if running longer than 5 seconds
+REPORTTIME=5
+
+# Print a message every time somebody else than me logs in/out
+watch=notme
+
+# if a command is issued that can't be executed as a normal command, and the
+# command is the name of a directory, perform the cd command to that directory.
+setopt auto_cd
+
+# display PID when suspending processes as well
+setopt long_list_jobs
+
+# make cd push the old directory onto the directory stack.
+setopt auto_pushd
+
+# avoid "beep"ing
+setopt no_beep
+
+# don't push the same dir twice.
+setopt pushd_ignore_dups
+
+### End various configuration ###
+
+
+
+### Begin completion pre-configuration ###
+
+# See https://linux.die.net/man/1/zshcompsys for explanation
+
+# Sane defaults
+
+# compinstall-generated : Default description when 1 argument and not specified by completion function
+zstyle ':completion:*' auto-description 'specify: %d'
+# compinstall-generated : Configures the completion functions to call (unclear)
+zstyle ':completion:*' completer _complete _ignored _correct _approximate
+# compinstall-generated : Used to merge some completion groups
+zstyle ':completion:*' group-name ''
+# compinstall-generated : Define patterns used for matching completions (unclear)
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*'
+# compinstall-generated : Only display the original string if there's more than one possible match
+zstyle ':completion:*' original false
+# compinstall-generated : Do not allow completion definitions from the legacy compctl system
+zstyle ':completion:*' use-compctl false
+# compinstall-generated : Use LS_COLORS to colors completions (TODO : Somehow enable this, it sounds nice)
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# compinstall-generated : If there's only one valid completion, insert it directly without menu
+zstyle ':completion:*' insert-unambiguous true
+
+
+# Menu and related options
+
+# The setting below (menu-completion disabled) in case of too many options will, on each Tab press :
+# 1 - display a single line indicating the number of options, and asking whether we want to print them all
+# 2 - print all options at once, then print back the normal shell prompt
+# 3 - enter menu mode
+#
+# TODO :
+# * Find a way so that, whenever there are too many options, the initial list printing (steps 1 and 2) is skipped, and we directly go to menu
+
+# Defining this would allow, in case the completion list is too long to fit on screen, to scroll through it and define corresponding prompt
+# We don't want that, as in this case, we'll rely on the menu, and we'd rather have a consistent (and smaller) number of tab-presses required to reach the menu
+# zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle -d ':completion:*' list-prompt
+
+# enable menu completion if there are at least 5 options, or they don't fit on screen, and allow searching through options if you type stuff before any extra tab or arrow key presses
+# interactive instead of search would be nicer (it filters the options on screen) but it completely disables tab-selection, which is a nogo (TODO : is there a way around this limitation ?)
+zstyle ':completion:*' menu select=5 select=long-list search
+
+# Title of different completion categories, used both in initial and menu listing (e.g. see with `git switch` completion to get an example of sections, with local and remote branch names)
+zstyle ':completion:*' format '### completing %d ###'
+
+# Used by _correct and _approximate above to find completions, uses levenshtein distance to count a maximum of typing errors allowed
+zstyle ':completion:*' max-errors 2 numeric
+# compinstall-generated : Similar to list-prompt, but for menu. (TODO : clarify and/or disable)
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+
+
+# Provide more processes in completion of programs like killall:
+zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+
+# Search path for sudo completion
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
+                                           /usr/local/bin  \
+                                           /usr/sbin       \
+                                           /usr/bin        \
+                                           /sbin           \
+                                           /bin            \
+                                           /usr/X11R6/bin
+
+# host completion
+[[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
+[[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+[[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+
+hosts=(
+    $(hostname)
+    "$_ssh_config_hosts[@]"
+    "$_ssh_hosts[@]"
+    "$_etc_hosts[@]"
+    localhost
+)
+zstyle ':completion:*:hosts' hosts $hosts
+
+### End completion pre-configuration ###
+
+
+
+### Begin custom stuff ###
+
+# IRC-client-like input, to store in history a partial command
+# cf http://www.zshwiki.org/home/zle/ircclientlikeinput
+# /!\ This probably won't work if done after other widget
+# changes affecting down-line-or-history
+
+fake-accept-line() {
+  if [[ -n "$BUFFER" ]];
+  then
+    print -S "$BUFFER"
+  fi
+  return 0
+}
+zle -N fake-accept-line
+
+down-or-fake-accept-line() {
+  if (( HISTNO == HISTCMD )) && [[ "$RBUFFER" != *$'\n'* ]];
+  then
+    zle fake-accept-line
+  fi
+  zle .down-line-or-history "$@"
+}
+zle -N down-line-or-history down-or-fake-accept-line
+
+# Just use G to pipe to grep
+# NB: this only expands in the case of space-separated G alone
+# See alias, in `man zshbuiltins`
+alias -g G='| grep'
+
+### End custom stuff ###
+
+###############################################################################
+# Plugins pre-configuration                                                   #
+###############################################################################
+
+# See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
+
+### zsh-syntax-highlighting ###
+# Choose enabled highlighters
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+### powerlevel10k ###
+
+# https://starship.rs/ might be an alternative later on, it does have some pretty nice features :
+# * Simpler configuration
+# * Possibly crazy fast
+# But for now, it is entirely synchronous, and at least git status may be pretty slow :
+# https://github.com/starship/starship/issues/301
+
+# file generated with `p10k configure`
+# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+source $HOME/.globalrc/files/p10k.zsh
+
+###############################################################################
+
+### List of plugins ###
+
+# Fish-like history-based suggestions
+# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+source "$HOME/.globalrc/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# Community packaging of completions for common programs
+# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+fpath=($HOME/.globalrc/zsh_plugins/zsh-completions/src $fpath)
+
+# We both need 256 colors support, and a patched font, for p10k to work normally
+# TODO : the detection logic for the vscode case is probably quite brittle. It seems to work for now, though.
+if [[ -n $GLOBALRC_256_COLORS && (-n $GLOBALRC_PATCHED_FONT || $TERM_PROGRAM == "vscode") ]]; then
+  # Powerlevel10k, prompt configuration
+  # Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+  source "$HOME/.globalrc/zsh_plugins/powerlevel10k/powerlevel10k.zsh-theme"
+else
+  # Just load legacy prompt
+  # Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+  source "$HOME/.globalrc/zsh_prompt.zsh"
+fi
+
+autoload -Uz compinit
+if [[ ${UID} -eq 0 ]] && [[ -n ${SUDO_USER} ]]; then
+  # We are root, do not check for insecure directories, since this check was
+  # done for your regular user, and since some files in fpath do not belong to
+  # root but to your regular user
+  compinit -u
+else
+  compinit
+fi
+
+# Fish-like syntax highlighting
+# NB : MUST be sourced after compinit (and as late as possible)
+# NB : The highlighting gets slow on large buffers.
+# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+source "$HOME/.globalrc/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+### Inline atuin widget initialization ###
+
+# Inline the contents of the atuin initialization command
+# NB : We explicitly ask atuin NOT to setup keybindings, so that we can define them ourselves as we want to (although current config is default)
+# NB : atuin init is so fast to run that doing this is probably not much of a performance gain. It still improves debuggability though, and might
+#      play nicer with the zsh config loading cache ?
+# NB : atuin has an integration with zsh-autosuggestions, enabled by default ONLY if this conf is loaded after zsh-autosuggestions
+# TODO : we can probably disable native zsh history altogether, now that we have this
+
+# Generated with : {{ atuin_init_zsh.cmd | join(" ") }}
+
+# Since this currently still relies on ansible to retrieve the command output, it's not migrated yet.
+# TODO: migrate
+source "$HOME/.globalrc/files/zshrc"
+# Begin generated content
+# {{ atuin_init_zsh.stdout }}
+# End generated content
+
+
+### End inline atuin widget initialization ###
+
+###############################################################################
+# Plugins post-configuration                                                  #
+###############################################################################
+
+### zsh-syntax-highlighting ###
+# Main highlight configuration (not all available options)
+ZSH_HIGHLIGHT_STYLES+=(
+  unknown-token         'fg=red,bold'
+  reserved-word         'fg=yellow'
+  alias                 'fg=green,bold'
+  builtin               'fg=green,bold'
+  function              'fg=green,bold'
+  command               'fg=green,bold'
+  precommand            'fg=green'
+  hashed-command        'fg=green'
+  path                  'fg=blue,bold'
+  path_prefix           'fg=blue'
+  path_approx           'fg=blue,underlined'
+  globbing              'fg=yellow,underlined'
+  single-hyphen-option  'fg=purple,bold'
+  double-hyphen-option  'fg=purple,bold'
+  back-quoted-argument  'fg=purple,bold'
+  default               'fg=cyan,bold'
+)
+
+### zsh-autosuggestions ###
+ZSH_AUTOSUGGEST_USE_ASYNC=1         # fetch suggestions asynchronously (only required for zsh < 5.0.8, default afterwards)
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=200 # Disable suggestions past a certain command length
+
+# We're not savages so we manually bind the wigets once, at initialization, instead of at every single precmd
+# This MUST be executed after all other zle widget initializations
+# zsh-autosuggest creates a precmd (_zsh_autosuggest_start) that, which, by default, will re-wrap every zle widget (_zsh_autosuggest_bind_widgets)
+# at EVERY precmd. We're not savages, so we disable this. Instead, it will only run it at the very first precmd, then unregister itself.
+# There is therefore no need to manually call _zsh_autosuggest_bind_widgets at init time, only if we were to define new widgets later on.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# NB : It's quite likely possible to replace this system (wrapping all zle widgets) with a zle-line-pre-redraw hook, just like zsh-syntax highlighting.
+# TODO : open an issue ? Maybe even submit a PR ?
+
+###############################################################################
+
+
+### Start key mappings ###
+
+# Switch to vi keymaps
+bindkey -v
+
+# Key mappings common to several keymaps
+keymap_list=('viins' 'vicmd' 'visual')
+
+# # Mappings obsoleted by having an awesome keyboard
+#
+# for keymap in $keymap_list; do
+#   # Aliasing movement keys (With Alt) to arrow keys
+#   # NB: Mapping to arrow keys instead of directly to corresponding
+#   # zle widgets is convenient, because it uses every default mapping
+#   # to these arrows
+#   # See http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
+#   bindkey -M $keymap -s '^[{{ key_rh_left  }}' '^[[D'
+#   bindkey -M $keymap -s '^[{{ key_rh_down  }}' '^[[B'
+#   bindkey -M $keymap -s '^[{{ key_rh_up    }}' '^[[A'
+#   bindkey -M $keymap -s '^[{{ key_rh_right }}' '^[[C'
+# done
+#
+# # Get out of insert/visual mode with Alt-space (mapping to Esc)
+# bindkey -s '^[ ' '\e'
+
+# History backwards search (supports globbing)
+# TODO : probably made obsolete by atuin
+bindkey '^[g' history-incremental-pattern-search-backward
+
+# Explicit atuin key bindings
+bindkey '^r' _atuin_search_widget
+bindkey '^[[A' _atuin_up_search_widget
+bindkey '^[OA' _atuin_up_search_widget
+
+### End key mappings ###
+
+### Begin extra manual completions
+
+# use generic completion system for programs not yet defined; (_gnu_generic works
+# with commands that provide a --help option with "standard" gnu-like output.)
+for compcom in cp deborphan df feh fetchipac gpasswd head hnb ipacsum mv pal stow uname ; do
+    [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
+done; unset compcom
+
+# bash compatibility
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+complete -o nospace -C /usr/bin/packer packer
+# AWS cli packaging is shit
+complete -C '/usr/local/bin/aws_completer' aws
+
+### End extra manual completions
+
+### Begin lazy loaded modules and completions ###
+
+# We lazy-load these because they take WAY too long to load otherwise.
+# See https://blog.jonlu.ca/posts/speeding-up-zsh and all the links at the bottom of the post
+
+# NB : We migrated from nvm to Volta, which uses a shim approach, and therefore doesn't need any setup at shell startup time (besides modifying $PATH)
+#
+# # Lazily load nvm and its completion if installed
+# # NB : This unloads nvm when re-sourcing .zshrc. Don't care.
+# # It is possible to load it even on commands such as npm, grunt, etc...
+# # with https://github.com/robbyrussell/oh-my-zsh/issues/5327#issuecomment-386480914
+# # TODO : switch to a zsh_fpath file ?
+# export NVM_DIR="$HOME/.nvm"
+# if [[ -d $NVM_DIR ]]; then
+#   nvm() {
+#     echo "GLOBALRC : Loading nvm..."
+#     source "$NVM_DIR/nvm.sh"  # This loads nvm
+#     source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#     nvm $@ # Execute the newly defined nvm
+#   }
+# fi
+
+### End lazy loaded modules and completions ###
