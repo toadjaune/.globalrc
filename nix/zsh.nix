@@ -14,7 +14,6 @@
 
     # Configuration fields with a default value, that we disable for now because those options are set in our ansible template
     completionInit = "";
-    # dotDir = null; # unsure if it had any effect ?
 
     # Those settings cannot be nulled, so, we're configuring them here:
 
@@ -77,10 +76,24 @@
     #   }
     # ];
 
-    initContent = lib.mkBefore ''
+
+    # initContent is the primary way to control the contents of .zshrc, the configuration below will get interleaved with generated configuration from nix options
+    initContent = let
+    zshConfigEarlyInit = lib.mkBefore ''
+      ### begin home-manager early config (lib.mkBefore / 500) ###
+
       # Load legacy ansible-managed template as a transition mechanism
       . ${ config.home.homeDirectory }/.globalrc/files/zshrc
+
+      ### end home-manager early config (lib.mkBefore / 500) ###
     '';
+    # Use priority 550 to run stuff right before compinit (if we switch to using the generated compinit)
+    zshConfig = ''
+      ### begin home-manager primary config (default / 1000) ###
+      ### end home-manager primary config (default / 1000) ###
+    '';
+    in
+    lib.mkMerge [ zshConfigEarlyInit zshConfig ];
   };
 
 }
