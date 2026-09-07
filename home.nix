@@ -146,18 +146,18 @@
   # * It should be possible to use pkgs.uv.override instead, but I couldn't make it work : https://discourse.nixos.org/t/is-it-possible-to-override-cargosha256-in-buildrustpackage/4393/9
   # * https://github.com/allrealmsoflife/nix-hour-transcripts/blob/6536aae0c9bd5b944a87f7cb47f60266cfd5cc2d/episodes/5/5.md
   programs.uv.package = pkgs.uv.overrideAttrs (drv: rec {
-    version = "0.12.6";
+    version = "0.12.10";
 
     src = pkgs.fetchFromGitHub {
       owner = "astral-sh";
       repo = "uv";
-      tag = drv.version;
-      hash = "sha256-qORoqipLvC9v4f5pKIKEaLumB7kwoWgwptLBjNkO614=";
+      tag = "0.12.10";
+      hash = "sha256-FdNKriIjk2FfF+M46zqia2rM7HoixUqxQsiCKhn5EqA=";
     };
 
     cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
       inherit src;
-      hash = "sha256-A3bIy61Ca4ZknA4YNj6VwYEWbdKHO5KKQCfMkogv9HE=";
+      hash = "sha256-BwdnxLUhIMDRRhIeViGKxWUGOkPQ0OkG9SyiIPRkU5Y=";
     };
   });
 
