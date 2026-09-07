@@ -1,16 +1,1 @@
-### Inline atuin widget initialization ###
-
-# Inline the contents of the atuin initialization command
-# NB : We explicitly ask atuin NOT to setup keybindings, so that we can define them ourselves as we want to (although current config is default)
-# NB : atuin init is so fast to run that doing this is probably not much of a performance gain. It still improves debuggability though, and might
-#      play nicer with the zsh config loading cache ?
-# NB : atuin has an integration with zsh-autosuggestions, enabled by default ONLY if this conf is loaded after zsh-autosuggestions
-# TODO : we can probably disable native zsh history altogether, now that we have this
-
-# Generated with : {{ atuin_init_zsh.cmd | join(" ") }}
-
-# Begin generated content
-{{ atuin_init_zsh.stdout }}
-# End generated content
-
-### End inline atuin widget initialization ###
+# Obsolete file, remove

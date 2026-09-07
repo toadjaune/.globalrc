@@ -57,17 +57,6 @@
       existence_check_command: uv --version
       completion_generation_command: uv generate-shell-completion zsh
 
-- name: Retrieve atuin widget definitions
-  command:
-    argv:
-      - atuin
-      - init
-      - zsh
-      - --disable-up-arrow
-      - --disable-ctrl-r
-  changed_when: false
-  register: atuin_init_zsh
-
 - name: TOMBSTONE - remove .zshenv block
   blockinfile:
     dest: "{{ ansible_facts['user_dir'] }}/.zshenv"

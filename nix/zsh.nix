@@ -83,20 +83,31 @@
     # We rely on a separate template file because :
     # * This allows proper syntax highlighting when editing it
     # * It eliminates any escaping collision hell between complex zsh syntax and home-manager string templating
+    atuin_widget_definitions = pkgs.stdenv.mkDerivation {
+      name = "atuin_widget_definitions";
+      # HOME is set to a non-existing path by default (/homeless-shelter), but even this command attempts to generate a config file in $HOME/.config/atuin
+      # So, we set home to the build temp dir, so that the command doesn't fail, even if the generated config file is useless.
+      buildCommand = "HOME=$TMPDIR ${lib.getExe pkgs.atuin} init zsh --disable-ctrl-r --disable-up-arrow --disable-ai > $out";
+    };
+
     zshConfigEarlyInit = lib.mkBefore ''
       ### begin home-manager early config (lib.mkBefore / 500) ###
+
+      # Define atuin widgets (but don't bind them, we do this manually)
+      source ${ atuin_widget_definitions }
 
       ${lib.fileContents ./zshrc}
 
       ### end home-manager early config (lib.mkBefore / 500) ###
     '';
+
     # Use priority 550 to run stuff right before compinit (if we switch to using the generated compinit)
     zshConfig = ''
       ### begin home-manager primary config (default / 1000) ###
       ### end home-manager primary config (default / 1000) ###
     '';
-    in
-    lib.mkMerge [ zshConfigEarlyInit zshConfig ];
+
+    in lib.mkMerge [ zshConfigEarlyInit zshConfig ];
   };
 
 }
