@@ -57,16 +57,10 @@
       existence_check_command: uv --version
       completion_generation_command: uv generate-shell-completion zsh
 
-- name: TOMBSTONE - remove .zshenv block
-  blockinfile:
-    dest: "{{ ansible_facts['user_dir'] }}/.zshenv"
+- name: TOMBSTONE - remove zshrc
+  file:
+    path: "{{ remote_directory }}/templates/zshrc"
     state: absent
-    marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-
-- name: Setup main zshrc
-  template:
-    src: "zshrc"
-    dest: "{{ remote_directory }}/templates/zshrc"
 
 - name: TOMBSTONE - remove .zshenv block
   blockinfile:
