@@ -145,19 +145,34 @@
   # * Documentation with the syntax that ended up working : https://discourse.nixos.org/t/overriding-version-cant-find-new-cargohash/31502/6
   # * It should be possible to use pkgs.uv.override instead, but I couldn't make it work : https://discourse.nixos.org/t/is-it-possible-to-override-cargosha256-in-buildrustpackage/4393/9
   # * https://github.com/allrealmsoflife/nix-hour-transcripts/blob/6536aae0c9bd5b944a87f7cb47f60266cfd5cc2d/episodes/5/5.md
+  # programs.uv.package = pkgs.uv.overrideAttrs (drv: rec {
+  #   version = "0.12.10";
+
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "astral-sh";
+  #     repo = "uv";
+  #     tag = "0.12.10";
+  #     hash = "sha256-FdNKriIjk2FfF+M46zqia2rM7HoixUqxQsiCKhn5EqA=";
+  #   };
+
+  #   cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+  #     inherit src;
+  #     hash = "sha256-BwdnxLUhIMDRRhIeViGKxWUGOkPQ0OkG9SyiIPRkU5Y=";
+  #   };
+  # });
   programs.uv.package = pkgs.uv.overrideAttrs (drv: rec {
-    version = "0.12.10";
+    version = "0.11.28";
 
     src = pkgs.fetchFromGitHub {
       owner = "astral-sh";
       repo = "uv";
-      tag = "0.12.10";
-      hash = "sha256-FdNKriIjk2FfF+M46zqia2rM7HoixUqxQsiCKhn5EqA=";
+      tag = "0.11.28";
+      hash = "sha256-/mTH2hojC+l0yxn+LEAIj8FTA/nWKIPZ7uLMVJxebw4=";
     };
 
     cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
       inherit src;
-      hash = "sha256-BwdnxLUhIMDRRhIeViGKxWUGOkPQ0OkG9SyiIPRkU5Y=";
+      hash = "sha256-FvLl32JfIq5a1NnLtnFJyy5T+vkcOD+qfQLDy6NYhHg=";
     };
   });
 
