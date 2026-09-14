@@ -19,6 +19,19 @@
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
 
     homeConfigurations = {
+      "aurora" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = [ nixgl.overlay ];
+        };
+        modules = [
+          ./home.nix
+          ./nix/host_configs/aurora.nix
+        ];
+        extraSpecialArgs = {
+          # inherit inputs;
+          hostSpecificVars = import ./nix/host_vars/aurora.nix;
+        };
       "houston" = home-manager.lib.homeManagerConfiguration {
         # TODO (ideas):
         # * move this declaration above the per-host declaration ? (to avoid duplication)
@@ -53,6 +66,7 @@
           # inherit inputs;
           hostSpecificVars = import ./nix/host_vars/spacerig.nix;
         };
+      };
       };
     };
   };
