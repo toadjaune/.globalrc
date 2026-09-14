@@ -493,7 +493,10 @@
   # It _could_ break if several such directories existed, for example. It should be fine, though.
 - name: Get firefox profile path
   find:
-    paths: "{{ ansible_facts['user_dir'] }}/.mozilla/firefox/"
+    # NB: Used to be ~/.mozilla/firefox ; but firefox now supports the XDG specification, and will use it for new installs.
+    #     We're switching to it, and manually migrating on existing machines.
+    #     Although not officially supported, just moving the existing directory seems to be working fine.
+    paths: "{{ ansible_facts['user_dir'] }}/.config/mozilla/firefox/"
     file_type: directory
     patterns: ".*{{ firefox_profile_name }}$"
     use_regex: true
