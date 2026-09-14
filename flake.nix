@@ -32,6 +32,7 @@
           # inherit inputs;
           hostSpecificVars = import ./nix/host_vars/aurora.nix;
         };
+      };
       "houston" = home-manager.lib.homeManagerConfiguration {
         # TODO (ideas):
         # * move this declaration above the per-host declaration ? (to avoid duplication)
@@ -66,7 +67,6 @@
           # inherit inputs;
           hostSpecificVars = import ./nix/host_vars/spacerig.nix;
         };
-      };
       };
     };
   };
