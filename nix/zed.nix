@@ -31,6 +31,7 @@
       # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
       "nix"
       "terraform"
+      "toml"
     ];
 
     # Those settings end up in ~/.config/zed/settings.json
