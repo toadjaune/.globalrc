@@ -139,41 +139,26 @@
   # NB: home-manager/nixos does not seem to offer a way to install shell completions itself, we do it with ansible
   programs.uv.enable = true;
 
-  # Temporary workaround, we need uv version at least 0.12.6
   # Finding the correct way to override the version and have nix compile it transparently is easy, but finding the correct syntax for that was a purge.
   # Docs:
   # * Documentation with the syntax that ended up working : https://discourse.nixos.org/t/overriding-version-cant-find-new-cargohash/31502/6
   # * It should be possible to use pkgs.uv.override instead, but I couldn't make it work : https://discourse.nixos.org/t/is-it-possible-to-override-cargosha256-in-buildrustpackage/4393/9
   # * https://github.com/allrealmsoflife/nix-hour-transcripts/blob/6536aae0c9bd5b944a87f7cb47f60266cfd5cc2d/episodes/5/5.md
+  # Even though we don't need that anymore, keep the syntax for reference
   # programs.uv.package = pkgs.uv.overrideAttrs (drv: rec {
-  #   version = "0.12.10";
+  #   version = "0.12.14";
 
   #   src = pkgs.fetchFromGitHub {
   #     owner = "astral-sh";
   #     repo = "uv";
-  #     tag = "0.12.10";
-  #     hash = "sha256-FdNKriIjk2FfF+M46zqia2rM7HoixUqxQsiCKhn5EqA=";
+  #     tag = "0.12.14";
+  #     hash = "sha256-l2cU/JU3v5C3GzQDRdMMsXLspgRyxaThzWu68cj4vc4=";
   #   };
 
   #   cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
   #     inherit src;
-  #     hash = "sha256-BwdnxLUhIMDRRhIeViGKxWUGOkPQ0OkG9SyiIPRkU5Y=";
+  #     hash = "sha256-nabwJrOUvxJV+IibaZmaE1MOXnCKovLQw5HiOnHLkXQ=";
   #   };
   # });
-  programs.uv.package = pkgs.uv.overrideAttrs (drv: rec {
-    version = "0.11.28";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "astral-sh";
-      repo = "uv";
-      tag = "0.11.28";
-      hash = "sha256-/mTH2hojC+l0yxn+LEAIj8FTA/nWKIPZ7uLMVJxebw4=";
-    };
-
-    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-      inherit src;
-      hash = "sha256-FvLl32JfIq5a1NnLtnFJyy5T+vkcOD+qfQLDy6NYhHg=";
-    };
-  });
 
 }
