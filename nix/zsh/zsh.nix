@@ -76,6 +76,13 @@
     #   }
     # ];
 
+    # zsh-autosuggestions plugin
+    # Adds Fish-like history-based suggestions
+    # https://github.com/zsh-users/zsh-autosuggestions
+    #
+    # NB: There's some extra configuration in the main zshrc
+    # NB: Plugin loading has priority 700
+    autosuggestion.enable = true;
 
     # initContent is the primary way to control the contents of .zshrc, the configuration below will get interleaved with generated configuration from nix options
     initContent = let

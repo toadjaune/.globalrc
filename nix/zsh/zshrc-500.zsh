@@ -201,10 +201,6 @@ source $HOME/.globalrc/files/p10k.zsh
 
 ### List of plugins ###
 
-# Fish-like history-based suggestions
-# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
-source "$HOME/.globalrc/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
 # Community packaging of completions for common programs
 # Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
 fpath=($HOME/.globalrc/zsh_plugins/zsh-completions/src $fpath)

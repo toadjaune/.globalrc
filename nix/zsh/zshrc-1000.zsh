@@ -61,8 +61,12 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=200 # Disable suggestions past a certain command
 # There is therefore no need to manually call _zsh_autosuggest_bind_widgets at init time, only if we were to define new widgets later on.
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-# NB : It's quite likely possible to replace this system (wrapping all zle widgets) with a zle-line-pre-redraw hook, just like zsh-syntax highlighting.
-# TODO : open an issue ? Maybe even submit a PR ?
+# NB: We used to have compatibility issues with zsh-syntax-highlighting, leading to an unmerged PR that we used as fork for a long time (https://github.com/zsh-users/zsh-autosuggestions/pull/749),
+#     but it looks like this issue disappeared now that zsh-syntax-highlighting uses zle hooks instead of wrapping widgets.
+#     Still, this issue could reappear if we needed to wrap any widget starting with an underscore, so, document it here at the very least
+
+# NB: It's quite likely possible to replace this system (wrapping all zle widgets) with a zle-line-pre-redraw hook, just like zsh-syntax highlighting, but it's not really supported yet
+#     https://github.com/zsh-users/zsh-autosuggestions/issues/529
 
 ###############################################################################
 
