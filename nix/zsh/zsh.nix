@@ -90,32 +90,51 @@
       buildCommand = "HOME=$TMPDIR ${lib.getExe pkgs.atuin} init zsh --disable-ctrl-r --disable-up-arrow --disable-ai > $out";
     };
 
-    zshConfig100 = lib.mkOrder 100 ''
-      ### begin home-manager VERY early config (lib.mkOrder 100) ###
+    in lib.mkMerge [
+      # cf https://github.com/nix-community/home-manager/blob/master/modules/programs/zsh/default.nix for default priority values
 
-      ${lib.fileContents ./zshrc-100.zsh}
+      (lib.mkOrder 100 ''
+        ### begin home-manager VERY early config (lib.mkOrder 100) ###
 
-      ### end home-manager VERY early config (lib.mkOrder 100) ###
-    '';
+        ${lib.fileContents ./zshrc-100.zsh}
 
-    zshConfig500 = lib.mkBefore ''
-      ### begin home-manager early config (lib.mkBefore / 500) ###
+        ### end home-manager VERY early config (lib.mkOrder 100) ###
+      '')
 
-      # Define atuin widgets (but don't bind them, we do this manually)
-      source ${ atuin_widget_definitions }
+      (lib.mkBefore ''
+        ### begin home-manager early config (lib.mkBefore / 500) ###
 
-      ${lib.fileContents ./zshrc-500.zsh}
+        # Define atuin widgets (but don't bind them, we do this manually)
+        source ${ atuin_widget_definitions }
 
-      ### end home-manager early config (lib.mkBefore / 500) ###
-    '';
+        ${lib.fileContents ./zshrc-500.zsh}
 
-    # Use priority 550 to run stuff right before compinit (if we switch to using the generated compinit)
-    zshConfig1000 = ''
-      ### begin home-manager primary config (default / 1000) ###
-      ### end home-manager primary config (default / 1000) ###
-    '';
+        ### end home-manager early config (lib.mkBefore / 500) ###
+      '')
 
-    in lib.mkMerge [ zshConfig100 zshConfig500 zshConfig1000 ];
+      # Priority 550 : recommended by the docs for configuration that specifically needs to run before compinit
+
+      (lib.mkOrder 570 ''
+        ### begin home-manager compinit (lib.mkOrder 570) ###
+
+        # Priority 570 : actual compinit command, when managed by home-manager with completionInit.
+        #                Which we currently don't, but we keep our own compinit declaration at the same priority so that any extra config that adds configuration with this assumption ends up in the right place.
+
+        ${lib.fileContents ./zshrc-570.zsh}
+
+        ### end home-manager compinit (lib.mkOrder 570) ###
+      '')
+
+      (''
+        ### begin home-manager primary config (default / 1000) ###
+
+        ${lib.fileContents ./zshrc-1000.zsh}
+
+        ### end home-manager primary config (default / 1000) ###
+      '')
+
+    ];
+
   };
 
 }
