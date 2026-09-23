@@ -1,10 +1,4 @@
 
-# Fish-like syntax highlighting
-# NB : MUST be sourced after compinit (and as late as possible)
-# NB : The highlighting gets slow on large buffers.
-# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
-source "$HOME/.globalrc/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
 ### Inline atuin widget initialization ###
 
 # Inline the contents of the atuin initialization command
@@ -29,28 +23,8 @@ source "$HOME/.globalrc/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlight
 # Plugins post-configuration                                                  #
 ###############################################################################
 
-### zsh-syntax-highlighting ###
-# Main highlight configuration (not all available options)
-ZSH_HIGHLIGHT_STYLES+=(
-  unknown-token         'fg=red,bold'
-  reserved-word         'fg=yellow'
-  alias                 'fg=green,bold'
-  builtin               'fg=green,bold'
-  function              'fg=green,bold'
-  command               'fg=green,bold'
-  precommand            'fg=green'
-  hashed-command        'fg=green'
-  path                  'fg=blue,bold'
-  path_prefix           'fg=blue'
-  path_approx           'fg=blue,underlined'
-  globbing              'fg=yellow,underlined'
-  single-hyphen-option  'fg=purple,bold'
-  double-hyphen-option  'fg=purple,bold'
-  back-quoted-argument  'fg=purple,bold'
-  default               'fg=cyan,bold'
-)
-
 ### zsh-autosuggestions ###
+
 ZSH_AUTOSUGGEST_USE_ASYNC=1         # fetch suggestions asynchronously (only required for zsh < 5.0.8, default afterwards)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=200 # Disable suggestions past a certain command length
 

@@ -76,13 +76,44 @@
     #   }
     # ];
 
+    # See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
+
     # zsh-autosuggestions plugin
-    # Adds Fish-like history-based suggestions
     # https://github.com/zsh-users/zsh-autosuggestions
+    # Adds Fish-like history-based suggestions
     #
     # NB: There's some extra configuration in the main zshrc
     # NB: Plugin loading has priority 700
     autosuggestion.enable = true;
+
+    # zsh-syntax-highlighting plugin
+    # https://github.com/zsh-users/zsh-syntax-highlighting
+    # Adds Fish-like syntax highlighting
+    #
+    # NB: Plugin loading has priority 1200
+    #     Which makes sense because it needs to be loaded after compinit, and as late as possible, cf the project README
+    syntaxHighlighting = {
+      enable = true;
+      highlighters = ["brackets"]; # NB: "main" is always included
+      styles = {
+        unknown-token         = "fg=red,bold";
+        reserved-word         = "fg=yellow";
+        alias                 = "fg=green,bold";
+        builtin               = "fg=green,bold";
+        function              = "fg=green,bold";
+        command               = "fg=green,bold";
+        precommand            = "fg=green";
+        hashed-command        = "fg=green";
+        path                  = "fg=blue,bold";
+        path_prefix           = "fg=blue";
+        path_approx           = "fg=blue,underlined";
+        globbing              = "fg=yellow,underlined";
+        single-hyphen-option  = "fg=purple,bold";
+        double-hyphen-option  = "fg=purple,bold";
+        back-quoted-argument  = "fg=purple,bold";
+        default               = "fg=cyan,bold";
+      };
+    };
 
     # initContent is the primary way to control the contents of .zshrc, the configuration below will get interleaved with generated configuration from nix options
     initContent = let

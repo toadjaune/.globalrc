@@ -179,12 +179,6 @@ alias -g G='| grep'
 # Plugins pre-configuration                                                   #
 ###############################################################################
 
-# See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
-
-### zsh-syntax-highlighting ###
-# Choose enabled highlighters
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-
 ### powerlevel10k ###
 
 # https://starship.rs/ might be an alternative later on, it does have some pretty nice features :
