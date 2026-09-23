@@ -90,24 +90,24 @@
       buildCommand = "HOME=$TMPDIR ${lib.getExe pkgs.atuin} init zsh --disable-ctrl-r --disable-up-arrow --disable-ai > $out";
     };
 
-    zshConfigEarlyInit = lib.mkBefore ''
+    zshConfig500 = lib.mkBefore ''
       ### begin home-manager early config (lib.mkBefore / 500) ###
 
       # Define atuin widgets (but don't bind them, we do this manually)
       source ${ atuin_widget_definitions }
 
-      ${lib.fileContents ./zshrc}
+      ${lib.fileContents ./zshrc-500}
 
       ### end home-manager early config (lib.mkBefore / 500) ###
     '';
 
     # Use priority 550 to run stuff right before compinit (if we switch to using the generated compinit)
-    zshConfig = ''
+    zshConfig1000 = ''
       ### begin home-manager primary config (default / 1000) ###
       ### end home-manager primary config (default / 1000) ###
     '';
 
-    in lib.mkMerge [ zshConfigEarlyInit zshConfig ];
+    in lib.mkMerge [ zshConfig500 zshConfig1000 ];
   };
 
 }

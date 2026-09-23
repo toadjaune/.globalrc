@@ -10,7 +10,7 @@
     ./nix/vim.nix
     ./nix/waybar.nix
     ./nix/zed.nix
-    ./nix/zsh.nix
+    ./nix/zsh/zsh.nix
 
     # ./nix/uv-manual-install.nix
   ];
