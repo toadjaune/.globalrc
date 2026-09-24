@@ -28,8 +28,8 @@
     #     * "Manually" remove the extension dir from ~/.local/share/zed/extensions, either with ansible or home-manager
     # https://zed.dev/docs/extensions/installing-extensions
     extensions = [
-      # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
-      "nix"
+      "dockerfile"
+      "nix" # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
       "terraform"
       "toml"
     ];
