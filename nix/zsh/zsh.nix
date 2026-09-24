@@ -63,7 +63,7 @@
     '';
 
     # Example syntax
-    # plugins =
+    # plugins = [
     #   {
     #     # will source zsh-autosuggestions.plugin.zsh
     #     name = "zsh-autosuggestions";
@@ -128,6 +128,19 @@
       buildCommand = "HOME=$TMPDIR ${lib.getExe pkgs.atuin} init zsh --disable-ctrl-r --disable-up-arrow --disable-ai > $out";
     };
 
+    # zsh-completions plugin
+    # https://github.com/zsh-users/zsh-completions
+    # Adds community-contributed completion scripts for various common utilities that don't natively ship with completion
+    # As of 2026-09-23 with my setup, you can check that this is correctly loaded by looking whether uuidgen has a proper completion
+    # Since we generally consider a program package to be responsible for providing its own completion, we only use this repository as a last-resort fallback, if no other completion was found.
+    zsh_completions_plugin = pkgs.fetchFromGitHub {
+      name = "plugin-zsh-completions";
+      owner = "zsh-users";
+      repo = "zsh-completions";
+      rev = "0.36.0"; # released 2026-03-09
+      sha256 = "sha256-XCSC7DyhfnxzKjtbdsu7/pyw8eoVLPdthEoFZ8rBAyo=";
+    };
+
     in lib.mkMerge [
       # cf https://github.com/nix-community/home-manager/blob/master/modules/programs/zsh/default.nix for default priority values
 
@@ -154,6 +167,10 @@
 
       (lib.mkOrder 570 ''
         ### begin home-manager compinit (lib.mkOrder 570) ###
+
+        # Load extra completions from zsh-completions plugin
+        # Only add them as a last resort fallback (that's why we modify fpath immediately before compinit)
+        fpath=($fpath ${zsh_completions_plugin}/src)
 
         # Priority 570 : actual compinit command, when managed by home-manager with completionInit.
         #                Which we currently don't, but we keep our own compinit declaration at the same priority so that any extra config that adds configuration with this assumption ends up in the right place.

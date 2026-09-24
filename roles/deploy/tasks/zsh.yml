@@ -17,10 +17,6 @@
       repo: https://github.com/romkatv/powerlevel10k
       version: v1.17.0
 
-    - name: zsh-completions
-      repo: https://github.com/zsh-users/zsh-completions
-      version: master
-
 # Generate completions for manually-installed tools
 - name: Create generated_zsh_fpath directory
   file:

@@ -195,10 +195,6 @@ source $HOME/.globalrc/files/p10k.zsh
 
 ### List of plugins ###
 
-# Community packaging of completions for common programs
-# Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
-fpath=($HOME/.globalrc/zsh_plugins/zsh-completions/src $fpath)
-
 # We both need 256 colors support, and a patched font, for p10k to work normally
 # TODO : the detection logic for the vscode case is probably quite brittle. It seems to work for now, though.
 if [[ -n $GLOBALRC_256_COLORS && (-n $GLOBALRC_PATCHED_FONT || $TERM_PROGRAM == "vscode") ]]; then
