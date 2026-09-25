@@ -17,7 +17,7 @@
         # Choose the order of the modules
         "modules-left"= ["sway/workspaces" "sway/mode" "hyprland/workspaces" "hyprland/submap"];
         "modules-center"= [];
-        "modules-right"= ["tray" "custom/media" "bluetooth" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock"];
+        "modules-right"= ["tray" "custom/media" "bluetooth" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "power-profiles-daemon" "clock"];
 
         # Modules configuration
 
@@ -153,6 +153,19 @@
           "exec"= "$HOME/.globalrc/mediaplayer.py 2> /dev/null"; # Script in resources folder
           # "exec"= "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" # Filter player based on name
         };
+
+        "power-profiles-daemon" = {
+          "format" = "{icon}";
+          "tooltip-format" = "Power profile: {profile}nCPU driver: {cpu_driver}nPlatform driver: {platform_driver}";
+          "tooltip" = true;
+          "format-icons" = {
+            "default" = "";
+            "performance" = "";
+            "balanced" = "";
+            "power-saver" = "";
+          };
+        };
+
       };
     };
 

@@ -54,7 +54,8 @@
 
     pkgs.vimv   # mass-renaming tool
 
-    pkgs.power-profiles-daemon # we don't need the power-profiles-daemon itself as fedora uses tuned-ppd, but we do need the powerprofilesctl executable
+    pkgs.power-profiles-daemon  # we don't need the power-profiles-daemon itself as fedora uses tuned-ppd, but we do need the powerprofilesctl executable
+    pkgs.powertop               # power consumption dashboard
 
     # fonts
     pkgs.nerd-fonts.fira-code # nerd-fonts patched FiraCode font, for terminals. Basic reliable font, made by Mozilla.

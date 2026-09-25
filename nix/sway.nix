@@ -735,6 +735,40 @@ let xkb_lafayette = pkgs.fetchurl {
       # Swaylock does not explicitly support fingerprint, pressing Enter with no password then putting your finger on the reader works (just not a great UX)
       # https://github.com/swaywm/swaylock/issues/61
       # NB : hyprlock has added support in 0.5.0, we may want to switch to it : https://github.com/hyprwm/hyprlock/issues/258
+
+      ### power and battery management
+
+      # There are several subsystems available for power management on linux desktop
+      #
+      # By far, the most used is power-profiles-daemon (https://gitlab.freedesktop.org/upower/power-profiles-daemon), and although pretty basic, it does seem to mostly work fine.
+      # It only supports 3 profiles (power-saver, balanced, performance)
+      # Can be interacted with with the `powerprofilesctl` command
+      # We also have a waybar module displaying the current profile, and allowing to switch with a click
+      # We consider this to be sufficient for now, although we could easily do keybind-controlled switch with `powerprofilesctl`
+      # NB: powerprofilesctl can also launch a specific program while holding a specific profile (the profile switch is global, but temporary and tied to the duration of the command)
+      #
+      # Since version 41, Fedora has switched to using TuneD (https://github.com/redhat-performance/tuned/) instead, with a compatibility layer called tuned-ppd
+      # https://fedoraproject.org/wiki/Changes/TunedAsTheDefaultPowerProfileManagementDaemon
+      # TuneD is supposed to be more finely configurable if required, although this extra configurability won't be available if interacting with it through the ppd api
+      # tuned has a `tuned-adm` administration command if you wish to interact with it directly and get access to the extra profiles it provides
+      #
+      # Other power-related tools that may be useful :
+      # * powertop : acts as a power-related top, but can also recommend and apply settings tuning
+      # * tlp (https://linrunner.de/tlp/)
+      #   * apparently provides way more aggressive tuning, sometimes including non-safe optimizations
+      #   * explicitly recommended against by framework on their AMD laptops : https://knowledgebase.frame.work/en_us/optimizing-ubuntu-battery-life-Sye_48Lg3
+      # * auto-cpufreq (https://github.com/AdnanHodzic/auto-cpufreq)
+      #
+      # one-liner to get the current charging/discharging wattage : `upower -i $(upower -e | grep BAT) | grep -E "state|energy-rate"`
+      #
+      # refs:
+      # * https://knowledgebase.frame.work/en_us/optimizing-ubuntu-battery-life-Sye_48Lg3
+      # * https://gitlab.freedesktop.org/upower/power-profiles-daemon#why-not
+      #
+      # TODO:
+      # * See if I can see a significant impact of profiles on battery autonomy
+      # * See if and how to automatically switch profile based on battery state
+      # * See if any of the other can make a difference (powertop ?)
     '';
 
     # Some environment variables should be exported to systemd for some user services to work as expected
