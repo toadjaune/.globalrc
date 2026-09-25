@@ -54,6 +54,8 @@
 
     pkgs.vimv   # mass-renaming tool
 
+    pkgs.power-profiles-daemon # we don't need the power-profiles-daemon itself as fedora uses tuned-ppd, but we do need the powerprofilesctl executable
+
     # fonts
     pkgs.nerd-fonts.fira-code # nerd-fonts patched FiraCode font, for terminals. Basic reliable font, made by Mozilla.
     pkgs.monaspace            # very cool monospace fonts with texture healing, and several styles. Not great for terminal, as the icons are smaller, but may be good for IDE ? https://monaspace.githubnext.com/
