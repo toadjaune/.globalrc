@@ -1,21 +1,3 @@
-# TODO : load this file only if zsh is installed ?
-
-- name: Create zsh_plugins directory
-  file:
-    path: "{{ remote_directory }}/zsh_plugins"
-    state: directory
-
-- name: Clone zsh plugins
-  git:
-    repo: "{{ item.repo }}"
-    dest: "{{ remote_directory }}/zsh_plugins/{{ item.name }}"
-    version: "{{ item.version }}"
-    depth: 1
-  tags: online
-  with_items:
-    - name: powerlevel10k
-      repo: https://github.com/romkatv/powerlevel10k
-      version: v1.17.0
 
 # Generate completions for manually-installed tools
 - name: Create generated_zsh_fpath directory
@@ -49,3 +31,8 @@
     dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     state: absent
     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
+
+- name: TOMBSTONE - remove zsh_plugins dir
+  file:
+    path:  "{{ remote_directory }}/zsh_plugins/"
+    state: absent

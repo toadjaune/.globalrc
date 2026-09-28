@@ -192,17 +192,3 @@ alias -g G='| grep'
 source $HOME/.globalrc/files/p10k.zsh
 
 ###############################################################################
-
-### List of plugins ###
-
-# We both need 256 colors support, and a patched font, for p10k to work normally
-# TODO : the detection logic for the vscode case is probably quite brittle. It seems to work for now, though.
-if [[ -n $GLOBALRC_256_COLORS && (-n $GLOBALRC_PATCHED_FONT || $TERM_PROGRAM == "vscode") ]]; then
-  # Powerlevel10k, prompt configuration
-  # Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
-  source "$HOME/.globalrc/zsh_plugins/powerlevel10k/powerlevel10k.zsh-theme"
-else
-  # Just load legacy prompt
-  # Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
-  source "$HOME/.globalrc/zsh_prompt.zsh"
-fi

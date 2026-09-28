@@ -62,20 +62,6 @@
       skip_global_compinit=1
     '';
 
-    # Example syntax
-    # plugins = [
-    #   {
-    #     # will source zsh-autosuggestions.plugin.zsh
-    #     name = "zsh-autosuggestions";
-    #     src = pkgs.fetchFromGitHub {
-    #       owner = "zsh-users";
-    #       repo = "zsh-autosuggestions";
-    #       rev = "v0.4.0";
-    #       sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
-    #     };
-    #   }
-    # ];
-
     # See https://github.com/unixorn/awesome-zsh-plugins for zsh plugins
 
     # zsh-autosuggestions plugin
@@ -137,8 +123,20 @@
       name = "plugin-zsh-completions";
       owner = "zsh-users";
       repo = "zsh-completions";
-      rev = "0.36.0"; # released 2026-03-09
+      rev = "0.36.0"; # released 2026-03-09, latest as of 2026-09-28
       sha256 = "sha256-XCSC7DyhfnxzKjtbdsu7/pyw8eoVLPdthEoFZ8rBAyo=";
+    };
+
+    # powerlevel10k plugin
+    # https://github.com/romkatv/powerlevel10k
+    # Modular (and very cool) prompt management plugin
+    # NB: Deprecated. But as of 2026-09-28, the main identified alternative (https://starship.rs/) doesn't have async support, which is absolutely necessary, at the very least for git branch rendering
+    powerlevel10k_plugin = pkgs.fetchFromGitHub {
+      name = "plugin-powerlevel10k";
+      owner = "romkatv";
+      repo = "powerlevel10k";
+      rev = "v1.20.0"; # released 2024-01-26, latest as of 2026-09-28
+      sha256 = "sha256-ES5vJXHjAKw/VHjWs8Au/3R+/aotSbY7PWnWAMzCR8E=";
     };
 
     in lib.mkMerge [
@@ -159,6 +157,17 @@
         source ${ atuin_widget_definitions }
 
         ${lib.fileContents ./zshrc-500.zsh}
+
+        # We both need 256 colors support, and a patched font, for p10k to work normally
+        # TODO : the detection logic for the vscode case is probably quite brittle. It seems to work for now, though.
+        if [[ -n $GLOBALRC_256_COLORS && (-n $GLOBALRC_PATCHED_FONT || $TERM_PROGRAM == "vscode") ]]; then
+          # Powerlevel10k, prompt configuration
+          source "${powerlevel10k_plugin}/powerlevel10k.zsh-theme"
+        else
+          # Just load legacy prompt
+          # Load legacy ansible-managed template as a transition mechanism (TODO: migrate)
+          source "$HOME/.globalrc/zsh_prompt.zsh"
+        fi
 
         ### end home-manager early config (lib.mkBefore / 500) ###
       '')
