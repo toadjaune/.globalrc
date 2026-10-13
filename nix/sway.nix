@@ -575,7 +575,9 @@ let xkb_lafayette = pkgs.fetchurl {
           #   * No progress on screensharing as of 2025-01-22, although the command with --socket=wayland does successfully start it as a native wayland app
           # * Discord via rpm straight-up crashes if started as a native wayland app
           # TODO : test https://github.com/SpacingBat3/WebCord ?
-          bindcode $d exec flatpak run --socket=wayland com.discordapp.Discord , mode "default"
+          # bindcode $d exec flatpak run --socket=wayland com.discordapp.Discord , mode "default"
+          # Update 2026-10-13: We don't seem to need to specify the wayland socket anymore
+          bindcode $d exec flatpak run com.discordapp.Discord , mode "default"
 
           # NB : if VSCodium is initially started by any way other than this keybinding, it won't be in native wayland mode
           bindcode $c exec codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
