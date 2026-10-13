@@ -544,7 +544,7 @@ let xkb_lafayette = pkgs.fetchurl {
           bindcode $f exec firefox,     mode "default"
           bindcode $t exec thunderbird, mode "default"
 
-          bindcode $s exec flatpak run --socket=wayland com.spotify.Client , mode "default"
+          bindcode $s exec flatpak run com.spotify.Client , mode "default"
 
           # We switched to installing slack via flatpak, because :
           # * Screensharing via XDP works properly there (even though it is still using XWayland)
