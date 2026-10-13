@@ -537,6 +537,7 @@ let xkb_lafayette = pkgs.fetchurl {
       # * slow start. There's a daemon mode that might help with this.
       # * maybe more language support
       # * no idea what raw/parse modes do
+      # https://github.com/dynobo/normcap/issues/878
       bindcode $mod+Ctrl+$p exec 'flatpak run --socket=wayland com.github.dynobo.normcap --tray False --update False --show-introduction False'
 
       # Mode to start most common programs
