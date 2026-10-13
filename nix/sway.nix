@@ -580,7 +580,9 @@ let xkb_lafayette = pkgs.fetchurl {
           bindcode $d exec flatpak run com.discordapp.Discord , mode "default"
 
           # NB : if VSCodium is initially started by any way other than this keybinding, it won't be in native wayland mode
-          bindcode $c exec codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
+          # bindcode $c exec codium --enable-features=UseOzonePlatform --ozone-platform=wayland , mode "default"
+          # Update 2026-10-13: We don't seem to need to specify the wayland socket anymore
+          bindcode $c exec codium , mode "default"
 
           # back to normal: Escape
           bindcode $escape mode "default"
