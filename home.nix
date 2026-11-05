@@ -8,6 +8,7 @@
     ./nix/sway.nix
     ./nix/tmux.nix
     ./nix/vim.nix
+    ./nix/vscodium.nix
     ./nix/waybar.nix
     ./nix/zed.nix
     ./nix/zsh/zsh.nix

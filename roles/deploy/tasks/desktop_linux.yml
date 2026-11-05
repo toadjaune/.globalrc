@@ -39,7 +39,6 @@
       - wdisplays # Graphical tool for monitors setup
       - lxpolkit # polkit daemon
       - blueman # basic out-of-the-box bluetooth config
-      - neovim # used in vscodium through an extension
       - darkman # light/dark theme runtime switching
       - brightnessctl # control screen brightness
       - xwaylandvideobridge # work around broken screensharing on low-quality apps (see sway config file)
@@ -83,7 +82,6 @@
       - wdisplays
       - lxpolkit
       - blueman
-      - neovim
       - darkman
       - brightnessctl
       - pavucontrol
@@ -115,7 +113,6 @@
       - wdisplays
       - lxpolkit
       - blueman
-      - neovim
       - darkman
       - brightnessctl
       - pavucontrol
@@ -579,70 +576,41 @@
 
 ### VSCodium ###
 
-# https://vscodium.com/#install-on-fedora-rhel-centos-rockylinux-opensuse-rpm-package
-- name: Add vscodium rpm repo
+- name: TOMBSTONE - remove vscodium / neovim
+  dnf:
+    name:
+      - codium
+      - neovim # used in vscodium through an extension
+    state: absent
+  become: true
+  when: have_root and ansible_facts['os_family'] == "RedHat"
+  register: vscodium_removed
+  tags: vscodium
+
+- name: TOMBSTONE - remove vscodium rpm repo
   ansible.builtin.yum_repository:
+    # https://vscodium.com/#install-on-fedora-rhel-centos-rockylinux-opensuse-rpm-package
     name: gitlab.com_paulcarroty_vscodium_repo
     file: vscodium
-    description: download.vscodium.com
-    baseurl: "https://download.vscodium.com/rpms/"
-    enabled: yes
-    gpgcheck: yes
-    repo_gpgcheck: yes
-    gpgkey: "https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg"
-    metadata_expire: 1h
+    state: absent
   become: true
   when: have_root and ansible_facts['os_family'] == "RedHat"
+  register: vscodium_repo_removed
+  tags: vscodium
 
-- name: Install vscodium
-  dnf:
-    name: codium
-    state: present
-  become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
-
-# cf https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
-
-- name: Ensure vscodium config directory exists
+  # Those directories either get automatically recreated by home-manager, or by VSCodium itself.
+  # We need to clear part of them before applying home-manager no matter what, and since we're not really using vscodium anymore, it's not a big deal to lose their contents
+- name: TOMBSTONE - remove vscodium config files .config/VSCodium/
   ansible.builtin.file:
-    path: "{{ ansible_facts['user_dir'] }}/.config/VSCodium/User/"
-    state: directory
-  tags: vscodium
-
-# This command is perfectly idempotent, and doesn't update already installed extensions
-# It's possible to force updates, or pin versions, we don't currently do it
-# NB : for vscodium, extensions are downloaded from https://open-vsx.org/, not the Microsoft store
-# This means some extensions may be absent, or not the exact same version
-# Details : https://github.com/VSCodium/vscodium/issues/448
-# Procedure to make an extension available on open-vsx : https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions-marketplace
-# Manually install an extension from the marketplace : https://milicendev.netlify.app/article/install-vs-codium-and-integrate-vs-code-extensions/
-- name: Install VSCodium managed extensions
-  ansible.builtin.command:
-    argv:
-      - codium
-      - --install-extension
-      - "{{ item }}"
-  register: local_output
-  changed_when: "'is already installed' not in local_output.stdout"
+    path: "{{ item }}"
+    state: absent
   loop:
-    - asvetliakov.vscode-neovim # neovim install
-    - oderwat.indent-rainbow # more readable indent
-    - editorconfig.editorconfig # read repo-local .editorconfig
-    - eamodio.gitlens # nice git blame integration
-    - redhat.vscode-yaml # yaml
-    - tamasfe.even-better-toml # toml
-    - hashicorp.terraform # terraform formatting/auto-completion
-    # python
-    - ms-python.python
-    # - ms-python.black
+    -  "{{ ansible_facts['user_dir'] }}/.config/VSCodium/"
+    -  "{{ ansible_facts['user_dir'] }}/.vscode-oss"
+    -  "{{ ansible_facts['user_dir'] }}/.vscode-oss-shared"
+  when: vscodium_removed.changed or vscodium_repo_removed.changed
   tags: vscodium
 
-# NB : VSCodium watches and reloads the file automatically, but not when it's a symlink
-- name: Configure vscodium user config file
-  ansible.builtin.template:
-    src: templates/vscodium_user_settings.jsonc
-    dest: "{{ ansible_facts['user_dir'] }}/.config/VSCodium/User/settings.json"
-  tags: vscodium
 
 ### darkman ###
 - name: Create ~/.config/darkman
