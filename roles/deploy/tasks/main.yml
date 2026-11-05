@@ -1,17 +1,3 @@
-# This is a bit of a hack
-#
-# We have several machines in the inventory on which we're supposed to only
-# ever deploy locally. Instead of always having to use --limit, or make some
-# complicated setup with groups, or use different inventories (etc), we start
-# with all of them, and fail it if the hostname doesn't match.
-#
-# It's a bit ugly, but far less error-prone and more convenient than relying on some
-# manual/local configuration
-- name: Check ansible_hostname
-  debug: "var=ansible_facts['hostname']"
-  failed_when: true
-  when: expected_hostname is defined and expected_hostname != ansible_facts["hostname"]
-  tags: always
 
 - name: Check that we can actually become root
   command: "true"
@@ -102,7 +88,6 @@
 
 - name: Install desktop-specific stuff (linux)
   import_tasks: desktop_linux.yml
-  when: desktop_linux | bool
   tags: desktop
 
 - name: Install zsh configuration

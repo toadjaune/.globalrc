@@ -6,20 +6,7 @@ all:
   hosts:
 
     # Fedora
-    spacerig:
+    localhost:
       expected_hostname: spacerig
       ansible_connection: local
       desktop_linux: true
-
-    # Fedora
-    houston:
-      expected_hostname: houston
-      ansible_connection: local
-      desktop_linux: true
-
-    # Fedora
-    aurora:
-      expected_hostname: aurora
-      ansible_connection: local
-      desktop_linux: true
-
