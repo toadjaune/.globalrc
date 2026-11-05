@@ -27,8 +27,11 @@
 
       # Git
       pkgs.vimPlugins.vim-fugitive  # Access to git commands from Vim
-      pkgs.vimPlugins.vim-gitgutter # Displays signs for git modifications
       # pkgs.vimPlugins.vim-git       # Git syntax highlighting -> disabled for now because unfree license
+      #
+      # 2026-11-05: Disabled because since 7ff22479458f127ba044e25d722600357029bf0b, it causes the git diff preview in COMMIT_EDITMSG to make additions invisible (black-ish on my dark background) instead of green.
+      #             Also, I don't really need it all that much, since we're moving more and more to zed for proper editing
+      # pkgs.vimPlugins.vim-gitgutter # Displays signs for git modifications
 
       # Development tools
       pkgs.vimPlugins.indentLine      # Vertical bars to display indentation with conceal feature
