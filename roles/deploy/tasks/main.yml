@@ -83,10 +83,6 @@
       # Load custom configuration
       . {{ remote_directory }}/files/bashrc
 
-- name: Install packages
-  import_tasks: packages.yml
-  tags: packages
-
 - name: Set zsh as default shell
   user:
     name: "{{ ansible_facts['user_id'] }}"

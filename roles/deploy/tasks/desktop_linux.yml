@@ -19,9 +19,28 @@
   become: true
   when: have_root | bool
 
+- name: TOMBSTONE - Remove cargo atuin binary
+  file:
+    path: "{{ userspace_bin_path_cargo }}/atuin"
+    state: absent
+
 - name: Install graphical packages (RedHat)
   dnf:
     name:
+      # basic system utilities
+      - zsh
+      - git
+      - vim # NB: kept just in case, vim is also installed via home-manager
+      - screen
+      - tmux
+      - most
+      - mosh
+      - curl
+      - prettyping
+
+      # Language-specific package managers and tooling
+      - cargo # rust deps with cargo
+
       # sway/wayland related
       - sway # Tiling window manager
       - swaylock # trigger wayland lockscreen
