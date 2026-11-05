@@ -10,14 +10,14 @@
     name: hyprland
     state: absent
   become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
+  when: have_root | bool
 
 - name: TOMBSTONE - remove hyprland copr repo
   community.general.copr:
     name: solopasha/hyprland
     state: absent
   become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
+  when: have_root | bool
 
 - name: Install graphical packages (RedHat)
   dnf:
@@ -60,70 +60,8 @@
       - NetworkManager-tui
 
   become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
+  when: have_root | bool
 
-- name: Install graphical packages (Archlinux)
-  pacman:
-    name:
-      # sway/wayland related
-      - sway
-      - swaylock
-      - rofi
-      - rofimoji
-      - flameshot
-      - wl-clipboard
-      - otf-font-awesome
-      - playerctl
-      # - playerctl-libs # TODO
-      - xorg-xeyes
-      - xorg-xwayland # NB : not installed by default on arch
-      - wtype
-      - mako
-      - wdisplays
-      - lxpolkit
-      - blueman
-      - darkman
-      - brightnessctl
-      - pavucontrol
-      - pulseaudio-utils
-      - thunderbird
-
-      # graphical theme
-      # - adwaita-qt #TODO
-
-  become: true
-  when: have_root and ansible_facts['os_family'] == "Archlinux"
-
-- name: Install graphical packages (Debian)
-  apt:
-    cache_valid_time: 86400 # 1 day
-    name:
-      # sway/wayland related
-      - sway
-      - swaylock
-      - rofi
-      - flameshot
-      - wl-clipboard
-      - fonts-font-awesome
-      - playerctl
-      - gir1.2-playerctl-2.0 # for mediaplayer.py
-      - x11-apps # Contains xeyes
-      - wtype
-      - mako
-      - wdisplays
-      - lxpolkit
-      - blueman
-      - darkman
-      - brightnessctl
-      - pavucontrol
-      - pulseaudio-utils
-      - thunderbird
-
-      # graphical theme
-      - adwaita-qt
-
-  become: true
-  when: have_root and ansible_facts['os_family'] == "Debian"
 
 - name: TOMBSTONE - remove packages
   dnf:
@@ -133,14 +71,13 @@
       - waybar # migrated to home-manager
       - alacritty # migrated to home-manager
   become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
+  when: have_root | bool
 
 - name: Add the flathub flatpak repository remote
   community.general.flatpak_remote:
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install flatpak packages
   flatpak:
@@ -153,8 +90,6 @@
       - com.spotify.Client
         # https://github.com/dynobo/normcap/issues/878
       - com.github.dynobo.normcap # OCR screen capture
-  # NB : We'll probably want to use them on other distros too, but it probably requires setting up flatpak first
-  when: ansible_facts['os_family'] == "RedHat"
 
 ### SysRq ###
 
@@ -170,7 +105,7 @@
     group: root
     mode: "0644"
   become: true
-  when: have_root is truthy
+  when: have_root | bool
 
 ### Locale ###
 
@@ -583,7 +518,7 @@
       - neovim # used in vscodium through an extension
     state: absent
   become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
+  when: have_root | bool
   register: vscodium_removed
   tags: vscodium
 
@@ -594,7 +529,7 @@
     file: vscodium
     state: absent
   become: true
-  when: have_root and ansible_facts['os_family'] == "RedHat"
+  when: have_root | bool
   register: vscodium_repo_removed
   tags: vscodium
 

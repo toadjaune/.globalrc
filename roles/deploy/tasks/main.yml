@@ -109,11 +109,6 @@
   when: desktop_linux | bool
   tags: desktop
 
-- name: Install desktop-specific stuff (Mac)
-  import_tasks: desktop_mac.yml
-  when: ansible_facts['system'] == "Darwin"
-  tags: desktop
-
 - name: Install zsh configuration
   import_tasks: zsh.yml
   tags: zsh
