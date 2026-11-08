@@ -77,6 +77,10 @@
       };
       scrollbar = {}; # Currently left to its default value since it seems sensible so far, but if we want to configure it, it should probably be done alongside minimap config.
 
+      indent_guides.coloring = "indent_aware"; # rainbow indent lines
+      indent_guides.background_coloring = "indent_aware"; # rainbow indent background
+      colorize_brackets = true; # rainbow brackets/parentheses/etc
+
       # Missing features as of 2026-04-14:
       # * Equivalent of vscode scm.workingSets.enabled (synchronize open tabs with currently checked-out branch (https://github.com/zed-industries/zed/discussions/53885)
 
