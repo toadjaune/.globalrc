@@ -29,8 +29,9 @@
     # https://zed.dev/docs/extensions/installing-extensions
     extensions = [
       "dockerfile"
+      "env"         # Highlight for .env and .conf files
       "git-firefly" # language server for gitconfig, gitattributes, gitignore. NB: may require extra configuration to correctly detect some files at unusual paths (https://github.com/zed-extensions/git_firefly/blob/main/README.md)
-      "nix" # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
+      "nix"         # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
       "terraform"
       "toml"
     ];
