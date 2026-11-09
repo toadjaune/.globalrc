@@ -420,11 +420,10 @@
   loop: "{{ electron_wayland_to_wrap }}"
 
 ### Firefox ###
-- name: Create /usr/local/bin/firefox
-  copy:
-    src: "firefox"
-    dest: "/usr/local/bin/firefox"
-    mode: 0755
+- name: TOMBSTONE - remove former firefox wrapper at /usr/local/bin/firefox
+  file:
+    path: "/usr/local/bin/firefox"
+    state: absent
   become: true
   when: have_root | bool
 
@@ -463,6 +462,7 @@
     that: firefox_profile_path['files'][0]['path'] is defined
     msg: "Could not find a firefox profile directory for name {{ firefox_profile_name }}"
 
+# TODO: when migrating, don't forget to bring along some of the documentation in roles/deploy/files/firefox
 - name: Setup firefox user config
   blockinfile:
     path: "{{ firefox_profile_path['files'][0]['path'] }}/user.js"

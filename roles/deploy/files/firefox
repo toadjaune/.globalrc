@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO: File kept for reference because of the extensive documentation it contains, migrate relevant section to nix config before deleting
+
 # This script is installed to /usr/local/bin/firefox, so that every invocation of firefox uses the configuration made here.
 # This is especially important because an instance started without the Wayland flag won't be able to open a new tab in an alredy existing instance on wayland, but will try and raise an error.
 # This includes clicking on links on various apps.
