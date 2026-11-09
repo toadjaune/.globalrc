@@ -69,6 +69,15 @@
     # * https://github.com/nix-community/nixGL
     # Although we prefer to wrap the corresponding directly directly in the home-manager config, having the wrapper binary available can be useful.
     pkgs.nixgl.nixGLIntel # mesa-based OpenGL Wrapper
+
+    # Various tools
+    pkgs.terraform
+    pkgs.packer
+  ];
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "terraform"
+    "packer"
   ];
 
   # NB: This is actually required ; without it, fonts are only exposed in ~/.nix-profile/share/fonts/, which is
