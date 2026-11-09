@@ -56,8 +56,9 @@ echo "WARNING (stderr) : Firefox starting through a custom wrapper at $0" >&2
 # unset GDK_CORE_DEVICE_EVENTS ; export MOZ_USE_XINPUT2=1
 
 # Hardware acceleration for WebRender ?
-# TODO : Enable this if necessary and make sure it works on all my computers
-export MOZ_X11_EGL=1
+# NB: Only affects X11, and required for wayland anyways, so, this setting doesn't actually do anything anymore
+# https://bugzilla.mozilla.org/show_bug.cgi?id=788319
+# export MOZ_X11_EGL=1
 
 # OS Handover of most popups (file pickers, etc...)
 # TODO : Not even sure I want that ?
