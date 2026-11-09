@@ -49,7 +49,7 @@
       - flameshot # Screenshot tool
       - swappy # Edit screenshot
       - wl-clipboard # Interact with wayland clipboard (includes wl-copy)
-      - fontawesome-fonts # Font for waybar icons
+      - fontawesome-fonts-all # Font for waybar icons
       - playerctl # Command currently running player from the CLI / sway keybindings
       - playerctl-libs # used by the mediaplayer.py script, to display currently playing content
       - xeyes # xeyes allows to know easily if a program is running through XWayland or not
