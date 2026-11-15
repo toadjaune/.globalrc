@@ -815,9 +815,11 @@ let xkb_lafayette = pkgs.fetchurl {
     # * Nextcloud desktop (Qt6 as of 2026-11-15)
     #   * Theme is read at startup but not updated at runtime (https://github.com/nextcloud/desktop/issues/10970)
     #   * This app in particular may end up started by dbus (appears as a systemd user service then), in which case, we need the variable to be set even for systemd user services
+    #     * Just opening nautilus starts it up
     # * vlc 3.x
     #   * Theme read at startup but not updated at runtime
-    # * Qbittorrent : TO TEST (but likely)
+    # * Qbittorrent
+    #   * Theme read at startup but not updated at runtime
     #
     # How exactly it works is a bit unclear.
     # Specifically, I wonder whether the xdgdesktopportal QPA would just ask the gnome portal and work just like default, or if it would break stuff.
