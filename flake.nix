@@ -25,7 +25,7 @@
           overlays = [ nixgl.overlay ];
         };
         modules = [
-          ./home.nix
+          ./nix/home.nix
           ./nix/host_configs/aurora.nix
         ];
         extraSpecialArgs = {
@@ -45,7 +45,7 @@
           overlays = [ nixgl.overlay ];
         };
         modules = [
-          ./home.nix
+          ./nix/home.nix
           ./nix/host_configs/houston.nix
         ];
         # Stuff in this directive is accessible in modules imported above
@@ -60,7 +60,7 @@
           overlays = [ nixgl.overlay ];
         };
         modules = [
-          ./home.nix
+          ./nix/home.nix
           ./nix/host_configs/spacerig.nix
         ];
         extraSpecialArgs = {

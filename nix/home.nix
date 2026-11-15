@@ -2,16 +2,16 @@
 
 {
   imports = [
-    ./nix/alacritty.nix
-    ./nix/git.nix
-    ./nix/hyprland.nix
-    ./nix/sway.nix
-    ./nix/tmux.nix
-    ./nix/vim.nix
-    ./nix/vscodium.nix
-    ./nix/waybar.nix
-    ./nix/zed.nix
-    ./nix/zsh/zsh.nix
+    ./alacritty.nix
+    ./git.nix
+    ./hyprland.nix
+    ./sway.nix
+    ./tmux.nix
+    ./vim.nix
+    ./vscodium.nix
+    ./waybar.nix
+    ./zed.nix
+    ./zsh/zsh.nix
 
     # ./nix/uv-manual-install.nix
   ];
