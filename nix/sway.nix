@@ -830,12 +830,13 @@ let xkb_lafayette = pkgs.fetchurl {
     # * https://doc.qt.io/qt-6/qpa.html
     # * https://github.com/qt/qtbase/tree/dev/src/plugins/platformthemes/xdgdesktopportal
     #
-    # TODO: Probably delete the following legacy Qt theme configurations :
-    # * We can probably remove QT_STYLE_OVERRIDE now (it's probably broken anyway)
-    #   * Remove adwaita-qt entirely, it's unmaintained anyway (https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications)
-    # * Qt4 config via trolltech.conf, since Qt4 is EoL anyway
+    # previous (hopefully now unneeded) methods for managinq Qt dark theme :
+    # * adwaita-qt, now unmaintained and unnecessary (https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications)
+    #   * Loaded via QT_STYLE_OVERRIDE
+    # * Qt4 config via trolltech.conf (Qt4 is EoL anyway)
     #
     QT_QPA_PLATFORMTHEME="xdgdesktopportal";
+
   };
 
 }

@@ -70,10 +70,6 @@
       - rbenv # ruby development environment
       - ruby-build-rbenv # allows rbenv to build ruby if required
 
-      # graphical theme
-      # Looks now already installed
-      # - adwaita-qt
-
       # nmtui is a terminal graphical interface to NetworkManager
       # TODO : Find the equivalent debian and arch packages (seems installed by default on Ubuntu and Manjaro)
       - NetworkManager-tui
@@ -340,17 +336,6 @@
 #     src:    "{{ remote_directory }}/files/gtk-3.0-settings.ini"
 #     state:  link
 #     force:  true
-#
-# # NB : Qt5 theme is loaded through QT_STYLE_OVERRIDE env variable
-# - name: Load Qt4 graphical configuration via .config/Trolltech.conf
-#   blockinfile:
-#     dest:   "{{ ansible_facts['user_dir'] }}/.config/Trolltech.conf"
-#     create: true
-#     marker: "# {mark} GLOBALRC ANSIBLE MANAGED BLOCK"
-#     block:  |
-#       # Set Qt4 Theme
-#       [Qt]
-#       style=Adwaita-Dark
 
 - name: Create ~/.config/environment.d
   file:
