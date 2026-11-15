@@ -22,5 +22,3 @@
 # GTK_THEME=Adwaita:dark
 # GTK_THEME=Adwaita
 
-# Enable native Wayland support for firefox and thunderbird
-MOZ_ENABLE_WAYLAND=1
