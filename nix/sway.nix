@@ -791,4 +791,51 @@ let xkb_lafayette = pkgs.fetchurl {
 
   };
 
+  # Those variables are loaded in systemd (user instance) session variables (visible with `systemctl --user show-environment`),
+  # however they are not configured via ~/.config/environment.d/ (unlike wayland.windowManager.sway.systemd.enable above)
+  # TODO: understand how this is applied
+  # This applies to (validated with `cat /proc/<pid>/environ`):
+  # * systemd user services
+  #   * but not the `systemd --user` process itself
+  # * sway itself
+  #   * ... and therefore, any process started by sway with a keybind and its children
+  #     * which includes rofi, alacritty, and essentially anything user-initiated
+  # NB: About application of changes in this list :
+  # * Changes here are immediately available to systemd, but user services aren't restarted by home-manager
+  # * Restarting user services after applying home-manager changes is enough for them to get the changes
+  # * You need to exit and restart your wayland/sway session for sway and any of its children to get the changes
+  systemd.user.settings.Manager.DefaultEnvironment = {
+    # NB: Other similar variables are set by other mechanisms :
+    # * wayland.windowManager.sway.systemd.enable above sets some essential home-manager variables
+    # * `systemctl --user set-environment` commands above set some more variables
+
+    # Make Qt applications obey system level dark theme.
+    #
+    # Identified affected applications :
+    # * Nextcloud desktop (Qt6 as of 2026-11-15)
+    #   * Theme is read at startup but not updated at runtime (https://github.com/nextcloud/desktop/issues/10970)
+    #   * This app in particular may end up started by dbus (appears as a systemd user service then), in which case, we need the variable to be set even for systemd user services
+    # * vlc 3.x
+    #   * Theme read at startup but not updated at runtime
+    # * Qbittorrent : TO TEST (but likely)
+    #
+    # How exactly it works is a bit unclear.
+    # Specifically, I wonder whether the xdgdesktopportal QPA would just ask the gnome portal and work just like default, or if it would break stuff.
+    # TODO: Do we want to set this with a sway command instead, so that it doesn't apply to other DEs ?
+    #
+    # Extra refs:
+    # * https://wiki.archlinux.org/title/Qt#Configuration_of_Qt_5/6_applications_under_environments_other_than_KDE_Plasma
+    # * https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications
+    # * https://github.com/nextcloud/desktop/issues/10970#issue-5646229189 (mentions QT_QPA_PLATFORMTHEME)
+    # * https://doc.qt.io/qt-6/qpa.html
+    # * https://github.com/qt/qtbase/tree/dev/src/plugins/platformthemes/xdgdesktopportal
+    #
+    # TODO: Probably delete the following legacy Qt theme configurations :
+    # * We can probably remove QT_STYLE_OVERRIDE now (it's probably broken anyway)
+    #   * Remove adwaita-qt entirely, it's unmaintained anyway (https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications)
+    # * Qt4 config via trolltech.conf, since Qt4 is EoL anyway
+    #
+    QT_QPA_PLATFORMTHEME="xdgdesktopportal";
+  };
+
 }
