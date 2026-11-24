@@ -74,6 +74,7 @@
     # Various tools
     pkgs.terraform
     pkgs.packer
+    pkgs.colmena
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
