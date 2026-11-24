@@ -29,9 +29,9 @@
     # https://zed.dev/docs/extensions/installing-extensions
     extensions = [
       "dockerfile"
-      "env"         # Highlight for .env and .conf files
+      "env" # Highlight for .env and .conf files
       "git-firefly" # language server for gitconfig, gitattributes, gitignore. NB: may require extra configuration to correctly detect some files at unusual paths (https://github.com/zed-extensions/git_firefly/blob/main/README.md)
-      "nix"         # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
+      "nix" # TODO: The nix module currently has errors, complaining that it can't find binaries for nixd and for nil.
       "terraform"
       "toml"
     ];
@@ -77,11 +77,17 @@
         # * disagnostics in minimap https://github.com/zed-industries/zed/pull/51514
         # * probably git status as well
       };
-      scrollbar = {}; # Currently left to its default value since it seems sensible so far, but if we want to configure it, it should probably be done alongside minimap config.
+      scrollbar = { }; # Currently left to its default value since it seems sensible so far, but if we want to configure it, it should probably be done alongside minimap config.
 
       indent_guides.coloring = "indent_aware"; # rainbow indent lines
       indent_guides.background_coloring = "indent_aware"; # rainbow indent background
       colorize_brackets = true; # rainbow brackets/parentheses/etc
+
+      languages = {
+        Nix = {
+          format_on_save = "on";
+        };
+      };
 
       # Missing features as of 2026-04-14:
       # * Equivalent of vscode scm.workingSets.enabled (synchronize open tabs with currently checked-out branch (https://github.com/zed-industries/zed/discussions/53885)
