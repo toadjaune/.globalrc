@@ -67,6 +67,8 @@ Host *
   HostKeyAlgorithms -sk-*,webauthn-sk-*
   # ed25519 host keys : preferred algorithm
   # desired : ssh-ed25519-cert-v01@openssh.com,ssh-ed25519
+  # TODO once we have openssh 10.6 : Ensure ssh-mldsa44-ed25519 is enabled and switch our servers to it
+  # TODO longer term : switch primary client identity key to ssh-mldsa44-ed25519 once we're reasonably convinced of its support on most servers
 
 
   # Ciphers (`ssh -Q cipher` and `ssh -Q cipher-auth` for those with implicit MAC)
